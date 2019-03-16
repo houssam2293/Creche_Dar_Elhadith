@@ -1,0 +1,27 @@
+{
+    -fx-primary : #2A2E37;
+    -fx-secondary : #FFFF8D;
+    -fx-primarytext : #B2B2B2;
+    -fx-blue: #1976D2;
+    -fx-red: #FF0000;
+    -fx-color-1:#1976D2;
+}
+
+.button{
+    -fx-font-weight : bold;
+    -fx-background-color : #03a9f4;
+    -fx-text-fill : -fx-secondary;
+    -fx-font-size : 16;
+}
+
+.button:hover{
+    -fx-font-weight : bold;
+    -fx-background-color: #4caf50;
+    -fx-text-fill: -fx-secondary;
+}
+
+.button-abort:hover{
+    -fx-font-weight : bold;
+        -fx-background-color: #c41c00;
+        -fx-text-fill: -fx-secondary;
+}
