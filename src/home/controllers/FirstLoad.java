@@ -7,9 +7,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import javafx.scene.input.KeyEvent;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
@@ -80,6 +82,17 @@ public class FirstLoad {
                 }
 
             }
+        }
+    }
+
+
+
+    public void onEnter(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            hundleOkClick(new ActionEvent());
+        } else if (keyEvent.getCode() == KeyCode.ESCAPE){
+            hundleAbordClick(new ActionEvent());
+
         }
     }
 }
