@@ -1,5 +1,6 @@
 package home.controllers;
 
+import com.jfoenix.controls.JFXDialog;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.icons525.Icons525View;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -9,16 +10,22 @@ import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -29,202 +36,117 @@ public class MainController implements Initializable {
 
     @FXML
     private HBox parent;
-
-    @FXML
-    private VBox sidebar;
-
-    @FXML
-    private HBox boxHome;
-
-    @FXML
-    private FontAwesomeIconView iconHome;
-
-    @FXML
-    private HBox boxCon;
-
-    @FXML
-    private Icons525View iconCon;
-
-    @FXML
-    private HBox boxTrac;
-
-    @FXML
-    private OctIconView iconTrac;
-
-    @FXML
-    private HBox boxGrades;
-
-    @FXML
-    private OctIconView iconGrades;
-
-    @FXML
-    private HBox boxQuestion;
-
-    @FXML
-    private OctIconView iconQuestion;
-
-    @FXML
-    private HBox boxAccount;
-
-    @FXML
-    private FontAwesomeIconView iconAccount;
-
-    @FXML
-    private HBox boxChat;
-
-    @FXML
-    private FontAwesomeIconView iconChat;
-
-    @FXML
-    private HBox boxSettings;
-
-    @FXML
-    private Icons525View iconSettings;
-
-    @FXML
-    private HBox boxGuide;
-
-    @FXML
-    private MaterialDesignIconView iconGuide;
-
-    @FXML
-    private HBox boxAbout;
-
-    @FXML
-    private MaterialDesignIconView iconAbout;
-
-    @FXML
-    private StackPane rightPane;
-
     @FXML
     private AnchorPane holderPane;
+    @FXML
+    private VBox sidebar; // Menu Left of my System
 
+    /* Start Home Part */
     @FXML
     private VBox homePane;
-
     @FXML
-    private Pane paneSlider;
+    private VBox conBox, tracBox, manageQuestionBox, manageAccountBox;
+
+    /* End Home Part */
+    private VBox guidePane;
+    private AnchorPane connectionPane, gradesPane, addQuestionPane, settingsPane;
+    private StackPane tracPane, manageQuestionPane, manageAccountPane, chatPane;
+    @FXML // this pane using for the Dialog of about
+    private StackPane rightPane;
+
+    /* Start Icon Option */
+    @FXML
+    private HBox boxHome, boxCon, boxGrades, boxTrac, boxQuestion, boxAccount, boxChat, boxSettings, boxGuide;
+    @FXML
+    private FontAwesomeIconView iconHome, iconChat, iconAccount;
+    @FXML
+    private MaterialDesignIconView iconGuide, iconAbout;
+    @FXML
+    private Icons525View iconCon, iconSettings;
+    @FXML
+    private OctIconView iconTrac, iconGrades, iconQuestion;
+    /* End Icon Option */
+
+    public static JFXDialog aboutDialog; // this for show the about Dialog
 
     @FXML
     private ImageView imgSlider;
-
     @FXML
     private Label dateLabel;
-
-    @FXML
-    private VBox conBox;
-
-    @FXML
-    private VBox tracBox;
-
-    @FXML
-    private VBox manageQuestionBox;
-
-    @FXML
-    private VBox manageAccountBox;
 
     private final byte NUMBER_IMAGE_SLIDER = 4;
     private int counter = 1;
 
     /*---------------------------------------------------------*/
 
-    @FXML
-    void aboutClicked(MouseEvent event) {
-
-    }
 
     @FXML
-    void accountClicked(MouseEvent event) {
-
-    }
-
-    @FXML
-    void chatClicked(MouseEvent event) {
-
-    }
-
-    @FXML
-    void connectionClicked(MouseEvent event) {
-
-    }
-
-    @FXML
-    void expandSidebar(MouseEvent event) {
-
-    }
-
-    @FXML
-    void gradesClicked(MouseEvent event) {
-
-    }
-
-    @FXML
-    void guideClicked(MouseEvent event) {
-
-    }
-
-    @FXML
-    void homeClicked(MouseEvent event) {
-        styleBox(0);
-        homePane.setVisible(true);
-        sidebar.setPrefWidth(50);
-
-    }
-
-    @FXML
-    void logoutClicked(MouseEvent event) {
-
-    }
-
-    @FXML
-    void questionClicked(MouseEvent event) {
-
-    }
-
-    @FXML
-    void settingsClicked(MouseEvent event) {
-
-    }
-
-    @FXML
-    void traceabilityClicked(MouseEvent event) {
-
-    }
-
     public void expandSidebar(javafx.scene.input.MouseEvent mouseEvent) {
         sidebar.setPrefWidth((sidebar.getWidth() == 50) ? 200 : 50);
     }
 
+    @FXML
     public void homeClicked(javafx.scene.input.MouseEvent mouseEvent) {
+        styleBox(0);
+        homePane.setVisible(true);
+        sidebar.setPrefWidth(50);
     }
 
+    @FXML
     public void connectionClicked(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
+    @FXML
     public void traceabilityClicked(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
+    @FXML
     public void gradesClicked(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
+    @FXML
     public void questionClicked(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
+    @FXML
     public void accountClicked(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
+    @FXML
     public void chatClicked(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
+    @FXML
     public void settingsClicked(javafx.scene.input.MouseEvent mouseEvent) {
+        styleBox(7);
+        setNode(settingsPane);
     }
 
+    @FXML
     public void logoutClicked(javafx.scene.input.MouseEvent mouseEvent) {
+        Stage stage;
+        Parent root = null;
+        //get reference - stage
+        stage = (Stage) holderPane.getScene().getWindow();
+        try {
+            //load up other FXML document
+            root = FXMLLoader.load(getClass().getResource("/home/fxml/login.fxml"));
+        } catch (IOException ignored) {}
+
+        //create a new scene with root and set the stage
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        stage.show();
     }
 
+    @FXML
     public void guideClicked(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
+    @FXML
     public void aboutClicked(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
@@ -272,6 +194,13 @@ public class MainController implements Initializable {
 
         // Make auto change the slider in duration
         sliderAutoChangePictures();
+
+        try {
+            settingsPane = FXMLLoader.load(getClass().getResource("/home/fxml/settings.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void setNode(Node node) {
