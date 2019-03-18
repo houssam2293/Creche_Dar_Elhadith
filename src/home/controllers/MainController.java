@@ -131,7 +131,8 @@ public class MainController implements Initializable {
         try {
             //load up other FXML document
             root = FXMLLoader.load(getClass().getResource("/home/fxml/login.fxml"));
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
 
         //create a new scene with root and set the stage
         Scene scene = new Scene(root);

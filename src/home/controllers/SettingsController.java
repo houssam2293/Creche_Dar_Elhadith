@@ -20,7 +20,7 @@ public class SettingsController implements Initializable {
 
     ObservableList<String> options =
             FXCollections.observableArrayList(
-                    "Français","العربية"
+                    "Français", "العربية"
             );
 
     @FXML
@@ -98,7 +98,28 @@ public class SettingsController implements Initializable {
 
     @FXML
     void btnSave(ActionEvent event) {
+        if (changeUsernamePane.isVisible()) {
+            saveUsername();
+        } else if (changeEmailPane.isVisible()) {
+            saveEmail();
+        } else if (changePasswordPane.isVisible()) {
+            savePassword();
+        } else if (changeLanguagePane.isVisible()) {
+            saveLanguage();
+        }
 
+    }
+
+    private void saveLanguage() {
+    }
+
+    private void saveEmail() {
+    }
+
+    private void savePassword() {
+    }
+
+    private void saveUsername() {
     }
 
     @FXML
@@ -113,6 +134,67 @@ public class SettingsController implements Initializable {
         comboLanguage.setItems(options);
         comboLanguage.getSelectionModel().select(0);
         addListenerOption();
+
+        // max length of username
+        newUsernameUserPart.setOnKeyReleased(event -> { // this event for check max length of the answer area
+            if (newUsernameUserPart.getText().length() > 25) {
+                newUsernameUserPart.setText(newUsernameUserPart.getText().substring(0, 25));
+                newUsernameUserPart.positionCaret(newUsernameUserPart.getText().length());
+            }
+        });
+
+        /* missing code here for ... */
+
+        // max length for password
+        currentPasswordUserPart.setOnKeyReleased(event -> { // this event for check max length of the answer area
+            if (currentPasswordUserPart.getText().length() > 25) {
+                currentPasswordUserPart.setText(currentPasswordUserPart.getText().substring(0, 25));
+                currentPasswordUserPart.positionCaret(currentPasswordUserPart.getText().length());
+            }
+        });
+
+        currentPasswordEmailPart.setOnKeyReleased(event -> { // this event for check max length of the answer area
+            if (currentPasswordEmailPart.getText().length() > 25) {
+                currentPasswordEmailPart.setText(currentPasswordEmailPart.getText().substring(0, 25));
+                currentPasswordEmailPart.positionCaret(currentPasswordEmailPart.getText().length());
+            }
+        });
+
+        currentPasswordPassPart.setOnKeyReleased(event -> { // this event for check max length of the answer area
+            if (currentPasswordPassPart.getText().length() > 50) {
+                currentPasswordPassPart.setText(currentPasswordPassPart.getText().substring(0, 50));
+                currentPasswordPassPart.positionCaret(currentPasswordPassPart.getText().length());
+            }
+        });
+
+        newPasswordPassPart.setOnKeyReleased(event -> { // this event for check max length of the answer area
+            if (newPasswordPassPart.getText().length() > 50) {
+                newPasswordPassPart.setText(newPasswordPassPart.getText().substring(0, 50));
+                newPasswordPassPart.positionCaret(newPasswordPassPart.getText().length());
+            }
+            showIconPassPart();
+        });
+
+        verifyPasswordPassPart.setOnKeyReleased(event -> { // this event for check max length of the answer area
+            if (verifyPasswordPassPart.getText().length() > 50) {
+                verifyPasswordPassPart.setText(verifyPasswordPassPart.getText().substring(0, 50));
+                verifyPasswordPassPart.positionCaret(verifyPasswordPassPart.getText().length());
+            }
+            showIconPassPart();
+        });
+    }
+
+    private void showIconPassPart() {
+        // This method show / hide password
+        if (newPasswordPassPart.getText().isEmpty() || verifyPasswordPassPart.getText().isEmpty()) {
+            iconValid.setVisible(false);
+            return;
+        }
+        if (newPasswordPassPart.getText().equals(verifyPasswordPassPart.getText())) {
+            iconValid.setVisible(true);
+        } else {
+            iconValid.setVisible(false);
+        }
     }
 
     private void addListenerOption() {
@@ -198,7 +280,6 @@ public class SettingsController implements Initializable {
 
             comboLanguage.getSelectionModel().select(2);
         });
-
 
 
     }
