@@ -134,7 +134,7 @@
                   <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#logoutClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
                      <children>
                         <FontAwesomeIconView fill="#4a4949" glyphName="POWER_OFF" size="24" />
-                        <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="Logout" HBox.hgrow="ALWAYS">
+                        <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="تسجيل الخروج" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -193,14 +193,9 @@
                               </ImageView>
                               <VBox prefHeight="323.0" prefWidth="1193.0" spacing="15.0">
                                  <children>
-                                    <Label styleClass="title1" text="Welcome to LSQL Application" textAlignment="RIGHT">
+                                    <Label styleClass="title1" text="أهلا وسهلا بك, نحن سعداء لرؤيتك مرة أخرى. " textAlignment="RIGHT">
                                        <font>
                                           <Font name="Calibri Light" size="40.0" />
-                                       </font>
-                                    </Label>
-                                    <Label styleClass="title2" text="This Application helps you learn Structure Query Language" textAlignment="RIGHT">
-                                       <font>
-                                          <Font name="Calibri Light" size="16.0" />
                                        </font>
                                     </Label>
                                     <Label fx:id="dateLabel" prefHeight="62.0" prefWidth="607.0" styleClass="title-date" text=" ">
@@ -225,17 +220,17 @@
                                  <children>
                                     <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/icons/Folder-big.png" />
+                                          <Image url="@../icons/icons8_Calendar_1_50px.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="60.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="-3.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/icons/tick.png" />
                                        </image>
                                     </ImageView>
                                  </children>
                               </Pane>
-                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="160.0" styleClass="title-smaller" text="Do the Exercise" textAlignment="RIGHT" wrapText="true">
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="160.0" styleClass="title-smaller" text="جدول أوقات" textAlignment="RIGHT" wrapText="true">
                                  <font>
                                     <Font name="Calibri Light" size="20.0" />
                                  </font>
@@ -259,17 +254,17 @@
                                  <children>
                                     <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/icons/Heart-big.png" />
+                                          <Image url="@../icons/icons8_Training_50px.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="50.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="2.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/icons/tick.png" />
                                        </image>
                                     </ImageView>
                                  </children>
                               </Pane>
-                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="116.0" styleClass="title-smaller" text="Traceability" textAlignment="RIGHT" wrapText="true">
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="116.0" styleClass="title-smaller" text="إحصائيات" textAlignment="RIGHT" wrapText="true">
                                  <font>
                                     <Font name="Calibri Light" size="20.0" />
                                  </font>
@@ -293,17 +288,17 @@
                                  <children>
                                     <ImageView fitHeight="85.0" fitWidth="88.0" layoutX="10.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/icons/mange_question.png" />
+                                          <Image url="@../icons/icons8_Students_50px.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="55.0" layoutY="59.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="-9.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/icons/tick.png" />
                                        </image>
                                     </ImageView>
                                  </children>
                               </Pane>
-                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="175.0" styleClass="title-smaller" text="Manage Question" textAlignment="RIGHT" wrapText="true">
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="175.0" styleClass="title-smaller" text="إدارة الطلاب" textAlignment="RIGHT" wrapText="true">
                                  <font>
                                     <Font name="Calibri Light" size="20.0" />
                                  </font>
@@ -330,22 +325,22 @@
                                  <children>
                                     <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/icons/msn.png" />
+                                          <Image url="@../icons/icons8_Conference_50px.png" />
                                        </image>
                                     </ImageView>
-                                    <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="67.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
+                                    <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="-11.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
                                           <Image url="@../images/icons/tick.png" />
                                        </image>
                                     </ImageView>
                                  </children>
                               </Pane>
-                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="166.0" styleClass="title-smaller" text="Manage Account" textAlignment="RIGHT" wrapText="true">
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="166.0" styleClass="title-smaller" text="إدارة العمال" textAlignment="RIGHT" wrapText="true">
                                  <font>
                                     <Font name="Calibri Light" size="20.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="104.0" prefWidth="175.0" styleClass="content-little" text="Change username &amp; password and add/delete/update user account" textFill="#747474" wrapText="true">
+                              <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="104.0" prefWidth="175.0" styleClass="content-little" text="Change username &amp; password and add/delete/update user account" textFill="#747474" wrapText="true">
                                  <font>
                                     <Font name="Calibri Light" size="18.0" />
                                  </font>
@@ -361,17 +356,17 @@
                                  <children>
                                     <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                        <image>
-                                          <Image url="@../images/icons/chat.png" />
+                                          <Image url="@../icons/icons8_Report_Card_50px.png" />
                                        </image>
                                     </ImageView>
                                  </children>
                               </Pane>
-                              <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="54.0" styleClass="title-smaller" text="Chat" textAlignment="RIGHT" wrapText="true">
+                              <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="119.0" styleClass="title-smaller" text="عد العمال" textAlignment="CENTER" wrapText="true">
                                  <font>
                                     <Font name="Calibri Light" size="20.0" />
                                  </font>
                               </Label>
-                              <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="161.0" styleClass="content-little" text="عد العمال" textFill="#747474" wrapText="true">
+                              <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="87.0" prefWidth="161.0" styleClass="content-little" text="تسجيل الدخول و الخروج العمال" textFill="#747474" wrapText="true">
                                  <font>
                                     <Font name="Calibri Light" size="20.0" />
                                  </font>

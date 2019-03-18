@@ -61,7 +61,7 @@
                   <Insets left="20.0" />
                </padding>
             </HBox>
-            <StackPane>
+            <StackPane prefHeight="248.0" prefWidth="599.0">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -89,13 +89,13 @@
                      <children>
                         <HBox prefHeight="53.0" prefWidth="601.0" spacing="20.0">
                            <children>
-                              <Label nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="New email" />
+                              <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="البريد الإلكتروني الجديد" textAlignment="RIGHT" />
                               <TextField fx:id="newEmailEmailPart" prefHeight="40.0" prefWidth="300.0" styleClass="field" />
                            </children>
                         </HBox>
                         <HBox prefHeight="53.0" prefWidth="601.0" spacing="20.0">
                            <children>
-                              <Label nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="Current password" />
+                              <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="كلمة المرور الحالية" textAlignment="RIGHT" />
                               <PasswordField fx:id="currentPasswordEmailPart" prefHeight="40.0" prefWidth="300.0" styleClass="field" />
                            </children>
                         </HBox>
@@ -108,19 +108,19 @@
                      <children>
                         <HBox prefHeight="53.0" prefWidth="601.0" spacing="20.0">
                            <children>
-                              <Label nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="Current password" />
+                              <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="كلمة المرور الحالية" textAlignment="RIGHT" />
                               <PasswordField fx:id="currentPasswordPassPart" prefHeight="40.0" prefWidth="300.0" styleClass="field" />
                            </children>
                         </HBox>
                         <HBox prefHeight="53.0" prefWidth="601.0" spacing="20.0">
                            <children>
-                              <Label nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="New password" />
+                              <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="كلمة المرور الجديدة" textAlignment="RIGHT" />
                               <PasswordField fx:id="newPasswordPassPart" prefHeight="40.0" prefWidth="300.0" styleClass="field" />
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="601.0" spacing="5.0">
                            <children>
-                              <Label nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="Verify password" />
+                              <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="تأكيد كلمة المرور الجديدة" textAlignment="RIGHT" />
                               <PasswordField fx:id="verifyPasswordPassPart" prefHeight="40.0" prefWidth="300.0" styleClass="field">
                                  <HBox.margin>
                                     <Insets left="15.0" />
@@ -141,21 +141,8 @@
                      <children>
                         <HBox prefHeight="53.0" prefWidth="601.0" spacing="20.0">
                            <children>
-                              <Label nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="Select language" />
+                              <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="إختيار اللغة" textAlignment="RIGHT" />
                               <JFXComboBox fx:id="comboLanguage" prefHeight="35.0" prefWidth="180.0" promptText="Language" styleClass="combo-select-language" />
-                           </children>
-                        </HBox>
-                     </children>
-                     <padding>
-                        <Insets top="35.0" />
-                     </padding>
-                  </VBox>
-                  <VBox fx:id="changeThemePane" prefHeight="108.0" prefWidth="601.0" spacing="15.0" visible="false">
-                     <children>
-                        <HBox prefHeight="53.0" prefWidth="601.0" spacing="20.0">
-                           <children>
-                              <Label nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="Select theme" />
-                              <JFXComboBox fx:id="comboTheme" prefHeight="35.0" prefWidth="180.0" promptText="Theme" styleClass="combo-select-language" />
                            </children>
                         </HBox>
                      </children>
