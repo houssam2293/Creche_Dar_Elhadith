@@ -19,7 +19,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -45,29 +48,30 @@ public class MainController implements Initializable {
     @FXML
     private VBox homePane;
     @FXML
-    private VBox conBox, tracBox, manageQuestionBox, manageAccountBox;
+    private VBox calBox, tracBox, manageStudentBox, pointBox, manageAccountBox;
 
     /* End Home Part */
     private VBox guidePane;
     private AnchorPane connectionPane, gradesPane, addQuestionPane, settingsPane;
-    private StackPane tracPane, manageQuestionPane, manageAccountPane, chatPane;
+    private StackPane tracPane, manageQuestionPane, manageAccountPane;
     @FXML // this pane using for the Dialog of about
     private StackPane rightPane;
 
     /* Start Icon Option */
     @FXML
-    private HBox boxHome, boxCon, boxGrades, boxTrac, boxQuestion, boxAccount, boxChat, boxSettings, boxGuide;
+    private HBox boxHome, boxStudent, boxTrac, boxCalandar, boxPoint, boxAccount, boxSettings, boxGuide;
     @FXML
-    private FontAwesomeIconView iconHome, iconChat, iconAccount;
+    private FontAwesomeIconView iconHome, iconAccount;
     @FXML
-    private MaterialDesignIconView iconGuide, iconAbout;
+    private MaterialDesignIconView iconGuide, iconAbout, iconPoint, iconStudent;
     @FXML
-    private Icons525View iconCon, iconSettings;
+    private Icons525View iconSettings;
     @FXML
-    private OctIconView iconTrac, iconGrades, iconQuestion;
+    private OctIconView iconTrac, iconCalandar;
     /* End Icon Option */
 
     public static JFXDialog aboutDialog; // this for show the about Dialog
+
 
     @FXML
     private ImageView imgSlider;
@@ -118,7 +122,7 @@ public class MainController implements Initializable {
 
     @FXML
     public void settingsClicked(javafx.scene.input.MouseEvent mouseEvent) {
-        styleBox(7);
+        styleBox(5);
         setNode(settingsPane);
     }
 
@@ -183,6 +187,8 @@ public class MainController implements Initializable {
         );
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
+
+
     }
 
     @Override
@@ -195,6 +201,7 @@ public class MainController implements Initializable {
 
         // Make auto change the slider in duration
         sliderAutoChangePictures();
+
 
         try {
             settingsPane = FXMLLoader.load(getClass().getResource("/home/fxml/settings.fxml"));
@@ -221,22 +228,20 @@ public class MainController implements Initializable {
     private void styleBox(int index) {
         // This function change the style+color of the menu (Menu Item Selected)
         iconHome.setFill(Paint.valueOf("#4a4949"));
-        iconCon.setFill(Paint.valueOf("#4a4949"));
-        iconGrades.setFill(Paint.valueOf("#4a4949"));
+        iconStudent.setFill(Paint.valueOf("#4a4949"));
         iconTrac.setFill(Paint.valueOf("#4a4949"));
-        iconQuestion.setFill(Paint.valueOf("#4a4949"));
+        iconPoint.setFill(Paint.valueOf("#4a4949"));
+        iconCalandar.setFill(Paint.valueOf("#4a4949"));
         iconAccount.setFill(Paint.valueOf("#4a4949"));
-        iconChat.setFill(Paint.valueOf("#4a4949"));
         iconSettings.setFill(Paint.valueOf("#4a4949"));
         iconGuide.setFill(Paint.valueOf("#4a4949"));
 
         boxHome.setStyle("-fx-border: 0");
-        boxCon.setStyle("-fx-border: 0");
-        boxGrades.setStyle("-fx-border: 0");
+        boxStudent.setStyle("-fx-border: 0");
         boxTrac.setStyle("-fx-border: 0");
-        boxQuestion.setStyle("-fx-border: 0");
+        boxPoint.setStyle("-fx-border: 0");
+        boxCalandar.setStyle("-fx-border: 0");
         boxAccount.setStyle("-fx-border: 0");
-        boxChat.setStyle("-fx-border: 0");
         boxSettings.setStyle("-fx-border: 0");
         boxGuide.setStyle("-fx-border: 0");
 
@@ -246,37 +251,34 @@ public class MainController implements Initializable {
                 iconHome.setFill(Paint.valueOf("#2196f3"));
                 break;
             case 1:
-                boxCon.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
-                iconCon.setFill(Paint.valueOf("#2196f3"));
+                boxStudent.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                iconStudent.setFill(Paint.valueOf("#2196f3"));
                 break;
             case 2:
-                boxGrades.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
-                iconGrades.setFill(Paint.valueOf("#2196f3"));
-                break;
-            case 3:
                 boxTrac.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
                 iconTrac.setFill(Paint.valueOf("#2196f3"));
                 break;
-            case 4:
-                boxQuestion.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
-                iconQuestion.setFill(Paint.valueOf("#2196f3"));
+            case 3:
+                boxCalandar.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                iconCalandar.setFill(Paint.valueOf("#2196f3"));
                 break;
-            case 5:
+            case 4:
                 boxAccount.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
                 iconAccount.setFill(Paint.valueOf("#2196f3"));
                 break;
-            case 6:
-                boxChat.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
-                iconChat.setFill(Paint.valueOf("#2196f3"));
-                break;
-            case 7:
+            case 5:
                 boxSettings.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
                 iconSettings.setFill(Paint.valueOf("#2196f3"));
                 break;
-            case 8:
+            case 6:
                 boxGuide.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
                 iconGuide.setFill(Paint.valueOf("#2196f3"));
                 break;
+            case 7:
+                boxPoint.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                iconPoint.setFill(Paint.valueOf("#2196f3"));
+                break;
+
         }
     }
 }
