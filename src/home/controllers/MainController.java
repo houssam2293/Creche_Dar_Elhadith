@@ -59,7 +59,7 @@ public class MainController implements Initializable {
 
     /* Start Icon Option */
     @FXML
-    private HBox boxHome, boxStudent, boxTrac, boxCalandar, boxPoint, boxAccount, boxSettings, boxGuide;
+    private HBox boxHome, boxStudent, boxTrac, boxCalandar, boxPoint, boxAccount, boxSettings, boxGuide,boxAbout;
     @FXML
     private FontAwesomeIconView iconHome, iconAccount;
     @FXML
@@ -235,6 +235,7 @@ public class MainController implements Initializable {
         iconAccount.setFill(Paint.valueOf("#4a4949"));
         iconSettings.setFill(Paint.valueOf("#4a4949"));
         iconGuide.setFill(Paint.valueOf("#4a4949"));
+        iconAbout.setFill(Paint.valueOf("#4a4949"));
 
         boxHome.setStyle("-fx-border: 0");
         boxStudent.setStyle("-fx-border: 0");
@@ -244,6 +245,7 @@ public class MainController implements Initializable {
         boxAccount.setStyle("-fx-border: 0");
         boxSettings.setStyle("-fx-border: 0");
         boxGuide.setStyle("-fx-border: 0");
+        boxAbout.setStyle("-fx-border: 0");
 
         switch (index) {
             case 0:
@@ -277,6 +279,10 @@ public class MainController implements Initializable {
             case 7:
                 boxPoint.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
                 iconPoint.setFill(Paint.valueOf("#2196f3"));
+                break;
+            case 8:
+                boxAbout.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                iconAbout.setFill(Paint.valueOf("#2196f3"));
                 break;
 
         }

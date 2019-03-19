@@ -136,7 +136,7 @@
                 <HBox fx:id="boxGuide" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#guideClicked" spacing="10.0" styleClass="sidebar-options">
                     <children>
                         <MaterialDesignIconView fx:id="iconGuide" glyphName="TELEVISION_GUIDE" size="25" />
-                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="249.0" text=" Guide">
+                        <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="249.0" text="إرشادات">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -146,17 +146,10 @@
                         </Label>
                     </children>
                 </HBox>
-                <HBox fx:id="boxAbout" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="10.0" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#aboutClicked" styleClass="sidebar-options">
+                <HBox fx:id="boxAbout" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#aboutClicked" spacing="10.0" styleClass="sidebar-options">
                     <children>
                         <MaterialDesignIconView fx:id="iconAbout" glyphName="INFORMATION_OUTLINE" size="27" />
-                        <Label alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="249.0" text="  About">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                            <HBox.margin>
-                                <Insets />
-                            </HBox.margin>
-                        </Label>
+                  <Label prefHeight="50.0" prefWidth="249.0" text="حول البرنامج" />
                     </children>
                 </HBox>
             </children>
