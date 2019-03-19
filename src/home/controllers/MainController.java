@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -59,11 +60,11 @@ public class MainController implements Initializable {
 
     /* Start Icon Option */
     @FXML
-    private HBox boxHome, boxStudent, boxTrac, boxCalandar, boxPoint, boxAccount, boxSettings, boxGuide,boxAbout;
+    private HBox boxHome, boxStudent, boxTrac, boxCalandar, boxPoint, boxAccount,boxStock, boxSettings, boxGuide,boxAbout;
     @FXML
     private FontAwesomeIconView iconHome, iconAccount;
     @FXML
-    private MaterialDesignIconView iconGuide, iconAbout, iconPoint, iconStudent;
+    private MaterialDesignIconView iconGuide, iconAbout, iconPoint, iconStudent,iconStock;
     @FXML
     private Icons525View iconSettings;
     @FXML
@@ -97,7 +98,7 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void connectionClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void calndarClicked(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
     @FXML
@@ -105,15 +106,17 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void gradesClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void studentClicked(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
     @FXML
-    public void questionClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void calBoxClicked(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
     @FXML
     public void accountClicked(javafx.scene.input.MouseEvent mouseEvent) {
+        styleBox(4);
+        setNode(manageAccountPane);
     }
 
     @FXML
@@ -144,6 +147,7 @@ public class MainController implements Initializable {
         Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
         stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
         stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        stage.setResizable(false);
         stage.show();
     }
 
@@ -153,6 +157,14 @@ public class MainController implements Initializable {
 
     @FXML
     public void aboutClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    }
+
+
+    public void stockBoxClicked(MouseEvent mouseEvent) {
+    }
+
+    @FXML
+    public void pointageClicked(MouseEvent mouseEvent) {
     }
 
     private void sliderAutoChangePictures() {
@@ -205,6 +217,7 @@ public class MainController implements Initializable {
 
         try {
             settingsPane = FXMLLoader.load(getClass().getResource("/home/fxml/settings.fxml"));
+            manageAccountPane = FXMLLoader.load(getClass().getResource("/home/fxml/manageAccount.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -236,6 +249,7 @@ public class MainController implements Initializable {
         iconSettings.setFill(Paint.valueOf("#4a4949"));
         iconGuide.setFill(Paint.valueOf("#4a4949"));
         iconAbout.setFill(Paint.valueOf("#4a4949"));
+        iconStock.setFill(Paint.valueOf("#4a4949"));
 
         boxHome.setStyle("-fx-border: 0");
         boxStudent.setStyle("-fx-border: 0");
@@ -246,6 +260,7 @@ public class MainController implements Initializable {
         boxSettings.setStyle("-fx-border: 0");
         boxGuide.setStyle("-fx-border: 0");
         boxAbout.setStyle("-fx-border: 0");
+        boxStock.setStyle("-fx-border: 0");
 
         switch (index) {
             case 0:
@@ -284,7 +299,13 @@ public class MainController implements Initializable {
                 boxAbout.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
                 iconAbout.setFill(Paint.valueOf("#2196f3"));
                 break;
+            case 9:
+                boxStock.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                iconStock.setFill(Paint.valueOf("#2196f3"));
+                break;
 
         }
     }
+
+
 }

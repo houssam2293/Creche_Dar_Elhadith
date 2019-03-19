@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<HBox fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1242.0" styleClass="parent" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.MainController">
+<HBox fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1292.0" styleClass="parent" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.MainController">
     <children>
         <VBox fx:id="sidebar" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="50.0" styleClass="white-pane">
             <children>
@@ -40,9 +40,9 @@
                                 </Label>
                             </children>
                         </HBox>
-                        <HBox fx:id="boxStudent" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#gradesClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                        <HBox fx:id="boxStudent" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#studentClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
                             <children>
-                        <MaterialDesignIconView fx:id="iconStudent" fill="#4a4949" glyphName="HUMAN_CHILD" size="30" wrappingWidth="28.0" />
+                                <MaterialDesignIconView fx:id="iconStudent" fill="#4a4949" glyphName="HUMAN_CHILD" size="30" wrappingWidth="28.0" />
                                 <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة الطلاب" HBox.hgrow="ALWAYS">
                                     <HBox.margin>
                                         <Insets />
@@ -66,7 +66,7 @@
                                 </Label>
                             </children>
                         </HBox>
-                        <HBox fx:id="boxCalandar" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#questionClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                        <HBox fx:id="boxCalandar" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#calBoxClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
                             <children>
                                 <OctIconView fx:id="iconCalandar" fill="#4a4949" glyphName="CLIPPY" size="28" wrappingWidth="23.0" />
                                 <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="جدول أوقات" HBox.hgrow="ALWAYS">
@@ -79,10 +79,23 @@
                                 </Label>
                             </children>
                         </HBox>
-                  <HBox fx:id="boxPoint" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#traceabilityClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                        <HBox fx:id="boxPoint" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pointageClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                            <children>
+                                <MaterialDesignIconView fx:id="iconPoint" fill="#4a4949" glyphName="TABLE_EDIT" size="28" wrappingWidth="25.0" />
+                                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="عد العمال" HBox.hgrow="ALWAYS">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font name="Calibri" size="14.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                  <HBox fx:id="boxStock" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#stockBoxClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
                      <children>
-                        <MaterialDesignIconView fx:id="iconPoint" fill="#4a4949" glyphName="TABLE_EDIT" size="28" wrappingWidth="25.0" />
-                        <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="عد العمال" HBox.hgrow="ALWAYS">
+                        <MaterialDesignIconView fx:id="iconStock" fill="#4a4949" glyphName="FACTORY" size="26" wrappingWidth="25.0" />
+                        <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة المخزن" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -149,7 +162,7 @@
                 <HBox fx:id="boxAbout" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#aboutClicked" spacing="10.0" styleClass="sidebar-options">
                     <children>
                         <MaterialDesignIconView fx:id="iconAbout" glyphName="INFORMATION_OUTLINE" size="27" />
-                  <Label prefHeight="50.0" prefWidth="249.0" text="حول البرنامج" />
+                        <Label prefHeight="50.0" prefWidth="249.0" text="حول البرنامج" />
                     </children>
                 </HBox>
             </children>
@@ -194,7 +207,7 @@
                         </HBox>
                         <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #C4C4C4;" styleClass="white-pane" VBox.vgrow="ALWAYS">
                             <children>
-                                <VBox fx:id="calBox" alignment="TOP_CENTER" layoutX="612.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#connectionClicked" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
+                                <VBox fx:id="calBox" alignment="TOP_CENTER" layoutX="612.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#calndarClicked" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
                                     <children>
                                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                                             <children>
@@ -262,7 +275,7 @@
                                         <Insets left="10.0" top="10.0" />
                                     </padding>
                                 </VBox>
-                                <VBox fx:id="manageStudentBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#questionClicked" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
+                                <VBox fx:id="manageStudentBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#calBoxClicked" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
                                     <children>
                                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                                             <children>

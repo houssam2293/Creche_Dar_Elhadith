@@ -39,7 +39,7 @@ public class Main extends Application {
                 System.out.println("file 'dbCredentials.properties' not found!(main)");
                 Parent root = FXMLLoader.load(getClass().getResource("fxml/firstLoad.fxml"));
                 primaryStage.setTitle("Creche Dar EL Hadith/Configuration");
-                primaryStage.getIcons().add(new Image("/home/icons/icon.ico"));
+                primaryStage.getIcons().add(new Image("/home/icons/icon.png"));
                 primaryStage.setResizable(false);
                 primaryStage.setScene(new Scene(root));
                 primaryStage.show();
@@ -62,7 +62,7 @@ public class Main extends Application {
                         Stage stage = new Stage();
                         Parent root = FXMLLoader.load(getClass().getResource("fxml/loginEntry.fxml"));
                         stage.setTitle("Premier Lancement");
-                        stage.getIcons().add(new Image("/home/icons/icon.ico"));
+                        stage.getIcons().add(new Image("/home/icons/icon.png"));
                         stage.setResizable(false);
                         stage.setScene(new Scene(root));
                         stage.show();
@@ -71,7 +71,7 @@ public class Main extends Application {
 
                         Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
                         primaryStage.setTitle("Creche Dar EL Hadith");
-                        primaryStage.getIcons().add(new Image("/home/icons/icon.ico"));
+                        primaryStage.getIcons().add(new Image("/home/icons/icon.png"));
                         primaryStage.setResizable(false);
                         primaryStage.setScene(new Scene(root));
                         primaryStage.show();
