@@ -14,9 +14,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.apache.commons.codec.digest.DigestUtils;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Properties;
@@ -49,6 +47,7 @@ public class LoginEntry {
         Properties prop = new Properties();
         erreurText.setText("كلمة السر غير متطابقة!");
         OutputStream output = null;
+        InputStream inputStream = null;
         String userName = user.getText();
         String passeWord = password.getText();
 
@@ -56,11 +55,13 @@ public class LoginEntry {
             try {
 
                 output = new FileOutputStream(s + "/loginCredentials.properties");
+                inputStream = new FileInputStream(s + "/loginCredentials.properties");
+                prop.load(inputStream);
 
+                inputStream.close();
                 // set the properties value
-                prop.setProperty("user", DigestUtils.shaHex(userName));
-                prop.setProperty("password", DigestUtils.shaHex(passeWord));
-
+                prop.putIfAbsent("user", DigestUtils.shaHex(userName));
+                prop.putIfAbsent("password", DigestUtils.shaHex(passeWord));
                 // save properties to project root folder
                 prop.store(output, "fichier config");
 

@@ -62,7 +62,7 @@ public class FirstLoad {
                 prop.setProperty("database", hst);
                 prop.setProperty("dbname", dbname);
                 prop.setProperty("dbuser", utilisateur);
-                prop.setProperty("dbpassword", DigestUtils.shaHex(motDePasse));
+                prop.setProperty("dbpassword", motDePasse);
 
 
                 prop.store(output, "fichier config");

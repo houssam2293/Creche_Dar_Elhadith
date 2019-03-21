@@ -32,7 +32,7 @@
                 <Label fx:id="errorlabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="24.0"
                        prefHeight="17.0" prefWidth="249.0" textFill="RED" wrapText="true" AnchorPane.bottomAnchor="21.0"
                        AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="472.0"/>
-                <RadioButton fx:id="francer_radio" mnemonicParsing="false" prefHeight="17.0" prefWidth="74.0"
+                <RadioButton fx:id="francais_radio" mnemonicParsing="false" prefHeight="17.0" prefWidth="74.0"
                              text="Français" textFill="WHITE" AnchorPane.bottomAnchor="45.0"
                              AnchorPane.leftAnchor="82.0" AnchorPane.rightAnchor="153.0" AnchorPane.topAnchor="427.0">
                     <toggleGroup>

@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -17,6 +18,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -40,7 +42,7 @@ public class loginController implements Initializable {
     private String pass, username;
 
     @FXML
-    private RadioButton francer_radio;
+    private RadioButton francais_radio;
 
     @FXML
     private ToggleGroup lang;
@@ -61,7 +63,7 @@ public class loginController implements Initializable {
     void handleLogin(ActionEvent event) throws IOException {
         if (checkPass()) {
             Parent root = FXMLLoader.load(getClass().getResource("/home/fxml/main.fxml"));
-            Stage window = (Stage) francer_radio.getScene().getWindow();
+            Stage window = (Stage) francais_radio.getScene().getWindow();
             window.setResizable(true);
             window.setY(5);
             window.setX(40);
@@ -76,14 +78,32 @@ public class loginController implements Initializable {
 
     @FXML
     void resetPasseword(ActionEvent event) {
+        Stage stage;
+        Parent root = null;
+        //get reference - stage
+        stage = (Stage) francais_radio.getScene().getWindow();
+        stage.close();
+        try {
+            //load up other FXML document
+            root = FXMLLoader.load(getClass().getResource("/home/fxml/loginEntry.fxml"));
+        } catch (IOException ignored) {
+        }
 
+        //create a new scene with root and set the stage
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
+        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
+        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
+        stage.setResizable(false);
+        stage.show();
 
     }
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        Properties properties = new Properties();
+
 
         Platform.runLater(new Runnable() {
             @Override
@@ -91,8 +111,16 @@ public class loginController implements Initializable {
                 user.requestFocus();
             }
         });
+
+
+    }
+
+
+    private boolean checkPass() {
+        Properties properties = new Properties();
         try {
             input = new FileInputStream(filename);
+
             if (input != null) {
                 System.out.println("file recovered");
                 properties.load(input);
@@ -109,11 +137,6 @@ public class loginController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-    }
-
-
-    private boolean checkPass() {
         return DigestUtils.shaHex(password.getText()).equals(pass) && DigestUtils.shaHex(user.getText()).equals(username);
     }
 

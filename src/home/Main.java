@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Properties;
 
 public class Main extends Application {
 
@@ -23,6 +24,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         InputStream input = null;
+        Properties prop =new Properties();
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
         System.out.println("Current path : " + s);
@@ -54,6 +56,7 @@ public class Main extends Application {
                     if (file1.exists()) {
 
                         input1 = new FileInputStream(filename1);
+
 
                     }
 

@@ -92,19 +92,19 @@
                                 </Label>
                             </children>
                         </HBox>
-                  <HBox fx:id="boxStock" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#stockBoxClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
-                     <children>
-                        <MaterialDesignIconView fx:id="iconStock" fill="#4a4949" glyphName="FACTORY" size="26" wrappingWidth="25.0" />
-                        <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة المخزن" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets />
-                           </HBox.margin>
-                           <font>
-                              <Font name="Calibri" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </HBox>
+                        <HBox fx:id="boxStock" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#stockBoxClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                            <children>
+                                <MaterialDesignIconView fx:id="iconStock" fill="#4a4949" glyphName="FACTORY" size="26" wrappingWidth="25.0" />
+                                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة المخزن" HBox.hgrow="ALWAYS">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                    <font>
+                                        <Font name="Calibri" size="14.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
                         <HBox fx:id="boxTrac" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#traceabilityClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
                             <children>
                                 <OctIconView fx:id="iconTrac" fill="#4a4949" glyphName="GRAPH" size="24" />
@@ -186,7 +186,7 @@
                                         </ImageView>
                                         <VBox prefHeight="323.0" prefWidth="1193.0" spacing="15.0">
                                             <children>
-                                                <Label styleClass="title1" text="أهلا وسهلا بك, نحن سعداء لرؤيتك مرة أخرى. " textAlignment="RIGHT">
+                                                <Label styleClass="title1" text="جمعية دار الحديث للتربية و الثقافة و العلم" textAlignment="RIGHT">
                                                     <font>
                                                         <Font name="Calibri Light" size="40.0" />
                                                     </font>

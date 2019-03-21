@@ -44,9 +44,9 @@
                             <graphic>
                                 <FontAwesomeIconView glyphName="REFRESH" size="24" wrappingWidth="22.571428298950195" />
                             </graphic>
-                     <HBox.margin>
-                        <Insets right="15.0" />
-                     </HBox.margin>
+                            <HBox.margin>
+                                <Insets right="15.0" />
+                            </HBox.margin>
                         </JFXButton>
                         <JFXButton buttonType="RAISED" onAction="#addUser" prefHeight="39.0" prefWidth="130.0" ripplerFill="#4264eb" styleClass="btn-view" text="إضافة">
                             <HBox.margin>

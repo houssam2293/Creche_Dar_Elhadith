@@ -60,11 +60,11 @@ public class MainController implements Initializable {
 
     /* Start Icon Option */
     @FXML
-    private HBox boxHome, boxStudent, boxTrac, boxCalandar, boxPoint, boxAccount,boxStock, boxSettings, boxGuide,boxAbout;
+    private HBox boxHome, boxStudent, boxTrac, boxCalandar, boxPoint, boxAccount, boxStock, boxSettings, boxGuide, boxAbout;
     @FXML
     private FontAwesomeIconView iconHome, iconAccount;
     @FXML
-    private MaterialDesignIconView iconGuide, iconAbout, iconPoint, iconStudent,iconStock;
+    private MaterialDesignIconView iconGuide, iconAbout, iconPoint, iconStudent, iconStock;
     @FXML
     private Icons525View iconSettings;
     @FXML

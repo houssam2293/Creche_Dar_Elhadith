@@ -1,4 +1,4 @@
-package home.java;
+package home.dbDir;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
