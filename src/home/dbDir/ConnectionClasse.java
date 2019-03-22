@@ -5,15 +5,24 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionClasse {
-    private static final String port = "3306";
-    private static final String timeZone = "/?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+
+    private final static String HOST_NAME = "127.0.0.1";
+    private final static String DB_NAME = "creche_dar_elhadith";
+    private final static String USERNAME = "root";
+    private final static String PASSWORD = "mohamed221993";
+    private final static String PORT = "3306";
+    private final static String timeZone = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private Connection connection = null;
 
-    public Connection getConnecction(String dbname, String host, String user, String passeword) {
+    public Connection getConnection() {
+        return getConnection(HOST_NAME, PORT, DB_NAME, USERNAME, PASSWORD);
+    }
+
+    public Connection getConnection(String host,String port, String dbname, String user, String passeword) {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + timeZone, user, passeword);
+            connection = DriverManager.getConnection("jdbc:mysql://" + host + ((port.isEmpty()) ? "" : ":" + port) +"/"+dbname+ timeZone, user, passeword);
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }

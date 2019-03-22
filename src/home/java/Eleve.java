@@ -1,42 +1,46 @@
 package home.java;
 
 
+import sun.net.idn.StringPrep;
+
 import java.util.Date;
 
 
 public class Eleve {
 
     private String nom;
-
-
     private String preNom;
-
-
     private Date dateNaissance;
-
-
     private int numeroInscription;
-
     private String classe;
-
-
     private String anneeScolaire;
-
     private Regime regimeScolaire;
-
     private String adresse;
-
     private String numeroTelephone;
-
     private String travailPere;
-
     private String travailMere;
-
-
     private String bonDeSante;
-
-
     private String note;
+
+
+    public Eleve(String nom, String preNom,Date dateNaissance,int numeroInscription,String classe,String anneeScolaire,
+                 Regime regimeScolaire,String adresse,String numeroTelephone,String travailPere,String travailMere,
+                 String bonDeSante,String note) {
+        this.nom=nom;
+        this.preNom=preNom;
+        this.dateNaissance=dateNaissance;
+        this.numeroInscription=numeroInscription;
+        this.classe=classe;
+        this.anneeScolaire=anneeScolaire;
+        this.regimeScolaire=regimeScolaire;
+        this.adresse=adresse;
+        this.numeroTelephone=numeroTelephone;
+        this.travailPere=travailPere;
+        this.travailMere=travailMere;
+        this.bonDeSante=bonDeSante;
+        this.note=note;
+
+    }
 
 
     Regime getRegimeScolaire() {
@@ -47,6 +51,10 @@ public class Eleve {
     void setRegimeScolaire(Regime value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.regimeScolaire = value;
+    }
+
+    String getNom() {
+        return this.nom;
     }
 
     void setNom(String value) {
