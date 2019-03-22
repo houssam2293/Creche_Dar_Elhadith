@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="root" alignment="TOP_LEFT" prefHeight="690.0" prefWidth="1192.0" style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.manageAccountController">
+<StackPane fx:id="root" alignment="TOP_LEFT" prefHeight="690.0" prefWidth="1192.0" style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ManageAccountController">
     <children>
         <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="750.0" prefWidth="1313.0" spacing="10.0">
             <children>

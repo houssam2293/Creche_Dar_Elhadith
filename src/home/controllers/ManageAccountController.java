@@ -6,16 +6,21 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
-public class manageAccountController implements Initializable {
+public class ManageAccountController implements Initializable {
 
     ObservableList<String> options =
             FXCollections.observableArrayList(
@@ -51,7 +56,15 @@ public class manageAccountController implements Initializable {
 
     @FXML
     void addUser(ActionEvent event) {
+        errorLabel.setText("");
+        AnchorPane addUserPane = null;
+        try {
+            addUserPane = FXMLLoader.load(getClass().getResource("/home/fxml/AddUserForm.fxml"));
+        } catch (IOException ex) {
 
+        }
+        addUserDialog = getSpecialDialog(addUserPane);
+        addUserDialog.show();
     }
 
     @FXML
@@ -65,7 +78,7 @@ public class manageAccountController implements Initializable {
     }
 
     @FXML
-    void updateTable(MouseEvent event) {
+    void updateTable() {
 
     }
 
@@ -82,5 +95,13 @@ public class manageAccountController implements Initializable {
 
     class TableEmploye extends RecursiveTreeObject<TableEmploye> {
 
+    }
+
+    public JFXDialog getSpecialDialog(AnchorPane content) {
+        JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
+        dialog.setOnDialogClosed((event) -> {
+            updateTable();
+        });
+        return dialog;
     }
 }
