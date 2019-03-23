@@ -1,6 +1,5 @@
 package home.dbDir;
 
-import com.mysql.cj.xdevapi.SqlDataResult;
 import home.java.Employe;
 
 import java.sql.*;
@@ -9,7 +8,7 @@ import java.util.List;
 
 public class EmployeDB {
 
-    public List<Employe> getEmploye() {
+    public List<Employe> getEmployee() {
         Connection connection = new ConnectionClasse().getConnection();
         if (connection == null) {
             return null;
@@ -22,8 +21,8 @@ public class EmployeDB {
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                employes.add(new Employe(resultSet.getInt("num"),
-                        resultSet.getString("id"),
+                employes.add(new Employe(
+                        resultSet.getInt("id"),
                         resultSet.getString("nom"),
                         resultSet.getString("prenom"),
                         resultSet.getDate("dateNaissance"),
@@ -37,7 +36,7 @@ public class EmployeDB {
                         resultSet.getString("renouvlementDeContrat"),
                         resultSet.getDate("dateDebut"),
                         resultSet.getString("fonction"),
-                        resultSet.getBoolean("marier"),
+                        resultSet.getInt("marier"),
                         resultSet.getString("celibacyTitle"),
                         resultSet.getInt("nombreEnfantM"),
                         resultSet.getInt("nombreEnfantF")));
@@ -51,10 +50,7 @@ public class EmployeDB {
     }
 
     public int addEmploye(Employe employe) {
-        StringBuilder sql = new StringBuilder("INSERT INTO 'employe' ('num','id','nom','prenom','dateNaissance'," +
-                "'lieuNaissance','adresse','numTelephone','socialSecurityNumber'," +
-                "'diplome','experience','itar','renouvlementDeContrat','dateDebut'," +
-                "'fonction','marier'");
+        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`employe` ( `id`, `nom`, `prenom`, `dateNaissance`, `lieuNaissance`, `adresse`, `numTelephone`, `socialSecurityNumber`, `diplome`, `experience`, `itar`, `renouvlementDeContrat`, `dateDebut`, `fonction`, `marier`");
         Connection connection = null;
         Statement st = null;
 
@@ -64,16 +60,16 @@ public class EmployeDB {
             if (connection == null) {
                 return -1;
             }
-            if (employerExist(employe.getNom())) {
+            if (employerExist(employe.getId())) {
                 return 2;
             }
 
             st = connection.createStatement();
-            if (!employe.isStatuSocial()) {
-                sql.append(",'celibacyTitle','nombreEnfantM','nombreEnfantF'");
+            if (employe.isStatuSocial()==0) {
+                sql.append(",`celibacyTitle`, `nombreEnfantM`, `nombreEnfantF`");
             }
 
-            sql.append(") values ('").append(employe.getNum()).append("','");
+            sql.append(")values ('");
             sql.append(employe.getId()).append("','");
             sql.append(employe.getNom()).append("','");
             sql.append(employe.getPrenom()).append("','");
@@ -88,9 +84,9 @@ public class EmployeDB {
             sql.append(employe.getRenouvlement_de_contrat()).append("','");
             sql.append(employe.getDate_debut()).append("','");
             sql.append(employe.getFonction()).append("','");
-            sql.append(employe.isStatuSocial() ? 1 : 0);
+            sql.append(employe.isStatuSocial());
 
-            if (!employe.isStatuSocial()) {
+            if (employe.isStatuSocial()==0) {
                 sql.append("','").append(employe.getCelibacyTitle()).append("','");
                 sql.append(employe.getMaleChild()).append("','");
                 sql.append(employe.getFemaleChild());
@@ -100,7 +96,8 @@ public class EmployeDB {
 
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("SQLException msg: " + e.getMessage());
             return 0;
         }finally {
             try {
@@ -121,16 +118,16 @@ public class EmployeDB {
     }
 
 
-    public boolean employerExist(String username) {
+    public boolean employerExist(int id) {
         Connection con = new ConnectionClasse().getConnection();
         if (con == null) // if connection failed
         {
             return true;
         }
-        String sql = "SELECT * FROM `users` WHERE username=?;";
+        String sql = "SELECT * FROM `employe` WHERE id=?;";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, username);
+            ps.setString(1, String.valueOf(id));
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 return true; // Username already exists
@@ -141,4 +138,6 @@ public class EmployeDB {
             return true;
         }
     }
+
+
 }

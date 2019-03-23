@@ -4,8 +4,7 @@ import java.util.Date;
 
 public class Employe {
 
-    private Integer num;
-    private String id;
+    private int id;
     private String nom;
     private String prenom;
     private Date dateNaissance;
@@ -21,14 +20,13 @@ public class Employe {
     private String fonction;
     private String celibacyTitle;
     private int maleChild, femaleChild;
-    private boolean statuSocial;
+    private int statuSocial;
 
 
-    public Employe(Integer num, String id, String nom, String prenom, Date dateNaissance, String lieuNaissance, String adresse,
+    public Employe(int id, String nom, String prenom, Date dateNaissance, String lieuNaissance, String adresse,
                    String numTelephone, String socialSecurityNumber, String diplome, String experience, String itar,
-                   String renouvlement_de_contrat, Date date_debut, String fonction, boolean statuSocial, String celibacyTitle,
+                   String renouvlement_de_contrat, Date date_debut, String fonction, int statuSocial, String celibacyTitle,
                    int maleChild, int femaleChild) {
-        this.num = num;
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -50,11 +48,15 @@ public class Employe {
 
     }
 
-    public String getId() {
+    public Employe() {
+
+    }
+
+    public int getId() {
         return this.id;
     }
 
-    public void setId(String value) {
+    public void setId(int value) {
         this.id = value;
     }
 
@@ -226,20 +228,17 @@ public class Employe {
     }
 
 
-    public Integer getNum() {
-        return num;
+    public int isStatuSocial() {
+        return this.statuSocial;
     }
 
-    public void setNum(Integer num) {
-        this.num = num;
+    public boolean estmarier() {
+        if (statuSocial == 1)
+        return true;
+        else return false;
     }
-
-
-    public boolean isStatuSocial() {
-        return statuSocial;
-    }
-
-    public void setStatuSocial(boolean statuSocial) {
+    public void setStatuSocial(int statuSocial) {
         this.statuSocial = statuSocial;
     }
+
 }

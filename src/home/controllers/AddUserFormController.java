@@ -4,24 +4,34 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import home.dbDir.EmployeDB;
+import home.java.Employe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import java.net.URL;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
+import static javafx.scene.input.KeyCode.ENTER;
+import static javafx.scene.input.KeyCode.ESCAPE;
+
 public class AddUserFormController implements Initializable {
-    ObservableList<Integer> options =
+    private ObservableList<Integer> options =
             FXCollections.observableArrayList(
                     0,1,2,3,4,5,6,7,8
             );
-    Integer sommeChildren=0;
+    SimpleDateFormat date = new SimpleDateFormat("yyyy/mm/dd");
+    private Integer sommeChildren=0;
 
     @FXML
     private VBox root;
@@ -77,8 +87,10 @@ public class AddUserFormController implements Initializable {
     @FXML
     private JFXComboBox<Integer> femaleChild;
 
+
+
     @FXML
-    void actionToggleButton(ActionEvent event) {
+    void actionToggleButton() {
         if (stat.isSelected()){
             celibacyTitle.setDisable(false);
             sommeChild.setDisable(false);
@@ -94,17 +106,73 @@ public class AddUserFormController implements Initializable {
     }
 
     @FXML
-    void btnAdd(ActionEvent event) {
+    void btnAdd() {
+        Employe employe =new Employe();
+        employe.setId(Integer.valueOf(id.getText()));
+        employe.setNom(lastNameField.getText().trim().toLowerCase());
+        employe.setPrenom(firstNameField.getText().trim().toLowerCase());
+        employe.setDateNaissance(Date.valueOf(birthDate.getValue()));
+        employe.setLieuNaissance(birthPlace.getText().trim().toLowerCase());
+        employe.setAdresse(addresse.getText().trim().toLowerCase());
+        employe.setNumTelephone(phoneNumber.getText().trim().toLowerCase());
+        employe.setSocialSecurityNumber(socialSecurtyNumber.getText().trim().toLowerCase());
+        employe.setDiplome(diplome.getText().trim().toLowerCase());
+        employe.setExperience(experience.getText().trim().toLowerCase());
+        employe.setItar(itar.getText().trim().toLowerCase());
+        employe.setRenouvlement_de_contrat("Vain");
+        employe.setFonction("Ensegnant");
+        employe.setDate_debut(Date.valueOf(firstDayOfwork.getValue()));
+        if (stat.isSelected()) {
+            employe.setCelibacyTitle(celibacyTitle.getText().trim().toLowerCase());
+            employe.setMaleChild(maleChild.getValue());
+            employe.setFemaleChild(femaleChild.getValue());
+        }
+
+        int status = new EmployeDB().addEmploye(employe);
+        switch (status) {
+            case -1:System.out.println("Error connecting to DB!");
+            break;
+            case 2:System.out.println("Error Employer exist!");
+            break;
+            case 0:System.out.println("Unknown Error failed to add Employer" );
+            break;
+            case 1:
+                Notifications.create()
+                        .title("تمت الإضافة بنجاح                                   ")
+                        .graphic(new ImageView(new Image("/home/icons/valid.png")))
+                        .hideAfter(Duration.millis(2000))
+                        .position(Pos.BOTTOM_RIGHT)
+                        .darkStyle()
+                        .show();
+
+                ManageAccountController.addUserDialog.close();
+        }
+    }
+
+    @FXML
+    void btnClear() {
+        id.setText(null);
+        firstNameField.setText(null);
+        lastNameField.setText(null);
+        birthDate.setValue(null);
+        birthPlace.setText(null);
+        itar.setText(null);
+        addresse.setText(null);
+        phoneNumber.setText(null);
+        socialSecurtyNumber.setText(null);
+        diplome.setText(null);
+        experience.setText(null);
+        firstDayOfwork.setValue(null);
+        celibacyTitle.setText(null);
+        maleChild.getSelectionModel().select(null);
+        femaleChild.getSelectionModel().select(null);
+        sommeChild.setText(null);
+        stat.setSelected(false);
 
     }
 
     @FXML
-    void btnClear(ActionEvent event) {
-
-    }
-
-    @FXML
-    void btnClose(MouseEvent event) {
+    void btnClose() {
         ManageAccountController.addUserDialog.close();
 
     }
@@ -112,6 +180,20 @@ public class AddUserFormController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+
+        root.setOnKeyPressed(event -> {
+            if (event.getCode().equals(ENTER)) {
+                btnAdd();
+            }
+        });
+
+        root.setOnKeyPressed(e->{
+            if (e.getCode().equals(ESCAPE)) {
+                btnClose();
+            }
+        });
+
         maleChild.setItems(options);
         femaleChild.setItems(options);
         maleChild.getSelectionModel().select(0);

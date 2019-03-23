@@ -25,13 +25,7 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="9b18ad9e-0f70-4b85-8ddc-b79d08886eb7">
-        <schema name="creche_dar_elhadith" object-types="function, view, dataset trigger, table, procedure, constraint, column, index" />
-        <schema name="information_schema" object-types="function, view, table, procedure" />
-        <schema name="mysql" object-types="function, view, table, procedure" />
-        <schema name="performance_schema" object-types="function, view, table, procedure" />
-        <schema name="sakila" object-types="function, view, table, procedure" />
-        <schema name="sys" object-types="function, view, table, procedure" />
-        <schema name="world" object-types="function, view, table, procedure" />
+        <schema name="creche_dar_elhadith" object-types="constraint, function, column, table, index, view, procedure, dataset trigger" />
       </connection>
     </loaded-nodes>
   </component>
