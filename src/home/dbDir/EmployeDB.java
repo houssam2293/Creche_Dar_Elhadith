@@ -117,6 +117,28 @@ public class EmployeDB {
         return 1;
     }
 
+    public int deleteEmployee(int id) {
+        Connection con = new ConnectionClasse().getConnection();
+        if (con == null) // if connection failed
+        {
+            return -1;
+        }
+        Statement st = null;
+
+        try {
+            st = con.createStatement();
+            String sql = "DELETE FROM `employe` WHERE `id`=" + id + ";";
+            st.executeUpdate(sql);
+            //TODO when the database is done add the cascade to delete the instance from all of the tables
+            return 1;
+        } catch (SQLException e) {
+            //System.out.println("Error : " + e.getErrorCode());
+            //e.printStackTrace();
+            return 0;
+        }
+
+    }
+
 
     public boolean employerExist(int id) {
         Connection con = new ConnectionClasse().getConnection();

@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
+
 import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -33,6 +34,7 @@ public class AddUserFormController implements Initializable {
     SimpleDateFormat date = new SimpleDateFormat("yyyy/mm/dd");
     private Integer sommeChildren=0;
 
+
     @FXML
     private VBox root;
 
@@ -47,6 +49,9 @@ public class AddUserFormController implements Initializable {
 
     @FXML
     private JFXDatePicker birthDate;
+
+    @FXML
+    private JFXTextField fonction;
 
     @FXML
     private JFXTextField itar;
@@ -120,7 +125,7 @@ public class AddUserFormController implements Initializable {
         employe.setExperience(experience.getText().trim().toLowerCase());
         employe.setItar(itar.getText().trim().toLowerCase());
         employe.setRenouvlement_de_contrat("Vain");
-        employe.setFonction("Ensegnant");
+        employe.setFonction(fonction.getText().trim().toLowerCase());
         employe.setDate_debut(Date.valueOf(firstDayOfwork.getValue()));
         if (stat.isSelected()) {
             employe.setCelibacyTitle(celibacyTitle.getText().trim().toLowerCase());
@@ -168,6 +173,7 @@ public class AddUserFormController implements Initializable {
         femaleChild.getSelectionModel().select(null);
         sommeChild.setText(null);
         stat.setSelected(false);
+        fonction.setText(null);
 
     }
 

@@ -53,7 +53,7 @@
                         <Insets />
                      </VBox.margin>
                      <children>
-                        <JFXDatePicker fx:id="birthDate" defaultColor="#2196f3" prefHeight="30.0" prefWidth="220.0" promptText="تاريخ الميلاد" style="-fx-font-size: 18px;">
+                        <JFXDatePicker fx:id="birthDate" defaultColor="#2196f3" prefHeight="30.0" prefWidth="220.0" promptText="تاريخ الميلاد" styleClass="field">
                            <HBox.margin>
                               <Insets />
                            </HBox.margin>
@@ -94,10 +94,11 @@
                   </JFXTextField>
                   <JFXTextField fx:id="phoneNumber" labelFloat="true" layoutX="50.0" layoutY="395.0" prefHeight="25.0" prefWidth="523.0" promptText="رقم الهاتف" styleClass="field" />
                   <JFXTextField fx:id="socialSecurtyNumber" labelFloat="true" layoutX="50.0" layoutY="311.0" prefHeight="25.0" prefWidth="523.0" promptText="رقم الضمان الإجتماعي" styleClass="field" />
-                  <JFXTextField fx:id="diplome" labelFloat="true" promptText="الشهادات" style="-fx-font-size: 18px;" />
-                  <JFXTextField fx:id="itar" labelFloat="true" promptText="الإطار" style="-fx-font-size: 18px;" />
-                  <JFXDatePicker fx:id="firstDayOfwork" defaultColor="#2196f3" prefHeight="35.0" prefWidth="267.0" promptText="تاريخ أول تعيين في المؤسسة" style="-fx-font-size: 18px;" />
-                  <JFXTextField fx:id="experience" labelFloat="true" promptText="عدد سنوات التدريس" style="-fx-font-size: 18px;" />
+                  <JFXTextField fx:id="diplome" labelFloat="true" promptText="الشهادات" styleClass="field" />
+                  <JFXTextField fx:id="itar" labelFloat="true" promptText="الإطار" styleClass="field" />
+                  <JFXTextField fx:id="fonction" labelFloat="true" promptText="المهنة" styleClass="field" />
+                  <JFXDatePicker fx:id="firstDayOfwork" defaultColor="#2196f3" prefHeight="35.0" prefWidth="267.0" promptText="تاريخ أول تعيين في المؤسسة" styleClass="field" />
+                  <JFXTextField fx:id="experience" labelFloat="true" promptText="عدد سنوات التدريس" styleClass="field" />
                   <HBox alignment="CENTER" prefHeight="215.0" prefWidth="386.0" spacing="30.0">
                      <children>
                         <JFXButton onAction="#btnAdd" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="إضافة" />
