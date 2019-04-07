@@ -26,12 +26,11 @@ import java.util.ResourceBundle;
 import static javafx.scene.input.KeyCode.ENTER;
 import static javafx.scene.input.KeyCode.ESCAPE;
 
-public class AddUserFormController implements Initializable {
+public class AddEmployeeFormController implements Initializable {
     private ObservableList<Integer> options =
             FXCollections.observableArrayList(
                     0,1,2,3,4,5,6,7,8
             );
-    SimpleDateFormat date = new SimpleDateFormat("yyyy/mm/dd");
     private Integer sommeChildren=0;
 
 
@@ -124,14 +123,15 @@ public class AddUserFormController implements Initializable {
         employe.setDiplome(diplome.getText().trim().toLowerCase());
         employe.setExperience(experience.getText().trim().toLowerCase());
         employe.setItar(itar.getText().trim().toLowerCase());
-        employe.setRenouvlement_de_contrat("Vain");
+        employe.setRenouvlement_de_contrat("oui");
         employe.setFonction(fonction.getText().trim().toLowerCase());
         employe.setDate_debut(Date.valueOf(firstDayOfwork.getValue()));
         if (stat.isSelected()) {
+            employe.setStatuSocial(1);
             employe.setCelibacyTitle(celibacyTitle.getText().trim().toLowerCase());
             employe.setMaleChild(maleChild.getValue());
             employe.setFemaleChild(femaleChild.getValue());
-        }
+        }else employe.setStatuSocial(0);
 
         int status = new EmployeDB().addEmploye(employe);
         switch (status) {
@@ -150,7 +150,7 @@ public class AddUserFormController implements Initializable {
                         .darkStyle()
                         .show();
 
-                ManageAccountController.addUserDialog.close();
+                ManageEmployeeController.addUserDialog.close();
         }
     }
 
@@ -179,7 +179,7 @@ public class AddUserFormController implements Initializable {
 
     @FXML
     void btnClose() {
-        ManageAccountController.addUserDialog.close();
+        ManageEmployeeController.addUserDialog.close();
 
     }
 

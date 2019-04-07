@@ -65,8 +65,12 @@ public class loginController implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("/home/fxml/main.fxml"));
             Stage window = (Stage) francais_radio.getScene().getWindow();
             window.setResizable(true);
-            window.setY(5);
-            window.setX(40);
+            Screen screen = Screen.getPrimary();
+            Rectangle2D bounds = screen.getVisualBounds();
+            window.setX(bounds.getMinX());
+            window.setY(bounds.getMinY());
+            window.setWidth(bounds.getWidth());
+            window.setHeight(bounds.getHeight());
             window.setScene(new Scene(root));
         } else {
             errorlabel.setText("إسم المستخدم أو كلمة السر غير متطابقة!");

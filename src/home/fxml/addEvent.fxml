@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="300.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.AddEventController">
+   <children>
+      <HBox prefHeight="35.0" prefWidth="340.0">
+         <children>
+            <JFXButton onAction="#btnClose" prefHeight="30.0" prefWidth="49.0" styleClass="button-abort" text=" ">
+               <graphic>
+                  <OctIconView fill="WHITE" glyphName="X" size="20" />
+               </graphic>
+            </JFXButton>
+            <Label fx:id="topLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="312.0" styleClass="titleUserLabel" text="إضافة حدث">
+               <graphic>
+                  <EmojiOneView glyphName="MAP" size="28" />
+               </graphic>
+            </Label>
+         </children>
+      </HBox>
+      <VBox prefHeight="170.0" prefWidth="320.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="57.0">
+         <children>
+            <JFXTextField fx:id="eventDescription" focusColor="#2196f3" labelFloat="true" promptText="إسم الحدث" styleClass="field" />
+            <JFXDatePicker fx:id="eventDate" defaultColor="#2196f3" promptText="تاريخ الحدث" styleClass="field" />
+            <JFXTimePicker fx:id="eventTime" defaultColor="#2196f3" promptText="على الساعة" styleClass="field" />
+            <JFXComboBox fx:id="eventType" focusColor="#2196f3" promptText="نوع الحدث" styleClass="field" />
+         </children>
+         <padding>
+            <Insets top="5.0" />
+         </padding>
+      </VBox>
+      <HBox prefHeight="41.0" prefWidth="340.0" AnchorPane.bottomAnchor="0.0">
+         <children>
+            <JFXButton onAction="#generateNewEvent" prefHeight="40.0" prefWidth="200.0" text="إضافة">
+               <styleClass>
+                  <String fx:value="field" />
+                  <String fx:value="button" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton onAction="#btnCancel" prefHeight="40.0" prefWidth="200.0" text="إلغاء">
+               <styleClass>
+                  <String fx:value="field" />
+                  <String fx:value="button-abort" />
+               </styleClass>
+            </JFXButton>
+         </children>
+      </HBox>
+   </children>
+   <stylesheets>
+      <URL value="@../css/main.css" />
+      <URL value="@../css/firstload.css" />
+   </stylesheets>
+</AnchorPane>

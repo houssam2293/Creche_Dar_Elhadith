@@ -29,16 +29,13 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
+
+import static home.controllers.EditEmployeeFormController.employeeSelected;
 
 
-public class ManageAccountController implements Initializable {
+public class ManageEmployeeController implements Initializable {
 
-    ObservableList<String> options =
-            FXCollections.observableArrayList(
-                    "رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد",
-                    "مكان الملاد", "المهنة", "العنوان الشخصي", "الهاتف",
-                    "رقم الضمان الإجتماعي", "الشهادات", "تاريخ أول تعيين", "الخبرة", "حالة التعاقد"
-            );
 
     @FXML
     private StackPane root;
@@ -58,20 +55,20 @@ public class ManageAccountController implements Initializable {
     private JFXComboBox<String> combo;
 
     @FXML // Cols of table
-    public JFXTreeTableColumn<TableEmployee, String> idCol, firstnameCol, lastNameCol,
+    private JFXTreeTableColumn<TableEmployee, String> idCol, firstnameCol, lastNameCol,
             dateOfBirthCol, placeOfBirthCol, jobCol, addressCol, phoneCol, socialSecurNumbCol,
-            diplomeCol, dateFirstEmploCol, experienceCol, contractRenCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol;
+            diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol;
 
-    public static JFXDialog addUserDialog, editUserDialog;
+    static JFXDialog addUserDialog, editUserDialog;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         //combo.setItems(options);
-        combo.getItems().addAll(new String[]{"رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد",
+        combo.getItems().addAll("رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد",
                 "مكان الملاد", "المهنة", "العنوان الشخصي", "الهاتف",
-                "رقم الضمان الإجتماعي", "الشهادات", "تاريخ أول تعيين", "الخبرة", "حالة التعاقد", "الحالة العائلية", "لقب العزوبة", "عدد بنون", "عدد بنات"});
+                "رقم الضمان الإجتماعي", "الشهادات", "تاريخ أول تعيين", "الخبرة", "حالة التعاقد", "الحالة العائلية", "لقب العزوبة", "عدد بنون", "عدد بنات");
         initializeTable();
     }
 
@@ -80,7 +77,7 @@ public class ManageAccountController implements Initializable {
         errorLabel.setText("");
         AnchorPane addUserPane = null;
         try {
-            addUserPane = FXMLLoader.load(getClass().getResource("/home/fxml/AddUserForm.fxml"));
+            addUserPane = FXMLLoader.load(getClass().getResource("/home/fxml/AddEmployeForm.fxml"));
         } catch (IOException ignored) {
         }
         addUserDialog = getSpecialDialog(addUserPane);
@@ -89,6 +86,50 @@ public class ManageAccountController implements Initializable {
 
     @FXML
     void editUser(ActionEvent event) {
+        errorLabel.setText("");
+        int index = treeTableView.getSelectionModel().getSelectedIndex(); // selected index
+        String id = idCol.getCellData(index);
+        if (id == null) {
+            System.out.println("Index is null !");
+            Notifications.create()
+                    .title("يرجى تحديد الحقل المراد تحديثه                                ")
+                    .darkStyle()
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showWarning();
+            return;
+        }
+
+        employeeSelected = new Employe();
+        employeeSelected.setId(Integer.parseInt(id));
+        employeeSelected.setPrenom(firstnameCol.getCellData(index));
+        employeeSelected.setNom(lastNameCol.getCellData(index));
+        employeeSelected.setDateNaissance(java.sql.Date.valueOf(dateOfBirthCol.getCellData(index)));
+        employeeSelected.setLieuNaissance(placeOfBirthCol.getCellData(index));
+        employeeSelected.setAdresse(addressCol.getCellData(index));
+        employeeSelected.setNumTelephone(phoneCol.getCellData(index));
+        employeeSelected.setSocialSecurityNumber(socialSecurNumbCol.getCellData(index));
+        employeeSelected.setDiplome(diplomeCol.getCellData(index));
+        employeeSelected.setExperience(experienceCol.getCellData(index));
+        employeeSelected.setItar(itarCol.getCellData(index));
+        employeeSelected.setRenouvlement_de_contrat(contractRenCol.getCellData(index));
+        employeeSelected.setFonction(jobCol.getCellData(index));
+        employeeSelected.setDate_debut(java.sql.Date.valueOf(dateFirstEmploCol.getCellData(index)));
+        if (marierCol.getCellData(index).toLowerCase().equals("متزوج")) {
+            employeeSelected.setStatuSocial(1);
+            employeeSelected.setCelibacyTitle(nomCelebCol.getCellData(index));
+            employeeSelected.setMaleChild(Integer.parseInt(nombreEMCol.getCellData(index)));
+            employeeSelected.setFemaleChild(Integer.parseInt(nombreEFCol.getCellData(index)));
+        } else employeeSelected.setStatuSocial(0);
+
+        AnchorPane editUserPane = null;
+        try {
+            editUserPane = FXMLLoader.load(getClass().getResource("/home/fxml/EditEmployeeForm.fxml"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        editUserDialog = getSpecialDialog(editUserPane);
+        editUserDialog.show();
 
     }
 
@@ -100,11 +141,10 @@ public class ManageAccountController implements Initializable {
             System.out.println("Index is null !");
             Notifications.create()
                     .title("يرجى تحديد الحقل المراد مسحه                                 ")
-                    .graphic(new ImageView(new Image("/home/icons/icons8_Cancel_48px.png")))
                     .hideAfter(Duration.millis(2000))
                     .position(Pos.BOTTOM_RIGHT)
                     .darkStyle()
-                    .show();
+                    .showWarning();
             return;
         }
         id = Integer.valueOf(idCol.getCellData(treeTableView.getSelectionModel().getSelectedIndex()));
@@ -145,12 +185,9 @@ public class ManageAccountController implements Initializable {
         btnNo.setStyle("-fx-font-size: 18px");
 
         content.setActions(btnOk, btnNo);
-        StackPane stackpane = new StackPane();
 
         dialog.getStylesheets().add("/home/css/main.css");
-        btnNo.setOnAction(e -> {
-            dialog.close();
-        });
+        btnNo.setOnAction(e -> dialog.close());
         dialog.show();
 
     }
@@ -159,6 +196,7 @@ public class ManageAccountController implements Initializable {
     void updateTable() {
         errorLabel.setText("");
         ObservableList<TableEmployee> employes = FXCollections.observableArrayList();
+        combo.setValue(null);
 
         List<Employe> employeeDB = new EmployeDB().getEmployee();
         if (employeeDB == null) {
@@ -167,7 +205,7 @@ public class ManageAccountController implements Initializable {
             for (Employe employe : employeeDB) {
                 employes.add(new TableEmployee(employe.getId(), employe.getNom().toUpperCase(), employe.getPrenom().toUpperCase(), employe.getDateNaissance(),
                         employe.getLieuNaissance(), employe.getAdresse(), employe.getExperience(), employe.getNumTelephone(), employe.getSocialSecurityNumber(),
-                        employe.getDiplome(), employe.getDate_debut(), employe.getFonction(), employe.getRenouvlement_de_contrat(), employe.estmarier(),
+                        employe.getDiplome(), employe.getItar(), employe.getDate_debut(), employe.getFonction(), employe.getRenouvlement_de_contrat(), employe.estmarier(),
                         employe.getCelibacyTitle(), employe.getMaleChild(), employe.getFemaleChild()));
             }
         }
@@ -184,13 +222,13 @@ public class ManageAccountController implements Initializable {
 
     class TableEmployee extends RecursiveTreeObject<TableEmployee> {
         StringProperty id, firstname, lastname, birthday, birthplace, job, experience;
-        StringProperty addresse, phone, socialSN, diplom, firstdaywor, renouvlementcotract;
+        StringProperty addresse, phone, socialSN, diplom, itar, firstdaywor, renouvlementcotract;
         StringProperty marier, nomCeleb, nombreEM, nombreEF;
 
-        public TableEmployee(int id, String firstname, String lastname, Date birthday, String birthplace, String addresse, String experience,
-                             String phone, String socialSN, String diplom,
-                             Date firstdaywor, String job, String renouvlementcotract, boolean marier, String nomCeleb,
-                             int nombreEM, int nombreEF) {
+        TableEmployee(int id, String firstname, String lastname, Date birthday, String birthplace, String addresse, String experience,
+                      String phone, String socialSN, String diplom, String itar,
+                      Date firstdaywor, String job, String renouvlementcotract, boolean marier, String nomCeleb,
+                      int nombreEM, int nombreEF) {
 
             this.id = new SimpleStringProperty(String.valueOf(id));
             this.firstname = new SimpleStringProperty(String.valueOf(firstname));
@@ -203,9 +241,10 @@ public class ManageAccountController implements Initializable {
             this.phone = new SimpleStringProperty(String.valueOf(phone));
             this.socialSN = new SimpleStringProperty(String.valueOf(socialSN));
             this.diplom = new SimpleStringProperty(String.valueOf(diplom));
+            this.itar = new SimpleStringProperty(String.valueOf(itar));
             this.firstdaywor = new SimpleStringProperty(String.valueOf(firstdaywor));
             this.renouvlementcotract = new SimpleStringProperty(String.valueOf(renouvlementcotract));
-            this.marier = new SimpleStringProperty((marier) ? "أعزب" : "متزوج");
+            this.marier = new SimpleStringProperty((marier) ? "متزوج" : "أعزب");
             this.nomCeleb = new SimpleStringProperty(String.valueOf(nomCeleb));
             this.nombreEM = new SimpleStringProperty(String.valueOf(nombreEM));
             this.nombreEF = new SimpleStringProperty(String.valueOf(nombreEF));
@@ -213,7 +252,7 @@ public class ManageAccountController implements Initializable {
         }
     }
 
-    public void initializeTable() {
+    private void initializeTable() {
         idCol = new JFXTreeTableColumn<>("رقم التسجيل");
         idCol.setPrefWidth(120);
         idCol.setCellValueFactory(param -> param.getValue().getValue().id);
@@ -254,8 +293,12 @@ public class ManageAccountController implements Initializable {
         diplomeCol.setPrefWidth(120);
         diplomeCol.setCellValueFactory(param -> param.getValue().getValue().diplom);
 
+        itarCol = new JFXTreeTableColumn<>("الإطار");
+        itarCol.setPrefWidth(120);
+        itarCol.setCellValueFactory(param -> param.getValue().getValue().itar);
+
         dateFirstEmploCol = new JFXTreeTableColumn<>("تاريخ أول تعيين");
-        dateFirstEmploCol.setPrefWidth(75);
+        dateFirstEmploCol.setPrefWidth(120);
         dateFirstEmploCol.setCellValueFactory(param -> param.getValue().getValue().firstdaywor);
 
         experienceCol = new JFXTreeTableColumn<>("الخبرة");
@@ -284,17 +327,78 @@ public class ManageAccountController implements Initializable {
 
         updateTable();
 
-        treeTableView.getColumns().addAll(idCol, firstnameCol, lastNameCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, socialSecurNumbCol, jobCol, diplomeCol, dateFirstEmploCol, experienceCol, contractRenCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol);
+        searchField.textProperty().addListener(e -> filterSearchTable());
+        combo.setOnAction(e -> filterSearchTable());
+
+        //noinspection deprecation
+        treeTableView.getColumns().addAll(idCol, firstnameCol, lastNameCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, socialSecurNumbCol, jobCol, diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol);
         treeTableView.setShowRoot(false);
         treeTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
 
-    public JFXDialog getSpecialDialog(AnchorPane content) {
+    private JFXDialog getSpecialDialog(AnchorPane content) {
         JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
-        dialog.setOnDialogClosed((event) -> {
-            updateTable();
-        });
+        dialog.setOnDialogClosed((event) -> updateTable());
         return dialog;
+    }
+
+    private void filterSearchTable() {
+        treeTableView.setPredicate(employee -> {
+            switch (combo.getSelectionModel().getSelectedIndex()) {
+                case 0:
+                    return employee.getValue().id.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 1:
+                    return employee.getValue().lastname.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 2:
+                    return employee.getValue().firstname.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 3:
+                    return employee.getValue().birthday.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 4:
+                    return employee.getValue().birthplace.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 5:
+                    return employee.getValue().job.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 6:
+                    return employee.getValue().addresse.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 7:
+                    return employee.getValue().phone.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 8:
+                    return employee.getValue().socialSN.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 9:
+                    return employee.getValue().diplom.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 10:
+                    return employee.getValue().firstdaywor.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 11:
+                    return employee.getValue().experience.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 12:
+                    return employee.getValue().renouvlementcotract.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 13:
+                    return employee.getValue().marier.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 14:
+                    return employee.getValue().nomCeleb.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 15:
+                    return employee.getValue().nombreEM.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 16:
+                    return employee.getValue().nombreEF.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                default:
+                    return employee.getValue().id.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().lastname.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().firstname.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().birthday.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().birthplace.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().job.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().addresse.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().phone.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().socialSN.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().diplom.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().firstdaywor.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().experience.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().renouvlementcotract.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().marier.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().nomCeleb.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().nombreEM.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().nombreEF.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+            }
+        });
     }
 }

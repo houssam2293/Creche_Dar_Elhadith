@@ -106,6 +106,9 @@ JFXButton:pressed {
 .field {
     -fx-font-size: 18px
 }
+.field-smaller {
+    -fx-font-size: 15px
+}
 
 /* End Text Field */
 
@@ -147,4 +150,5 @@ DatePicker {
 .titleUserLabel {
     /* This style for the name of user showing in dialog of stat */
     -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, #2196f3 50%);
+    -fx-font-size: 16px
 }

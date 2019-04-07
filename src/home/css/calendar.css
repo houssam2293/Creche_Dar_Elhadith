@@ -1,0 +1,62 @@
+ /*This is for the calnedar */
+.event-label {
+    -fx-font: 13px "System";
+    -fx-background-color: white;
+    -fx-border-width:1.5;
+    -fx-padding: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-border-color: #333;
+    -fx-padding: 2px;
+    -fx-text-fill: black;
+    -fx-background-insets: 2px;
+}
+
+.month-label {
+    -fx-font: bold 25px "System";
+    -fx-text-fill: #555;
+}
+
+.label {
+    -fx-text-fill: #666;
+}
+
+.weekday-header {
+    -fx-font: bold 17px "System";
+    -fx-font-style: normal;
+    -fx-background-color:  #2196F3;
+    -fx-border-style: solid;
+    -fx-border-insets: 1;
+    -fx-border-width: .2;
+    -fx-border-color: white;
+}
+
+.weekday-header .label{
+    -fx-text-fill: white;
+}
+
+.calendar_pane {
+    -fx-background-color:  #00BF9E;
+    -fx-border-style: dashed;
+    -fx-border-width: .5;
+    -fx-border-color: #5C5C5C;
+}
+
+.list-cell {
+    -fx-alignment: center;
+    -fx-font: 17px "Lucida Console";
+    -fx-text-fill: black;
+}
+
+.list-cell:selected {
+    -fx-background-color:#ecedf7;
+}
+
+.list-cell:selected .label{
+    -fx-text-fill: black;
+}
+
+.list-view {
+ -fx-background-insets: 0;
+ -fx-background-color:#ecedf7;
+}

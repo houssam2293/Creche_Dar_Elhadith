@@ -6,6 +6,7 @@
 <?import de.jensd.fx.glyphs.octicons.OctIconView?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -53,7 +54,7 @@
                                 </Label>
                             </children>
                         </HBox>
-                        <HBox fx:id="boxAccount" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="310.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#accountClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                        <HBox fx:id="boxEmploye" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="310.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#EmployeeClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
                             <children>
                                 <FontAwesomeIconView fx:id="iconAccount" fill="#4a4949" glyphName="USERS" size="22" />
                                 <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة العمال" HBox.hgrow="ALWAYS">
@@ -68,7 +69,7 @@
                         </HBox>
                         <HBox fx:id="boxCalandar" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#calBoxClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
                             <children>
-                                <OctIconView fx:id="iconCalandar" fill="#4a4949" glyphName="CLIPPY" size="28" wrappingWidth="23.0" />
+                                <OctIconView fx:id="iconCalandar" fill="#4a4949" glyphName="CALENDAR" size="28" wrappingWidth="23.0" />
                                 <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="جدول أوقات" HBox.hgrow="ALWAYS">
                                     <HBox.margin>
                                         <Insets />
@@ -172,19 +173,22 @@
                 <AnchorPane fx:id="holderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0" style="-fx-background-color: #FFF;" />
                 <VBox fx:id="homePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0" styleClass="white-pane">
                     <children>
-                        <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="1193.0" style="-fx-background-color: #F2F2F2;" VBox.vgrow="NEVER">
+                        <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1242.0" style="-fx-background-color: #F2F2F2;" VBox.vgrow="NEVER">
                             <children>
-                                <Pane fx:id="paneSlider" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="323.0" prefWidth="1193.0" styleClass="header-pane" HBox.hgrow="ALWAYS">
+                                <Pane fx:id="paneSlider" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1193.0" styleClass="header-pane" HBox.hgrow="ALWAYS">
                                     <HBox.margin>
                                         <Insets />
                                     </HBox.margin>
                                     <children>
-                                        <ImageView fx:id="imgSlider" fitHeight="323.0" fitWidth="1193.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fx:id="imgSlider" fitHeight="200.0" fitWidth="1242.0" pickOnBounds="true">
                                             <image>
                                                 <Image url="@../images/slider/2.png" />
                                             </image>
+                                 <viewport>
+                                    <Rectangle2D width="1192.0" />
+                                 </viewport>
                                         </ImageView>
-                                        <VBox prefHeight="323.0" prefWidth="1193.0" spacing="15.0">
+                                        <VBox prefHeight="200.0" prefWidth="1274.0" spacing="15.0">
                                             <children>
                                                 <Label styleClass="title1" text="جمعية دار الحديث للتربية و الثقافة و العلم" textAlignment="RIGHT">
                                                     <font>
@@ -205,9 +209,17 @@
                                 </Pane>
                             </children>
                         </HBox>
-                        <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #C4C4C4;" styleClass="white-pane" VBox.vgrow="ALWAYS">
+                  <HBox prefHeight="300.0" prefWidth="1242.0" spacing="10.0">
+                     <padding>
+                        <Insets top="30.0" />
+                     </padding>
+                     <children>
+                        <Pane />
+                     </children>
+                  </HBox>
+                        <HBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="300.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #C4C4C4;" styleClass="white-pane" VBox.vgrow="ALWAYS">
                             <children>
-                                <VBox fx:id="calBox" alignment="TOP_CENTER" layoutX="612.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#calndarClicked" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
+                                <VBox fx:id="calBox" alignment="TOP_CENTER" layoutX="612.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#calndarClicked" prefHeight="200.0" prefWidth="201.0" styleClass="cards">
                                     <children>
                                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                                             <children>
@@ -218,7 +230,7 @@
                                                 </ImageView>
                                                 <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="-3.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../images/icons/tick.png" />
+                                                        <Image url="@../icons/tick.png" />
                                                     </image>
                                                 </ImageView>
                                             </children>
@@ -228,7 +240,7 @@
                                                 <Font name="Calibri Light" size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="84.0" prefWidth="172.0" styleClass="content-little" text="يمكنك الإطلاع على جدول الأوقات أو تعديله" textFill="#747474" wrapText="true">
+                                        <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="172.0" styleClass="content-little" text="يمكنك الإطلاع على جدول الأوقات أو تعديله" textFill="#747474" wrapText="true">
                                             <font>
                                                 <Font name="Calibri Light" size="20.0" />
                                             </font>
@@ -241,41 +253,38 @@
                                         <Insets left="10.0" top="10.0" />
                                     </padding>
                                 </VBox>
-                                <VBox fx:id="tracBox" alignment="TOP_CENTER" layoutX="382.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#traceabilityClicked" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
+                                <VBox fx:id="manageEmployeBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#EmployeeClicked" prefHeight="200.0" prefWidth="201.0" styleClass="cards">
                                     <children>
                                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                                             <children>
                                                 <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../icons/icons8_Training_50px.png" />
+                                                        <Image url="@../icons/icons8_Conference_50px.png" />
                                                     </image>
                                                 </ImageView>
-                                                <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="2.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="-11.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../images/icons/tick.png" />
+                                                        <Image url="@../icons/tick.png" />
                                                     </image>
                                                 </ImageView>
                                             </children>
                                         </Pane>
-                                        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="116.0" styleClass="title-smaller" text="إحصائيات" textAlignment="RIGHT" wrapText="true">
+                                        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="166.0" styleClass="title-smaller" text="إدارة العمال" textAlignment="RIGHT" wrapText="true">
                                             <font>
                                                 <Font name="Calibri Light" size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="155.0" styleClass="content-little" text="الإطلاع على الإحصائيات" textFill="#747474" wrapText="true">
+                                        <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="175.0" styleClass="content-little" text="إضافة/إزالة/تحديث     قائمة العمال" textFill="#747474" wrapText="true">
                                             <font>
-                                                <Font name="Calibri Light" size="20.0" />
+                                                <Font name="Calibri Light" size="18.0" />
                                             </font>
-                                            <VBox.margin>
-                                                <Insets top="10.0" />
-                                            </VBox.margin>
                                         </Label>
                                     </children>
                                     <padding>
                                         <Insets left="10.0" top="10.0" />
                                     </padding>
                                 </VBox>
-                                <VBox fx:id="manageStudentBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#calBoxClicked" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
+                                <VBox fx:id="manageStudentBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#calBoxClicked" prefHeight="200.0" prefWidth="201.0" styleClass="cards">
                                     <children>
                                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                                             <children>
@@ -286,7 +295,7 @@
                                                 </ImageView>
                                                 <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="-9.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../images/icons/tick.png" />
+                                                        <Image url="@../icons/tick.png" />
                                                     </image>
                                                 </ImageView>
                                             </children>
@@ -299,7 +308,7 @@
                                                 <Insets />
                                             </VBox.margin>
                                         </Label>
-                                        <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="77.0" prefWidth="174.0" styleClass="content-little" text="إضافة/إزالة/تحديث     قائمة التلاميذ" textFill="#747474" wrapText="true">
+                                        <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="174.0" styleClass="content-little" text="إضافة/إزالة/تحديث     قائمة التلاميذ" textFill="#747474" wrapText="true">
                                             <font>
                                                 <Font name="Calibri Light" size="20.0" />
                                             </font>
@@ -312,38 +321,41 @@
                                         <Insets left="10.0" top="10.0" />
                                     </padding>
                                 </VBox>
-                                <VBox fx:id="manageAccountBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#accountClicked" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
+                                <VBox fx:id="tracBox" alignment="TOP_CENTER" layoutX="382.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#traceabilityClicked" prefHeight="200.0" prefWidth="201.0" styleClass="cards">
                                     <children>
                                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                                             <children>
                                                 <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../icons/icons8_Conference_50px.png" />
+                                                        <Image url="@../icons/icons8_Training_50px.png" />
                                                     </image>
                                                 </ImageView>
-                                                <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="-11.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="2.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../images/icons/tick.png" />
+                                                        <Image url="@../icons/tick.png" />
                                                     </image>
                                                 </ImageView>
                                             </children>
                                         </Pane>
-                                        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="166.0" styleClass="title-smaller" text="إدارة العمال" textAlignment="RIGHT" wrapText="true">
+                                        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="116.0" styleClass="title-smaller" text="إحصائيات" textAlignment="RIGHT" wrapText="true">
                                             <font>
                                                 <Font name="Calibri Light" size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="175.0" styleClass="content-little" text="إضافة/إزالة/تحديث     قائمة العمال" textFill="#747474" wrapText="true">
+                                        <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="155.0" styleClass="content-little" text="الإطلاع على الإحصائيات" textFill="#747474" wrapText="true">
                                             <font>
-                                                <Font name="Calibri Light" size="18.0" />
+                                                <Font name="Calibri Light" size="20.0" />
                                             </font>
+                                            <VBox.margin>
+                                                <Insets top="10.0" />
+                                            </VBox.margin>
                                         </Label>
                                     </children>
                                     <padding>
                                         <Insets left="10.0" top="10.0" />
                                     </padding>
                                 </VBox>
-                                <VBox fx:id="pointBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#chatClicked" prefHeight="246.0" prefWidth="201.0" styleClass="cards">
+                                <VBox fx:id="pointBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pointClicked" prefHeight="200.0" prefWidth="201.0" styleClass="cards">
                                     <children>
                                         <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
                                             <children>
@@ -352,6 +364,11 @@
                                                         <Image url="@../icons/icons8_Report_Card_50px.png" />
                                                     </image>
                                                 </ImageView>
+                                    <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="3.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/tick.png" />
+                                       </image>
+                                    </ImageView>
                                             </children>
                                         </Pane>
                                         <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="119.0" styleClass="title-smaller" text="عد العمال" textAlignment="CENTER" wrapText="true">
@@ -359,7 +376,7 @@
                                                 <Font name="Calibri Light" size="20.0" />
                                             </font>
                                         </Label>
-                                        <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="87.0" prefWidth="161.0" styleClass="content-little" text="تسجيل الدخول و الخروج العمال" textFill="#747474" wrapText="true">
+                                        <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="161.0" styleClass="content-little" text="تسجيل الدخول و الخروج العمال" textFill="#747474" wrapText="true">
                                             <font>
                                                 <Font name="Calibri Light" size="20.0" />
                                             </font>
@@ -374,7 +391,7 @@
                                 </VBox>
                             </children>
                             <padding>
-                                <Insets top="50.0" />
+                                <Insets top="30.0" />
                             </padding>
                         </HBox>
                     </children>

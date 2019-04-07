@@ -1,6 +1,7 @@
 package home.controllers;
 
 import com.jfoenix.controls.JFXDialog;
+import de.jensd.fx.glyphs.emojione.EmojiOne;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.icons525.Icons525View;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -20,10 +21,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -49,18 +47,19 @@ public class MainController implements Initializable {
     @FXML
     private VBox homePane;
     @FXML
-    private VBox calBox, tracBox, manageStudentBox, pointBox, manageAccountBox;
+    private VBox calBox, tracBox, manageStudentBox, pointBox, manageEmployeBox;
 
     /* End Home Part */
     private VBox guidePane;
-    private AnchorPane connectionPane, gradesPane, addQuestionPane, settingsPane;
-    private StackPane tracPane, manageQuestionPane, manageAccountPane;
+    private AnchorPane calendarPane, gradesPane, addQuestionPane, settingsPane;
+    private StackPane tracPane, manageStudentPane, manageEmployePane;
     @FXML // this pane using for the Dialog of about
     private StackPane rightPane;
-
+    @FXML
+    private Pane paneSlider;
     /* Start Icon Option */
     @FXML
-    private HBox boxHome, boxStudent, boxTrac, boxCalandar, boxPoint, boxAccount, boxStock, boxSettings, boxGuide, boxAbout;
+    private HBox boxHome, boxStudent, boxTrac, boxCalandar, boxPoint, boxEmploye, boxStock, boxSettings, boxGuide, boxAbout;
     @FXML
     private FontAwesomeIconView iconHome, iconAccount;
     @FXML
@@ -68,7 +67,8 @@ public class MainController implements Initializable {
     @FXML
     private Icons525View iconSettings;
     @FXML
-    private OctIconView iconTrac, iconCalandar;
+    private OctIconView iconTrac,iconCalandar;
+
     /* End Icon Option */
 
     public static JFXDialog aboutDialog; // this for show the about Dialog
@@ -79,7 +79,7 @@ public class MainController implements Initializable {
     @FXML
     private Label dateLabel;
 
-    private final byte NUMBER_IMAGE_SLIDER = 4;
+    private final byte NUMBER_IMAGE_SLIDER = 3;
     private int counter = 1;
 
     /*---------------------------------------------------------*/
@@ -99,10 +99,13 @@ public class MainController implements Initializable {
 
     @FXML
     public void calndarClicked(javafx.scene.input.MouseEvent mouseEvent) {
+        calBoxClicked();
     }
 
     @FXML
     public void traceabilityClicked(javafx.scene.input.MouseEvent mouseEvent) {
+        styleBox(2);
+        setNode(tracPane);
     }
 
     @FXML
@@ -110,17 +113,20 @@ public class MainController implements Initializable {
     }
 
     @FXML
-    public void calBoxClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void calBoxClicked() {
+        styleBox(3);
+        System.out.println("Calender clicked");
+        setNode(calendarPane);
     }
 
     @FXML
-    public void accountClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void EmployeeClicked(javafx.scene.input.MouseEvent mouseEvent) {
         styleBox(4);
-        setNode(manageAccountPane);
+        setNode(manageEmployePane);
     }
 
     @FXML
-    public void chatClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void pointClicked(javafx.scene.input.MouseEvent mouseEvent) {
     }
 
     @FXML
@@ -135,6 +141,7 @@ public class MainController implements Initializable {
         Parent root = null;
         //get reference - stage
         stage = (Stage) holderPane.getScene().getWindow();
+        stage.close();
         try {
             //load up other FXML document
             root = FXMLLoader.load(getClass().getResource("/home/fxml/login.fxml"));
@@ -143,10 +150,8 @@ public class MainController implements Initializable {
 
         //create a new scene with root and set the stage
         Scene scene = new Scene(root);
+        stage = new Stage();
         stage.setScene(scene);
-        Rectangle2D primScreenBounds = Screen.getPrimary().getVisualBounds();
-        stage.setX((primScreenBounds.getWidth() - stage.getWidth()) / 2);
-        stage.setY((primScreenBounds.getHeight() - stage.getHeight()) / 2);
         stage.setResizable(false);
         stage.show();
     }
@@ -209,7 +214,7 @@ public class MainController implements Initializable {
 
         // Initialize the image (to fill parent)
         imgSlider.fitWidthProperty().bind(holderPane.widthProperty());
-        imgSlider.fitHeightProperty().bind(holderPane.heightProperty());
+        imgSlider.fitHeightProperty().bind(paneSlider.heightProperty());
 
         // Make auto change the slider in duration
         sliderAutoChangePictures();
@@ -217,7 +222,9 @@ public class MainController implements Initializable {
 
         try {
             settingsPane = FXMLLoader.load(getClass().getResource("/home/fxml/settings.fxml"));
-            manageAccountPane = FXMLLoader.load(getClass().getResource("/home/fxml/manageAccount.fxml"));
+            manageEmployePane = FXMLLoader.load(getClass().getResource("/home/fxml/manageEmployee.fxml"));
+            tracPane = FXMLLoader.load(getClass().getResource("/home/fxml/trac.fxml"));
+            calendarPane = FXMLLoader.load(getClass().getResource("/home/fxml/calendar.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -256,7 +263,7 @@ public class MainController implements Initializable {
         boxTrac.setStyle("-fx-border: 0");
         boxPoint.setStyle("-fx-border: 0");
         boxCalandar.setStyle("-fx-border: 0");
-        boxAccount.setStyle("-fx-border: 0");
+        boxEmploye.setStyle("-fx-border: 0");
         boxSettings.setStyle("-fx-border: 0");
         boxGuide.setStyle("-fx-border: 0");
         boxAbout.setStyle("-fx-border: 0");
@@ -280,7 +287,7 @@ public class MainController implements Initializable {
                 iconCalandar.setFill(Paint.valueOf("#2196f3"));
                 break;
             case 4:
-                boxAccount.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                boxEmploye.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
                 iconAccount.setFill(Paint.valueOf("#2196f3"));
                 break;
             case 5:

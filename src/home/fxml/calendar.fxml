@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXColorPicker?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import de.jensd.fx.glyphs.icons525.Icons525View?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1242.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.CalendarController">
+   <stylesheets>
+      <URL value="@../css/main.css" />
+      <URL value="@../css/trac.css" />
+   </stylesheets>
+   <children>
+      <VBox fx:id="holderPane" prefHeight="690.0" prefWidth="1186.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1156.0" spacing="20.0">
+               <children>
+                  <Label prefHeight="50.0" prefWidth="373.0" style="-fx-font-size: 23px;" styleClass="title-header" text="جدول الأوقات">
+                     <font>
+                        <Font name="Tahoma" size="34.0" />
+                     </font>
+                     <stylesheets>
+                        <URL value="@../css/trac.css" />
+                        <URL value="@../css/main.css" />
+                     </stylesheets>
+                  </Label>
+                  <Label fx:id="errorLabel" alignment="CENTER" prefHeight="43.0" prefWidth="290.0" style="-fx-text-fill: #F00; -fx-font-size: 26px;" />
+               </children>
+            </HBox>
+            <HBox prefHeight="599.0" prefWidth="1183.0" spacing="10.0" stylesheets="@../css/calendar.css">
+               <children>
+                  <JFXTabPane prefHeight="570.0" prefWidth="280.0">
+                     <tabs>
+                        <Tab styleClass="jfx-tab-pane" text="الأحداث">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" opacity="0.44" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <StackPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <VBox fx:id="calendarSelection" alignment="TOP_CENTER" spacing="20.0">
+                                             <StackPane.margin>
+                                                <Insets bottom="50.0" left="20.0" right="20.0" top="50.0" />
+                                             </StackPane.margin>
+                                             <padding>
+                                                <Insets bottom="20.0" top="20.0" />
+                                             </padding>
+                                             <children>
+                                                <JFXButton onAction="#newCalendarEvent" prefHeight="39.0" prefWidth="190.0" styleClass="btn-view" text="إضافة تقويم" />
+                                                <JFXButton layoutX="38.0" layoutY="30.0" onAction="#listCalendarsEvent" prefHeight="39.0" prefWidth="190.0" styleClass="btn-view" text="إدارة تقويم" />
+                                                <JFXButton layoutX="38.0" layoutY="89.0" prefHeight="39.0" prefWidth="212.0" styleClass="btn-view" text="تحويل التقويم إلى Excel" />
+                                             </children>
+                                          </VBox>
+                                          <VBox fx:id="selectedCalendarInfo" prefHeight="565.0" prefWidth="280.0" spacing="5.0" style="-fx-background-color: ecedf7;" visible="false">
+                                             <children>
+                                                <StackPane prefHeight="40.0" prefWidth="280.0">
+                                                   <children>
+                                                      <HBox>
+                                                         <children>
+                                                            <Label fx:id="calendarNameLbl" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="180.0" styleClass="title-chooser">
+                                                               <font>
+                                                                  <Font size="13.0" />
+                                                               </font>
+                                                               <HBox.margin>
+                                                                  <Insets left="20.0" right="37.0" />
+                                                               </HBox.margin>
+                                                            </Label>
+                                                            <JFXButton alignment="CENTER" buttonType="RAISED" onMouseClicked="#btnBackward" prefHeight="41.0" prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
+                                                               <padding>
+                                                                  <Insets left="10.0" />
+                                                               </padding>
+                                                               <graphic>
+                                                                  <Icons525View glyphName="CHEVRON" />
+                                                               </graphic>
+                                                            </JFXButton>
+                                                         </children>
+                                                      </HBox>
+                                                   </children>
+                                                </StackPane>
+                                                <StackPane prefHeight="40.0" prefWidth="280.0">
+                                                   <children>
+                                                      <Label fx:id="monthLabel" alignment="CENTER" prefHeight="39.0" styleClass="month-label" textAlignment="CENTER">
+                                                         <font>
+                                                            <Font size="21.0" />
+                                                         </font>
+                                                      </Label>
+                                                   </children>
+                                                </StackPane>
+                                                <JFXComboBox fx:id="selectedYear" focusColor="#333333" prefHeight="49.0" prefWidth="198.0" promptText="Year" visible="false">
+                                                   <VBox.margin>
+                                                      <Insets left="45.0" right="20.0" />
+                                                   </VBox.margin>
+                                                </JFXComboBox>
+                                                <JFXListView fx:id="monthSelect" prefHeight="445.0" prefWidth="260.0" styleClass="list-cell">
+                                                   <VBox.margin>
+                                                      <Insets left="10.0" right="10.0" top="10.0" />
+                                                   </VBox.margin>
+                                                </JFXListView>
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab styleClass="jfx-tab-pane" text="تعديل الألوان">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox layoutX="131.0" layoutY="83.0" prefHeight="565.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                          <Label alignment="CENTER" prefHeight="42.0" prefWidth="308.0" styleClass="field" text="إختيار الألوان" />
+                                          <VBox prefWidth="304.0">
+                                             <children>
+                                                <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="304.0" spacing="20.0">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                   <padding>
+                                                      <Insets left="30.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <Label prefWidth="70.0" styleClass="field-smaller" text="رحلة:">
+                                                         <HBox.margin>
+                                                            <Insets right="5.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <JFXColorPicker prefHeight="24.0" prefWidth="60.0">
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                         <HBox.margin>
+                                                            <Insets />
+                                                         </HBox.margin>
+                                                      </JFXColorPicker>
+                                                      <JFXCheckBox fx:id="excurtionCheckBox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" styleClass="field-smaller" text="واضح؟" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" prefHeight="43.0" prefWidth="304.0" spacing="20.0">
+                                                   <padding>
+                                                      <Insets left="30.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <Label prefWidth="70.0" styleClass="field-smaller" text="عرض:">
+                                                         <HBox.margin>
+                                                            <Insets right="5.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <JFXColorPicker prefHeight="24.0" prefWidth="60.0">
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                         <HBox.margin>
+                                                            <Insets />
+                                                         </HBox.margin>
+                                                      </JFXColorPicker>
+                                                      <JFXCheckBox fx:id="spectacleCheckBox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" styleClass="field-smaller" text="واضح؟" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" prefHeight="43.0" prefWidth="304.0" spacing="20.0">
+                                                   <padding>
+                                                      <Insets left="30.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <Label prefWidth="70.0" styleClass="field-smaller" text="ورشة:">
+                                                         <HBox.margin>
+                                                            <Insets right="5.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <JFXColorPicker prefHeight="24.0" prefWidth="60.0">
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                         <HBox.margin>
+                                                            <Insets />
+                                                         </HBox.margin>
+                                                      </JFXColorPicker>
+                                                      <JFXCheckBox fx:id="atelierCheckbox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" styleClass="field-smaller" text="واضح؟" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" prefHeight="43.0" prefWidth="304.0" spacing="20.0">
+                                                   <padding>
+                                                      <Insets left="30.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <Label prefWidth="70.0" styleClass="field-smaller" text="قيلولة:">
+                                                         <HBox.margin>
+                                                            <Insets right="5.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <JFXColorPicker prefHeight="24.0" prefWidth="60.0">
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                         <HBox.margin>
+                                                            <Insets />
+                                                         </HBox.margin>
+                                                      </JFXColorPicker>
+                                                      <JFXCheckBox fx:id="siesteCheckBox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" styleClass="field-smaller" text="واضح؟" />
+                                                   </children>
+                                                </HBox>
+                                                <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" prefHeight="43.0" prefWidth="304.0" spacing="20.0">
+                                                   <padding>
+                                                      <Insets left="30.0" />
+                                                   </padding>
+                                                   <children>
+                                                      <Label prefWidth="70.0" styleClass="field-smaller" text="ألعاب:">
+                                                         <HBox.margin>
+                                                            <Insets right="5.0" />
+                                                         </HBox.margin>
+                                                      </Label>
+                                                      <JFXColorPicker prefHeight="24.0" prefWidth="60.0">
+                                                         <opaqueInsets>
+                                                            <Insets />
+                                                         </opaqueInsets>
+                                                         <HBox.margin>
+                                                            <Insets />
+                                                         </HBox.margin>
+                                                      </JFXColorPicker>
+                                                      <JFXCheckBox fx:id="jeuxCheckBox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" styleClass="field-smaller" text="واضح؟" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                          <JFXCheckBox fx:id="selectAllCheckBox" alignment="CENTER" checkedColor="#2196f3" contentDisplay="CENTER" onAction="#selectAllCheckBoxes" prefHeight="31.0" prefWidth="320.0" styleClass="field-smaller" text="حدد / إلغاء تحديد الكل">
+                                             <VBox.margin>
+                                                <Insets bottom="20.0" top="20.0" />
+                                             </VBox.margin>
+                                          </JFXCheckBox>
+                                          <HBox alignment="CENTER" prefHeight="40.0" prefWidth="304.0">
+                                             <children>
+                                                <JFXButton buttonType="RAISED" onMouseClicked="#updateColors" prefHeight="39.0" prefWidth="180.0" text="حفظ التعديلات" />
+                                             </children>
+                                          </HBox>
+                                       </children></VBox>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab styleClass="jfx-tab-pane" text="الأدوات">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox layoutX="32.0" layoutY="115.0" prefHeight="565.0" prefWidth="280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                     </tabs>
+                  </JFXTabPane>
+                  <JFXTabPane prefHeight="570.0" prefWidth="875.0">
+                     <tabs>
+                        <Tab styleClass="jfx-tab-pane" text="التقويم">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox prefHeight="570.0" prefWidth="875.0">
+                                       <children>
+                                          <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER">
+                                             <content>
+                                                <VBox>
+                                                   <children>
+                                                      <HBox fx:id="weekdayHeader" prefHeight="80.0" prefWidth="881.0" />
+                                                      <GridPane fx:id="calendarGrid" prefHeight="478.0" prefWidth="870.0">
+                                                        <columnConstraints>
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                        </columnConstraints>
+                                                        <rowConstraints>
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                        </rowConstraints>
+                                                      </GridPane>
+                                                   </children>
+                                                </VBox>
+                                             </content>
+                                          </ScrollPane>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </AnchorPane>
+                          </content>
+                        </Tab>
+                        <Tab styleClass="jfx-tab-pane" text="جدول الأوقات">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          </content>
+                        </Tab>
+                     </tabs>
+                  </JFXTabPane>
+               </children>
+            </HBox>
+         </children>
+         <padding>
+            <Insets left="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </children>
+</AnchorPane>

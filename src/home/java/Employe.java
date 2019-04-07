@@ -228,7 +228,7 @@ public class Employe {
     }
 
 
-    public int isStatuSocial() {
+    public int getStatuSocial() {
         return this.statuSocial;
     }
 

@@ -22,10 +22,10 @@
   <component name="DBNavigator.Project.DatabaseBrowserManager">
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
-    <show-object-properties value="true" />
+    <show-object-properties value="false" />
     <loaded-nodes>
       <connection connection-id="9b18ad9e-0f70-4b85-8ddc-b79d08886eb7">
-        <schema name="creche_dar_elhadith" object-types="constraint, function, column, table, index, view, procedure, dataset trigger" />
+        <schema name="creche_dar_elhadith" object-types="index, column, table, view, constraint, dataset trigger, function, procedure" />
       </connection>
     </loaded-nodes>
   </component>
@@ -43,6 +43,9 @@
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
   </component>
+  <component name="DBNavigator.Project.FileConnectionMappingManager">
+    <mapping file-url="file://$PROJECT_DIR$/DataBase/C_DB.sql" connection-id="9b18ad9e-0f70-4b85-8ddc-b79d08886eb7" session-id="MAIN" current-schema="creche_dar_elhadith" />
+  </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
     <execution-history>
@@ -59,7 +62,9 @@
     <filters />
   </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
-    <recently-used-interfaces />
+    <recently-used-interfaces>
+      <mapping database-type="MYSQL" interface-id="DEFAULT" />
+    </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>

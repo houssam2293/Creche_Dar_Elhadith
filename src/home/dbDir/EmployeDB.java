@@ -65,14 +65,14 @@ public class EmployeDB {
             }
 
             st = connection.createStatement();
-            if (employe.isStatuSocial()==0) {
+            if (employe.estmarier()) {
                 sql.append(",`celibacyTitle`, `nombreEnfantM`, `nombreEnfantF`");
             }
 
             sql.append(")values ('");
             sql.append(employe.getId()).append("','");
-            sql.append(employe.getNom()).append("','");
             sql.append(employe.getPrenom()).append("','");
+            sql.append(employe.getNom()).append("','");
             sql.append(employe.getDateNaissance()).append("','");
             sql.append(employe.getLieuNaissance()).append("','");
             sql.append(employe.getAdresse()).append("','");
@@ -84,9 +84,9 @@ public class EmployeDB {
             sql.append(employe.getRenouvlement_de_contrat()).append("','");
             sql.append(employe.getDate_debut()).append("','");
             sql.append(employe.getFonction()).append("','");
-            sql.append(employe.isStatuSocial());
+            sql.append(employe.getStatuSocial());
 
-            if (employe.isStatuSocial()==0) {
+            if (employe.estmarier()) {
                 sql.append("','").append(employe.getCelibacyTitle()).append("','");
                 sql.append(employe.getMaleChild()).append("','");
                 sql.append(employe.getFemaleChild());
@@ -97,9 +97,10 @@ public class EmployeDB {
 
         } catch (SQLException e) {
             //e.printStackTrace();
+            //System.out.println("SQL request : "+sql);
             System.out.println("SQLException msg: " + e.getMessage());
             return 0;
-        }finally {
+        } finally {
             try {
                 if (st != null) {
                     st.close();
@@ -117,13 +118,76 @@ public class EmployeDB {
         return 1;
     }
 
+    public int editEmployee(Employe employe) {
+        StringBuilder sql = new StringBuilder("UPDATE `employe` SET ");
+        Connection con = null;
+        Statement st = null;
+
+        try {
+            con = new ConnectionClasse().getConnection();
+
+            if (con == null) {
+                return -1;
+            }
+
+            if (employerExist(employe.getId())) {
+
+
+                st = con.createStatement();
+
+                sql.append("`id`='").append(employe.getId());
+                sql.append("', `nom`='").append(employe.getPrenom());
+                sql.append("', `prenom`='").append(employe.getNom());
+                sql.append("', `dateNaissance`='").append(employe.getDateNaissance().toString());
+                sql.append("', `adresse`='").append(employe.getAdresse());
+                sql.append("', `numTelephone`='").append(employe.getNumTelephone());
+                sql.append("', `socialSecurityNumber`='").append(employe.getSocialSecurityNumber());
+                sql.append("', `diplome`='").append(employe.getDiplome());
+                sql.append("', `experience`='").append(employe.getExperience());
+                sql.append("', `itar`='").append(employe.getItar());
+                sql.append("', `renouvlementDeContrat`='").append(employe.getRenouvlement_de_contrat());
+                sql.append("', `dateDebut`='").append(employe.getDate_debut());
+                sql.append("', `fonction`='").append(employe.getFonction());
+                sql.append("', `marier`='").append(employe.getStatuSocial());
+
+                if (employe.estmarier()) {
+                    sql.append("', `celibacyTitle`='").append(employe.getCelibacyTitle());
+                    sql.append("', `nombreEnfantM`='").append(employe.getMaleChild());
+                    sql.append("', `nombreEnfantF`='").append(employe.getFemaleChild());
+                }
+
+                sql.append("' WHERE `id`=").append(employe.getId()).append(";");
+
+                int status = st.executeUpdate(sql.toString());
+                System.out.println("Status : " + status);
+            }else return 2;
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception code: " + ex.getErrorCode());
+            System.out.println("SQLException msg: " + ex.getMessage());
+            //ex.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (st != null) {
+                    st.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return 1;
+    }
+
     public int deleteEmployee(int id) {
         Connection con = new ConnectionClasse().getConnection();
         if (con == null) // if connection failed
         {
             return -1;
         }
-        Statement st = null;
+        Statement st;
 
         try {
             st = con.createStatement();

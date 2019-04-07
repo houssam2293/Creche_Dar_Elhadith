@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="root" alignment="TOP_LEFT" prefHeight="690.0" prefWidth="1192.0" style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ManageAccountController">
+<StackPane fx:id="root" alignment="TOP_LEFT" prefHeight="690.0" prefWidth="1192.0" style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ManageEmployeeController">
     <children>
         <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="750.0" prefWidth="1313.0" spacing="10.0">
             <children>
@@ -68,7 +68,7 @@
                 <JFXTreeTableView fx:id="treeTableView" fixedCellSize="0.0" prefHeight="496.0" prefWidth="1292.0" />
             </children>
             <stylesheets>
-                <URL value="@../css/manageAccount.css" />
+                <URL value="@../css/manageEmployee.css" />
                 <URL value="@../css/main.css" />
             </stylesheets>
             <StackPane.margin>
@@ -78,6 +78,6 @@
     </children>
     <stylesheets>
         <URL value="@../css/main.css" />
-        <URL value="@../css/manageAccount.css" />
+        <URL value="@../css/manageEmployee.css" />
     </stylesheets>
 </StackPane>

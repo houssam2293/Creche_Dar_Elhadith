@@ -9,7 +9,7 @@ public class ConnectionClasse {
     private final static String HOST_NAME = "127.0.0.1";
     private final static String DB_NAME = "creche_dar_elhadith";
     private final static String USERNAME = "root";
-    private final static String PASSWORD = "";
+    private final static String PASSWORD = "mohamed221993";
     private final static String PORT = "3306";
     private final static String timeZone = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private Connection connection = null;
