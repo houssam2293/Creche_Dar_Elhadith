@@ -1,6 +1,5 @@
 package home.java;
 
-import java.sql.Time;
 import java.time.LocalTime;
 
 public class Model {
@@ -42,29 +41,29 @@ public class Model {
         switch (month)
         {
 
-            case "January":
+            case "janvier":
                 return 0;
-            case "February":
+            case "février":
                 return 1;
-            case "March":
+            case "mars":
                 return 2;
-            case "April":
+            case "avril":
                 return 3;
-            case "May":
+            case "mai":
                 return 4;
-            case "June":
+            case "juin":
                 return 5;
-            case "July":
+            case "juillet":
                 return 6;
-            case "August":
+            case "août":
                 return 7;
-            case "September":
+            case "septembre":
                 return 8;
-            case "October":
+            case "octobre":
                 return 9;
-            case "November":
+            case "novembre":
                 return 10;
-            case "December":
+            case "décembre":
                 return 11;
         }
         return 0;

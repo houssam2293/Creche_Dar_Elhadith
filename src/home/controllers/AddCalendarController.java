@@ -114,7 +114,7 @@ public class AddCalendarController implements Initializable {
                 {
                     Alert alertMessage = new Alert(Alert.AlertType.ERROR);
                     alertMessage.setHeaderText(null);
-                    alertMessage.setContentText("الرجاء استخدام اسم مختلف للتقويم\n!فشل إنشاءالتقويم");
+                    alertMessage.setContentText("الرجاء استخدام اسم مختلف للتقويم\n فشل إنشاءالتقويم!");
                     alertMessage.showAndWait();
                 }
 

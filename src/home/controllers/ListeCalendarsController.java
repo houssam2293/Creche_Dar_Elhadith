@@ -206,8 +206,7 @@ public class ListeCalendarsController implements Initializable {
             //mainController.enableButtons();
 
             // Close the window after opening and loading the selected calendar
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-            stage.close();
+            ((Stage) rootPane.getScene().getWindow()).close();
         }
         else
         {

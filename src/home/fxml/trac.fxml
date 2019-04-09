@@ -23,7 +23,7 @@
 
 <StackPane fx:id="root" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1186.0" style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.TracController">
    <children>
-      <AnchorPane fx:id="choosePane" prefHeight="690.0" prefWidth="1186.0" visible="false">
+      <AnchorPane fx:id="choosePane" prefHeight="690.0" prefWidth="1186.0">
          <children>
             <Label alignment="CENTER" layoutX="502.0" layoutY="21.0" prefHeight="51.0" prefWidth="209.0" text="الإحصائيات">
                <font>
@@ -66,7 +66,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <VBox fx:id="studentPane" prefHeight="690.0" prefWidth="1150.0" spacing="10.0">
+      <VBox fx:id="studentPane" prefHeight="690.0" prefWidth="1150.0" spacing="10.0" visible="false">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1156.0" spacing="20.0">
                <children>

@@ -1,5 +1,6 @@
 package home.controllers;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import home.dbDir.CalendarDB;
@@ -23,7 +24,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import javax.print.DocFlavor;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -58,7 +58,11 @@ public class CalendarController implements Initializable {
     private Label monthLabel;
 
     @FXML
-    private CheckBox excurtionCheckBox,spectacleCheckBox,atelierCheckbox,siesteCheckBox,jeuxCheckBox, selectAllCheckBox;
+    private CheckBox excurtionCheckBox, spectacleCheckBox, atelierCheckbox, siesteCheckBox, jeuxCheckBox, selectAllCheckBox;
+
+    @FXML
+    private JFXButton loadCalendar;
+
 
     @FXML
     private JFXComboBox<String> selectedYear;
@@ -73,7 +77,8 @@ public class CalendarController implements Initializable {
     private ScrollPane scrollPane;
 
     public static boolean workingOnCalendar = false;
-    public static boolean checkBoxesHaveBeenClicked = false;
+    private static boolean checkBoxesHaveBeenClicked = false;
+    private static boolean calendarLoaded = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -84,12 +89,19 @@ public class CalendarController implements Initializable {
 
     }
 
+    @FXML
+    void handleCalendarLoaded() {
+        calendarSelection.setVisible(false);
+        selectedCalendarInfo.setVisible(true);
+
+    }
+
     private void addEvent(VBox day) {
 
         // Purpose - Add event to a day
 
         // Do not add events to days without labels
-        if(!day.getChildren().isEmpty()) {
+        if (!day.getChildren().isEmpty()) {
 
             // Get the day number
             Label lbl = (Label) day.getChildren().get(0);
@@ -126,7 +138,7 @@ public class CalendarController implements Initializable {
     private void editEvent(VBox day, String descript, String typeevent) {
 
         // Store event fields in data singleton
-        Label dayLbl = (Label)day.getChildren().get(0);
+        Label dayLbl = (Label) day.getChildren().get(0);
         Model.getInstance().event_day = Integer.parseInt(dayLbl.getText());
         Model.getInstance().event_month = Model.getInstance().getMonthIndex(monthSelect.getSelectionModel().getSelectedItem());
         Model.getInstance().event_year = Integer.parseInt(selectedYear.getValue());
@@ -215,6 +227,7 @@ public class CalendarController implements Initializable {
 
     private void initializeCalendarGrid() {
 
+
         // Go through each calendar grid location, or each "day" (7x6)
         int rows = 6;
         int cols = 7;
@@ -257,6 +270,16 @@ public class CalendarController implements Initializable {
         // Update the VIEWING YEAR
         Model.getInstance().viewing_year = Integer.parseInt(selectedYear.getSelectionModel().getSelectedItem());
 
+        System.out.println("---------------------------------------------------------");
+        System.out.println("calendarGenerate from CaldendarController");
+        System.out.println("Initialized Model for calendar instance :");
+        System.out.println("Model.calendarName : " + Model.getInstance().calendar_name);
+        System.out.println("Model.calendarStartDay : " + Model.getInstance().calendar_start_date);
+        System.out.println("Model.calendarViewingMonth : " + Model.getInstance().viewing_month);
+        System.out.println("Model.calendarViewingYear : " + Model.getInstance().viewing_year);
+        System.out.println("---------------------------------------------------------");
+
+
         // Enable year selection box
         selectedYear.setVisible(true);
 
@@ -280,6 +303,10 @@ public class CalendarController implements Initializable {
         Model.getInstance().viewing_month =
                 Model.getInstance().getMonthIndex(monthSelect.getSelectionModel().getSelectedItem());
 
+        calendarLoaded = true;
+        loadCalendar.setDisable(false);
+        handleCalendarLoaded();
+
         // Update view
         repaintView();
     }
@@ -289,17 +316,17 @@ public class CalendarController implements Initializable {
         // 1. Correct calendar labels based on Gregorian Calendar
         // 2. Display events known to database
 
+
         loadCalendarLabels();
         if (!checkBoxesHaveBeenClicked) {
             //populateMonthWithEvents();
         } else {
-            ActionEvent actionEvent = new ActionEvent();
-            //handleCheckBoxAction(actionEvent);
+            //handleCheckBoxAction();
         }
-        populateMonthWithEvents();
+        //populateMonthWithEvents();
     }
 
-    private void populateMonthWithEvents(){
+    private void populateMonthWithEvents() {
 
         // Get viewing calendar
         String calendarName = Model.getInstance().calendar_name;
@@ -309,13 +336,17 @@ public class CalendarController implements Initializable {
         int currentYear = Integer.parseInt(selectedYear.getValue());
 
         // Query to get ALL Events from the selected calendar!!
-        String getMonthEventsQuery = "SELECT * From events WHERE CalendarName='" + calendarName + "'";
-
+        String getMonthEventsQuery = "SELECT * From events WHERE CalendarName='" + calendarName + "';";
+        System.out.println("---------------------------------------------------------");
+        System.out.println("populateMonthWithEvents CalendarName-----> " + calendarName);
+        System.out.println("populateMonthWithEvents getMonthEventsQuery---------> " + getMonthEventsQuery);
+        System.out.println("---------------------------------------------------------");
         // Store the results here
         ResultSet result = calendarDB.executeQuery(getMonthEventsQuery);
 
         try {
-            while(result.next()){
+
+            while (result.next()) {
 
                 // Get date for the event
                 Date eventDate = result.getDate("EventDate");
@@ -325,9 +356,9 @@ public class CalendarController implements Initializable {
 
 
                 // Check for year we have selected
-                if (currentYear == eventDate.toLocalDate().getYear()){
+                if (currentYear == eventDate.toLocalDate().getYear()) {
                     // Check for the month we already have selected (we are viewing)
-                    if (currentMonthIndex == eventDate.toLocalDate().getMonthValue()){
+                    if (currentMonthIndex == eventDate.toLocalDate().getMonthValue()) {
 
                         // Get day for the month
                         int day = eventDate.toLocalDate().getDayOfMonth();
@@ -339,16 +370,17 @@ public class CalendarController implements Initializable {
             }
         } catch (SQLException ex) {
             Logger.getLogger(AddEventController.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("SQL ERROR MESSAGE : " + ex.getMessage());
         }
     }
 
-    public void showDate(int dayNumber, String descript, String typeEvent, Time eventTime){
+    public void showDate(int dayNumber, String descript, String typeEvent, Time eventTime) {
 
         Image img = new Image(Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream("/home/icons/icon2.png")));
         ImageView imgView = new ImageView();
         imgView.setImage(img);
 
-        for (Node node: calendarGrid.getChildren()) {
+        for (Node node : calendarGrid.getChildren()) {
 
             // Get the current day
             VBox day = (VBox) node;
@@ -371,10 +403,10 @@ public class CalendarController implements Initializable {
                     eventLbl.getStyleClass().add("event-label");
 
                     // Save the term ID in accessible text
-                    eventLbl.setAccessibleText(typeEvent + "--" +eventTime.toString());
+                    eventLbl.setAccessibleText(typeEvent + "--" + eventTime.toString());
                     System.out.println(eventLbl.getAccessibleText());
 
-                    eventLbl.addEventHandler(MouseEvent.MOUSE_PRESSED, (e)-> editEvent((VBox)eventLbl.getParent(), eventLbl.getText(), eventLbl.getAccessibleText()));
+                    eventLbl.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> editEvent((VBox) eventLbl.getParent(), eventLbl.getText(), eventLbl.getAccessibleText()));
 
                     // Get term color from term's table
                     String eventRGB = calendarDB.getEventColor(typeEvent);
@@ -387,18 +419,16 @@ public class CalendarController implements Initializable {
 
                     System.out.println("Color; " + red + green + blue);
 
-                    eventLbl.setStyle("-fx-background-color: rgb(" + red+
+                    eventLbl.setStyle("-fx-background-color: rgb(" + red +
                             ", " + green + ", " + blue + ", " + 1 + ");");
 
                     // Stretch to fill box
                     eventLbl.setMaxWidth(Double.MAX_VALUE);
 
                     // Mouse effects
-                    eventLbl.addEventHandler(MouseEvent.MOUSE_ENTERED, (e)-> eventLbl.getScene().setCursor(Cursor.HAND));
+                    eventLbl.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> eventLbl.getScene().setCursor(Cursor.HAND));
 
-                    eventLbl.addEventHandler(MouseEvent.MOUSE_EXITED, (e)->{
-                        eventLbl.getScene().setCursor(Cursor.DEFAULT);
-                    });
+                    eventLbl.addEventHandler(MouseEvent.MOUSE_EXITED, (e) -> eventLbl.getScene().setCursor(Cursor.DEFAULT));
 
                     // Add label to calendar
                     day.getChildren().add(eventLbl);
@@ -501,8 +531,11 @@ public class CalendarController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(CalendarController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        calendarSelection.setVisible(false);
-        selectedCalendarInfo.setVisible(true);
+        if (calendarLoaded) {
+            calendarSelection.setVisible(false);
+            selectedCalendarInfo.setVisible(true);
+        }
+
     }
 
     @FXML
@@ -528,14 +561,17 @@ public class CalendarController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(CalendarController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        calendarSelection.setVisible(false);
-        selectedCalendarInfo.setVisible(true);
+
+        if (calendarLoaded) {
+            calendarSelection.setVisible(false);
+            selectedCalendarInfo.setVisible(true);
+        }
+
     }
 
     @FXML
-    void handleCheckBoxAction(ActionEvent event) {
-        if (!checkBoxesHaveBeenClicked)
-        {
+    void handleCheckBoxAction() {
+        if (!checkBoxesHaveBeenClicked) {
             checkBoxesHaveBeenClicked = true;
 
         }
@@ -545,11 +581,9 @@ public class CalendarController implements Initializable {
         if (excurtionCheckBox.isSelected()) {
             eventToFilter.add("excurtion");
         }
-        if (!excurtionCheckBox.isSelected())
-        {
+        if (!excurtionCheckBox.isSelected()) {
             int auxIndex = eventToFilter.indexOf("excurtion");
-            if (auxIndex != -1)
-            {
+            if (auxIndex != -1) {
                 eventToFilter.remove(auxIndex);
             }
         }
@@ -557,11 +591,9 @@ public class CalendarController implements Initializable {
         if (spectacleCheckBox.isSelected()) {
             eventToFilter.add("spectacle");
         }
-        if (!spectacleCheckBox.isSelected())
-        {
+        if (!spectacleCheckBox.isSelected()) {
             int auxIndex = eventToFilter.indexOf("spectacle");
-            if (auxIndex != -1)
-            {
+            if (auxIndex != -1) {
                 eventToFilter.remove(auxIndex);
             }
         }
@@ -569,11 +601,9 @@ public class CalendarController implements Initializable {
         if (atelierCheckbox.isSelected()) {
             eventToFilter.add("atelier");
         }
-        if (!atelierCheckbox.isSelected())
-        {
+        if (!atelierCheckbox.isSelected()) {
             int auxIndex = eventToFilter.indexOf("atelier");
-            if (auxIndex != -1)
-            {
+            if (auxIndex != -1) {
                 eventToFilter.remove(auxIndex);
             }
         }
@@ -581,11 +611,9 @@ public class CalendarController implements Initializable {
         if (siesteCheckBox.isSelected()) {
             eventToFilter.add("sieste");
         }
-        if (!siesteCheckBox.isSelected())
-        {
+        if (!siesteCheckBox.isSelected()) {
             int auxIndex = eventToFilter.indexOf("sieste");
-            if (auxIndex != -1)
-            {
+            if (auxIndex != -1) {
                 eventToFilter.remove(auxIndex);
             }
         }
@@ -593,11 +621,9 @@ public class CalendarController implements Initializable {
         if (jeuxCheckBox.isSelected()) {
             eventToFilter.add("jeux");
         }
-        if (!jeuxCheckBox.isSelected())
-        {
+        if (!jeuxCheckBox.isSelected()) {
             int auxIndex = eventToFilter.indexOf("jeux");
-            if (auxIndex != -1)
-            {
+            if (auxIndex != -1) {
                 eventToFilter.remove(auxIndex);
             }
         }
@@ -606,14 +632,11 @@ public class CalendarController implements Initializable {
 
         System.out.println("and calendarName is: " + calName);
 
-        if (eventToFilter.isEmpty())
-        {
+        if (eventToFilter.isEmpty()) {
             System.out.println("terms are not selected. No events have to appear on calendar. Just call loadCalendarLabels method in the RepaintView method");
             selectAllCheckBox.setSelected(false);
             loadCalendarLabels();
-        }
-        else
-        {
+        } else {
             System.out.println("Call the appropiate function to populate the month with the filtered events");
             //Get List of Filtered Events and store all events in an ArrayList variable
             ArrayList<String> filteredEventsList = calendarDB.getFilteredEvents(eventToFilter, calName);
@@ -631,7 +654,6 @@ public class CalendarController implements Initializable {
         System.out.println("I am in the show filtered events in month function");
         System.out.println("The list of filted events is: " + filteredEventsList);
         System.out.println("****------******-------******--------");
-
 
 
         String calendarName = Model.getInstance().calendar_name;
@@ -654,8 +676,7 @@ public class CalendarController implements Initializable {
         System.out.println("Now, the filtered events/labels will be shown/put on the calendar");
         System.out.println("****------******-------******--------");
 
-        for (int i=0; i < filteredEventsList.size(); i++)
-        {
+        for (int i = 0; i < filteredEventsList.size(); i++) {
             String[] eventInfo = filteredEventsList.get(i).split("~");
             String eventDescript = eventInfo[0];
             String eventDate = eventInfo[1];
@@ -676,14 +697,12 @@ public class CalendarController implements Initializable {
 
             System.out.println("****------******-------******--------");
             System.out.println("Now I will check if currentYear equals eventYear. Result is:");
-            if (currentYear == eventYear)
-            {
+            if (currentYear == eventYear) {
                 System.out.println("Yes, both year match.");
                 System.out.println("Now I will check if the month index equals the event's month. REsult is");
-                if (currentMonthIndex == eventMonth)
-                {
+                if (currentMonthIndex == eventMonth) {
                     System.out.println("Yes they are the same. Now I will call showDate function");
-                    showDate(eventDay, eventDescript,eventType,Time.valueOf(eventTime));
+                    showDate(eventDay, eventDescript, eventType, Time.valueOf(eventTime));
                 }
             }
         }
@@ -691,6 +710,32 @@ public class CalendarController implements Initializable {
 
     @FXML
     void selectAllCheckBoxes(ActionEvent event) {
+        if (selectAllCheckBox.isSelected())
+        {
+            selectCheckBoxes();
+        }
+        else
+        {
+            unSelectCheckBoxes();
+        }
+        //handleCheckBoxAction();
+
+    }
+
+    private void unSelectCheckBoxes() {
+        excurtionCheckBox.setSelected(false);
+        spectacleCheckBox.setSelected(false);
+        atelierCheckbox.setSelected(false);
+        siesteCheckBox.setSelected(false);
+        jeuxCheckBox.setSelected(false);
+    }
+
+    private void selectCheckBoxes() {
+        excurtionCheckBox.setSelected(true);
+        spectacleCheckBox.setSelected(true);
+        atelierCheckbox.setSelected(true);
+        siesteCheckBox.setSelected(true);
+        jeuxCheckBox.setSelected(true);
 
     }
 

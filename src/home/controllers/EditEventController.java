@@ -99,13 +99,13 @@ public class EditEventController implements Initializable {
         }
 
         //Query that will delete the selected event
-        String deleteEventQuery = "DELETE FROM event "
+        String deleteEventQuery = "DELETE FROM events "
                 + "WHERE "
-                + "event.EventDescription='" + descript + "' AND "
-                + "event.EventDate='" + auxDate + "' AND "
-                + "event.EventTime=" + eventtime + " AND "
-                + "event.TypeEvent=" + eventtype + " AND "
-                + "event.CalendarName='" + calName + "' ";
+                + "events.EventDescription='" + descript + "' AND "
+                + "events.EventDate='" + auxDate + "' AND "
+                + "events.EventTime=" + eventtime + " AND "
+                + "events.TypeEvent=" + eventtype + " AND "
+                + "events.CalendarName='" + calName + "' ";
 
         //Execute query that deletes the selected event
         boolean eventWasDeleted = calendarDB.executeAction(deleteEventQuery);
@@ -190,18 +190,18 @@ public class EditEventController implements Initializable {
 
 
         //Query to will update the selected event with the new information
-        String updateEventQuery = "UPDATE event"
+        String updateEventQuery = "UPDATE events"
                 + " SET "
                 + "EventDescription='" + newEventDescription + "', "
                 + "EventDate='" + newCalendarDate + "', "
                 + "EventTime=" + newEventTime + "', "
                 + "TypeEvent=" + newEventType
                 + " WHERE "
-                + "event.EventDescription='" + descript + "' AND "
-                + "event.EventDate='" + auxDate + "' AND "
-                + "event.EventTime=" + eventtime + " AND "
-                + "event.TypeEvent=" + eventtype + " AND "
-                + "event.CalendarName='" + calName + "' ";
+                + "events.EventDescription='" + descript + "' AND "
+                + "events.EventDate='" + auxDate + "' AND "
+                + "events.EventTime=" + eventtime + " AND "
+                + "events.TypeEvent=" + eventtype + " AND "
+                + "events.CalendarName='" + calName + "' ";
 
 
         //Execute query in otder to update the info for the selected event

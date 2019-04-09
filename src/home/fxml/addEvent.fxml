@@ -34,8 +34,8 @@
       <VBox prefHeight="170.0" prefWidth="320.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="57.0">
          <children>
             <JFXTextField fx:id="eventDescription" focusColor="#2196f3" labelFloat="true" promptText="إسم الحدث" styleClass="field" />
-            <JFXDatePicker fx:id="eventDate" defaultColor="#2196f3" promptText="تاريخ الحدث" styleClass="field" />
-            <JFXTimePicker fx:id="eventTime" defaultColor="#2196f3" promptText="على الساعة" styleClass="field" />
+            <JFXDatePicker fx:id="eventDate" defaultColor="#2196f3" nodeOrientation="LEFT_TO_RIGHT" promptText="تاريخ الحدث" styleClass="field" />
+            <JFXTimePicker fx:id="eventTime" defaultColor="#2196f3" nodeOrientation="LEFT_TO_RIGHT" promptText="على الساعة" styleClass="field" />
             <JFXComboBox fx:id="eventType" focusColor="#2196f3" promptText="نوع الحدث" styleClass="field" />
          </children>
          <padding>

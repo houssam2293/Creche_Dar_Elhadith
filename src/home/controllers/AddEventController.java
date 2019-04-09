@@ -104,14 +104,13 @@ public class AddEventController implements Initializable {
         LocalTime eventTimeValue = eventTime.getValue();
 
 
-        String insertQuery = "INSERT INTO event VALUES ("
+        String insertQuery = "INSERT INTO events (`EventDescription`, `EventDate`, `CalendarName`, `EventTime`, `TypeEvent`) VALUES ("
                 + "'" + eventSubject + "', "
                 + "'" + calendarDate + "', "
-                + "'" + calendarName + ", "
-                + "'" + eventTimeValue + "'"
+                + "'" + calendarName + "', "
+                + "'" + eventTimeValue.toString() + "',"
                 + "'" + eventTypeValue + "'"
                 + ")";
-
 
         //Check if insertion into database was successful, and show message either if it was or not
         if (calendarDB.executeAction(insertQuery)) {
@@ -149,7 +148,7 @@ public class AddEventController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         autofillDatePicker();
-
+        calendarDB = new CalendarDB();
 
         eventType.getItems().addAll("رحلة", "عرض", "ورشة", "قيلولة", "ألعاب");
 

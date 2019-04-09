@@ -61,6 +61,7 @@
                                                 <Insets bottom="20.0" top="20.0" />
                                              </padding>
                                              <children>
+                                                <JFXButton fx:id="loadCalendar" disable="true" layoutX="35.0" layoutY="30.0" onAction="#handleCalendarLoaded" prefHeight="39.0" prefWidth="190.0" styleClass="btn-view" text="عرض التقويم الحالي" />
                                                 <JFXButton onAction="#newCalendarEvent" prefHeight="39.0" prefWidth="190.0" styleClass="btn-view" text="إضافة تقويم" />
                                                 <JFXButton layoutX="38.0" layoutY="30.0" onAction="#listCalendarsEvent" prefHeight="39.0" prefWidth="190.0" styleClass="btn-view" text="إدارة تقويم" />
                                                 <JFXButton layoutX="38.0" layoutY="89.0" prefHeight="39.0" prefWidth="212.0" styleClass="btn-view" text="تحويل التقويم إلى Excel" />

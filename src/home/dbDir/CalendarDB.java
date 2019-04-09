@@ -42,7 +42,7 @@ public class CalendarDB {
             return true;
         }
         catch (SQLException ex) {
-            System.out.println("Exception at executeQuery:dataHandler  --> ERROR: " + ex.getLocalizedMessage());
+            System.out.println("quere error message  --> ERROR: " + ex.getMessage());
             return false;
         }
         finally {
@@ -74,16 +74,16 @@ public class CalendarDB {
     public ArrayList<String> getFilteredEvents(ArrayList<String> auxTermIdentifiersList, String calName) {
 
         //Declare and instantiate ArrayList object that will hold all events for the requested term(s)
-        ArrayList<String> filteredEventsList = new ArrayList();
+        ArrayList<String> filteredEventsList = new ArrayList<String>();
 
 
         //Continue to get the events if the list of term IDs is not empty, i.e., if the user selected at least one filter/term
         if (!auxTermIdentifiersList.isEmpty()) {
             for (int i = 0; i < auxTermIdentifiersList.size(); i++) {
                 //Query that will select all events that match the term ID and the calendar the user is working on
-                String getEventsQuery = "SELECT * FROM event "
-                        + "WHERE event.EventDescription=" + auxTermIdentifiersList.get(i)
-                        + " AND event.CalendarName='" + calName + "'";
+                String getEventsQuery = "SELECT * FROM events "
+                        + "WHERE events.EventDescription=" + auxTermIdentifiersList.get(i)
+                        + " AND events.CalendarName='" + calName + "'";
 
                 //Variable that will hold the result of executing the previous query
                 ResultSet rs = executeQuery(getEventsQuery);
@@ -125,7 +125,7 @@ public class CalendarDB {
         {
             while(res.next())
             {
-                termColor = res.getString("TermColor");
+                termColor = res.getString("color");
             }
         }
         catch (SQLException e)
