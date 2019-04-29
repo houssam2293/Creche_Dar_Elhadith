@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
 <?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
 <?import java.lang.String?>
 <?import java.net.URL?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="250.0" prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.AddCalendarController">
    <children>
       <HBox layoutX="66.0" layoutY="6.0" prefHeight="35.0" prefWidth="340.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -47,12 +42,12 @@
       <VBox layoutX="9.0" layoutY="60.0" prefHeight="131.0" prefWidth="320.0" spacing="20.0">
          <children>
             <JFXTextField fx:id="calendarName" focusColor="#03a9f4" labelFloat="true" promptText="إسم التقويم" styleClass="field" />
-            <JFXDatePicker fx:id="date" defaultColor="#03a9f4" promptText="تاريخ بداية التقويم" styleClass="field" />
+            <JFXDatePicker fx:id="date" defaultColor="#725b53" promptText="تاريخ بداية التقويم" styleClass="field" />
          </children>
       </VBox>
    </children>
    <stylesheets>
+      <URL value="@../css/addCalendar.css" />
       <URL value="@../css/main.css" />
-      <URL value="@../css/firstload.css" />
    </stylesheets>
 </AnchorPane>

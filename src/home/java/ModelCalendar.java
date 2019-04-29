@@ -2,10 +2,10 @@ package home.java;
 
 import java.time.LocalTime;
 
-public class Model {
-    private final static Model instance = new Model();
+public class ModelCalendar {
+    private final static ModelCalendar instance = new ModelCalendar();
 
-    public static Model getInstance() {
+    public static ModelCalendar getInstance() {
         return instance;
     }
 

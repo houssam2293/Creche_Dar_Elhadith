@@ -12,6 +12,28 @@
     -fx-background-insets: 2px;
 }
 
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #d3b8ae;
+}
+
+JFXButton {
+    -fx-font-weight: bold;
+    -fx-background-color: #725b53;
+    -fx-text-fill: white;
+    -fx-cursor: hand
+}
+JFXButton:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #725b53;
+    -fx-border-color: #725b53;
+}
+JFXButton:pressed {
+    -fx-background-radius: 22;
+    -fx-font-weight: bold;
+    -fx-background-color: white;
+    -fx-rotate: 10
+}
+
 .month-label {
     -fx-font: bold 25px "System";
     -fx-text-fill: #555;
@@ -24,7 +46,7 @@
 .weekday-header {
     -fx-font: bold 17px "System";
     -fx-font-style: normal;
-    -fx-background-color:  #2196F3;
+    -fx-background-color:  #725b53;
     -fx-border-style: solid;
     -fx-border-insets: 1;
     -fx-border-width: .2;
@@ -36,7 +58,7 @@
 }
 
 .calendar_pane {
-    -fx-background-color:  #00BF9E;
+    -fx-background-color:  #a1887f;
     -fx-border-style: dashed;
     -fx-border-width: .5;
     -fx-border-color: #5C5C5C;

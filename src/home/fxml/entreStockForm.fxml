@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.EntreStockFormController">
+   <children>
+      <ScrollPane hbarPolicy="NEVER" stylesheets="@../css/scrollPane.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <content>
+            <VBox fx:id="root" prefHeight="641.0" prefWidth="461.0" spacing="35.0">
+               <children>
+                  <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" text="ادخال منتوج">
+                           <styleClass>
+                              <String fx:value="title-header" />
+                              <String fx:value="titleUserLabel" />
+                           </styleClass>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                     <padding>
+                        <Insets bottom="20.0" />
+                     </padding>
+                  </HBox>
+                  <JFXTextField fx:id="idField" labelFloat="true" prefHeight="39.0" prefWidth="290.0" promptText="رقم السلعة" styleClass="field">
+                     <VBox.margin>
+                        <Insets top="-40.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="nomField" labelFloat="true" layoutX="50.0" layoutY="395.0" prefHeight="25.0" prefWidth="523.0" promptText="نوع السلعة" styleClass="field" />
+                  <JFXDatePicker fx:id="dateFabField" defaultColor="#2196f3" prefHeight="30.0" prefWidth="220.0" promptText="تاريخ الانتاج" styleClass="field" />
+                  <JFXDatePicker fx:id="dateExpField" defaultColor="#2196f3" layoutX="50.0" layoutY="135.0" prefHeight="30.0" prefWidth="220.0" promptText="تاريخ انتهاء الصلاحية" styleClass="field" />
+                  <JFXTextField fx:id="quantiteField" labelFloat="true" prefHeight="25.0" prefWidth="523.0" promptText="الكمية" styleClass="field">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <JFXTextField fx:id="prixField" labelFloat="true" layoutX="50.0" layoutY="311.0" prefHeight="25.0" prefWidth="523.0" promptText="سعر الوحدة" styleClass="field" />
+                  <HBox alignment="CENTER" prefHeight="215.0" prefWidth="386.0" spacing="30.0">
+                     <children>
+                        <JFXButton onAction="#add" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="إضافة" />
+                        <JFXButton onAction="#delete" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="مسح" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="40.0" right="35.0" top="20.0" />
+               </padding>
+               <stylesheets>
+                  <URL value="@../css/main.css" />
+                  <URL value="@../css/manageEmployee.css" />
+               </stylesheets>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <EmojiOneView glyphName="X" layoutX="434.0" layoutY="30.0" onMouseClicked="#close" size="20" styleClass="icon-close" wrappingWidth="14.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="12.0" />
+   </children>
+   <stylesheets>
+      <URL value="@../css/main.css" />
+      <URL value="@../css/manageEmployee.css" />
+   </stylesheets>
+</AnchorPane>

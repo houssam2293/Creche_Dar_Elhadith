@@ -3,24 +3,18 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.octicons.OctIconView?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
+<?import java.net.URL?>
 <AnchorPane fx:id="rootPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="360.0" prefWidth="459.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ListeCalendarsController">
    <children>
       <VBox prefHeight="409.0" prefWidth="459.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox prefHeight="35.0" prefWidth="340.0">
                <stylesheets>
-                  <URL value="@../css/main.css" />
-                  <URL value="@../css/firstload.css" />
+                  <URL value="@../css/addCalendar.css" />
                </stylesheets>
                <children>
                   <JFXButton onAction="#btnClose" styleClass="button-abort" text=" ">
@@ -58,12 +52,12 @@
             </TableView>
             <HBox alignment="CENTER" prefHeight="42.0" prefWidth="459.0">
                <children>
-                  <JFXButton onMouseClicked="#openCalendar" prefHeight="40.0" prefWidth="190.0" stylesheets="@../css/firstload.css" text="افتح التقويم المحدد">
+                  <JFXButton onMouseClicked="#openCalendar" prefHeight="40.0" prefWidth="190.0" stylesheets="@../css/addCalendar.css" text="افتح التقويم المحدد">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton onMouseClicked="#deleteCalendar" prefHeight="40.0" prefWidth="190.0" styleClass="button-abort" stylesheets="@../css/firstload.css" text="حذف التقويم المحدد">
+                  <JFXButton onMouseClicked="#deleteCalendar" prefHeight="40.0" prefWidth="190.0" styleClass="button-abort" stylesheets="@../css/addCalendar.css" text="حذف التقويم المحدد">
                      <HBox.margin>
                         <Insets left="5.0" right="5.0" />
                      </HBox.margin>

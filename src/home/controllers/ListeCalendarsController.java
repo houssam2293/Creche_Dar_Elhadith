@@ -2,7 +2,7 @@ package home.controllers;
 
 import home.dbDir.CalendarDB;
 import home.java.Calendar;
-import home.java.Model;
+import home.java.ModelCalendar;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +14,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -40,7 +41,7 @@ public class ListeCalendarsController implements Initializable {
     private TableColumn<Calendar, String> springCol;
 
     @FXML
-    private TableColumn<Calendar, SettingsController> fallCol;
+    private TableColumn<Calendar, String> fallCol;
 
     private CalendarDB calendarDB;
     private double xOffset;
@@ -154,6 +155,7 @@ public class ListeCalendarsController implements Initializable {
             //Check if the selected calendar was deleted
             if (calendarWasDeleted)
             {
+
                 //Show message indicating that the selected calendar was deleted
                 Alert alertMessage = new Alert(Alert.AlertType.INFORMATION);
                 alertMessage.setHeaderText(null);
@@ -163,6 +165,11 @@ public class ListeCalendarsController implements Initializable {
                 // Close the window, so that when user clicks on "Manage Your Calendars" only the remaining existing calendar appear
                 Stage stage = (Stage) rootPane.getScene().getWindow();
                 stage.close();
+                try {
+                    mainController.reloadStage();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             else
             {
@@ -191,10 +198,10 @@ public class ListeCalendarsController implements Initializable {
         {
             // Get selected calendar from table
             Calendar cal = tableView.getSelectionModel().getSelectedItem();
-            Model.getInstance().calendar_name = cal.getName();
-            Model.getInstance().calendar_start = Integer.parseInt(cal.getStartYear());
-            Model.getInstance().calendar_end = Integer.parseInt(cal.getEndYear());
-            Model.getInstance().calendar_start_date = cal.getStartDate();
+            ModelCalendar.getInstance().calendar_name = cal.getName();
+            ModelCalendar.getInstance().calendar_start = Integer.parseInt(cal.getStartYear());
+            ModelCalendar.getInstance().calendar_end = Integer.parseInt(cal.getEndYear());
+            ModelCalendar.getInstance().calendar_start_date = cal.getStartDate();
 
             // Load the calendar in the main window
             mainController.calendarGenerate();

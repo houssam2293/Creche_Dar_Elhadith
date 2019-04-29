@@ -29,7 +29,6 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.Predicate;
 
 import static home.controllers.EditEmployeeFormController.employeeSelected;
 
@@ -77,7 +76,7 @@ public class ManageEmployeeController implements Initializable {
         errorLabel.setText("");
         AnchorPane addUserPane = null;
         try {
-            addUserPane = FXMLLoader.load(getClass().getResource("/home/fxml/AddEmployeForm.fxml"));
+            addUserPane = FXMLLoader.load(getClass().getResource("/home/fxml/addEmployeForm.fxml"));
         } catch (IOException ignored) {
         }
         addUserDialog = getSpecialDialog(addUserPane);

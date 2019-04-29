@@ -1,8 +1,6 @@
 package home.java;
 
 
-import sun.net.idn.StringPrep;
-
 import java.util.Date;
 
 

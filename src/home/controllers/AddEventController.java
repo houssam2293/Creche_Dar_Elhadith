@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 import home.dbDir.CalendarDB;
-import home.java.Model;
+import home.java.ModelCalendar;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -74,7 +74,7 @@ public class AddEventController implements Initializable {
     @FXML
     void generateNewEvent() {
 
-        String calendarName = Model.getInstance().calendar_name;
+        String calendarName = ModelCalendar.getInstance().calendar_name;
 
 
         DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -137,9 +137,9 @@ public class AddEventController implements Initializable {
 
     private void autofillDatePicker() {
 
-        int day = Model.getInstance().event_day;
-        int month = Model.getInstance().event_month + 1;
-        int year = Model.getInstance().event_year;
+        int day = ModelCalendar.getInstance().event_day;
+        int month = ModelCalendar.getInstance().event_month + 1;
+        int year = ModelCalendar.getInstance().event_year;
 
         eventDate.setValue(LocalDate.of(year, month, day));
     }

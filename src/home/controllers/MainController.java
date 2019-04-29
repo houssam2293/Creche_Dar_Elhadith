@@ -1,10 +1,10 @@
 package home.controllers;
 
 import com.jfoenix.controls.JFXDialog;
-import de.jensd.fx.glyphs.emojione.EmojiOne;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.icons525.Icons525View;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
+import de.jensd.fx.glyphs.materialicons.MaterialIconView;
 import de.jensd.fx.glyphs.octicons.OctIconView;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -13,7 +13,6 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -23,7 +22,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -51,23 +49,25 @@ public class MainController implements Initializable {
 
     /* End Home Part */
     private VBox guidePane;
-    private AnchorPane calendarPane, gradesPane, addQuestionPane, settingsPane;
-    private StackPane tracPane, manageStudentPane, manageEmployePane;
+    private AnchorPane calendarPane, settingsPane, pointag, images;
+    private StackPane tracPane, stock, manageStudentPane, manageEmployePane, archiv;
     @FXML // this pane using for the Dialog of about
     private StackPane rightPane;
     @FXML
     private Pane paneSlider;
     /* Start Icon Option */
     @FXML
-    private HBox boxHome, boxStudent, boxTrac, boxCalandar, boxPoint, boxEmploye, boxStock, boxSettings, boxGuide, boxAbout;
+    private HBox boxHome, boxStudent, boxTrac, boxImages, boxCalandar, boxPoint, boxEmploye, boxArchive, boxStock, boxSettings, boxGuide, boxAbout;
     @FXML
     private FontAwesomeIconView iconHome, iconAccount;
     @FXML
-    private MaterialDesignIconView iconGuide, iconAbout, iconPoint, iconStudent, iconStock;
+    private MaterialDesignIconView iconGuide, iconAbout, iconPoint, iconStudent, iconStock, iconArchive;
+    @FXML
+    private MaterialIconView iconImages;
     @FXML
     private Icons525View iconSettings;
     @FXML
-    private OctIconView iconTrac,iconCalandar;
+    private OctIconView iconTrac, iconCalandar;
 
     /* End Icon Option */
 
@@ -86,57 +86,70 @@ public class MainController implements Initializable {
 
 
     @FXML
-    public void expandSidebar(javafx.scene.input.MouseEvent mouseEvent) {
+    public void expandSidebar() {
         sidebar.setPrefWidth((sidebar.getWidth() == 50) ? 200 : 50);
     }
 
     @FXML
-    public void homeClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void homeClicked() {
         styleBox(0);
         homePane.setVisible(true);
         sidebar.setPrefWidth(50);
     }
 
     @FXML
-    public void calndarClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void calndarClicked() {
         calBoxClicked();
     }
 
     @FXML
-    public void traceabilityClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void traceabilityClicked() {
         styleBox(2);
         setNode(tracPane);
     }
 
     @FXML
-    public void studentClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void studentClicked() {
+        styleBox(1);
+        setNode(manageStudentPane);
+    }
+
+    @FXML
+    void studentBoxClicked(MouseEvent event) {
+        studentClicked();
     }
 
     @FXML
     public void calBoxClicked() {
         styleBox(3);
-        System.out.println("Calender clicked");
         setNode(calendarPane);
     }
 
     @FXML
-    public void EmployeeClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void EmployeeClicked() {
         styleBox(4);
         setNode(manageEmployePane);
     }
 
     @FXML
-    public void pointClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    void ArchiveClicked(MouseEvent event) {
+        styleBox(10);
+        setNode(archiv);
     }
 
     @FXML
-    public void settingsClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void pointClicked() {
+        pointageClicked();
+    }
+
+    @FXML
+    public void settingsClicked() {
         styleBox(5);
         setNode(settingsPane);
     }
 
     @FXML
-    public void logoutClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void logoutClicked() {
         Stage stage;
         Parent root = null;
         //get reference - stage
@@ -156,20 +169,33 @@ public class MainController implements Initializable {
         stage.show();
     }
 
+
     @FXML
-    public void guideClicked(javafx.scene.input.MouseEvent mouseEvent) {
+    public void imagesClicked() {
+        setNode(images);
+        styleBox(11);
     }
 
     @FXML
-    public void aboutClicked(javafx.scene.input.MouseEvent mouseEvent) {
-    }
-
-
-    public void stockBoxClicked(MouseEvent mouseEvent) {
+    public void guideClicked() {
+        styleBox(6);
     }
 
     @FXML
-    public void pointageClicked(MouseEvent mouseEvent) {
+    public void aboutClicked() {
+        styleBox(8);
+    }
+
+
+    public void stockBoxClicked() {
+        setNode(stock);
+        styleBox(9);
+    }
+
+    @FXML
+    public void pointageClicked() {
+        styleBox(7);
+        //setNode(pointag);
     }
 
     private void sliderAutoChangePictures() {
@@ -217,7 +243,7 @@ public class MainController implements Initializable {
         imgSlider.fitHeightProperty().bind(paneSlider.heightProperty());
 
         // Make auto change the slider in duration
-        sliderAutoChangePictures();
+        //sliderAutoChangePictures();
 
 
         try {
@@ -225,6 +251,13 @@ public class MainController implements Initializable {
             manageEmployePane = FXMLLoader.load(getClass().getResource("/home/fxml/manageEmployee.fxml"));
             tracPane = FXMLLoader.load(getClass().getResource("/home/fxml/trac.fxml"));
             calendarPane = FXMLLoader.load(getClass().getResource("/home/fxml/calendar.fxml"));
+            manageStudentPane = FXMLLoader.load(getClass().getResource("/home/fxml/eleve.fxml"));
+            archiv = FXMLLoader.load(getClass().getResource("/home/fxml/archive.fxml"));
+            stock = FXMLLoader.load(getClass().getResource("/home/fxml/stock.fxml"));
+            pointag = FXMLLoader.load(getClass().getResource("/home/fxml/pointag.fxml"));
+            images = FXMLLoader.load(getClass().getResource("/home/fxml/traitmentImage.fxml"));
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -254,9 +287,11 @@ public class MainController implements Initializable {
         iconCalandar.setFill(Paint.valueOf("#4a4949"));
         iconAccount.setFill(Paint.valueOf("#4a4949"));
         iconSettings.setFill(Paint.valueOf("#4a4949"));
+        iconArchive.setFill(Paint.valueOf("#4a4949"));
         iconGuide.setFill(Paint.valueOf("#4a4949"));
         iconAbout.setFill(Paint.valueOf("#4a4949"));
         iconStock.setFill(Paint.valueOf("#4a4949"));
+        iconImages.setFill(Paint.valueOf("#4a4949"));
 
         boxHome.setStyle("-fx-border: 0");
         boxStudent.setStyle("-fx-border: 0");
@@ -264,10 +299,12 @@ public class MainController implements Initializable {
         boxPoint.setStyle("-fx-border: 0");
         boxCalandar.setStyle("-fx-border: 0");
         boxEmploye.setStyle("-fx-border: 0");
+        boxArchive.setStyle("-fx-border: 0");
         boxSettings.setStyle("-fx-border: 0");
         boxGuide.setStyle("-fx-border: 0");
         boxAbout.setStyle("-fx-border: 0");
         boxStock.setStyle("-fx-border: 0");
+        boxImages.setStyle("-fx-border: 0");
 
         switch (index) {
             case 0:
@@ -309,6 +346,14 @@ public class MainController implements Initializable {
             case 9:
                 boxStock.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
                 iconStock.setFill(Paint.valueOf("#2196f3"));
+                break;
+            case 10:
+                boxArchive.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                iconArchive.setFill(Paint.valueOf("#2196f3"));
+                break;
+            case 11:
+                boxImages.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                iconImages.setFill(Paint.valueOf("#2196f3"));
                 break;
 
         }

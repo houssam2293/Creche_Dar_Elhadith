@@ -20,7 +20,6 @@ import org.controlsfx.control.Notifications;
 
 import java.net.URL;
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.ENTER;

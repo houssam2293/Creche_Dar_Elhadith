@@ -2,6 +2,8 @@ package home.controllers;
 
 import com.jfoenix.controls.JFXComboBox;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import home.dbDir.EmployeDB;
+import home.java.Employe;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,7 +15,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class SettingsController implements Initializable {
@@ -36,6 +41,8 @@ public class SettingsController implements Initializable {
     private HBox languageOption;
 
     @FXML
+    private HBox savePoint;
+    @FXML
     private VBox changeUsernamePaneFull;
 
     @FXML
@@ -45,7 +52,7 @@ public class SettingsController implements Initializable {
     private Label contentLabel;
 
     @FXML
-    private HBox boxError;
+    private HBox boxError,saveBox;
 
     @FXML
     private Label errorLabel;
@@ -82,6 +89,8 @@ public class SettingsController implements Initializable {
 
     @FXML
     private FontAwesomeIconView iconValid;
+    @FXML
+    private VBox save;
 
     @FXML
     private VBox changeLanguagePane;
@@ -122,11 +131,14 @@ public class SettingsController implements Initializable {
     private void saveUsername() {
     }
 
+
     @FXML
     public void btnCloseErrorMsg() {
         boxError.setPrefHeight(0);
         boxError.setVisible(false);
     }
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -204,12 +216,14 @@ public class SettingsController implements Initializable {
             changeEmailPane.setVisible(false);
             changePasswordPane.setVisible(false);
             changeLanguagePane.setVisible(false);
-
+            save.setVisible(false);
+            saveBox.setVisible(true);
             // Make label option selected bold and reset other option to normal
             usernameOption.getChildren().get(0).setStyle("-fx-font-weight: bold");
             emailOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
             changePasswordPane.setPrefHeight(0);
 
@@ -226,10 +240,13 @@ public class SettingsController implements Initializable {
             changeEmailPane.setVisible(true);
             changePasswordPane.setVisible(false);
             changeLanguagePane.setVisible(false);
+            save.setVisible(false);
+            saveBox.setVisible(true);
             usernameOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             emailOption.getChildren().get(0).setStyle("-fx-font-weight: bold");
             passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
             changePasswordPane.setPrefHeight(0);
 
@@ -246,10 +263,13 @@ public class SettingsController implements Initializable {
             changeEmailPane.setVisible(false);
             changePasswordPane.setVisible(true);
             changeLanguagePane.setVisible(false);
+            save.setVisible(false);
+            saveBox.setVisible(true);
             usernameOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             emailOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             passwordOption.getChildren().get(0).setStyle("-fx-font-weight: bold");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
             changePasswordPane.setPrefHeight(252);
 
@@ -262,15 +282,41 @@ public class SettingsController implements Initializable {
             currentPasswordPassPart.setText("");
             verifyPasswordPassPart.setText("");
         });
+        savePoint.setOnMouseClicked(e -> {
+
+            changeUsernamePane.setVisible(false);
+            changeEmailPane.setVisible(false);
+            changePasswordPane.setVisible(false);
+            changeLanguagePane.setVisible(false);
+            saveBox.setVisible(false);
+            save.setVisible(true);
+            usernameOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            emailOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            savePoint.getChildren().get(0).setStyle("-fx-font-weight: bold");
+            languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            btnCloseErrorMsg();
+            changePasswordPane.setPrefHeight(0);
+
+            // Change the text in top selected box
+            headerLabel.setText("حفظ البيانات");
+            contentLabel.setText(" ");
+
+        });
+
+
         languageOption.setOnMouseClicked(e -> {
             changeUsernamePane.setVisible(false);
             changeEmailPane.setVisible(false);
             changePasswordPane.setVisible(false);
             changeLanguagePane.setVisible(true);
+            save.setVisible(false);
+            saveBox.setVisible(true);
             usernameOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             emailOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: bold");
+            savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
             changePasswordPane.setPrefHeight(0);
 
@@ -282,5 +328,56 @@ public class SettingsController implements Initializable {
         });
 
 
+    }
+
+
+    @FXML
+    private void serialiser(){
+        ArrayList<Employe> serialization = new ArrayList<Employe>();
+        List<Employe> employeeDB = new EmployeDB().getEmployee();
+        if (employeeDB == null) {
+           System.out.println("Connection Failed !");
+        } else {
+            for (Employe employe : employeeDB) {
+                serialization.add(new Employe(employe.getId(), employe.getNom().toUpperCase(), employe.getPrenom().toUpperCase(), employe.getDateNaissance(),
+                        employe.getLieuNaissance(), employe.getAdresse(), employe.getNumTelephone(), employe.getSocialSecurityNumber(), employe.getDiplome(),
+                        employe.getExperience(), employe.getItar(), employe.getRenouvlement_de_contrat(), employe.getDate_debut(), employe.getFonction(), employe.getStatuSocial(),
+                        employe.getCelibacyTitle(), employe.getMaleChild(), employe.getFemaleChild()));
+            }
+        }
+        try {
+            FileOutputStream fileOut = new FileOutputStream("employee.ser");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            out.writeObject(serialization);
+            out.close();
+            fileOut.close();
+            System.out.printf("Serialized data is saved in employee.ser");
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    private void deserialiser(){
+    ArrayList<Employe> deserialization = new ArrayList<Employe>();
+    try {
+        FileInputStream fileIn = new FileInputStream("employee.ser");
+        ObjectInputStream in = new ObjectInputStream(fileIn);
+        deserialization=(ArrayList) in.readObject();
+        in.close();
+        fileIn.close();
+    } catch (IOException i) {
+        i.printStackTrace();
+        return;
+    }catch (ClassNotFoundException c) {
+        System.out.println("Employee class not found");
+        c.printStackTrace();
+        return;
+    }
+    }
+
+    @FXML
+    public void btnSaveArchiv(ActionEvent actionEvent) {
     }
 }

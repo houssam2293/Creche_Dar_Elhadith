@@ -3,7 +3,7 @@ package home.controllers;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import home.dbDir.CalendarDB;
-import home.java.Model;
+import home.java.ModelCalendar;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -63,11 +63,11 @@ public class AddCalendarController implements Initializable {
             }
             else
             {
-                // Set the starting and ending years, and the starting date, and store them in a Model object
-                Model.getInstance().calendar_start_date = "" + date.getValue();
-                Model.getInstance().calendar_start = date.getValue().getYear();
-                Model.getInstance().calendar_end = date.getValue().getYear() + 1;
-                Model.getInstance().calendar_name = calendarName.getText();
+                // Set the starting and ending years, and the starting date, and store them in a ModelCalendar object
+                ModelCalendar.getInstance().calendar_start_date = "" + date.getValue();
+                ModelCalendar.getInstance().calendar_start = date.getValue().getYear();
+                ModelCalendar.getInstance().calendar_end = date.getValue().getYear() + 1;
+                ModelCalendar.getInstance().calendar_name = calendarName.getText();
 
                 // Define date format
                 DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -75,8 +75,8 @@ public class AddCalendarController implements Initializable {
                 String startingDate = date.getValue().format(myFormat);
 
                 //Store calendar's information in String variables that will be used to build the query to insert it into the database
-                String startingYear = Integer.toString(Model.getInstance().calendar_start);
-                String endingYear = Integer.toString(Model.getInstance().calendar_end);
+                String startingYear = Integer.toString(ModelCalendar.getInstance().calendar_start);
+                String endingYear = Integer.toString(ModelCalendar.getInstance().calendar_end);
                 String calName2 = calendarName.getText();
 
                 //************************************************************************

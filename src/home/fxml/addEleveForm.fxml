@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.AddEmployeeFormController">
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import java.net.*?>
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.AddEleveFormController">
    <children>
       <ScrollPane hbarPolicy="NEVER" stylesheets="@../css/scrollPane.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
@@ -23,7 +16,7 @@
                <children>
                   <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="200.0">
                      <children>
-                        <Label alignment="CENTER" text="إضافة عامل">
+                        <Label alignment="CENTER" text="إضافة تلميذ">
                            <styleClass>
                               <String fx:value="title-header" />
                               <String fx:value="titleUserLabel" />
@@ -61,43 +54,27 @@
                         <JFXTextField fx:id="birthPlace" labelFloat="true" prefHeight="36.0" prefWidth="290.0" promptText="مكان الميلاد" styleClass="field" />
                      </children>
                   </HBox>
-                  <HBox prefWidth="386.0" spacing="20.0">
-                     <children>
-                        <VBox prefWidth="290.0" spacing="20.0">
-                           <children>
-                              <JFXToggleButton fx:id="stat" contentDisplay="RIGHT" onAction="#actionToggleButton" text="متزوج(ة)" toggleColor="#2196f3" toggleLineColor="#67b2e8" />
-                              <JFXTextField fx:id="celibacyTitle" disable="true" labelFloat="true" promptText="لقب العزوبة" style="-fx-font-size: 18px;" />
-                           </children>
-                        </VBox>
-                        <VBox prefWidth="290.0" spacing="20.0">
-                           <children>
-                              <HBox>
-                                 <children>
-                                    <Label alignment="CENTER" prefHeight="52.0" prefWidth="132.0" style="-fx-font-size: 18px;" text="عدد الأطفال" />
-                                    <Label fx:id="sommeChild" alignment="CENTER" disable="true" prefHeight="36.0" prefWidth="52.0" style="-fx-font-size: 18px;" />
-                                 </children>
-                              </HBox>
-                              <HBox alignment="BOTTOM_CENTER" prefHeight="51.0" prefWidth="183.0" spacing="20.0">
-                                 <children>
-                                    <JFXComboBox fx:id="maleChild" disable="true" labelFloat="true" promptText="بنون" style="-fx-font-size: 15px;" visibleRowCount="4" />
-                                    <JFXComboBox fx:id="femaleChild" disable="true" labelFloat="true" promptText="بنات" style="-fx-font-size: 15px;" visibleRowCount="4" />
-                                 </children>
-                              </HBox>
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
-                  <JFXTextField fx:id="addresse" labelFloat="true" prefHeight="25.0" prefWidth="523.0" promptText="العنوان الشخصي" styleClass="field">
+                  <JFXTextField fx:id="addresse" labelFloat="true" prefHeight="25.0" prefWidth="523.0" promptText="العنوان " styleClass="field">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </JFXTextField>
                   <JFXTextField fx:id="phoneNumber" labelFloat="true" layoutX="50.0" layoutY="395.0" prefHeight="25.0" prefWidth="523.0" promptText="رقم الهاتف" styleClass="field" />
-                  <JFXTextField fx:id="socialSecurtyNumber" labelFloat="true" layoutX="50.0" layoutY="311.0" prefHeight="25.0" prefWidth="523.0" promptText="رقم الضمان الإجتماعي" styleClass="field" />
-                  <JFXTextField fx:id="diplome" labelFloat="true" promptText="الشهادات" styleClass="field" />
-                  <JFXTextField fx:id="itar" labelFloat="true" promptText="الإطار" styleClass="field" />
-                  <JFXTextField fx:id="fonction" labelFloat="true" promptText="المهنة" styleClass="field" />
-                  <JFXDatePicker fx:id="firstDayOfwork" defaultColor="#2196f3" prefHeight="35.0" prefWidth="267.0" promptText="تاريخ أول تعيين في المؤسسة" styleClass="field" />
+                  <VBox prefHeight="123.0" prefWidth="391.0" spacing="20.0">
+                     <children>
+                        <JFXToggleButton fx:id="stat" contentDisplay="RIGHT" onAction="#actionToggleButton" text="مريض" toggleColor="#2196f3" toggleLineColor="#67b2e8" />
+                        <JFXTextField fx:id="malad" disable="true" labelFloat="true" prefHeight="45.0" prefWidth="386.0" promptText="نوع المرض" style="-fx-font-size: 18px;" />
+                     </children>
+                  </VBox>
+                  <JFXTextField fx:id="NamFather" labelFloat="true" layoutX="50.0" layoutY="311.0" prefHeight="26.0" prefWidth="370.0" promptText="اسم الاب" styleClass="field" />
+                  <HBox prefHeight="30.0" prefWidth="386.0" spacing="20.0">
+                     <children>
+                        <JFXTextField fx:id="firstNameMother" labelFloat="true" prefHeight="39.0" prefWidth="290.0" promptText="إسم الأم" styleClass="field" />
+                        <JFXTextField fx:id="lastNameMother" labelFloat="true" prefHeight="39.0" prefWidth="290.0" promptText="اللقب الأم" styleClass="field" />
+                     </children>
+                  </HBox>
+                  <JFXTextField fx:id="fonction" labelFloat="true" promptText="مهنة الاب" styleClass="field" />
+                  <JFXTextField fx:id="fonction1" labelFloat="true" promptText="مهنة الام" styleClass="field" />
                   <JFXTextField fx:id="experience" labelFloat="true" promptText="عدد سنوات التدريس" styleClass="field" />
                   <HBox alignment="CENTER" prefHeight="215.0" prefWidth="386.0" spacing="30.0">
                      <children>
@@ -124,5 +101,6 @@
    <stylesheets>
       <URL value="@../css/main.css" />
       <URL value="@../css/manageEmployee.css" />
+      <URL value="@../css/eleve.css" />
    </stylesheets>
 </AnchorPane>

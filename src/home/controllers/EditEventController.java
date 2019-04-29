@@ -5,7 +5,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 import home.dbDir.CalendarDB;
-import home.java.Model;
+import home.java.ModelCalendar;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
@@ -18,8 +18,8 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -78,14 +78,14 @@ public class EditEventController implements Initializable {
         //*******   which is the term ID, event description, event date,  ******
         //*******   and calendar name of the event to be edited           ******
         //**********************************************************************
-        int day = Model.getInstance().event_day;
-        int month = Model.getInstance().event_month + 1;
-        int year = Model.getInstance().event_year;
+        int day = ModelCalendar.getInstance().event_day;
+        int month = ModelCalendar.getInstance().event_month + 1;
+        int year = ModelCalendar.getInstance().event_year;
         String eventdate = year + "-" + month + "-" + day;
-        String eventtype = Model.getInstance().eventType;
-        String descript = Model.getInstance().eventDescreption;
-        LocalTime eventtime = Model.getInstance().eventTime;
-        String calName = Model.getInstance().calendar_name;
+        String eventtype = ModelCalendar.getInstance().eventType;
+        String descript = ModelCalendar.getInstance().eventDescreption;
+        LocalTime eventtime = ModelCalendar.getInstance().eventTime;
+        String calName = ModelCalendar.getInstance().calendar_name;
 
         //Get the original date of the event to be updated in the format yyyy-mm-dd
         SimpleDateFormat auxDateFormat = new SimpleDateFormat("yyyy-mm-dd");
@@ -148,14 +148,14 @@ public class EditEventController implements Initializable {
         //*******   which is the term ID, event description, event date,  ******
         //*******   and calendar name of the event to be edited           ******
         //**********************************************************************
-        int day = Model.getInstance().event_day;
-        int month = Model.getInstance().event_month + 1;
-        int year = Model.getInstance().event_year;
+        int day = ModelCalendar.getInstance().event_day;
+        int month = ModelCalendar.getInstance().event_month + 1;
+        int year = ModelCalendar.getInstance().event_year;
         String eventdate = year + "-" + month + "-" + day;
-        String eventtype = Model.getInstance().eventType;
-        String descript = Model.getInstance().eventDescreption;
-        LocalTime eventtime = Model.getInstance().eventTime;
-        String calName = Model.getInstance().calendar_name;
+        String eventtype = ModelCalendar.getInstance().eventType;
+        String descript = ModelCalendar.getInstance().eventDescreption;
+        LocalTime eventtime = ModelCalendar.getInstance().eventTime;
+        String calName = ModelCalendar.getInstance().calendar_name;
 
         //Get the original date of the event to be updated in the format yyyy-mm-dd
         SimpleDateFormat auxDateFormat = new SimpleDateFormat("yyyy-mm-dd");
@@ -234,12 +234,12 @@ public class EditEventController implements Initializable {
     void autofillDatePicker() {
 
         // Get selected day, month, and year and autofill date selection
-        int day = Model.getInstance().event_day;
-        int month = Model.getInstance().event_month + 1;
-        int year = Model.getInstance().event_year;
-        String type = Model.getInstance().eventType;
-        LocalTime time = Model.getInstance().eventTime;
-        String descript = Model.getInstance().eventDescreption;
+        int day = ModelCalendar.getInstance().event_day;
+        int month = ModelCalendar.getInstance().event_month + 1;
+        int year = ModelCalendar.getInstance().event_year;
+        String type = ModelCalendar.getInstance().eventType;
+        LocalTime time = ModelCalendar.getInstance().eventTime;
+        String descript = ModelCalendar.getInstance().eventDescreption;
 
         eventDescription.setText(descript);
         eventDate.setValue(LocalDate.of(year,month,day));

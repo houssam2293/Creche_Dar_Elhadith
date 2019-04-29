@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXCheckBox?>
-<?import com.jfoenix.controls.JFXColorPicker?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXTabPane?>
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
+<?import java.net.URL?>
 <AnchorPane fx:id="root" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1242.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.CalendarController">
    <stylesheets>
       <URL value="@../css/main.css" />
@@ -61,10 +47,10 @@
                                                 <Insets bottom="20.0" top="20.0" />
                                              </padding>
                                              <children>
-                                                <JFXButton fx:id="loadCalendar" disable="true" layoutX="35.0" layoutY="30.0" onAction="#handleCalendarLoaded" prefHeight="39.0" prefWidth="190.0" styleClass="btn-view" text="عرض التقويم الحالي" />
-                                                <JFXButton onAction="#newCalendarEvent" prefHeight="39.0" prefWidth="190.0" styleClass="btn-view" text="إضافة تقويم" />
-                                                <JFXButton layoutX="38.0" layoutY="30.0" onAction="#listCalendarsEvent" prefHeight="39.0" prefWidth="190.0" styleClass="btn-view" text="إدارة تقويم" />
-                                                <JFXButton layoutX="38.0" layoutY="89.0" prefHeight="39.0" prefWidth="212.0" styleClass="btn-view" text="تحويل التقويم إلى Excel" />
+                                                <JFXButton fx:id="loadCalendar" disable="true" layoutX="35.0" layoutY="30.0" onAction="#handleCalendarLoaded" prefHeight="39.0" prefWidth="190.0" text="عرض التقويم الحالي" />
+                                                <JFXButton onAction="#newCalendarEvent" prefHeight="39.0" prefWidth="190.0" text="إضافة تقويم" />
+                                                <JFXButton layoutX="38.0" layoutY="30.0" onAction="#listCalendarsEvent" prefHeight="39.0" prefWidth="190.0" text="إدارة تقويم" />
+                                                <JFXButton layoutX="38.0" layoutY="89.0" prefHeight="39.0" prefWidth="212.0" text="تحويل التقويم إلى Excel" />
                                              </children>
                                           </VBox>
                                           <VBox fx:id="selectedCalendarInfo" prefHeight="565.0" prefWidth="280.0" spacing="5.0" style="-fx-background-color: ecedf7;" visible="false">
@@ -73,15 +59,15 @@
                                                    <children>
                                                       <HBox>
                                                          <children>
-                                                            <Label fx:id="calendarNameLbl" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="180.0" styleClass="title-chooser">
+                                                            <Label fx:id="calendarNameLbl" alignment="CENTER" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="180.0" styleClass="title-chooser">
                                                                <font>
                                                                   <Font size="13.0" />
                                                                </font>
                                                                <HBox.margin>
-                                                                  <Insets left="20.0" right="37.0" />
+                                                                  <Insets left="30.0" right="20.0" />
                                                                </HBox.margin>
                                                             </Label>
-                                                            <JFXButton alignment="CENTER" buttonType="RAISED" onMouseClicked="#btnBackward" prefHeight="41.0" prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
+                                                            <JFXButton alignment="CENTER" buttonType="RAISED" onMouseClicked="#btnBackward" prefHeight="41.0" prefWidth="36.0" ripplerFill="#4476ff" text=" ">
                                                                <padding>
                                                                   <Insets left="10.0" />
                                                                </padding>
@@ -265,20 +251,20 @@
                         </Tab>
                      </tabs>
                   </JFXTabPane>
-                  <JFXTabPane prefHeight="570.0" prefWidth="875.0">
+                  <JFXTabPane prefHeight="597.0" prefWidth="900.0">
                      <tabs>
                         <Tab styleClass="jfx-tab-pane" text="التقويم">
                           <content>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <VBox prefHeight="570.0" prefWidth="875.0">
+                                    <VBox prefHeight="570.0" prefWidth="900.0">
                                        <children>
                                           <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER">
                                              <content>
                                                 <VBox>
                                                    <children>
-                                                      <HBox fx:id="weekdayHeader" prefHeight="80.0" prefWidth="881.0" />
-                                                      <GridPane fx:id="calendarGrid" prefHeight="478.0" prefWidth="870.0">
+                                                      <HBox fx:id="weekdayHeader" prefHeight="80.0" prefWidth="867.0" />
+                                                      <GridPane fx:id="calendarGrid" prefHeight="478.0" prefWidth="900.0">
                                                         <columnConstraints>
                                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -309,7 +295,38 @@
                         </Tab>
                         <Tab styleClass="jfx-tab-pane" text="جدول الأوقات">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ScrollPane fx:id="scrollPane1" vbarPolicy="NEVER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <content>
+                                          <Pane prefHeight="565.0">
+                                             <children>
+                                                <VBox fx:id="weekdayTimeTable" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="465.0" prefWidth="120.0" />
+                                                <HBox fx:id="hourDayTimeTable" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="100.0" prefWidth="875.0" />
+                                                <GridPane fx:id="timeTable" layoutX="120.0" layoutY="100.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="465.0" prefWidth="784.0">
+                                                  <columnConstraints>
+                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                  </columnConstraints>
+                                                  <rowConstraints>
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                  </rowConstraints>
+                                                </GridPane>
+                                             </children>
+                                          </Pane>
+                                       </content>
+                                    </ScrollPane>
+                                 </children></AnchorPane>
                           </content>
                         </Tab>
                      </tabs>

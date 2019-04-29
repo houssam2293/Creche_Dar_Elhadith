@@ -130,8 +130,6 @@ public class loginController implements Initializable {
                 properties.load(input);
                 username = properties.getProperty("user");
                 pass = properties.getProperty("password");
-                System.out.println("user : " + username);
-                System.out.println("password :" + pass);
             } else {
                 System.out.println("file not recovered!");
 

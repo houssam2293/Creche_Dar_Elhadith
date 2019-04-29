@@ -4,12 +4,13 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import home.dbDir.CalendarDB;
-import home.java.Model;
+import home.java.ModelCalendar;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -37,16 +38,16 @@ import java.util.logging.Logger;
 
 public class CalendarController implements Initializable {
 
-    CalendarDB calendarDB;
+    private CalendarDB calendarDB;
 
     @FXML
     private AnchorPane root;
 
     @FXML
-    private VBox holderPane, selectedCalendarInfo, calendarSelection;
+    private VBox weekdayTimeTable, holderPane, selectedCalendarInfo, calendarSelection;
 
     @FXML
-    private HBox weekdayHeader;
+    private HBox hourDayTimeTable, weekdayHeader;
 
     @FXML
     private Label errorLabel;
@@ -71,20 +72,30 @@ public class CalendarController implements Initializable {
     private JFXListView<String> monthSelect;
 
     @FXML
-    private GridPane calendarGrid;
+    private GridPane calendarGrid, timeTable;
 
     @FXML
-    private ScrollPane scrollPane;
+    private ScrollPane scrollPane1,scrollPane;
 
     public static boolean workingOnCalendar = false;
     private static boolean checkBoxesHaveBeenClicked = false;
     private static boolean calendarLoaded = false;
+    String currentYearTimeLable = null;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        if (Calendar.getInstance().get(Calendar.MONTH) > 6)
+            currentYearTimeLable = Calendar.getInstance().get(Calendar.YEAR) + "-" + Integer.valueOf(Calendar.getInstance().get(Calendar.YEAR) + 1);
+        else
+            currentYearTimeLable = Integer.valueOf(Calendar.getInstance().get(Calendar.YEAR) - 1) + "-" + Calendar.getInstance().get(Calendar.YEAR);
+
         initializeCalendarGrid();
         initializeCalendarWeekdayHeader();
         initializeMonthSelector();
+        initializeTimetableWeekdayHeader();
+        initializeTimetableTimesHeader();
+        initializeTimeTableGrid();
 
 
     }
@@ -105,12 +116,12 @@ public class CalendarController implements Initializable {
 
             // Get the day number
             Label lbl = (Label) day.getChildren().get(0);
-            System.out.println(lbl.getText());
+            //System.out.println(lbl.getText());
 
             // Store event day and month in data singleton
-            Model.getInstance().event_day = Integer.parseInt(lbl.getText());
-            Model.getInstance().event_month = Model.getInstance().getMonthIndex(monthSelect.getSelectionModel().getSelectedItem());
-            Model.getInstance().event_year = Integer.parseInt(selectedYear.getValue());
+            ModelCalendar.getInstance().event_day = Integer.parseInt(lbl.getText());
+            ModelCalendar.getInstance().event_month = ModelCalendar.getInstance().getMonthIndex(monthSelect.getSelectionModel().getSelectedItem());
+            ModelCalendar.getInstance().event_year = Integer.parseInt(selectedYear.getValue());
 
             // Open add event view
             try {
@@ -139,11 +150,11 @@ public class CalendarController implements Initializable {
 
         // Store event fields in data singleton
         Label dayLbl = (Label) day.getChildren().get(0);
-        Model.getInstance().event_day = Integer.parseInt(dayLbl.getText());
-        Model.getInstance().event_month = Model.getInstance().getMonthIndex(monthSelect.getSelectionModel().getSelectedItem());
-        Model.getInstance().event_year = Integer.parseInt(selectedYear.getValue());
-        Model.getInstance().eventDescreption = descript;
-        Model.getInstance().eventType = typeevent;
+        ModelCalendar.getInstance().event_day = Integer.parseInt(dayLbl.getText());
+        ModelCalendar.getInstance().event_month = ModelCalendar.getInstance().getMonthIndex(monthSelect.getSelectionModel().getSelectedItem());
+        ModelCalendar.getInstance().event_year = Integer.parseInt(selectedYear.getValue());
+        ModelCalendar.getInstance().eventDescreption = descript;
+        ModelCalendar.getInstance().eventType = typeevent;
 
         // When user clicks on any date in the calendar, event editor window opens
         try {
@@ -168,24 +179,23 @@ public class CalendarController implements Initializable {
 
     }
 
-    private void loadCalendarLabels() {
+    public void loadCalendarLabels() {
 
         // Get the current VIEW
-        int year = Model.getInstance().viewing_year;
-        int month = Model.getInstance().viewing_month;
+        int year = ModelCalendar.getInstance().viewing_year;
+        int month = ModelCalendar.getInstance().viewing_month;
+
 
         // Note: Java's Gregorian Calendar class gives us the right
         // "first day of the month" for a given calendar & month
         // This accounts for Leap Year
         GregorianCalendar gc = new GregorianCalendar(year, month, 1);
         int firstDay = gc.get(Calendar.DAY_OF_WEEK);
-        System.out.println(firstDay);
         int daysInMonth = gc.getActualMaximum(Calendar.DAY_OF_MONTH);
 
         // We are "offsetting" our start depending on what the
         // first day of the month is.
         // For example: Sunday start, Monday start, Wednesday start.. etc
-        int offset = firstDay;
         int gridCount = 1;
         int lblCount = 1;
 
@@ -199,7 +209,7 @@ public class CalendarController implements Initializable {
             day.setStyle("-fx-font: 14px \"System\" ");
 
             // Start placing labels on the first day for the month
-            if (gridCount < offset) {
+            if (gridCount < firstDay) {
                 gridCount++;
                 // Darken color of the offset days
                 day.setStyle("-fx-background-color: #EEEEEE");
@@ -225,7 +235,7 @@ public class CalendarController implements Initializable {
     }
 
 
-    private void initializeCalendarGrid() {
+    public void initializeCalendarGrid() {
 
 
         // Go through each calendar grid location, or each "day" (7x6)
@@ -257,26 +267,58 @@ public class CalendarController implements Initializable {
         }
     }
 
+    public void initializeTimeTableGrid() {
+
+
+        // Go through each calendar grid location, or each "day" (7x6)
+        int rows = 5;
+        int cols = 8;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+
+                // Add VBox and style it
+                VBox vPane = new VBox();
+                vPane.getStyleClass().add("calendar_pane");
+                vPane.setMinWidth(timeTable.getPrefWidth() / 8);
+
+                vPane.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+                    addEvent(vPane);
+                });
+
+                GridPane.setVgrow(vPane, Priority.ALWAYS);
+
+                // Add it to the grid
+                timeTable.add(vPane, j, i);
+            }
+        }
+
+        for (int i = 0; i < 8; i++) {
+            ColumnConstraints col = new ColumnConstraints();
+            col.setMinWidth(scrollPane1.getHeight() / 8);
+            timeTable.getColumnConstraints().add(col);
+        }
+    }
+
     public void calendarGenerate() {
 
         // Load year selection
         selectedYear.getItems().clear(); // Note: Invokes its change listener
-        selectedYear.getItems().add(Integer.toString(Model.getInstance().calendar_start));
-        selectedYear.getItems().add(Integer.toString(Model.getInstance().calendar_end));
+        selectedYear.getItems().add(Integer.toString(ModelCalendar.getInstance().calendar_start));
+        selectedYear.getItems().add(Integer.toString(ModelCalendar.getInstance().calendar_end));
 
         // Select the first YEAR as default
         selectedYear.getSelectionModel().selectFirst();
 
         // Update the VIEWING YEAR
-        Model.getInstance().viewing_year = Integer.parseInt(selectedYear.getSelectionModel().getSelectedItem());
+        ModelCalendar.getInstance().viewing_year = Integer.parseInt(selectedYear.getSelectionModel().getSelectedItem());
 
         System.out.println("---------------------------------------------------------");
         System.out.println("calendarGenerate from CaldendarController");
-        System.out.println("Initialized Model for calendar instance :");
-        System.out.println("Model.calendarName : " + Model.getInstance().calendar_name);
-        System.out.println("Model.calendarStartDay : " + Model.getInstance().calendar_start_date);
-        System.out.println("Model.calendarViewingMonth : " + Model.getInstance().viewing_month);
-        System.out.println("Model.calendarViewingYear : " + Model.getInstance().viewing_year);
+        System.out.println("Initialized ModelCalendar for calendar instance :");
+        System.out.println("ModelCalendar.calendarName : " + ModelCalendar.getInstance().calendar_name);
+        System.out.println("ModelCalendar.calendarStartDay : " + ModelCalendar.getInstance().calendar_start_date);
+        System.out.println("ModelCalendar.calendarViewingMonth : " + ModelCalendar.getInstance().viewing_month);
+        System.out.println("ModelCalendar.calendarViewingYear : " + ModelCalendar.getInstance().viewing_year);
         System.out.println("---------------------------------------------------------");
 
 
@@ -284,7 +326,7 @@ public class CalendarController implements Initializable {
         selectedYear.setVisible(true);
 
         // Set calendar name label
-        calendarNameLbl.setText(Model.getInstance().calendar_name);
+        calendarNameLbl.setText(ModelCalendar.getInstance().calendar_name);
 
         // Get a list of all the months (1-12) in a year
         DateFormatSymbols dateFormat = new DateFormatSymbols();
@@ -300,8 +342,8 @@ public class CalendarController implements Initializable {
         monthLabel.setText(monthSelect.getSelectionModel().getSelectedItem());
 
         // Update the VIEWING MONTH
-        Model.getInstance().viewing_month =
-                Model.getInstance().getMonthIndex(monthSelect.getSelectionModel().getSelectedItem());
+        ModelCalendar.getInstance().viewing_month =
+                ModelCalendar.getInstance().getMonthIndex(monthSelect.getSelectionModel().getSelectedItem());
 
         calendarLoaded = true;
         loadCalendar.setDisable(false);
@@ -329,18 +371,14 @@ public class CalendarController implements Initializable {
     private void populateMonthWithEvents() {
 
         // Get viewing calendar
-        String calendarName = Model.getInstance().calendar_name;
+        String calendarName = ModelCalendar.getInstance().calendar_name;
         String currentMonth = monthLabel.getText();
 
-        int currentMonthIndex = Model.getInstance().getMonthIndex(currentMonth) + 1;
+        int currentMonthIndex = ModelCalendar.getInstance().getMonthIndex(currentMonth) + 1;
         int currentYear = Integer.parseInt(selectedYear.getValue());
 
         // Query to get ALL Events from the selected calendar!!
         String getMonthEventsQuery = "SELECT * From events WHERE CalendarName='" + calendarName + "';";
-        System.out.println("---------------------------------------------------------");
-        System.out.println("populateMonthWithEvents CalendarName-----> " + calendarName);
-        System.out.println("populateMonthWithEvents getMonthEventsQuery---------> " + getMonthEventsQuery);
-        System.out.println("---------------------------------------------------------");
         // Store the results here
         ResultSet result = calendarDB.executeQuery(getMonthEventsQuery);
 
@@ -404,7 +442,7 @@ public class CalendarController implements Initializable {
 
                     // Save the term ID in accessible text
                     eventLbl.setAccessibleText(typeEvent + "--" + eventTime.toString());
-                    System.out.println(eventLbl.getAccessibleText());
+                    //System.out.println(eventLbl.getAccessibleText());
 
                     eventLbl.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> editEvent((VBox) eventLbl.getParent(), eventLbl.getText(), eventLbl.getAccessibleText()));
 
@@ -417,7 +455,7 @@ public class CalendarController implements Initializable {
                     String green = colors[1];
                     String blue = colors[2];
 
-                    System.out.println("Color; " + red + green + blue);
+                    //System.out.println("Color; " + red + green + blue);
 
                     eventLbl.setStyle("-fx-background-color: rgb(" + red +
                             ", " + green + ", " + blue + ", " + 1 + ");");
@@ -468,6 +506,89 @@ public class CalendarController implements Initializable {
         }
     }
 
+    private void initializeTimetableWeekdayHeader() {
+
+        // 5 days in a week
+        int weekdays = 5;
+
+        // Weekday names
+        String[] weekAbbr = {"الأحد", "الإثنين", "الثلثاء", "الأربعاء", "الخميس"};
+
+        for (int i = 0; i < weekdays; i++) {
+
+            // Make new pane and label of weekday
+            StackPane pane = new StackPane();
+            pane.getStyleClass().add("weekday-header");
+
+            // Make panes take up equal space
+            VBox.setVgrow(pane, Priority.ALWAYS);
+            pane.setMaxWidth(Double.MAX_VALUE);
+
+            // Note: After adding a label to this, it tries to resize itself..
+            // So I'm setting a minimum width.
+            pane.setMinWidth(weekdayTimeTable.getPrefWidth() / 5);
+
+            // Add it to the header
+            weekdayTimeTable.getChildren().add(pane);
+
+            // Add weekday name
+            pane.getChildren().add(new Label(weekAbbr[i]));
+        }
+    }
+
+    private void initializeTimetableTimesHeader() {
+
+        // 5 days in a week
+        int dayHours = 9;
+
+        // Weekday names
+        String[] weekAbbr = {"", "09h-08h", "10h-09h", "11h-10h", "12h-11h", "14h-13h", "15h-14h", "16h-15h", "17h-16h"};
+        // Make new pane and label of weekday
+
+
+        for (int i = 0; i < dayHours; i++) {
+
+            if (i == 0) {
+                VBox pane = new VBox();
+                pane.getStyleClass().add("weekday-header");
+
+                // Make panes take up equal space
+                HBox.setHgrow(pane, Priority.ALWAYS);
+                pane.setMaxWidth(Double.MAX_VALUE);
+                pane.setAlignment(Pos.CENTER);
+
+                // Note: After adding a label to this, it tries to resize itself..
+                // So I'm setting a minimum width.
+                pane.setMinWidth(120);
+
+                // Add it to the header
+                hourDayTimeTable.getChildren().add(pane);
+                pane.getChildren().add(new Label("السنة الدراسية"));
+                pane.getChildren().add(new Label(currentYearTimeLable));
+            } else {
+
+                // Make new pane and label of weekday
+                StackPane pane = new StackPane();
+                pane.getStyleClass().add("weekday-header");
+
+                // Make panes take up equal space
+                HBox.setHgrow(pane, Priority.ALWAYS);
+                pane.setMaxWidth(Double.MAX_VALUE);
+
+                // Note: After adding a label to this, it tries to resize itself..
+                // So I'm setting a minimum width.
+                pane.setMinWidth(hourDayTimeTable.getPrefWidth() / 9);
+
+                // Add it to the header
+                hourDayTimeTable.getChildren().add(pane);
+
+                // Add weekday name
+                pane.getChildren().add(new Label(weekAbbr[i]));
+            }
+        }
+    }
+
+
     private void initializeMonthSelector() {
 
         // Add event listener to each month list item, allowing user to change months
@@ -481,7 +602,7 @@ public class CalendarController implements Initializable {
                 monthLabel.setText(newValue);
 
                 // Update the VIEWING MONTH
-                Model.getInstance().viewing_month = Model.getInstance().getMonthIndex(newValue);
+                ModelCalendar.getInstance().viewing_month = ModelCalendar.getInstance().getMonthIndex(newValue);
 
                 // Update view
                 repaintView();
@@ -495,7 +616,7 @@ public class CalendarController implements Initializable {
             if (newValue != null) {
 
                 // Update the VIEWING YEAR
-                Model.getInstance().viewing_year = Integer.parseInt(newValue);
+                ModelCalendar.getInstance().viewing_year = Integer.parseInt(newValue);
 
                 // Update view
                 repaintView();
@@ -628,7 +749,7 @@ public class CalendarController implements Initializable {
             }
         }
 
-        String calName = Model.getInstance().calendar_name;
+        String calName = ModelCalendar.getInstance().calendar_name;
 
         System.out.println("and calendarName is: " + calName);
 
@@ -656,11 +777,11 @@ public class CalendarController implements Initializable {
         System.out.println("****------******-------******--------");
 
 
-        String calendarName = Model.getInstance().calendar_name;
+        String calendarName = ModelCalendar.getInstance().calendar_name;
 
         String currentMonth = monthLabel.getText();
         System.out.println("currentMonth is: " + currentMonth);
-        int currentMonthIndex = Model.getInstance().getMonthIndex(currentMonth) + 1;
+        int currentMonthIndex = ModelCalendar.getInstance().getMonthIndex(currentMonth) + 1;
         System.out.println("currentMonthIndex is: " + currentMonthIndex);
 
         int currentYear = Integer.parseInt(selectedYear.getValue());
@@ -710,12 +831,9 @@ public class CalendarController implements Initializable {
 
     @FXML
     void selectAllCheckBoxes(ActionEvent event) {
-        if (selectAllCheckBox.isSelected())
-        {
+        if (selectAllCheckBox.isSelected()) {
             selectCheckBoxes();
-        }
-        else
-        {
+        } else {
             unSelectCheckBoxes();
         }
         //handleCheckBoxAction();
@@ -742,5 +860,10 @@ public class CalendarController implements Initializable {
     @FXML
     void updateColors(MouseEvent event) {
 
+    }
+
+    public void reloadStage() throws IOException {
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/home/fxml/main.fxml")));
+        ((Stage) holderPane.getScene().getWindow()).setScene(scene);
     }
 }

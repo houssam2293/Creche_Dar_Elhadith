@@ -8,10 +8,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
-import org.apache.commons.codec.digest.DigestUtils;
-
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
