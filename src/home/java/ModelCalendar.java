@@ -27,43 +27,36 @@ public class ModelCalendar {
     public String calendar_start_date;
     public String calendar_name;
 
-    // for editing rules
-    public int rule_days;
-    public String rule_term;
-    public String rule_descript;
 
-    // for editing terms
-    public String term_name;
-    public String term_date;
 
     //Function that returns a month Index based on the given month name
     public int getMonthIndex(String month){
         switch (month)
         {
 
-            case "janvier":
+            case "يناير":
                 return 0;
-            case "février":
+            case "فبراير":
                 return 1;
-            case "mars":
+            case "مارس":
                 return 2;
-            case "avril":
+            case "أبريل":
                 return 3;
-            case "mai":
+            case "مايو":
                 return 4;
-            case "juin":
+            case "يونيو":
                 return 5;
-            case "juillet":
+            case "يوليو":
                 return 6;
-            case "août":
+            case "أغسطس":
                 return 7;
-            case "septembre":
+            case "سبتمبر":
                 return 8;
-            case "octobre":
+            case "أكتوبر":
                 return 9;
-            case "novembre":
+            case "نوفمبر":
                 return 10;
-            case "décembre":
+            case "ديسمبر":
                 return 11;
         }
         return 0;

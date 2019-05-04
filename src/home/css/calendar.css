@@ -8,7 +8,7 @@
     -fx-background-radius: 4px;
     -fx-border-color: #333;
     -fx-padding: 2px;
-    -fx-text-fill: black;
+    -fx-text-fill: white;
     -fx-background-insets: 2px;
 }
 
@@ -44,7 +44,7 @@ JFXButton:pressed {
 }
 
 .weekday-header {
-    -fx-font: bold 17px "System";
+    -fx-font: bold 15px "System";
     -fx-font-style: normal;
     -fx-background-color:  #725b53;
     -fx-border-style: solid;

@@ -336,7 +336,7 @@ public class SettingsController implements Initializable {
         ArrayList<Employe> serialization = new ArrayList<Employe>();
         List<Employe> employeeDB = new EmployeDB().getEmployee();
         if (employeeDB == null) {
-           System.out.println("Connection Failed !");
+            System.out.println("Connection Failed !");
         } else {
             for (Employe employe : employeeDB) {
                 serialization.add(new Employe(employe.getId(), employe.getNom().toUpperCase(), employe.getPrenom().toUpperCase(), employe.getDateNaissance(),
@@ -346,11 +346,11 @@ public class SettingsController implements Initializable {
             }
         }
         try {
-            FileOutputStream fileOut = new FileOutputStream("employee.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            out.writeObject(serialization);
+            File file = new File("employee.ser");
+            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file)) ;;
+            out.writeObject(serialization) ;
             out.close();
-            fileOut.close();
+
             System.out.printf("Serialized data is saved in employee.ser");
         } catch (IOException i) {
             i.printStackTrace();
@@ -360,21 +360,21 @@ public class SettingsController implements Initializable {
 
     @FXML
     private void deserialiser(){
-    ArrayList<Employe> deserialization = new ArrayList<Employe>();
-    try {
-        FileInputStream fileIn = new FileInputStream("employee.ser");
-        ObjectInputStream in = new ObjectInputStream(fileIn);
-        deserialization=(ArrayList) in.readObject();
-        in.close();
-        fileIn.close();
-    } catch (IOException i) {
-        i.printStackTrace();
-        return;
-    }catch (ClassNotFoundException c) {
-        System.out.println("Employee class not found");
-        c.printStackTrace();
-        return;
-    }
+        ArrayList<Employe> deserialization = new ArrayList<Employe>();
+        try {
+            FileInputStream fileIn = new FileInputStream("employee.ser");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            deserialization=(ArrayList) in.readObject();
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+            return;
+        }catch (ClassNotFoundException c) {
+            System.out.println("Employee class not found");
+            c.printStackTrace();
+            return;
+        }
     }
 
     @FXML

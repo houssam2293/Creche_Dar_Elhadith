@@ -24,12 +24,10 @@ public class CalendarDB {
         try {
             stmt = conn.createStatement();
             result = stmt.executeQuery(query);
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("Exception at executeQuery:dataHandler --> ERROR: " + ex.getLocalizedMessage());
             return null;
-        }
-        finally {
+        } finally {
         }
 
         return result;
@@ -40,12 +38,10 @@ public class CalendarDB {
             stmt = conn.createStatement();
             stmt.execute(query2);
             return true;
-        }
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("quere error message  --> ERROR: " + ex.getMessage());
             return false;
-        }
-        finally {
+        } finally {
         }
     }
 
@@ -55,12 +51,11 @@ public class CalendarDB {
             stmt = conn.createStatement();
 
             ResultSet res = stmt.executeQuery("SELECT * FROM " + tableName);
-            while (res.next()){
+            while (res.next()) {
                 checkingResult = true;
                 break;
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage() + "--- checking Table failed/error");
             return false;
         } finally {
@@ -71,20 +66,20 @@ public class CalendarDB {
     //*****************************************************************************************************************************
     // Function that returns list of filtered events to be shown in the calendar
     // this function takes as arguments: the list of term identiftiers and the current calendar
-    public ArrayList<String> getFilteredEvents(ArrayList<String> auxTermIdentifiersList, String calName) {
+    public ArrayList<String> getFilteredEvents(ArrayList<String> eventIdentifiersList, String calName) {
 
         //Declare and instantiate ArrayList object that will hold all events for the requested term(s)
         ArrayList<String> filteredEventsList = new ArrayList<String>();
 
 
         //Continue to get the events if the list of term IDs is not empty, i.e., if the user selected at least one filter/term
-        if (!auxTermIdentifiersList.isEmpty()) {
-            for (int i = 0; i < auxTermIdentifiersList.size(); i++) {
+        if (!eventIdentifiersList.isEmpty()) {
+            for (String s : eventIdentifiersList) {
                 //Query that will select all events that match the term ID and the calendar the user is working on
                 String getEventsQuery = "SELECT * FROM events "
-                        + "WHERE events.EventDescription=" + auxTermIdentifiersList.get(i)
+                        + "WHERE events.EventDescription='" + s + "'"
                         + " AND events.CalendarName='" + calName + "'";
-
+                System.out.println("events to filter query : " + getEventsQuery);
                 //Variable that will hold the result of executing the previous query
                 ResultSet rs = executeQuery(getEventsQuery);
 
@@ -98,6 +93,7 @@ public class CalendarDB {
                                 + rs.getString("EventTime") + "~"
                                 + rs.getString("TypeEvent");
                         //add event to list of filtered events
+                        System.out.println("filtred event on filtredEventList is : " + filteredEvent);
                         filteredEventsList.add(filteredEvent);
                     }
                 } catch (SQLException e) {
@@ -105,6 +101,7 @@ public class CalendarDB {
                 }
             }
         }
+        System.out.println("List of Filtered events on calendarDB is: " + filteredEventsList);
         return filteredEventsList;
     }
 
@@ -114,25 +111,28 @@ public class CalendarDB {
         String termColor = "x";
 
         //Create query that will find a matching result for the termColor based on the term's ID
-        String getEventColorQuery = "SELECT color FROM colortable "
-                + "WHERE nameevent=" + description;
+        String getEventColorQuery = "SELECT color FROM creche_dar_elhadith.colortable " +
+                "where nameevent = '" + description + "'";
 
         //Execute query to get the color of a term based a given term ID
         ResultSet res = executeQuery(getEventColorQuery);
 
         // store color in a String variable of the query obtained a result
-        try
-        {
-            while(res.next())
-            {
+        try {
+            while (res.next()) {
                 termColor = res.getString("color");
             }
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println(e.getMessage() + "--- error at getTermColor method in DBHandler class");
         }
 
         return termColor;
+    }
+
+    public void setEventColor(String eventName, String eventColor) {
+        String setEventColor = "UPDATE `creche_dar_elhadith`.`colortable`" +
+                "SET `color` ='" + eventColor + "' " +
+                "WHERE `nameevent` ='" + eventName + "'";
+        executeAction(setEventColor);
     }
 }

@@ -7,6 +7,19 @@
     -fx-color-1:#1976D2;
 }
 
+.event-label {
+    -fx-font: 13px "System";
+    -fx-background-color: white;
+    -fx-border-width:1.5;
+    -fx-padding: 2px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-border-color: #333;
+    -fx-padding: 2px;
+    -fx-text-fill: white;
+    -fx-background-insets: 2px;
+}
+
 .button{
     -fx-font-weight : bold;
     -fx-background-color : #725b53;

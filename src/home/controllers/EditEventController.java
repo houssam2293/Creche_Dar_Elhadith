@@ -70,14 +70,7 @@ public class EditEventController implements Initializable {
 
     @FXML
     void btnDelete() {
-        // Define date format
-        DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        //**********************************************************************
-        //*******   Get OLD INFO of the Event to be edited/upated         ******
-        //*******   which is the term ID, event description, event date,  ******
-        //*******   and calendar name of the event to be edited           ******
-        //**********************************************************************
         int day = ModelCalendar.getInstance().event_day;
         int month = ModelCalendar.getInstance().event_month + 1;
         int year = ModelCalendar.getInstance().event_year;
@@ -99,17 +92,16 @@ public class EditEventController implements Initializable {
         }
 
         //Query that will delete the selected event
-        String deleteEventQuery = "DELETE FROM events "
+        String deleteEventQuery = "DELETE FROM creche_dar_elhadith.events "
                 + "WHERE "
-                + "events.EventDescription='" + descript + "' AND "
-                + "events.EventDate='" + auxDate + "' AND "
-                + "events.EventTime=" + eventtime + " AND "
-                + "events.TypeEvent=" + eventtype + " AND "
-                + "events.CalendarName='" + calName + "' ";
+                + "(`EventDescription`='" + descript + "') AND "
+                + "(`EventDate`='" + auxDate + "') AND "
+                + "(`EventTime`='" + eventtime + "') AND "
+                + "(`TypeEvent`='" + selectionHandler(eventtype)+ "') AND "
+                + "(`CalendarName`='" + calName + "') ";
 
         //Execute query that deletes the selected event
         boolean eventWasDeleted = calendarDB.executeAction(deleteEventQuery);
-
         if (eventWasDeleted)
         {
             //Show message indicating that the selected rule was deleted
@@ -143,11 +135,6 @@ public class EditEventController implements Initializable {
         // Define date format
         DateTimeFormatter myFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-        //**********************************************************************
-        //*******   Get OLD INFO of the Event to be edited/upated         ******
-        //*******   which is the term ID, event description, event date,  ******
-        //*******   and calendar name of the event to be edited           ******
-        //**********************************************************************
         int day = ModelCalendar.getInstance().event_day;
         int month = ModelCalendar.getInstance().event_month + 1;
         int year = ModelCalendar.getInstance().event_year;
@@ -190,19 +177,18 @@ public class EditEventController implements Initializable {
 
 
         //Query to will update the selected event with the new information
-        String updateEventQuery = "UPDATE events"
+        String updateEventQuery = "UPDATE creche_dar_elhadith.events"
                 + " SET "
                 + "EventDescription='" + newEventDescription + "', "
                 + "EventDate='" + newCalendarDate + "', "
-                + "EventTime=" + newEventTime + "', "
-                + "TypeEvent=" + newEventType
-                + " WHERE "
-                + "events.EventDescription='" + descript + "' AND "
-                + "events.EventDate='" + auxDate + "' AND "
-                + "events.EventTime=" + eventtime + " AND "
-                + "events.TypeEvent=" + eventtype + " AND "
-                + "events.CalendarName='" + calName + "' ";
-
+                + "EventTime='" + newEventTime + "', "
+                + "TypeEvent='" + newEventType
+                + "' WHERE "
+                + "(events.EventDescription='" + descript + "') AND "
+                + "(events.EventDate='" + auxDate + "') AND "
+                + "(events.EventTime='" + eventtime + "') AND "
+                + "(events.TypeEvent='" + selectionHandler(eventtype) + "') AND "
+                + "(events.CalendarName='" + calName + "') ";
 
         //Execute query in otder to update the info for the selected event
         //and
@@ -243,15 +229,39 @@ public class EditEventController implements Initializable {
 
         eventDescription.setText(descript);
         eventDate.setValue(LocalDate.of(year,month,day));
-        eventType.getSelectionModel().select(type);
+        eventType.getSelectionModel().select(selectionHandler(type));
         eventTime.setValue(time);
 
 
     }
 
-        @Override
+    private String selectionHandler(String type) {
+        String eventType = null;
+        switch (type) {
+            case "excursion":
+                eventType = "رحلة";
+            break;
+            case "spectacle":
+                eventType = "عرض";
+            break;
+            case "atelier":
+                eventType = "ورشة";
+            break;
+            case "sieste":
+                eventType = "قيلولة";
+            break;
+            case "jeux":
+                eventType = "ألعاب";
+            break;
+        }
+        return eventType;
+    }
+
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
+        calendarDB = new CalendarDB();
         autofillDatePicker();
         eventType.getItems().addAll("رحلة", "عرض", "ورشة", "قيلولة", "ألعاب");
 

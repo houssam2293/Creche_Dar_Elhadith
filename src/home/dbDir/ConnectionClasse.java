@@ -29,7 +29,7 @@ public class ConnectionClasse {
         return connection;
     }
 
-    public void shutdown() throws SQLException {
+    public void shutdown(Connection connection) throws SQLException {
         if (connection != null) {
             connection.close();
         }

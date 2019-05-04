@@ -1,9 +1,15 @@
-create TABLE `employe` (
-  `num` int(4) unsigned NOT NULL AUTO_INCREMENT,
-  `id` varchar(30) DEFAULT NULL,
+
+
+DROP DATABASE IF EXISTS `creche_dar_elhadith`;
+CREATE DATABASE `creche_dar_elhadith` CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `creche_dar_elhadith`;
+
+
+create TABLE `creche_dar_elhadith`.`employe` (
+  `id` int(10) unsigned NOT NULL,
   `nom` varchar(22) NOT NULL,
   `prenom` varchar(22) NOT NULL,
-  `dateNaissance` EventDate NOT NULL,
+  `dateNaissance` Date NOT NULL,
   `lieuNaissance` varchar(20) DEFAULT NULL,
   `adresse` varchar(50) DEFAULT NULL,
   `numTelephone` varchar(10) DEFAULT NULL,
@@ -12,23 +18,20 @@ create TABLE `employe` (
   `experience` varchar(40) DEFAULT NULL,
   `itar` varchar(45) DEFAULT NULL,
   `renouvlementDeContrat` varchar(20) DEFAULT NULL,
-  `dateDebut` EventDate DEFAULT NULL,
+  `dateDebut` Date DEFAULT NULL,
   `fonction` varchar(30) DEFAULT NULL,
+  `marier` int(1) DEFAULT '0',
   `celibacyTitle` varchar(22) DEFAULT NULL,
   `nombreEnfantM` int(2) DEFAULT NULL,
   `nombreEnfantF` int(2) DEFAULT NULL,
-  PRIMARY KEY (`num`)
-  ON DELETE CASCADE
-  ON UPDATE CASCADE);
+  PRIMARY KEY (`id`));
 
 create TABLE `creche_dar_elhadith`.`calendar` (
   `CalendarName` VARCHAR(200) NOT NULL,
   `StartYear` INT NULL,
   `EndYear` INT NULL,
   `StartDate` DATE NULL,
-  PRIMARY KEY (`CalendarName`)
-  ON delete CASCADE
-  ON update CASCADE);
+  PRIMARY KEY (`CalendarName`));
 
 create TABLE `creche_dar_elhadith`.`events` (
   `EventDescription` VARCHAR(200) NOT NULL,
@@ -36,14 +39,12 @@ create TABLE `creche_dar_elhadith`.`events` (
   `CalendarName` VARCHAR(200) NOT NULL,
   `EventTime` time NOT NULL,
   `TypeEvent` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`EventDescription`),
+  PRIMARY KEY (`EventDescription`,`EventDate`,`CalendarName`,`TypeEvent`),
   constraint CI_type
   check (TypeEvent in ('sieste','atelier','excursion','spectacle','jeux')),
   CONSTRAINT `CalendarName`
     FOREIGN KEY (`CalendarName`)
-    REFERENCES `creche_dar_elhadith`.`calendar` (`CalendarName`)
-    ON delete CASCADE
-    ON update CASCADE);
+    REFERENCES `creche_dar_elhadith`.`calendar` (`CalendarName`));
 
 CREATE TABLE `creche_dar_elhadith`.`colortable` (
   `idcolorevent` INT NOT NULL,
@@ -54,7 +55,7 @@ CREATE TABLE `creche_dar_elhadith`.`colortable` (
 alter table `creche_dar_elhadith`.`colortable` add constraint `CI_Type` check (`nameevent` in ('sieste','atelier','excursion','spectacle','jeux'));
 
 INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('1', 'excurtion', '244-244-242');
-INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('2', 'spectacle', '186-155-160');
-INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('3', 'atelier', '116-84-61');
-INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('4', 'sieste', '199-120-28');
+INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('2', 'spectacle', '251-210-73');
+INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('3', 'atelier', '0-112-255');
+INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('4', 'sieste', '154-86-187');
 INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('5', 'jeux', '243-30-180');
