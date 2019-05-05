@@ -76,10 +76,10 @@ public class CalendarDB {
         if (!eventIdentifiersList.isEmpty()) {
             for (String s : eventIdentifiersList) {
                 //Query that will select all events that match the term ID and the calendar the user is working on
-                String getEventsQuery = "SELECT * FROM events "
-                        + "WHERE events.EventDescription='" + s + "'"
-                        + " AND events.CalendarName='" + calName + "'";
-                System.out.println("events to filter query : " + getEventsQuery);
+                String getEventsQuery = "SELECT * FROM creche_dar_elhadith.events "
+                        + "WHERE TypeEvent='" + s + "'"
+                        + " AND CalendarName='" + calName + "'";
+
                 //Variable that will hold the result of executing the previous query
                 ResultSet rs = executeQuery(getEventsQuery);
 
@@ -93,7 +93,6 @@ public class CalendarDB {
                                 + rs.getString("EventTime") + "~"
                                 + rs.getString("TypeEvent");
                         //add event to list of filtered events
-                        System.out.println("filtred event on filtredEventList is : " + filteredEvent);
                         filteredEventsList.add(filteredEvent);
                     }
                 } catch (SQLException e) {
@@ -101,7 +100,6 @@ public class CalendarDB {
                 }
             }
         }
-        System.out.println("List of Filtered events on calendarDB is: " + filteredEventsList);
         return filteredEventsList;
     }
 

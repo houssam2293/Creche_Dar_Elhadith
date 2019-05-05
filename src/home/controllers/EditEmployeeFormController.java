@@ -188,6 +188,7 @@ public class EditEmployeeFormController implements Initializable {
             employe.setMaleChild(maleChild.getValue());
             employe.setFemaleChild(femaleChild.getValue());
         } else employe.setStatuSocial(0);
+    btnClose();
     }
 
     @FXML

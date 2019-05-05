@@ -65,7 +65,7 @@
                         </JFXButton>
                     </children>
                 </HBox>
-                <JFXTreeTableView fx:id="treeTableView" fixedCellSize="0.0" prefHeight="496.0" prefWidth="1292.0" stylesheets="@../css/JFXTreTableView-CSS.css" />
+                <JFXTreeTableView fx:id="treeTableView" fixedCellSize="0.0" prefHeight="496.0" prefWidth="1292.0" stylesheets="@../css/JFXTreeTableView-CSS.css" />
             </children>
             <stylesheets>
                 <URL value="@../css/manageEmployee.css" />

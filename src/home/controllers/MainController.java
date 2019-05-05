@@ -39,23 +39,21 @@ public class MainController implements Initializable {
     @FXML
     private AnchorPane holderPane;
     @FXML
-    private VBox sidebar; // Menu Left of my System
+    private VBox sidebar;
 
-    /* Start Home Part */
     @FXML
     private VBox homePane;
     @FXML
     private VBox calBox, tracBox, manageStudentBox, pointBox, manageEmployeBox;
 
-    /* End Home Part */
     private VBox guidePane;
     private AnchorPane calendarPane, settingsPane, pointag, images;
     private StackPane tracPane, stock, manageStudentPane, manageEmployePane, archiv;
-    @FXML // this pane using for the Dialog of about
+    @FXML
     private StackPane rightPane;
     @FXML
     private Pane paneSlider;
-    /* Start Icon Option */
+
     @FXML
     private HBox boxHome, boxStudent, boxTrac, boxImages, boxCalandar, boxPoint, boxEmploye, boxArchive, boxStock, boxSettings, boxGuide, boxAbout;
     @FXML
@@ -69,9 +67,7 @@ public class MainController implements Initializable {
     @FXML
     private OctIconView iconTrac, iconCalandar;
 
-    /* End Icon Option */
-
-    public static JFXDialog aboutDialog; // this for show the about Dialog
+    public static JFXDialog aboutDialog;
 
 
     @FXML
@@ -236,13 +232,11 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        styleBox(0); // for changing the color of Home Icon
+        styleBox(0);
 
-        // Initialize the image (to fill parent)
         imgSlider.fitWidthProperty().bind(holderPane.widthProperty());
         imgSlider.fitHeightProperty().bind(paneSlider.heightProperty());
 
-        // Make auto change the slider in duration
         //sliderAutoChangePictures();
 
 
@@ -279,7 +273,6 @@ public class MainController implements Initializable {
     }
 
     private void styleBox(int index) {
-        // This function change the style+color of the menu (Menu Item Selected)
         iconHome.setFill(Paint.valueOf("#4a4949"));
         iconStudent.setFill(Paint.valueOf("#4a4949"));
         iconTrac.setFill(Paint.valueOf("#4a4949"));

@@ -96,8 +96,7 @@ public class EmployeDB {
 
 
         } catch (SQLException e) {
-            //e.printStackTrace();
-            //System.out.println("SQL request : "+sql);
+            e.printStackTrace();
             System.out.println("SQLException msg: " + e.getMessage());
             return 0;
         } finally {
@@ -193,10 +192,9 @@ public class EmployeDB {
             st = con.createStatement();
             String sql = "DELETE FROM `employe` WHERE `id`=" + id + ";";
             st.executeUpdate(sql);
-            //TODO when the database is done add the cascade to delete the instance from all of the tables
             return 1;
         } catch (SQLException e) {
-            //System.out.println("Error : " + e.getErrorCode());
+            System.out.println("Error : " + e.getErrorCode());
             //e.printStackTrace();
             return 0;
         }

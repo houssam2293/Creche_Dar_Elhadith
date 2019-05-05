@@ -17,9 +17,9 @@ import javafx.util.Duration;
 
 public class ArchiveController {
 
-    int anee=2025;
-    int i=5;
-    int j=1;
+    int anee = 2025;
+    int i = 5;
+    int j = 1;
 
     @FXML
     private StackPane root;
@@ -28,13 +28,13 @@ public class ArchiveController {
     private AnchorPane choosePane;
 
     @FXML
-    private VBox ArchivHome,anees,anee1,anee2,anee3,anee4,anee5;
+    private VBox ArchivHome, anees, anee1, anee2, anee3, anee4, anee5;
 
     @FXML
     private VBox studentPane;
 
     @FXML
-    private Label errorLabelEmploye,errorLabelStudent;
+    private Label errorLabelEmploye, errorLabelStudent;
 
     @FXML
     private JFXTextField searchStudentField;
@@ -43,7 +43,7 @@ public class ArchiveController {
     private JFXComboBox<?> comboStudentSearchBy;
 
     @FXML
-    private HBox searchToolsBox,lesAnee;
+    private HBox searchToolsBox, lesAnee;
 
     @FXML
     private JFXComboBox<?> comboStudentSectionFilter;
@@ -156,23 +156,24 @@ public class ArchiveController {
             if (i == 9) {
                 j++;
                 i = 0;
-            }}
-            if (j == 6) {
-                JFXButton jfxButton = new JFXButton();
-                jfxButton.setMaxSize(173, 59);
-                jfxButton.setText(String.valueOf(anee) + "-" + String.valueOf(++anee));
-                jfxButton.setOnAction(e -> choseanee());
-                anee5.getChildren().add(jfxButton);
-                i++;
-                if (i == 9) {
-                    j++;
-                    i = 0;
-                }
-
+            }
+        }
+        if (j == 6) {
+            JFXButton jfxButton = new JFXButton();
+            jfxButton.setMaxSize(173, 59);
+            jfxButton.setText(String.valueOf(anee) + "-" + String.valueOf(++anee));
+            jfxButton.setOnAction(e -> choseanee());
+            anee5.getChildren().add(jfxButton);
+            i++;
+            if (i == 9) {
+                j++;
+                i = 0;
             }
 
-
         }
+
+
+    }
 
     @FXML
     void backtoanee() {

@@ -53,7 +53,7 @@ public class ManageEmployeeController implements Initializable {
     @FXML
     private JFXComboBox<String> combo;
 
-    @FXML // Cols of table
+    @FXML
     private JFXTreeTableColumn<TableEmployee, String> idCol, firstnameCol, lastNameCol,
             dateOfBirthCol, placeOfBirthCol, jobCol, addressCol, phoneCol, socialSecurNumbCol,
             diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol;
@@ -64,7 +64,6 @@ public class ManageEmployeeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        //combo.setItems(options);
         combo.getItems().addAll("رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد",
                 "مكان الملاد", "المهنة", "العنوان الشخصي", "الهاتف",
                 "رقم الضمان الإجتماعي", "الشهادات", "تاريخ أول تعيين", "الخبرة", "حالة التعاقد", "الحالة العائلية", "لقب العزوبة", "عدد بنون", "عدد بنات");
@@ -329,7 +328,6 @@ public class ManageEmployeeController implements Initializable {
         searchField.textProperty().addListener(e -> filterSearchTable());
         combo.setOnAction(e -> filterSearchTable());
 
-        //noinspection deprecation
         treeTableView.getColumns().addAll(idCol, firstnameCol, lastNameCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, socialSecurNumbCol, jobCol, diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol);
         treeTableView.setShowRoot(false);
         treeTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

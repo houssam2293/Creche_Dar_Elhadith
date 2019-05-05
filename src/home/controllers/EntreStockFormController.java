@@ -67,6 +67,7 @@ public class EntreStockFormController {
         prixField.setText(null);
 
     }
+
     @FXML
     void printStock(ActionEvent event) {
 

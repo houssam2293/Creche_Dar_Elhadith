@@ -19,9 +19,9 @@ import static javafx.scene.input.KeyCode.ESCAPE;
 public class AddEleveFormController {
     private ObservableList<Integer> options =
             FXCollections.observableArrayList(
-                    0,1,2,3,4,5,6,7,8
+                    0, 1, 2, 3, 4, 5, 6, 7, 8
             );
-    private Integer sommeChildren=0;
+    private Integer sommeChildren = 0;
 
 
     @FXML
@@ -82,13 +82,12 @@ public class AddEleveFormController {
     private JFXComboBox<Integer> femaleChild;
 
 
-
     @FXML
     void actionToggleButton() {
-        if (stat.isSelected()){
+        if (stat.isSelected()) {
             malad.setDisable(false);
 
-        }else {
+        } else {
             malad.setDisable(true);
 
         }
@@ -123,7 +122,6 @@ public class AddEleveFormController {
     }
 
 
-
     public void initialize(URL location, ResourceBundle resources) {
 
 
@@ -133,7 +131,7 @@ public class AddEleveFormController {
             }
         });
 
-        root.setOnKeyPressed(e->{
+        root.setOnKeyPressed(e -> {
             if (e.getCode().equals(ESCAPE)) {
                 btnClose();
             }
@@ -142,8 +140,8 @@ public class AddEleveFormController {
 
     }
 
-    private Integer calculSomme(Integer a,Integer b) {
-        return a+b;
+    private Integer calculSomme(Integer a, Integer b) {
+        return a + b;
     }
 }
 

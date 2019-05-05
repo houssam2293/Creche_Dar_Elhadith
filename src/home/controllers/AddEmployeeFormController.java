@@ -28,9 +28,9 @@ import static javafx.scene.input.KeyCode.ESCAPE;
 public class AddEmployeeFormController implements Initializable {
     private ObservableList<Integer> options =
             FXCollections.observableArrayList(
-                    0,1,2,3,4,5,6,7,8
+                    0, 1, 2, 3, 4, 5, 6, 7, 8
             );
-    private Integer sommeChildren=0;
+    private Integer sommeChildren = 0;
 
 
     @FXML
@@ -91,15 +91,14 @@ public class AddEmployeeFormController implements Initializable {
     private JFXComboBox<Integer> femaleChild;
 
 
-
     @FXML
     void actionToggleButton() {
-        if (stat.isSelected()){
+        if (stat.isSelected()) {
             celibacyTitle.setDisable(false);
             sommeChild.setDisable(false);
             maleChild.setDisable(false);
             femaleChild.setDisable(false);
-        }else {
+        } else {
             celibacyTitle.setDisable(true);
             sommeChild.setDisable(true);
             maleChild.setDisable(true);
@@ -110,7 +109,7 @@ public class AddEmployeeFormController implements Initializable {
 
     @FXML
     void btnAdd() {
-        Employe employe =new Employe();
+        Employe employe = new Employe();
         employe.setId(Integer.valueOf(id.getText()));
         employe.setNom(lastNameField.getText().trim().toLowerCase());
         employe.setPrenom(firstNameField.getText().trim().toLowerCase());
@@ -130,16 +129,19 @@ public class AddEmployeeFormController implements Initializable {
             employe.setCelibacyTitle(celibacyTitle.getText().trim().toLowerCase());
             employe.setMaleChild(maleChild.getValue());
             employe.setFemaleChild(femaleChild.getValue());
-        }else employe.setStatuSocial(0);
+        } else employe.setStatuSocial(0);
 
         int status = new EmployeDB().addEmploye(employe);
         switch (status) {
-            case -1:System.out.println("Error connecting to DB!");
-            break;
-            case 2:System.out.println("Error Employer exist!");
-            break;
-            case 0:System.out.println("Unknown Error failed to add Employer" );
-            break;
+            case -1:
+                System.out.println("Error connecting to DB!");
+                break;
+            case 2:
+                System.out.println("Error Employer exist!");
+                break;
+            case 0:
+                System.out.println("Unknown Error failed to add Employer");
+                break;
             case 1:
                 Notifications.create()
                         .title("تمت الإضافة بنجاح                                   ")
@@ -193,7 +195,7 @@ public class AddEmployeeFormController implements Initializable {
             }
         });
 
-        root.setOnKeyPressed(e->{
+        root.setOnKeyPressed(e -> {
             if (e.getCode().equals(ESCAPE)) {
                 btnClose();
             }
@@ -205,11 +207,11 @@ public class AddEmployeeFormController implements Initializable {
         femaleChild.getSelectionModel().select(0);
         sommeChild.setText(sommeChildren.toString());
         maleChild.setOnAction(event -> {
-                sommeChildren = calculSomme(maleChild.getSelectionModel().getSelectedItem(),
-                        femaleChild.getSelectionModel().getSelectedItem());
-                sommeChild.setText(sommeChildren.toString());
+            sommeChildren = calculSomme(maleChild.getSelectionModel().getSelectedItem(),
+                    femaleChild.getSelectionModel().getSelectedItem());
+            sommeChild.setText(sommeChildren.toString());
 
-            });
+        });
         femaleChild.setOnAction(event -> {
             sommeChildren = calculSomme(maleChild.getSelectionModel().getSelectedItem(),
                     femaleChild.getSelectionModel().getSelectedItem());
@@ -217,7 +219,7 @@ public class AddEmployeeFormController implements Initializable {
         });
     }
 
-    private Integer calculSomme(Integer a,Integer b) {
-        return a+b;
+    private Integer calculSomme(Integer a, Integer b) {
+        return a + b;
     }
 }

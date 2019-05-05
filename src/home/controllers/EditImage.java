@@ -15,7 +15,7 @@ public class EditImage implements Initializable {
     private AnchorPane root;
 
     @FXML
-    private  ImageView imageHolder;
+    private ImageView imageHolder;
 
 
     @FXML
@@ -25,7 +25,7 @@ public class EditImage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-    imageHolder.setImage(uploadImage());
+        imageHolder.setImage(uploadImage());
 
     }
 

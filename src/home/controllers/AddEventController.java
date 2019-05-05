@@ -23,18 +23,11 @@ import java.util.ResourceBundle;
 
 public class AddEventController implements Initializable {
 
-    // Controllers
     private CalendarController mainController;
-
-
-    //--------------------------------------------------------------------
-    //---------Database Object -------------------------------------------
     CalendarDB calendarDB;
-    //--------------------------------------------------------------------
 
 
-    //Set main controller
-    public void setMainController(CalendarController mainController) {
+    void setMainController(CalendarController mainController) {
         this.mainController = mainController;
     }
 
@@ -112,24 +105,20 @@ public class AddEventController implements Initializable {
                 + "'" + eventTypeValue + "'"
                 + ")";
 
-        //Check if insertion into database was successful, and show message either if it was or not
         if (calendarDB.executeAction(insertQuery)) {
             Alert alertMessage = new Alert(Alert.AlertType.INFORMATION);
             alertMessage.setHeaderText(null);
             alertMessage.setContentText("تمت إضافة الحدث بنجاح");
             alertMessage.showAndWait();
-        } else //if there is an error
-        {
+        } else {
             Alert alertMessage = new Alert(Alert.AlertType.ERROR);
             alertMessage.setHeaderText(null);
             alertMessage.setContentText("إضافة حدث فشل! \n يوجد بالفعل حدث بنفس المعلومات");
             alertMessage.showAndWait();
         }
 
-        //Show the new event on the calendar according to the selected filters
         mainController.repaintView();
 
-        // Close the window
         Stage stage = (Stage) rootPane.getScene().getWindow();
         stage.close();
 
@@ -152,33 +141,28 @@ public class AddEventController implements Initializable {
 
         eventType.getItems().addAll("رحلة", "عرض", "ورشة", "قيلولة", "ألعاب");
 
-        //**********************************************************************
-        // ************* Everything below is for Draggable Window ********
-
-        // Set up Mouse Dragging for the Event pop up window
         topLabel.setOnMousePressed(event -> {
             Stage stage = (Stage) rootPane.getScene().getWindow();
             xOffset = stage.getX() - event.getScreenX();
             yOffset = stage.getY() - event.getScreenY();
         });
-        // Set up Mouse Dragging for the Event pop up window
+
         topLabel.setOnMouseDragged(event -> {
             Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.setX(event.getScreenX() + xOffset);
             stage.setY(event.getScreenY() + yOffset);
         });
-        // Change cursor when hover over draggable area
+
         topLabel.setOnMouseEntered(event -> {
             Stage stage = (Stage) rootPane.getScene().getWindow();
             Scene scene = stage.getScene();
-            scene.setCursor(Cursor.HAND); //Change cursor to hand
+            scene.setCursor(Cursor.HAND);
         });
 
-        // Change cursor when hover over draggable area
         topLabel.setOnMouseExited(event -> {
             Stage stage = (Stage) rootPane.getScene().getWindow();
             Scene scene = stage.getScene();
-            scene.setCursor(Cursor.DEFAULT); //Change cursor to hand
+            scene.setCursor(Cursor.DEFAULT);
         });
     }
 }

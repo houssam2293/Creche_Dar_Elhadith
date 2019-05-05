@@ -44,6 +44,17 @@
                   <Label fx:id="errorLabel" alignment="CENTER" prefHeight="43.0" prefWidth="290.0" style="-fx-text-fill: #F00; -fx-font-size: 26px;" />
                </children>
             </HBox>
+            <HBox prefHeight="80.0" prefWidth="200.0" spacing="10.0">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               <children>
+                  <Label fx:id="dateLabel" alignment="CENTER" prefHeight="50.0" prefWidth="400.0" styleClass="date-header" />
+               </children>
+            </HBox>
             <HBox prefHeight="599.0" prefWidth="1183.0" spacing="10.0" stylesheets="@../css/calendar.css">
                <children>
                   <JFXTabPane prefHeight="570.0" prefWidth="280.0">
@@ -151,7 +162,7 @@
                                                             <Insets />
                                                          </HBox.margin>
                                                       </JFXColorPicker>
-                                                      <JFXCheckBox fx:id="excurtionCheckBox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" styleClass="field-smaller" text="واضح؟" />
+                                                      <JFXCheckBox fx:id="excurtionCheckBox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" selected="true" styleClass="field-smaller" text="واضح؟" />
                                                    </children>
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" prefHeight="43.0" prefWidth="304.0" spacing="20.0">
@@ -172,7 +183,7 @@
                                                             <Insets />
                                                          </HBox.margin>
                                                       </JFXColorPicker>
-                                                      <JFXCheckBox fx:id="spectacleCheckBox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" styleClass="field-smaller" text="واضح؟" />
+                                                      <JFXCheckBox fx:id="spectacleCheckBox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" selected="true" styleClass="field-smaller" text="واضح؟" />
                                                    </children>
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" prefHeight="43.0" prefWidth="304.0" spacing="20.0">
@@ -193,7 +204,7 @@
                                                             <Insets />
                                                          </HBox.margin>
                                                       </JFXColorPicker>
-                                                      <JFXCheckBox fx:id="atelierCheckbox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" styleClass="field-smaller" text="واضح؟" />
+                                                      <JFXCheckBox fx:id="atelierCheckbox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" selected="true" styleClass="field-smaller" text="واضح؟" />
                                                    </children>
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" prefHeight="43.0" prefWidth="304.0" spacing="20.0">
@@ -214,7 +225,7 @@
                                                             <Insets />
                                                          </HBox.margin>
                                                       </JFXColorPicker>
-                                                      <JFXCheckBox fx:id="siesteCheckBox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" styleClass="field-smaller" text="واضح؟" />
+                                                      <JFXCheckBox fx:id="siesteCheckBox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" selected="true" styleClass="field-smaller" text="واضح؟" />
                                                    </children>
                                                 </HBox>
                                                 <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="20.0" prefHeight="43.0" prefWidth="304.0" spacing="20.0">
@@ -235,19 +246,19 @@
                                                             <Insets />
                                                          </HBox.margin>
                                                       </JFXColorPicker>
-                                                      <JFXCheckBox fx:id="jeuxCheckBox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" styleClass="field-smaller" text="واضح؟" />
+                                                      <JFXCheckBox fx:id="jeuxCheckBox" checkedColor="#2196f3" onAction="#handleCheckBoxAction" selected="true" styleClass="field-smaller" text="واضح؟" />
                                                    </children>
                                                 </HBox>
                                              </children>
                                           </VBox>
-                                          <JFXCheckBox fx:id="selectAllCheckBox" alignment="CENTER" checkedColor="#2196f3" contentDisplay="CENTER" onAction="#selectAllCheckBoxes" prefHeight="31.0" prefWidth="320.0" styleClass="field-smaller" text="حدد / إلغاء تحديد الكل">
+                                          <JFXCheckBox fx:id="selectAllCheckBox" alignment="CENTER" checkedColor="#2196f3" contentDisplay="CENTER" onAction="#selectAllCheckBoxes" prefHeight="31.0" prefWidth="320.0" selected="true" styleClass="field-smaller" text="حدد / إلغاء تحديد الكل">
                                              <VBox.margin>
                                                 <Insets bottom="20.0" top="20.0" />
                                              </VBox.margin>
                                           </JFXCheckBox>
                                           <HBox alignment="CENTER" prefHeight="40.0" prefWidth="304.0">
                                              <children>
-                                                <JFXButton buttonType="RAISED" onMouseClicked="#updateColors" prefHeight="39.0" prefWidth="180.0" text="حفظ التعديلات" />
+                                                <JFXButton buttonType="RAISED" onMouseClicked="#updateColors" prefHeight="39.0" prefWidth="180.0" text="حفظ التعديلات على الألوان" />
                                              </children>
                                           </HBox>
                                        </children></VBox>

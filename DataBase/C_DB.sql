@@ -26,6 +26,24 @@ create TABLE `creche_dar_elhadith`.`employe` (
   `nombreEnfantF` int(2) DEFAULT NULL,
   PRIMARY KEY (`id`));
 
+create TABLE `creche_dar_elhadith`.`eleve` (
+`num` int(4) unsigned NOT NULL AUTO_INCREMENT,
+`id` varchar(30) DEFAULT NULL,
+`nom` varchar(22) NOT NULL,
+`prenom` varchar(22) NOT NULL,
+`dateNaissance` Date NOT NULL,
+`lieuNaissance` varchar(20) DEFAULT NULL,
+`adresse` varchar(50) DEFAULT NULL,
+`numTelephone` varchar(10) DEFAULT NULL,
+`malad` varchar(60) ,
+`nomPère` varchar(22) NOT NULL,
+`nomMère` varchar(22) NOT NULL,
+`prenomMère` varchar(22) NOT NULL,
+`jobPère` varchar(22) NOT NULL,
+`jobMère` varchar(22) NOT NULL,
+`NombreDannées` int(1),
+PRIMARY KEY (`num`));
+
 create TABLE `creche_dar_elhadith`.`calendar` (
   `CalendarName` VARCHAR(200) NOT NULL,
   `StartYear` INT NULL,
@@ -54,7 +72,7 @@ CREATE TABLE `creche_dar_elhadith`.`colortable` (
 
 alter table `creche_dar_elhadith`.`colortable` add constraint `CI_Type` check (`nameevent` in ('sieste','atelier','excursion','spectacle','jeux'));
 
-INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('1', 'excurtion', '244-244-242');
+INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('1', 'excurtion', '156-204-101');
 INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('2', 'spectacle', '251-210-73');
 INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('3', 'atelier', '0-112-255');
 INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('4', 'sieste', '154-86-187');
