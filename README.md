@@ -2,6 +2,16 @@
 
 This is a work in  progress. will update the README.md when done.
 
+### Voici quelque screenshots :
+<p align="center">
+  <img src="Screenshot/Sans_titre_3.png" width="900 ">
+  <img src="Screenshot/Sans_titre_2.png" width="900 ">
+  <img src="Screenshot/Sans_titre_1.png" width="900 ">
+  <img src="Screenshot/Sans_titre_6.png" width="900 ">
+  <img src="Screenshot/Sans_titre_5.png" width="900 ">
+  <img src="Screenshot/Sans_titre_11.png" width="900 ">
+</p>
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
