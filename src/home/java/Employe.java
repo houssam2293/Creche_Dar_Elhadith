@@ -18,6 +18,7 @@ public class Employe {
     private String renouvlement_de_contrat;
     private Date date_debut;
     private String fonction;
+    private String regimeScolaire;
     private String celibacyTitle;
     private int maleChild, femaleChild;
     private int statuSocial;
@@ -25,7 +26,7 @@ public class Employe {
 
     public Employe(int id, String nom, String prenom, Date dateNaissance, String lieuNaissance, String adresse,
                    String numTelephone, String socialSecurityNumber, String diplome, String experience, String itar,
-                   String renouvlement_de_contrat, Date date_debut, String fonction, int statuSocial, String celibacyTitle,
+                   String renouvlement_de_contrat, Date date_debut, String fonction,String regimeScolaire,int statuSocial, String celibacyTitle,
                    int maleChild, int femaleChild) {
         this.id = id;
         this.nom = nom;
@@ -41,6 +42,7 @@ public class Employe {
         this.renouvlement_de_contrat = renouvlement_de_contrat;
         this.date_debut = date_debut;
         this.fonction = fonction;
+        this.regimeScolaire = regimeScolaire;
         this.statuSocial = statuSocial;
         this.celibacyTitle = celibacyTitle;
         this.maleChild = maleChild;
@@ -233,12 +235,17 @@ public class Employe {
     }
 
     public boolean estmarier() {
-        if (statuSocial == 1)
-        return true;
-        else return false;
+        return statuSocial == 1;
     }
     public void setStatuSocial(int statuSocial) {
         this.statuSocial = statuSocial;
     }
 
+    public String getRegimeScolaire() {
+        return regimeScolaire;
+    }
+
+    public void setRegimeScolaire(String regimeScolaire) {
+        this.regimeScolaire = regimeScolaire;
+    }
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<AnchorPane fx:id="rootPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="300.0" prefWidth="340.0"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="home.controllers.EditEventController">
+    <stylesheets>
+        <URL value="@../css/addCalendar.css"/>
+        <URL value="@../css/main.css"/>
+    </stylesheets>
+    <HBox prefHeight="35.0" prefWidth="340.0">
+        <JFXButton onAction="#btnClose" prefHeight="30.0" prefWidth="49.0" styleClass="button-abort" text=" ">
+            <graphic>
+                <OctIconView fill="WHITE" glyphName="X" size="20"/>
+            </graphic>
+        </JFXButton>
+        <Label fx:id="topLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="30.0" prefWidth="312.0"
+               styleClass="titleUserLabel" text="تعديل الحدث">
+            <graphic>
+                <EmojiOneView glyphName="MAP" size="28"/>
+            </graphic>
+        </Label>
+    </HBox>
+    <VBox prefHeight="170.0" prefWidth="320.0" spacing="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
+          AnchorPane.topAnchor="57.0">
+        <padding>
+            <Insets top="5.0"/>
+        </padding>
+        <JFXTextField fx:id="eventDescription" focusColor="#2196f3" labelFloat="true" promptText="إسم الحدث"
+                      styleClass="field"/>
+        <JFXDatePicker fx:id="eventDate" defaultColor="#725b53" promptText="تاريخ الحدث" styleClass="field"/>
+        <JFXTimePicker fx:id="eventTime" defaultColor="#725b53" promptText="على الساعة" styleClass="field"/>
+        <JFXComboBox fx:id="eventType" focusColor="#2196f3" promptText="نوع الحدث" styleClass="field"/>
+    </VBox>
+    <HBox prefHeight="41.0" prefWidth="340.0" AnchorPane.bottomAnchor="0.0">
+        <JFXButton onAction="#updateEvent" prefHeight="40.0" prefWidth="200.0" text="تعديل">
+            <styleClass>
+                <String fx:value="field"/>
+                <String fx:value="button"/>
+            </styleClass>
+        </JFXButton>
+        <JFXButton onAction="#btnDelete" prefHeight="40.0" prefWidth="200.0" text="حذف">
+            <styleClass>
+                <String fx:value="field"/>
+                <String fx:value="button-abort"/>
+            </styleClass>
+        </JFXButton>
+    </HBox>
+</AnchorPane>

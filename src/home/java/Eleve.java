@@ -1,192 +1,239 @@
 package home.java;
 
 
+import sun.net.idn.StringPrep;
+
 import java.util.Date;
 
 
 public class Eleve {
 
+    private int Id;
     private String nom;
-    private String preNom;
+    private String prenom;
     private Date dateNaissance;
-    private int numeroInscription;
+    private String lieuNaissance;
     private String classe;
     private String anneeScolaire;
-    private Regime regimeScolaire;
+    private String regime;
     private String adresse;
-    private String numeroTelephone;
+    private String phone;
+    private String prenomPere;
+    private String prenomMere;
+    private String nomMere;
     private String travailPere;
     private String travailMere;
-    private String bonDeSante;
-    private String note;
+    private String maladie;
+    private String remarque;
 
 
-    public Eleve(String nom, String preNom,Date dateNaissance,int numeroInscription,String classe,String anneeScolaire,
-                 Regime regimeScolaire,String adresse,String numeroTelephone,String travailPere,String travailMere,
-                 String bonDeSante,String note) {
+    public Eleve(int Id, String nom, String prenom,Date dateNaissance, String lieuNaissance,String classe,String anneeScolaire,
+                 String regime,String adresse,String phone,String prenomPere, String prenomMere, String nomMere, String travailPere,String travailMere,
+                 String maladie,String remarque) {
+        this.Id=Id;
         this.nom=nom;
-        this.preNom=preNom;
+        this.prenom=prenom;
         this.dateNaissance=dateNaissance;
-        this.numeroInscription=numeroInscription;
+        this.lieuNaissance=lieuNaissance;
         this.classe=classe;
         this.anneeScolaire=anneeScolaire;
-        this.regimeScolaire=regimeScolaire;
+        this.regime=regime;
         this.adresse=adresse;
-        this.numeroTelephone=numeroTelephone;
+        this.phone=phone;
+        this.prenomPere=prenomPere;
+        this.prenomMere=prenomMere;
+        this.nomMere=nomMere;
         this.travailPere=travailPere;
         this.travailMere=travailMere;
-        this.bonDeSante=bonDeSante;
-        this.note=note;
+        this.maladie=maladie;
+        this.remarque=remarque;
+
+    }
+
+    public Eleve() {
 
     }
 
 
-    Regime getRegimeScolaire() {
+    public int getId() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.regimeScolaire;
+        return this.Id;
     }
 
-    void setRegimeScolaire(Regime value) {
+
+    public void setId(int value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.regimeScolaire = value;
+        this.Id = value;
     }
 
-    String getNom() {
+    public String getRegime() {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        return this.regime;
+    }
+
+    public void setRegime(String value) {
+        // Automatically generated method. Please delete this comment before entering specific code.
+        this.regime = value;
+    }
+
+    public String getNom() {
         return this.nom;
     }
 
-    void setNom(String value) {
+    public void setNom(String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.nom = value;
     }
 
-    String getPreNom() {
+    public String getPrenom() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.preNom;
+        return this.prenom;
     }
 
-    void setPreNom(String value) {
+    public void setPrenom(String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.preNom = value;
+        this.prenom = value;
     }
 
-    Date getDateNaissance() {
+    public Date getDateNaissance() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.dateNaissance;
     }
 
 
-    void setDateNaissance(Date value) {
+    public void setDateNaissance(Date value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.dateNaissance = value;
     }
 
 
-    int getNumeroInscription() {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        return this.numeroInscription;
-    }
 
 
-    void setNumeroInscription(int value) {
-        // Automatically generated method. Please delete this comment before entering specific code.
-        this.numeroInscription = value;
-    }
 
-
-    String getClasse() {
+    public String getClasse() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.classe;
     }
 
 
-    void setClasse(String value) {
+    public void setClasse(String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.classe = value;
     }
 
 
-    String getAnneeScolaire() {
+    public String getAnneeScolaire() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.anneeScolaire;
     }
 
 
-    void setAnneeScolaire(String value) {
+    public void setAnneeScolaire(String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.anneeScolaire = value;
     }
 
 
-    String getAdresse() {
+    public String getAdresse() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.adresse;
     }
 
 
-    void setAdresse(String value) {
+    public void setAdresse(String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.adresse = value;
     }
 
 
-    String getNumeroTelephone() {
+    public String getPhone() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.numeroTelephone;
+        return this.phone;
     }
 
 
-    void setNumeroTelephone(String value) {
+    public void setPhone(String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.numeroTelephone = value;
+        this.phone = value;
     }
 
 
-    String getTravailPere() {
+    public String getTravailPere() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.travailPere;
     }
 
 
-    void setTravailPere(String value) {
+    public void setTravailPere(String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.travailPere = value;
     }
 
 
-    String getTravailMere() {
+    public String getTravailMere() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.travailMere;
     }
 
 
-    void setTravailMere(String value) {
+    public void setTravailMere(String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.travailMere = value;
     }
 
 
-    String getBonDeSante() {
+    public String getMaladie() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.bonDeSante;
+        return this.maladie;
     }
 
 
-    void setBonDeSante(String value) {
+    public void setMaladie(String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.bonDeSante = value;
+        this.maladie = value;
     }
 
 
-    String getNote() {
+    public String getRemarque() {
         // Automatically generated method. Please delete this comment before entering specific code.
-        return this.note;
+        return this.remarque;
     }
 
 
-    void setNote(String value) {
+    public void setRemarque(String value) {
         // Automatically generated method. Please delete this comment before entering specific code.
-        this.note = value;
+        this.remarque = value;
     }
 
+    public String getLieuNaissance() {
+        return lieuNaissance;
+    }
+
+    public void setLieuNaissance(String lieuNaissance) {
+        this.lieuNaissance = lieuNaissance;
+    }
+
+    public String getPrenomPere() {
+        return prenomPere;
+    }
+
+    public void setPrenomPere(String prenomPere) {
+        this.prenomPere = prenomPere;
+    }
+
+    public String getPrenomMere() {
+        return prenomMere;
+    }
+
+    public void setPrenomMere(String prenomMere) {
+        this.prenomMere = prenomMere;
+    }
+
+    public String getNomMere() {
+        return nomMere;
+    }
+
+    public void setNomMere(String nomMere) {
+        this.nomMere = nomMere;
+    }
 }

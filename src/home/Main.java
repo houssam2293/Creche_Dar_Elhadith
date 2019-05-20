@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -24,7 +25,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         InputStream input = null;
-        Properties prop =new Properties();
+        Properties prop = new Properties();
         Path currentRelativePath = Paths.get("");
         String s = currentRelativePath.toAbsolutePath().toString();
         System.out.println("Current path : " + s);
@@ -39,9 +40,9 @@ public class Main extends Application {
 
             if (input == null) {
                 System.out.println("file 'dbCredentials.properties' not found!(main)");
-                Parent root = FXMLLoader.load(getClass().getResource("fxml/firstLoad.fxml"));
-                primaryStage.setTitle("Creche Dar EL Hadith/Configuration");
-                primaryStage.getIcons().add(new Image("/home/icons/icon.png"));
+                Parent root = FXMLLoader.load(getClass().getResource("resources/fxml/firstLoad.fxml"));
+                primaryStage.setTitle("مؤسسة دار الحديث/إعداد");
+                primaryStage.getIcons().add(new Image("/home/resources/icons/icon.png"));
                 primaryStage.setResizable(false);
                 primaryStage.setScene(new Scene(root));
                 primaryStage.show();
@@ -63,19 +64,20 @@ public class Main extends Application {
                     if (input1 == null) {
                         System.out.println("file 'loginCredentials.properties' not found!(main)");
                         Stage stage = new Stage();
-                        Parent root = FXMLLoader.load(getClass().getResource("fxml/loginEntry.fxml"));
-                        stage.setTitle("Premier Lancement");
-                        stage.getIcons().add(new Image("/home/icons/icon.png"));
+                        Parent root = FXMLLoader.load(getClass().getResource("resources/fxml/loginEntry.fxml"));
+                        stage.setTitle("إضافة مستخدم");
+                        stage.getIcons().add(new Image("/home/resources/icons/icon.png"));
                         stage.setResizable(false);
                         stage.setScene(new Scene(root));
                         stage.show();
 
                     } else {
 
-                        Parent root = FXMLLoader.load(getClass().getResource("fxml/login.fxml"));
-                        primaryStage.setTitle("Creche Dar EL Hadith");
-                        primaryStage.getIcons().add(new Image("/home/icons/icon.png"));
+                        Parent root = FXMLLoader.load(getClass().getResource("resources/fxml/login.fxml"));
+                        primaryStage.setTitle("مؤسسة دار الحديث");
+                        primaryStage.getIcons().add(new Image("/home/resources/icons/icon.png"));
                         primaryStage.setResizable(false);
+                        primaryStage.initStyle(StageStyle.UNDECORATED);
                         primaryStage.setScene(new Scene(root));
                         primaryStage.show();
 

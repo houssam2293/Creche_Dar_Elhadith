@@ -1,23 +1,37 @@
 package home.java;
 
+import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+
 import java.util.Date;
 
-public class EntreStock {
-    private String id;
+public class EntreStock extends RecursiveTreeObject<EntreStock> {
+    private int id;
     private String nom;
     private int quantite;
     private double prix;
     private Date dateFab;
     private Date dateExp;
-
-    public EntreStock() {
+    private String fournisseur;
+    private double prixTotale;
+    public EntreStock(int id,String nom, int quantite,double prix,Date dateFab,Date dateExp,String fournisseur,Double prixTotale) {
+       this.id=id;
+        this.nom=nom;
+        this.quantite=quantite;
+        this.prix=prix;
+        this.dateFab=dateFab;
+        this.dateExp=dateExp;
+        this.fournisseur=fournisseur;
+        this.prixTotale=prixTotale;
     }
+    public EntreStock(){
 
-    public String getId() {
+
+    }
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -58,6 +72,22 @@ public class EntreStock {
     }
 
     public void setDateExp(Date dateExp) {
-        this.dateExp = dateExp;
+        this.dateExp = dateExp;}
+
+        public String getFournisseur() {
+            return fournisseur;
+        }
+
+        public void setFournisseur(String fournisseur) {
+            this.fournisseur = fournisseur;
+        }
+
+
+    public double getPrixTotale() {
+        return prixTotale;
+    }
+
+    public void setPrixTotale(double prixTotale) {
+        this.prixTotale = prixTotale;
     }
 }

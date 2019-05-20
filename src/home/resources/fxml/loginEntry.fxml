@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane onKeyPressed="#keyPressed" prefHeight="380.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.LoginEntry">
+    <VBox layoutX="98.0" layoutY="-33.0" prefHeight="250.0" prefWidth="400.0" AnchorPane.bottomAnchor="0.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="يرجى ادخال اسم المستخدم و كلمة مرور للمتابعة "
+              textAlignment="RIGHT" wrappingWidth="331.0">
+            <font>
+                <Font name="System Bold" size="16.0"/>
+            </font>
+            <VBox.margin>
+                <Insets bottom="20.0" left="20.0" right="25.0" top="20.0"/>
+            </VBox.margin>
+        </Text>
+        <JFXTextField fx:id="email" alignment="CENTER_RIGHT" labelFloat="true" promptText="البريد الإلكتروني">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+            <VBox.margin>
+                <Insets bottom="15.0" left="100.0" right="50.0" top="15.0"/>
+            </VBox.margin>
+        </JFXTextField>
+        <JFXTextField fx:id="user" alignment="CENTER_RIGHT" labelFloat="true" layoutX="110.0" layoutY="87.0"
+                      promptText="اسم المستخدم">
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+            <VBox.margin>
+                <Insets bottom="15.0" left="100.0" right="50.0" top="15.0"/>
+            </VBox.margin>
+        </JFXTextField>
+        <JFXPasswordField fx:id="password" alignment="CENTER_RIGHT" labelFloat="true" promptText="كلمة مرور">
+            <VBox.margin>
+                <Insets bottom="15.0" left="100.0" right="50.0"/>
+            </VBox.margin>
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </JFXPasswordField>
+        <JFXPasswordField fx:id="password1" alignment="CENTER_RIGHT" labelFloat="true" promptText="تأكيد كلمة مرور">
+            <VBox.margin>
+                <Insets bottom="15.0" left="100.0" right="50.0"/>
+            </VBox.margin>
+            <font>
+                <Font name="System Bold" size="12.0"/>
+            </font>
+        </JFXPasswordField>
+        <Text fx:id="erreurText" fill="#e80000" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="RIGHT"
+              wrappingWidth="310.0">
+            <VBox.margin>
+                <Insets bottom="5.0" left="50.0" right="10.0" top="10.0"/>
+            </VBox.margin>
+        </Text>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+            <VBox.margin>
+                <Insets top="10.0"/>
+            </VBox.margin>
+            <padding>
+                <Insets left="10.0" right="10.0"/>
+            </padding>
+            <JFXButton onAction="#annuler" prefHeight="50.0" prefWidth="100.0" styleClass="button-abort"
+                       stylesheets="@../css/firstload.css" text="إلغاء"/>
+            <JFXButton fx:id="login" onAction="#confirmer" prefHeight="50.0" prefWidth="100.0"
+                       stylesheets="@../css/firstload.css" text="تأكيد"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

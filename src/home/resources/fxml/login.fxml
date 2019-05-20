@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<AnchorPane onKeyPressed="#onEnter" prefHeight="510.0" prefWidth="696.0" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.loginController">
+    <Pane prefHeight="520.0" prefWidth="710.0" stylesheets="@../css/main.css" AnchorPane.bottomAnchor="-10.0"
+          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-14.0" AnchorPane.topAnchor="0.0">
+        <ImageView fitHeight="538.0" fitWidth="722.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../images/01.jpg"/>
+        </ImageView>
+        <EmojiOneView fill="#dad7d7" glyphName="X" layoutX="25.0" layoutY="31.0" onMouseClicked="#btnClose"
+                      size="20" styleClass="icon-close" wrappingWidth="14.0"/>
+    </Pane>
+    <AnchorPane cache="true" cacheHint="QUALITY" depthTest="ENABLE" layoutX="9.0" layoutY="9.0" maxHeight="-Infinity"
+                maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="489.0" prefWidth="309.0"
+                stylesheets="@../css/dark_them.css" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                AnchorPane.topAnchor="0.0">
+        <effect>
+            <DropShadow/>
+        </effect>
+        <AnchorPane opacity="0.5" prefHeight="490.0" prefWidth="309.0" style="-fx-background-color: black;"
+                    AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                    AnchorPane.topAnchor="0.0"/>
+        <Label fx:id="errorlabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="24.0" prefHeight="17.0"
+               prefWidth="249.0" textFill="RED" wrapText="true" AnchorPane.bottomAnchor="21.0"
+               AnchorPane.leftAnchor="24.0" AnchorPane.rightAnchor="36.0" AnchorPane.topAnchor="472.0"/>
+        <RadioButton fx:id="francais_radio" mnemonicParsing="false" prefHeight="17.0" prefWidth="74.0"
+                     text="Français" textFill="WHITE" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="82.0"
+                     AnchorPane.rightAnchor="153.0" AnchorPane.topAnchor="427.0">
+            <toggleGroup>
+                <ToggleGroup fx:id="lang"/>
+            </toggleGroup>
+        </RadioButton>
+        <RadioButton fx:id="arabic_radio" mnemonicParsing="false" selected="true" text="عربية" textFill="WHITE"
+                     toggleGroup="$lang" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="179.0"
+                     AnchorPane.rightAnchor="82.0" AnchorPane.topAnchor="427.0"/>
+        <Separator layoutX="30.0" layoutY="138.0" prefHeight="3.0" prefWidth="240.0" AnchorPane.bottomAnchor="339.0"
+                   AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="138.0"/>
+        <Button layoutX="50.0" layoutY="375.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="48.0"
+                prefWidth="209.0" styleClass="text-button" stylesheets="@../css/dark_them.css" text="تسجيل الدخول"
+                textAlignment="CENTER" textFill="#c2c2c2" AnchorPane.bottomAnchor="87.0"
+                AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="375.0">
+            <font>
+                <Font name="System Bold" size="18.0"/>
+            </font>
+        </Button>
+        <ImageView fitHeight="115.0" fitWidth="217.0" layoutX="60.0" layoutY="14.0" pickOnBounds="true"
+                   preserveRatio="true" AnchorPane.bottomAnchor="361.0" AnchorPane.leftAnchor="60.0"
+                   AnchorPane.rightAnchor="59.0" AnchorPane.topAnchor="14.0">
+            <Image url="@../images/logo.png"/>
+        </ImageView>
+        <JFXTextField fx:id="user" alignment="CENTER_RIGHT" labelFloat="true" layoutX="61.0" layoutY="209.0"
+                      prefHeight="38.0" prefWidth="181.0" promptText="المستخدم" styleClass="text-field"
+                      unFocusColor="#eeeeee" AnchorPane.bottomAnchor="263.0" AnchorPane.leftAnchor="61.0"
+                      AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="209.0"/>
+        <JFXPasswordField fx:id="password" alignment="CENTER_RIGHT" labelFloat="true" layoutX="61.0" layoutY="282.0"
+                          prefHeight="38.0" prefWidth="181.0" promptText="كلمة السر" styleClass="text-field"
+                          stylesheets="@../css/dark_them.css" unFocusColor="WHITE" AnchorPane.bottomAnchor="190.0"
+                          AnchorPane.leftAnchor="61.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="282.0"/>
+        <Hyperlink layoutX="141.0" layoutY="339.0" onAction="#resetPasseword" prefHeight="24.0" prefWidth="106.0"
+                   text="نسيت كلمة السر؟" textFill="WHITE" AnchorPane.bottomAnchor="147.0"
+                   AnchorPane.leftAnchor="141.0" AnchorPane.rightAnchor="62.0" AnchorPane.topAnchor="339.0"/>
+    </AnchorPane>
+</AnchorPane>

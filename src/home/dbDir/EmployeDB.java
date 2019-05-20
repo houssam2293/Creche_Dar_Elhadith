@@ -36,6 +36,7 @@ public class EmployeDB {
                         resultSet.getString("renouvlementDeContrat"),
                         resultSet.getDate("dateDebut"),
                         resultSet.getString("fonction"),
+                        resultSet.getString("regime"),
                         resultSet.getInt("marier"),
                         resultSet.getString("celibacyTitle"),
                         resultSet.getInt("nombreEnfantM"),
@@ -50,7 +51,7 @@ public class EmployeDB {
     }
 
     public int addEmploye(Employe employe) {
-        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`employe` ( `id`, `nom`, `prenom`, `dateNaissance`, `lieuNaissance`, `adresse`, `numTelephone`, `socialSecurityNumber`, `diplome`, `experience`, `itar`, `renouvlementDeContrat`, `dateDebut`, `fonction`, `marier`");
+        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`employe` ( `id`, `nom`, `prenom`, `dateNaissance`, `lieuNaissance`, `adresse`, `numTelephone`, `socialSecurityNumber`, `diplome`, `experience`, `itar`, `renouvlementDeContrat`, `dateDebut`, `fonction`,`regime`, `marier`");
         Connection connection = null;
         Statement st = null;
 
@@ -84,6 +85,7 @@ public class EmployeDB {
             sql.append(employe.getRenouvlement_de_contrat()).append("','");
             sql.append(employe.getDate_debut()).append("','");
             sql.append(employe.getFonction()).append("','");
+            sql.append(employe.getRegimeScolaire()).append("','");
             sql.append(employe.getStatuSocial());
 
             if (employe.estmarier()) {
@@ -147,6 +149,7 @@ public class EmployeDB {
                 sql.append("', `renouvlementDeContrat`='").append(employe.getRenouvlement_de_contrat());
                 sql.append("', `dateDebut`='").append(employe.getDate_debut());
                 sql.append("', `fonction`='").append(employe.getFonction());
+                sql.append("', `regime`='").append(employe.getRegimeScolaire());
                 sql.append("', `marier`='").append(employe.getStatuSocial());
 
                 if (employe.estmarier()) {
@@ -202,7 +205,7 @@ public class EmployeDB {
     }
 
 
-    public boolean employerExist(int id) {
+    private boolean employerExist(int id) {
         Connection con = new ConnectionClasse().getConnection();
         if (con == null) // if connection failed
         {

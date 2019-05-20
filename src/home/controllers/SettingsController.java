@@ -2,28 +2,50 @@ package home.controllers;
 
 import com.jfoenix.controls.JFXComboBox;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
+import home.dbDir.CompteDB;
 import home.dbDir.EmployeDB;
+import home.java.Compte;
 import home.java.Employe;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import javafx.stage.Modality;
+
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.controlsfx.control.Notifications;
+
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class SettingsController implements Initializable {
+public class SettingsController extends Component implements Initializable {
 
-    ObservableList<String> options =
+    private ObservableList<String> options =
             FXCollections.observableArrayList(
                     "Français", "العربية"
             );
@@ -52,7 +74,7 @@ public class SettingsController implements Initializable {
     private Label contentLabel;
 
     @FXML
-    private HBox boxError,saveBox;
+    private HBox boxError, saveBox;
 
     @FXML
     private Label errorLabel;
@@ -98,11 +120,8 @@ public class SettingsController implements Initializable {
     @FXML
     private JFXComboBox<String> comboLanguage;
 
-    @FXML
-    private VBox changeThemePane;
-
-    @FXML
-    private JFXComboBox<?> comboTheme;
+    static Compte currentUser;
+    private CompteDB compteDB;
 
 
     @FXML
@@ -120,15 +139,117 @@ public class SettingsController implements Initializable {
     }
 
     private void saveLanguage() {
+        errorLabel.setText("");
     }
 
     private void saveEmail() {
+        errorLabel.setText("");
+        Compte compte = compteDB.getAcountInformation(currentUser.getEmail());
+        System.out.println("Curent user email : " + currentUser.getEmail());
+        System.out.println("New email : " + newEmailEmailPart.getText());
+        if (currentUser.getPassword().equals(DigestUtils.shaHex(currentPasswordEmailPart.getText()))) {
+            compte.setEmail(newEmailEmailPart.getText());
+            int status = compteDB.editAccount(compte, "login");
+            switch (status) {
+                case -1:
+                    System.out.println("Error connecting to DB!");
+                    break;
+                case 2:
+                    System.out.println("Error Employer exist!");
+                    break;
+                case 0:
+                    System.out.println("Unknown Error failed to add Employer");
+                    break;
+                case 1:
+                    Notifications.create()
+                            .title("تمت العملية بنجاح                                   ")
+                            .graphic(new ImageView(new Image("/home/icons/valid.png")))
+                            .hideAfter(Duration.millis(2000))
+                            .position(Pos.BOTTOM_RIGHT)
+                            .darkStyle()
+                            .show();
+                    newEmailEmailPart.setText(null);
+                    currentPasswordEmailPart.setText(null);
+            }
+        } else {
+            errorLabel.setText("كلمة المرور خاطئة!");
+        }
     }
 
     private void savePassword() {
+        errorLabel.setText("");
+        Compte compte = compteDB.getAcountInformation(currentUser.getEmail());
+        if (currentUser.getPassword().equals(DigestUtils.shaHex(currentPasswordPassPart.getText()))) {
+            if (newPasswordPassPart.getText().equals(verifyPasswordPassPart.getText())) {
+                compte.setPassword(compte.getHashedPassword(newPasswordPassPart.getText()));
+                int status = compteDB.editAccount(compte, "email");
+                switch (status) {
+                    case -1:
+                        System.out.println("Error connecting to DB!");
+                        break;
+                    case 2:
+                        System.out.println("Error Employer exist!");
+                        break;
+                    case 0:
+                        System.out.println("Unknown Error failed to add Employer");
+                        break;
+                    case 1:
+                        Notifications.create()
+                                .title("تمت العملية بنجاح                                   ")
+                                .graphic(new ImageView(new Image("/home/icons/valid.png")))
+                                .hideAfter(Duration.millis(2000))
+                                .position(Pos.BOTTOM_RIGHT)
+                                .darkStyle()
+                                .show();
+                        newPasswordPassPart.setText(null);
+                        currentPasswordPassPart.setText(null);
+                        verifyPasswordPassPart.setText(null);
+                }
+            } else {
+                Notifications.create()
+                        .title("كلمتا المرور غير متطابقتين!                            ")
+                        .graphic(new ImageView(new Image("/home/icons/icons8_Cancel_48px.png")))
+                        .hideAfter(Duration.millis(2000))
+                        .position(Pos.BOTTOM_RIGHT)
+                        .darkStyle()
+                        .show();
+            }
+        } else {
+            errorLabel.setText("كلمة المرور خاطئة!");
+        }
     }
 
     private void saveUsername() {
+        errorLabel.setText("");
+
+        Compte compte = compteDB.getAcountInformation(currentUser.getEmail());
+        if (currentUser.getPassword().equals(DigestUtils.shaHex(currentPasswordUserPart.getText()))) {
+            compte.setLogin(newUsernameUserPart.getText());
+            int status = compteDB.editAccount(compte, "email");
+            switch (status) {
+                case -1:
+                    System.out.println("Error connecting to DB!");
+                    break;
+                case 2:
+                    System.out.println("Error Employer exist!");
+                    break;
+                case 0:
+                    System.out.println("Unknown Error failed to add Employer");
+                    break;
+                case 1:
+                    Notifications.create()
+                            .title("تمت العملية بنجاح                                   ")
+                            .graphic(new ImageView(new Image("/home/icons/valid.png")))
+                            .hideAfter(Duration.millis(2000))
+                            .position(Pos.BOTTOM_RIGHT)
+                            .darkStyle()
+                            .show();
+                    newUsernameUserPart.setText(null);
+                    currentPasswordUserPart.setText(null);
+            }
+        } else {
+            errorLabel.setText("كلمة المرور خاطئة!");
+        }
     }
 
 
@@ -139,13 +260,13 @@ public class SettingsController implements Initializable {
     }
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         comboLanguage.setItems(options);
         comboLanguage.getSelectionModel().select(0);
         addListenerOption();
+        compteDB = new CompteDB();
 
         // max length of username
         newUsernameUserPart.setOnKeyReleased(event -> { // this event for check max length of the answer area
@@ -332,52 +453,89 @@ public class SettingsController implements Initializable {
 
 
     @FXML
-    private void serialiser(){
-        ArrayList<Employe> serialization = new ArrayList<Employe>();
-        List<Employe> employeeDB = new EmployeDB().getEmployee();
-        if (employeeDB == null) {
-            System.out.println("Connection Failed !");
-        } else {
-            for (Employe employe : employeeDB) {
-                serialization.add(new Employe(employe.getId(), employe.getNom().toUpperCase(), employe.getPrenom().toUpperCase(), employe.getDateNaissance(),
-                        employe.getLieuNaissance(), employe.getAdresse(), employe.getNumTelephone(), employe.getSocialSecurityNumber(), employe.getDiplome(),
-                        employe.getExperience(), employe.getItar(), employe.getRenouvlement_de_contrat(), employe.getDate_debut(), employe.getFonction(), employe.getStatuSocial(),
-                        employe.getCelibacyTitle(), employe.getMaleChild(), employe.getFemaleChild()));
+    private void serialiser() {
+        String path=null;
+        String filename;
+        Stage stg = new Stage();
+        FileChooser fc = new FileChooser();
+        File file = fc.showSaveDialog(stg);
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+        try {
+
+            path = file.getAbsolutePath();
+            path = path.replace('\\', '/');
+            path = path + "_" + date + ".sql";
+
+        } catch (Exception e) {
+            //e.printStackTrace();
+            e.getMessage();
+        }
+
+        Process p;
+        p = null;
+        try {
+            Runtime runtime = Runtime.getRuntime();
+            p=runtime.exec("C:\\Program Files\\MySQL\\MySQL Workbench 8.0 CE\\mysqldump.exe -uroot -proot --add-drop-database -B creche_dar_elhadith -r"+path);
+
+            int processComplete = p.waitFor();
+            if (processComplete==0) {
+                System.out.println("Backup Created Succuss");
+            }else{
+                System.out.println("Can't Create backup");
             }
-        }
-        try {
-            File file = new File("employee.ser");
-            ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(file)) ;;
-            out.writeObject(serialization) ;
-            out.close();
-
-            System.out.printf("Serialized data is saved in employee.ser");
-        } catch (IOException i) {
-            i.printStackTrace();
-        }
-
-    }
-
-    @FXML
-    private void deserialiser(){
-        ArrayList<Employe> deserialization = new ArrayList<Employe>();
-        try {
-            FileInputStream fileIn = new FileInputStream("employee.ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            deserialization=(ArrayList) in.readObject();
-            in.close();
-            fileIn.close();
-        } catch (IOException i) {
-            i.printStackTrace();
-            return;
-        }catch (ClassNotFoundException c) {
-            System.out.println("Employee class not found");
-            c.printStackTrace();
-            return;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
+
     @FXML
-    public void btnSaveArchiv(ActionEvent actionEvent) {
+    private void deserialiser() {
+        String path=null;
+
+        Stage stg = new Stage();
+        FileChooser fc = new FileChooser();
+        File file = fc.showOpenDialog(stg);
+        //JFileChooser fc = new JFileChooser();
+
+        try {
+            path = file.getAbsolutePath();
+            path = path.replace('\\', '/');
+
+
+        } catch (Exception e) {
+            //e.printStackTrace();
+            e.getMessage();
+        }
+
+        String[] restoreCmd = new String[]{"C:\\Program Files\\MySQL\\MySQL Workbench 8.0 CE\\mysql.exe ", "--user=root" , "--password=root" , "-e", "source " + path};
+        Process runtimProcess;
+        try {
+            runtimProcess = Runtime.getRuntime().exec(restoreCmd);
+            int proceCom = runtimProcess.waitFor();
+
+            if (proceCom==0) {
+               System.out.println("Restored Succuss");
+            }else{
+                System.out.println("Can't Restored");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void btnSaveArchiv(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/home/resources/fxml/addArchiv.fxml"));
+        AnchorPane rootLayout = loader.load();
+        Stage stage = new Stage(StageStyle.UNDECORATED);
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+
+        Scene scene = new Scene(rootLayout);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 }

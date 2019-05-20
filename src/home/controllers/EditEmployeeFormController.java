@@ -30,6 +30,10 @@ public class EditEmployeeFormController implements Initializable {
             FXCollections.observableArrayList(
                     0, 1, 2, 3, 4, 5, 6, 7, 8
             );
+    private ObservableList<String> typeRegime =
+            FXCollections.observableArrayList(
+                    "صباح","مساء","صباح+مساء","صباح+نصف داخلي","اليوم كامل"
+            );
     private Integer sommeChildren = 0;
 
     @FXML
@@ -51,7 +55,7 @@ public class EditEmployeeFormController implements Initializable {
     private JFXTextField birthPlace;
 
     @FXML
-    private JFXToggleButton stat;
+    private JFXToggleButton stat, renouvlementContrat;
 
     @FXML
     private JFXTextField celibacyTitle;
@@ -89,6 +93,9 @@ public class EditEmployeeFormController implements Initializable {
     @FXML
     private JFXTextField experience;
 
+    @FXML
+    private JFXComboBox<String> regime;
+
     static Employe employeeSelected;
 
     @FXML
@@ -124,8 +131,11 @@ public class EditEmployeeFormController implements Initializable {
         employe.setDiplome(diplome.getText().trim().toLowerCase());
         employe.setExperience(experience.getText().trim().toLowerCase());
         employe.setItar(itar.getText().trim().toLowerCase());
-        employe.setRenouvlement_de_contrat("oui");
+        if (renouvlementContrat.isSelected())
+            employe.setRenouvlement_de_contrat("نعم");
+        else employe.setRenouvlement_de_contrat("لا");
         employe.setFonction(fonction.getText().trim().toLowerCase());
+        employe.setRegimeScolaire(regime.getValue());
         employe.setDate_debut(Date.valueOf(firstDayOfwork.getValue()));
         if (stat.isSelected()) {
             employe.setStatuSocial(1);
@@ -153,7 +163,7 @@ public class EditEmployeeFormController implements Initializable {
             case 1:
                 Notifications.create()
                         .title("تمت التحديث بنجاح                                   ")
-                        .graphic(new ImageView(new Image("/home/icons/valid.png")))
+                        .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
                         .hideAfter(Duration.millis(2000))
                         .position(Pos.BOTTOM_RIGHT)
                         .darkStyle()
@@ -178,17 +188,20 @@ public class EditEmployeeFormController implements Initializable {
         employe.setDiplome(diplome.getText().trim().toLowerCase());
         employe.setExperience(experience.getText().trim().toLowerCase());
         employe.setItar(itar.getText().trim().toLowerCase());
-        employe.setRenouvlement_de_contrat("oui");
+        if (employe.getRenouvlement_de_contrat().equals("نعم"))
+            renouvlementContrat.setSelected(true);
+        else renouvlementContrat.setSelected(false);
         employe.setFonction(fonction.getText().trim().toLowerCase());
+        employe.setRegimeScolaire(regime.getValue());
         employe.setDate_debut(Date.valueOf(firstDayOfwork.getValue()));
-        if (stat.isSelected()) {
+        if (employe.estmarier()) {
             employe.setStatuSocial(1);
 
             employe.setCelibacyTitle(celibacyTitle.getText().trim().toLowerCase());
             employe.setMaleChild(maleChild.getValue());
             employe.setFemaleChild(femaleChild.getValue());
         } else employe.setStatuSocial(0);
-    btnClose();
+        btnClose();
     }
 
     @FXML
@@ -213,6 +226,9 @@ public class EditEmployeeFormController implements Initializable {
         });
         stat.setOnAction(event -> actionToggleButton());
 
+        regime.setItems(typeRegime);
+        maleChild.setItems(options);
+        femaleChild.setItems(options);
 
         id.setText(String.valueOf(employeeSelected.getId()));
         lastNameField.setText(employeeSelected.getNom());
@@ -224,12 +240,14 @@ public class EditEmployeeFormController implements Initializable {
         phoneNumber.setText(employeeSelected.getNumTelephone());
         socialSecurtyNumber.setText(employeeSelected.getSocialSecurityNumber());
         diplome.setText(employeeSelected.getDiplome());
+        if (employeeSelected.getRenouvlement_de_contrat().equals("نعم"))
+            renouvlementContrat.setSelected(true);
+        else renouvlementContrat.setSelected(false);
         experience.setText(employeeSelected.getExperience());
         firstDayOfwork.setValue(java.time.LocalDate.parse(String.valueOf(employeeSelected.getDate_debut())));
         fonction.setText(employeeSelected.getFonction());
+        regime.getSelectionModel().select(employeeSelected.getRegimeScolaire());
 
-        maleChild.setItems(options);
-        femaleChild.setItems(options);
         if (employeeSelected.estmarier()) {
             celibacyTitle.setText(employeeSelected.getCelibacyTitle());
             stat.setSelected(true);

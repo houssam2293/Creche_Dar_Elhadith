@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="585.0" prefWidth="1013.0"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="home.controllers.ViewStatisticFormController">
+    <stylesheets>
+        <URL value="@../css/main.css"/>
+        <URL value="@../css/trac.css"/>
+    </stylesheets>
+    <EmojiOneView glyphName="X" layoutX="997.0" layoutY="25.0" onMouseClicked="#btnClose" size="20"
+                  styleClass="icon-close"/>
+    <Label fx:id="userSelected" layoutX="756.0" layoutY="7.0" prefHeight="41.0" prefWidth="215.0"
+           styleClass="titleUserLabel"/>
+    <JFXButton fx:id="btnView" layoutX="29.0" layoutY="7.0" prefHeight="41.0" prefWidth="146.0"
+               text="عرض الرسم البياني"/>
+    <JFXButton fx:id="btnChartType" layoutX="221.0" layoutY="7.0" prefHeight="41.0" prefWidth="118.0" text="Total Stat"
+               visible="false"/>
+    <StackPane layoutY="58.0" prefHeight="429.0" prefWidth="1013.0">
+        <AnchorPane id="AnchorPane" fx:id="tablePane" prefHeight="703.0" prefWidth="1013.0" styleClass="mainFxmlClass">
+            <JFXTreeTableView fx:id="tableView" layoutX="38.0" layoutY="74.0" prefHeight="439.0" prefWidth="735.0"/>
+            <HBox alignment="CENTER_LEFT" layoutX="38.0" layoutY="14.0" prefHeight="50.0" prefWidth="827.0"
+                  spacing="20.0">
+                <JFXTextField fx:id="searchField" prefHeight="42.0" prefWidth="228.0" promptText="بحث"
+                              styleClass="field"/>
+                <JFXComboBox fx:id="comboSearchBy" prefHeight="41.0" prefWidth="190.0" promptText="البحث عن طريق"
+                             styleClass="combo-medium"/>
+                <Label fx:id="errorLabel" prefHeight="43.0" prefWidth="327.0" style="-fx-font-size: 22px;"
+                       textFill="RED"/>
+            </HBox>
+        </AnchorPane>
+        <AnchorPane id="AnchorPane" fx:id="chartPane" prefHeight="548.0" prefWidth="1013.0" styleClass="mainFxmlClass"
+                    visible="false">
+            <AnchorPane fx:id="barChartPane" layoutY="-7.0" prefHeight="520.0" prefWidth="1013.0">
+                <BarChart fx:id="statisticUserBarChart" layoutX="26.0" layoutY="14.0" prefHeight="458.0"
+                          prefWidth="973.0" title="Number of error for each Question">
+                    <xAxis>
+                        <CategoryAxis label="Question Number" side="BOTTOM" fx:id="xAxis"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="yAxis" autoRanging="false" minorTickCount="10" prefHeight="417.0"
+                                    prefWidth="30.0" side="LEFT" tickLabelGap="10.0" upperBound="40.0">
+                            <tickLabelFont>
+                                <Font name="System Bold" size="15.0"/>
+                            </tickLabelFont>
+                        </NumberAxis>
+                    </yAxis>
+                </BarChart>
+            </AnchorPane>
+            <AnchorPane fx:id="pieChartPane" layoutX="10.0" layoutY="3.0" prefHeight="520.0" prefWidth="1013.0">
+                <PieChart fx:id="numberErrorPieChart" layoutX="23.0" layoutY="31.0" prefHeight="379.0"
+                          prefWidth="475.0"/>
+                <PieChart fx:id="totalSolvedPieChart" layoutX="524.0" layoutY="31.0" prefHeight="335.0"
+                          prefWidth="425.0"/>
+            </AnchorPane>
+        </AnchorPane>
+    </StackPane>
+    <ImageView fitHeight="39.0" fitWidth="39.0" layoutX="714.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@../icons/icons8_Student_Male_50px.png"/>
+    </ImageView>
+</AnchorPane>

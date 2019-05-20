@@ -20,7 +20,7 @@ public class EditImage implements Initializable {
 
     @FXML
     void btnClose() {
-        TraitmentImage.editImage.close();
+        TraitmentImage1.editImage.close();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class EditImage implements Initializable {
 
     private Image uploadImage() {
         Image thumbImg;
-        thumbImg = TraitmentImage.currentImage;
+        thumbImg = TraitmentImage1.currentImage;
         return thumbImg;
     }
 }

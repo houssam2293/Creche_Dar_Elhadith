@@ -3,21 +3,23 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Creche_Dar_Elhadith_jar</output-path>
     <root id="archive" name="Creche_Dar_Elhadith.jar">
       <element id="module-output" name="Creche_Dar_Elhadith" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-fontawesome-4.7.0-5.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-octicons-4.3.0-5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/Medusa-8.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/poi-4.1.0.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/mysql-connector-java-8.0.15.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-weathericons-2.0.10-5.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-controls-8.15.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-glyphsbrowser-1.3.0.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-emojione-2.2.7-2.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-commons-8.15.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-materialdesignfont-1.7.22-4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/commons-codec-1.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-controls-8.15.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/jfoenix-8.0.8.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/controlsfx-8.40.14.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-icons525-3.0.0-4.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/webcam-capture-0.3.13-20180618.102645-4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-materialdesignfont-1.7.22-4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-glyphsbrowser-1.3.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-octicons-4.3.0-5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-fontawesome-4.7.0-5.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-materialicons-2.2.0-5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-icons525-3.0.0-4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/commons-configuration2-2.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/controlsfx-8.40.14.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-emojione-2.2.7-2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/fontawesomefx-weathericons-2.0.10-5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/javafxLibrarys/commons-codec-1.4.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

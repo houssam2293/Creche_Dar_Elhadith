@@ -4,14 +4,23 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import home.dbDir.StockDB;
 import home.java.EntreStock;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
+import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
+import java.net.URL;
 import java.sql.Date;
+import java.util.ResourceBundle;
 
-public class EntreStockFormController {
+import static javafx.scene.input.KeyCode.ENTER;
+import static javafx.scene.input.KeyCode.ESCAPE;
+
+public class EntreStockFormController implements Initializable {
 
     @FXML
     private VBox root;
@@ -35,43 +44,77 @@ public class EntreStockFormController {
     private JFXTextField prixField;
 
     @FXML
-    void add(ActionEvent event) {
+    private JFXTextField fournisseurField;
+
+    @FXML
+    void add() {
         EntreStock entreStock = new EntreStock();
         entreStock.setNom(nomField.getText());
-        entreStock.setId(idField.getText());
+        entreStock.setId(Integer.parseInt(idField.getText()));
         entreStock.setDateExp(Date.valueOf(dateExpField.getValue()));
         entreStock.setDateFab(Date.valueOf(dateFabField.getValue()));
         entreStock.setQuantite(Integer.parseInt(quantiteField.getText()));
         entreStock.setPrix(Double.parseDouble(prixField.getText()));
+        entreStock.setFournisseur(fournisseurField.getText());
 
-        // BASE DE DONNE
+        int status = new StockDB().addStock(entreStock);
+        switch (status) {
+            case -1:System.out.println("Error connecting to DB!");
+                break;
+            case 2:System.out.println("Error Stock exist!");
+                break;
+            case 0:System.out.println("Unknown Error failed to add Stock" );
+                break;
+            case 1:
+                Notifications.create()
+                        .title("تمت الإضافة بنجاح                                   ")
+                        .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
+                        .hideAfter(Duration.millis(2000))
+                        .position(Pos.BOTTOM_RIGHT)
+                        .darkStyle()
+                        .show();
 
-        StockDB.getStockDB().getListeStock().add(entreStock);
-
-        StockController.addUserDialog.close();
+                StockController.addUserDialog.close();
+        }
 
     }
 
     @FXML
-    void close(MouseEvent event) {
+    void close() {
         StockController.addUserDialog.close();
     }
 
     @FXML
-    void delete(ActionEvent event) {
+    void delete() {
         idField.setText(null);
         nomField.setText(null);
         dateExpField.setValue(null);
         dateFabField.setValue(null);
         quantiteField.setText(null);
         prixField.setText(null);
-
+        fournisseurField.setText(null);
     }
-
     @FXML
-    void printStock(ActionEvent event) {
+    void printStock() {
 
 
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        root.setOnKeyPressed(event -> {
+            if (event.getCode().equals(ENTER)) {
+               add();
+            }
+        });
+
+        root.setOnKeyPressed(e->{
+            if (e.getCode().equals(ESCAPE)) {
+               close();
+            }
+        });
+
+
+
+    }
 }

@@ -1,210 +1,93 @@
 package home.controllers;
 
-import com.jfoenix.controls.*;
+import de.jensd.fx.glyphs.emojione.EmojiOneView;
+import home.dbDir.EleveDB;
+import home.java.Eleve;
+import home.java.Salle;
+import javafx.animation.FadeTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
+import javafx.scene.paint.Paint;
+import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class TraitmentImage implements Initializable {
-    private List<File> images = new ArrayList<>();
-    private final FileChooser fileChooser = new FileChooser();
-
-    @FXML
-    private StackPane root;
-
-    @FXML
-    private VBox holderPane;
 
     @FXML
     private Label errorLabel;
 
     @FXML
-    private JFXTextField searchField;
+    private ListView<String> classeListview;
 
     @FXML
-    private JFXComboBox<String> combo;
+    private EmojiOneView print;
 
     @FXML
-    private JFXTreeTableView<EleveController.TableEleve> treeTableView;
+    private AnchorPane holderPane;
 
-    @FXML // Cols of table
-    public JFXTreeTableColumn<EleveController.TableEleve, String> idCol, firstnameCol, lastNameCol,
-            dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol;
+    private AnchorPane imageModel;
 
-    @FXML
-    static JFXDialog editImage;
+
 
     @FXML
-    private ImageView imageHolder;
-    private int imgTotal, imgPosition = 0;
-    public static Image currentImage;
-
-    @FXML
-    void addImage() {
-        List<File> selectedImages = fileChooser.showOpenMultipleDialog(holderPane.getScene().getWindow());
-        int selectedFilePos = selectedImages.size() - 1;
-        while (selectedFilePos >= 0) {
-            File file = selectedImages.get(selectedFilePos);
-            if (file.isFile() && (file.getName().contains(".jpg") || file.getName().contains(".jpeg") ||
-                    file.getName().contains(".png") || file.getName().contains(".bmp") ||
-                    file.getName().contains(".gif"))) {
-                images.add(file);
-                imgTotal = images.size();
-                if (imgTotal > 1) {
-                    imgPosition++;
-                }
-                Image imgThumb = new Image(file.toURI().toString());
-                imageHolder.setImage(imgThumb);
-            }
-            selectedFilePos--;
-
-        }
-        //selectedImages.clear();
+    void btnAnnuler() {
+        holderPane.getChildren().clear();
     }
 
     @FXML
-    void deleteImage() throws MalformedURLException {
-        if (imgTotal > 1) {
-            images.remove(imgPosition);
-            if (imgPosition == imgTotal - 1) {
-                imgPosition--;
-            }
-            imgTotal = images.size();
+    void btnShow() {
+        print.setDisable(false);
+        print.setFill(Paint.valueOf("#2196f3"));
 
-            String imgThumb = images.get(imgPosition).toURI().toURL().toString();
-            Image imageLoad = new Image(imgThumb);
-            imageHolder.setImage(imageLoad);
-        } else {
-            if (!images.isEmpty())
-                images.remove(imgPosition);
-            imgPosition = 0;
-            imgTotal = images.size();
-            imageHolder.setImage(null);
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/home/resources/fxml/imageModel.fxml"));
+            imageModel = loader.load();
+            ImageModel imagemodel = loader.getController();
+            imagemodel.setStudentClasse(classeListview.getSelectionModel().getSelectedItem());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
+        setNode(imageModel);
     }
 
     @FXML
-    void moveEnd() throws MalformedURLException {
-        imgPosition = images.size() - 1;
-        String imgThumb = images.get(imgPosition).toURI().toURL().toString();
-        Image imageLoad = new Image(imgThumb);
-        imageHolder.setImage(imageLoad);
+    void printFile() {
 
     }
 
-    @FXML
-    void moveFirst() throws MalformedURLException {
-        imgPosition = 0;
-        String imgThumb = images.get(imgPosition).toURI().toURL().toString();
-        Image imageLoad = new Image(imgThumb);
-        imageHolder.setImage(imageLoad);
 
-    }
-
-    @FXML
-    void moveNext() throws MalformedURLException {
-        if (imgPosition < imgTotal - 1) {
-            imgPosition++;
-            String imgThumb = images.get(imgPosition).toURI().toURL().toString();
-            Image imageLoad = new Image(imgThumb);
-            imageHolder.setImage(imageLoad);
-        }
-
-    }
-
-    @FXML
-    void movePrevious() throws MalformedURLException {
-        if (imgPosition > 0) {
-            imgPosition--;
-            String imgThumb = images.get(imgPosition).toURI().toURL().toString();
-            Image imageLoad = new Image(imgThumb);
-            imageHolder.setImage(imageLoad);
-        }
-
+    private void setNode(Node node) {
+        holderPane.getChildren().clear();
+        holderPane.getChildren().add(node);
+        FadeTransition ft = new FadeTransition(Duration.millis(1000));
+        ft.setNode(node);
+        ft.setFromValue(0.1);
+        ft.setToValue(1);
+        ft.setCycleCount(1);
+        ft.setAutoReverse(false);
+        ft.play();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        combo.getItems().addAll("رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد",
-                "مكان الملاد", "العنوان الشخصي", "الهاتف");
-        initializeTable();
-        imageHolder.setOnMouseClicked(event -> {
-            AnchorPane addUserPane = null;
-            try {
-                addUserPane = FXMLLoader.load(getClass().getResource("/home/fxml/editImage.fxml"));
-            } catch (IOException ignored) {
-            }
-            currentImage = imageHolder.getImage();
-            editImage = getSpecialDialog(addUserPane);
-            editImage.show();
+        ObservableList<String> classes =
+                FXCollections.observableArrayList(
+                        "C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12"
+                );
+        classeListview.setItems(classes);
 
-
-        });
-
-    }
-
-
-    private JFXDialog getSpecialDialog(AnchorPane content) {
-        JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
-        dialog.setOnDialogClosed((event) -> updateTable());
-        return dialog;
-    }
-
-    private void initializeTable() {
-        idCol = new JFXTreeTableColumn<>("رقم التسجيل");
-        idCol.setPrefWidth(80);
-        idCol.setCellValueFactory(param -> param.getValue().getValue().id);
-
-        firstnameCol = new JFXTreeTableColumn<>("الإسم");
-        firstnameCol.setPrefWidth(150);
-        firstnameCol.setCellValueFactory(param -> param.getValue().getValue().firstname);
-
-        lastNameCol = new JFXTreeTableColumn<>("اللقب");
-        lastNameCol.setPrefWidth(150);
-        lastNameCol.setCellValueFactory(param -> param.getValue().getValue().lastname);
-
-        dateOfBirthCol = new JFXTreeTableColumn<>("تاريخ الملاد");
-        dateOfBirthCol.setPrefWidth(120);
-        dateOfBirthCol.setCellValueFactory(param -> param.getValue().getValue().birthday);
-
-        placeOfBirthCol = new JFXTreeTableColumn<>("مكان الملاد");
-        placeOfBirthCol.setPrefWidth(100);
-        placeOfBirthCol.setCellValueFactory(param -> param.getValue().getValue().birthplace);
-
-
-        addressCol = new JFXTreeTableColumn<>("العنوان");
-        addressCol.setPrefWidth(120);
-        addressCol.setCellValueFactory(param -> param.getValue().getValue().addresse);
-
-        phoneCol = new JFXTreeTableColumn<>("الهاتف");
-        phoneCol.setPrefWidth(75);
-        phoneCol.setCellValueFactory(param -> param.getValue().getValue().phone);
-
-        //updateTable();
-
-        treeTableView.getColumns().addAll(idCol, firstnameCol, lastNameCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol);
-        treeTableView.setShowRoot(false);
-        treeTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-    }
-
-    @FXML
-    public void updateTable() {
     }
 }

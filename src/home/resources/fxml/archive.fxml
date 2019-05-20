@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.icons525.Icons525View?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<?import java.net.*?>
+<StackPane fx:id="archiv" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1186.0"
+           style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171"
+           xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ArchiveController">
+    <stylesheets>
+        <URL value="@../css/main.css"/>
+        <URL value="@../css/trac.css"/>
+        <URL value="@../css/eleve.css"/>
+    </stylesheets>
+    <VBox fx:id="ArchivHome" prefHeight="755.0" prefWidth="1245.0">
+        <ImageView fitHeight="219.0" fitWidth="1189.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@../images/archiv2.png"/>
+        </ImageView>
+        <Label prefHeight="35.0" prefWidth="37.0"/>
+        <HBox prefHeight="46.0" prefWidth="1189.0">
+            <Label prefHeight="54.0" prefWidth="40.0"/>
+            <Label prefHeight="54.0" prefWidth="235.0" text="السنوات"/>
+            <JFXButton fx:id="cree" onAction="#creeAnee" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view"
+                       text="اضافة السنة"/>
+            <Label prefHeight="34.0" prefWidth="108.0"/>
+            <JFXButton fx:id="serch" onAction="#searchAvanc" prefHeight="59.0" prefWidth="173.0"
+                       styleClass="btn-view" text="بحث متقدم"/>
+        </HBox>
+        <HBox fx:id="lesAnee" prefHeight="461.0" prefWidth="1189.0" stylesheets="@../css/dark_them.css">
+            <Label prefHeight="285.0" prefWidth="44.0"/>
+            <JFXListView fx:id="yearSelect" onMouseClicked="#choseanee" prefHeight="429.0" prefWidth="170.0"/>
+            <AnchorPane fx:id="choosePane" prefHeight="422.0" prefWidth="994.0" visible="false">
+                <Label fx:id="aneeselect" alignment="CENTER" layoutX="364.0" layoutY="26.0" prefHeight="51.0"
+                       prefWidth="209.0">
+                    <font>
+                        <Font name="Tahoma" size="34.0"/>
+                    </font>
+                    <styleClass>
+                        <String fx:value="title-header"/>
+                        <String fx:value="title"/>
+                    </styleClass>
+                </Label>
+                <AnchorPane layoutX="96.0" layoutY="95.0" prefHeight="331.0" prefWidth="290.0"
+                            styleClass="box-chooser" AnchorPane.leftAnchor="96.0" AnchorPane.topAnchor="95.0">
+                    <ImageView fitHeight="331.0" fitWidth="290.0" layoutX="2.0" pickOnBounds="true">
+                        <Image url="@../icons/teacher-cartoon.jpg"/>
+                    </ImageView>
+                    <Pane layoutX="-4.0" opacity="0.82" prefHeight="331.0" prefWidth="300.0"
+                          style="-fx-background-color: #148BB1;" styleClass="pane-chooser">
+                        <Label alignment="CENTER" layoutX="63.0" layoutY="49.0" prefHeight="66.0"
+                               prefWidth="182.0" styleClass="title-chooser" text="العمال"/>
+                    </Pane>
+                    <JFXButton layoutX="59.0" layoutY="241.0" onAction="#showEmploye" prefHeight="57.0"
+                               prefWidth="182.0" styleClass="btn-chooser" text="عرض الأرشيف للعمال"/>
+                </AnchorPane>
+                <AnchorPane layoutX="549.0" layoutY="95.0" prefHeight="331.0" prefWidth="306.0"
+                            styleClass="box-chooser" AnchorPane.leftAnchor="549.0" AnchorPane.topAnchor="95.0">
+                    <ImageView fitHeight="316.0" fitWidth="300.0" layoutY="5.0" pickOnBounds="true">
+                        <Image url="@../icons/student.jpg"/>
+                    </ImageView>
+                    <Pane opacity="0.82" prefHeight="331.0" prefWidth="306.0"
+                          style="-fx-background-color: #694A97;" styleClass="pane-chooser">
+                        <Label alignment="CENTER" layoutX="56.0" layoutY="62.0" prefHeight="66.0"
+                               prefWidth="197.0" styleClass="title-chooser" text="الطلاب"/>
+                    </Pane>
+                    <JFXButton layoutX="62.0" layoutY="254.0" onAction="#showStudent" prefHeight="57.0"
+                               prefWidth="182.0" styleClass="btn-chooser" text="عرض الأرشيف للطلاب"/>
+                </AnchorPane>
+            </AnchorPane>
+        </HBox>
+        <Label prefHeight="25.0" prefWidth="19.0"/>
+    </VBox>
+    <VBox fx:id="studentPane" prefHeight="690.0" prefWidth="1150.0" spacing="10.0" visible="false">
+        <padding>
+            <Insets left="20.0" top="20.0"/>
+        </padding>
+        <StackPane.margin>
+            <Insets right="10.0"/>
+        </StackPane.margin>
+        <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1156.0" spacing="20.0">
+            <Label prefHeight="50.0" prefWidth="283.0" style="-fx-font-size: 23px;" styleClass="title-header"
+                   text="أرشيف الطلاب">
+                <font>
+                    <Font name="Tahoma" size="34.0"/>
+                </font>
+                <stylesheets>
+                    <URL value="@../css/trac.css"/>
+                    <URL value="@../css/main.css"/>
+                </stylesheets>
+            </Label>
+            <Label fx:id="errorLabelStudent" alignment="CENTER" prefHeight="43.0" prefWidth="290.0"
+                   style="-fx-text-fill: #F00; -fx-font-size: 26px;"/>
+            <HBox alignment="CENTER_RIGHT" prefHeight="53.0" prefWidth="455.0">
+                <JFXButton alignment="CENTER" buttonType="RAISED" onMouseClicked="#btnBackward" prefHeight="41.0"
+                           prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
+                    <padding>
+                        <Insets left="10.0"/>
+                    </padding>
+                    <graphic>
+                        <Icons525View glyphName="CHEVRON"/>
+                    </graphic>
+                </JFXButton>
+            </HBox>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
+            <VBox.margin>
+                <Insets top="20.0"/>
+            </VBox.margin>
+            <padding>
+                <Insets left="10.0"/>
+            </padding>
+            <JFXTextField fx:id="searchEleve" labelFloat="true" prefHeight="43.0" prefWidth="192.0" promptText="بحث"
+                          styleClass="field">
+                <font>
+                    <Font name="Arabic Typesetting" size="26.0"/>
+                </font>
+            </JFXTextField>
+            <JFXComboBox id="combo" fx:id="comboEleve" labelFloat="true" prefHeight="56.0" prefWidth="172.0"
+                         promptText="البحث عن طريق" styleClass="combo-medium"/>
+        </HBox>
+        <HBox>
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+            <JFXTreeTableView fx:id="tableEleve" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0"
+                              prefWidth="896.0"/>
+            <VBox alignment="TOP_CENTER" prefHeight="406.0" prefWidth="263.0" spacing="10.0">
+                <JFXButton buttonType="RAISED" onMouseClicked="#btnViewStatisticStudent" ripplerFill="#4476ff"
+                           styleClass="btn-view" text="عرض البيانات"/>
+                <JFXButton buttonType="RAISED" prefHeight="54.0" prefWidth="160.0" ripplerFill="#4476ff"
+                           styleClass="btn-view" text="طباعة الشهادة"/>
+            </VBox>
+        </HBox>
+    </VBox>
+    <VBox fx:id="employePane" prefHeight="690.0" prefWidth="1150.0" spacing="10.0" visible="false">
+        <padding>
+            <Insets left="20.0" top="20.0"/>
+        </padding>
+        <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1156.0" spacing="20.0">
+            <Label prefHeight="50.0" prefWidth="283.0" style="-fx-font-size: 23px;" styleClass="title-header"
+                   text="أرشيف العمال">
+                <font>
+                    <Font name="Tahoma" size="34.0"/>
+                </font>
+                <stylesheets>
+                    <URL value="@../css/trac.css"/>
+                    <URL value="@../css/main.css"/>
+                </stylesheets>
+            </Label>
+            <Label fx:id="errorLabelStudent1" alignment="CENTER" prefHeight="43.0" prefWidth="290.0"
+                   style="-fx-text-fill: #F00; -fx-font-size: 26px;"/>
+            <HBox alignment="CENTER_RIGHT" prefHeight="53.0" prefWidth="455.0">
+                <JFXButton alignment="CENTER" buttonType="RAISED" onMouseClicked="#btnBackward" prefHeight="41.0"
+                           prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
+                    <padding>
+                        <Insets left="10.0"/>
+                    </padding>
+                    <graphic>
+                        <Icons525View glyphName="CHEVRON"/>
+                    </graphic>
+                </JFXButton>
+            </HBox>
+        </HBox>
+        <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
+            <VBox.margin>
+                <Insets top="20.0"/>
+            </VBox.margin>
+            <padding>
+                <Insets left="10.0"/>
+            </padding>
+            <JFXTextField fx:id="searchEmployer" labelFloat="true" prefHeight="43.0" prefWidth="192.0"
+                          promptText="بحث" styleClass="field">
+                <font>
+                    <Font name="Arabic Typesetting" size="26.0"/>
+                </font>
+            </JFXTextField>
+            <JFXComboBox id="combo" fx:id="comboEmployer" labelFloat="true" prefHeight="56.0" prefWidth="172.0"
+                         promptText="البحث عن طريق" styleClass="combo-medium"/>
+        </HBox>
+        <HBox>
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+            <JFXTreeTableView fx:id="tableemployer" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0"
+                              prefWidth="896.0"/>
+            <VBox alignment="TOP_CENTER" prefHeight="406.0" prefWidth="263.0" spacing="10.0">
+                <JFXButton buttonType="RAISED" onMouseClicked="#btnViewStatisticStudent" ripplerFill="#4476ff"
+                           styleClass="btn-view" text="عرض البيانات"/>
+                <JFXButton buttonType="RAISED" prefHeight="54.0" prefWidth="160.0" ripplerFill="#4476ff"
+                           styleClass="btn-view" text="طباعة الشهادة"/>
+            </VBox>
+        </HBox>
+    </VBox>
+</StackPane>

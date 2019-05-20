@@ -71,7 +71,7 @@ public class FirstLoad {
                 if (output != null) {
                     try {
                         output.close();
-                        Parent root = FXMLLoader.load(getClass().getResource("/home/fxml/loginEntry.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("/home/resources/fxml/loginEntry.fxml"));
                         Stage window = (Stage) user.getScene().getWindow();
                         window.setScene(new Scene(root));
 

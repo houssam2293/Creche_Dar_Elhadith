@@ -1,6 +1,7 @@
 package home.controllers;
 
 import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXRippler;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.icons525.Icons525View;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
@@ -23,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -33,6 +35,7 @@ import java.util.Date;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+
 
     @FXML
     private HBox parent;
@@ -47,15 +50,15 @@ public class MainController implements Initializable {
     private VBox calBox, tracBox, manageStudentBox, pointBox, manageEmployeBox;
 
     private VBox guidePane;
-    private AnchorPane calendarPane, settingsPane, pointag, images;
-    private StackPane tracPane, stock, manageStudentPane, manageEmployePane, archiv;
+    private AnchorPane calendarPane, settingsPane, images;
+    private StackPane tracPane, stock, manageStudentPane,pointag, manageEmployePane, archiv;
     @FXML
     private StackPane rightPane;
     @FXML
     private Pane paneSlider;
 
     @FXML
-    private HBox boxHome, boxStudent, boxTrac, boxImages, boxCalandar, boxPoint, boxEmploye, boxArchive, boxStock, boxSettings, boxGuide, boxAbout;
+    private HBox boxesPane, boxHome, boxStudent, boxTrac, boxImages, boxCalandar, boxPoint, boxEmploye, boxArchive, boxStock, boxSettings, boxGuide, boxAbout;
     @FXML
     private FontAwesomeIconView iconHome, iconAccount;
     @FXML
@@ -153,14 +156,18 @@ public class MainController implements Initializable {
         stage.close();
         try {
             //load up other FXML document
-            root = FXMLLoader.load(getClass().getResource("/home/fxml/login.fxml"));
+            root = FXMLLoader.load(getClass().getResource("/home/resources/fxml/login.fxml"));
         } catch (IOException ignored) {
         }
 
         //create a new scene with root and set the stage
+        assert root != null;
         Scene scene = new Scene(root);
         stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
+        stage.setTitle("مؤسسة دار الحديث");
+        stage.getIcons().add(new Image("/home/resources/icons/icon.png"));
         stage.setResizable(false);
         stage.show();
     }
@@ -206,7 +213,7 @@ public class MainController implements Initializable {
             ft.setCycleCount(0);
             ft.setAutoReverse(true);
             ft.play();
-            imgSlider.setImage(new Image("/home/images/slider/" + counter + ".png"));
+            imgSlider.setImage(new Image("/home/resources/images/slider/" + counter + ".png"));
             if (++counter > NUMBER_IMAGE_SLIDER) {
                 counter = 1;
             }
@@ -237,19 +244,32 @@ public class MainController implements Initializable {
         imgSlider.fitWidthProperty().bind(holderPane.widthProperty());
         imgSlider.fitHeightProperty().bind(paneSlider.heightProperty());
 
+
+        JFXRippler rippler = new JFXRippler(calBox);
+        JFXRippler rippler1 = new JFXRippler(manageEmployeBox);
+        JFXRippler rippler2 = new JFXRippler(manageStudentBox);
+        JFXRippler rippler3 = new JFXRippler(tracBox);
+        JFXRippler rippler4 = new JFXRippler(pointBox);
+
+        rippler.setMaskType(JFXRippler.RipplerMask.RECT);
+        rippler1.setMaskType(JFXRippler.RipplerMask.RECT);
+        rippler2.setMaskType(JFXRippler.RipplerMask.RECT);
+        rippler3.setMaskType(JFXRippler.RipplerMask.RECT);
+        rippler4.setMaskType(JFXRippler.RipplerMask.RECT);
+        boxesPane.getChildren().addAll(rippler, rippler1, rippler2, rippler3, rippler4);
         //sliderAutoChangePictures();
 
 
         try {
-            settingsPane = FXMLLoader.load(getClass().getResource("/home/fxml/settings.fxml"));
-            manageEmployePane = FXMLLoader.load(getClass().getResource("/home/fxml/manageEmployee.fxml"));
-            tracPane = FXMLLoader.load(getClass().getResource("/home/fxml/trac.fxml"));
-            calendarPane = FXMLLoader.load(getClass().getResource("/home/fxml/calendar.fxml"));
-            manageStudentPane = FXMLLoader.load(getClass().getResource("/home/fxml/eleve.fxml"));
-            archiv = FXMLLoader.load(getClass().getResource("/home/fxml/archive.fxml"));
-            stock = FXMLLoader.load(getClass().getResource("/home/fxml/stock.fxml"));
-            pointag = FXMLLoader.load(getClass().getResource("/home/fxml/pointag.fxml"));
-            images = FXMLLoader.load(getClass().getResource("/home/fxml/traitmentImage.fxml"));
+            settingsPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/settings.fxml"));
+            manageEmployePane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/manageEmployee.fxml"));
+            tracPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/trac.fxml"));
+            calendarPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/calendar.fxml"));
+            manageStudentPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/eleve.fxml"));
+            archiv = FXMLLoader.load(getClass().getResource("/home/resources/fxml/archive.fxml"));
+            stock = FXMLLoader.load(getClass().getResource("/home/resources/fxml/stock.fxml"));
+            //pointag = FXMLLoader.load(getClass().getResource("/home/resources/fxml/pointag.fxml"));
+            images = FXMLLoader.load(getClass().getResource("/home/resources/fxml/traitmentImage.fxml"));
 
 
         } catch (IOException e) {

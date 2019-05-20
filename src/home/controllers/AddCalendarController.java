@@ -35,6 +35,7 @@ public class AddCalendarController implements Initializable {
     @FXML
     private Label topLabel;
 
+
     @FXML
     private AnchorPane rootPane;
 
@@ -103,8 +104,6 @@ public class AddCalendarController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-
         topLabel.setOnMousePressed(event -> {
             Stage stage = (Stage) rootPane.getScene().getWindow();
             xOffset = stage.getX() - event.getScreenX();

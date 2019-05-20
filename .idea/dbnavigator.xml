@@ -25,13 +25,23 @@
     <show-object-properties value="false" />
     <loaded-nodes>
       <connection connection-id="9b18ad9e-0f70-4b85-8ddc-b79d08886eb7">
-        <schema name="creche_dar_elhadith" object-types="table, procedure, view, function" />
+        <schema name="creche_dar_elhadith" object-types="table, column" />
       </connection>
     </loaded-nodes>
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="9b18ad9e-0f70-4b85-8ddc-b79d08886eb7">
-      <console name="Connection" type="STANDARD" schema="information_schema" session="Main" />
+      <console name="Connection" type="STANDARD" schema="creche_dar_elhadith" session="Main">create TABLE `crech_dar_elhadith`.`stock` (
+  `id` varchar(8)  NOT NULL ,
+  `nom` varchar(22) NOT NULL,
+  `datefab` Date NOT NULL,
+  `dateExp` Date NOT NULL,
+  `quantite` varchar(50) DEFAULT NULL,
+  `prix` varchar(10) DEFAULT NULL,
+  `fournisseur` varchar(22) NOT NULL,
+   `prixTotale` varchar(10000) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+ );</console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
@@ -82,7 +92,7 @@
           <os-authentication value="false" />
           <empty-authentication value="false" />
           <user value="root" />
-          <deprecated-pwd value="bW9oYW1lZDIyMTk5Mw==" />
+          <deprecated-pwd value="cm9vdA==" />
         </database>
         <properties>
           <auto-commit value="false" />

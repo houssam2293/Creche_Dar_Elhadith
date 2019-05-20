@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.print.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
@@ -53,10 +54,11 @@ public class ManageEmployeeController implements Initializable {
     @FXML
     private JFXComboBox<String> combo;
 
+
     @FXML
     private JFXTreeTableColumn<TableEmployee, String> idCol, firstnameCol, lastNameCol,
             dateOfBirthCol, placeOfBirthCol, jobCol, addressCol, phoneCol, socialSecurNumbCol,
-            diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol;
+            diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, regimCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol;
 
     static JFXDialog addUserDialog, editUserDialog;
 
@@ -66,7 +68,7 @@ public class ManageEmployeeController implements Initializable {
 
         combo.getItems().addAll("رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد",
                 "مكان الملاد", "المهنة", "العنوان الشخصي", "الهاتف",
-                "رقم الضمان الإجتماعي", "الشهادات", "تاريخ أول تعيين", "الخبرة", "حالة التعاقد", "الحالة العائلية", "لقب العزوبة", "عدد بنون", "عدد بنات");
+                "رقم الضمان الإجتماعي", "الشهادات", "تاريخ أول تعيين", "الخبرة", "حالة التعاقد", "فترة العمل", "الحالة العائلية", "لقب العزوبة", "عدد بنون", "عدد بنات");
         initializeTable();
     }
 
@@ -75,7 +77,7 @@ public class ManageEmployeeController implements Initializable {
         errorLabel.setText("");
         AnchorPane addUserPane = null;
         try {
-            addUserPane = FXMLLoader.load(getClass().getResource("/home/fxml/addEmployeForm.fxml"));
+            addUserPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/addEmployeForm.fxml"));
         } catch (IOException ignored) {
         }
         addUserDialog = getSpecialDialog(addUserPane);
@@ -112,6 +114,7 @@ public class ManageEmployeeController implements Initializable {
         employeeSelected.setItar(itarCol.getCellData(index));
         employeeSelected.setRenouvlement_de_contrat(contractRenCol.getCellData(index));
         employeeSelected.setFonction(jobCol.getCellData(index));
+        employeeSelected.setRegimeScolaire(regimCol.getCellData(index));
         employeeSelected.setDate_debut(java.sql.Date.valueOf(dateFirstEmploCol.getCellData(index)));
         if (marierCol.getCellData(index).toLowerCase().equals("متزوج")) {
             employeeSelected.setStatuSocial(1);
@@ -122,7 +125,7 @@ public class ManageEmployeeController implements Initializable {
 
         AnchorPane editUserPane = null;
         try {
-            editUserPane = FXMLLoader.load(getClass().getResource("/home/fxml/EditEmployeeForm.fxml"));
+            editUserPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/EditEmployeeForm.fxml"));
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -166,7 +169,7 @@ public class ManageEmployeeController implements Initializable {
             } else {
                 Notifications notification = Notifications.create()
                         .title("تمت العملية بنجاح                               ")
-                        .graphic(new ImageView(new Image("/home/icons/valid.png")))
+                        .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
                         .hideAfter(Duration.millis(2000))
                         .position(Pos.BOTTOM_RIGHT);
                 notification.darkStyle();
@@ -184,7 +187,7 @@ public class ManageEmployeeController implements Initializable {
 
         content.setActions(btnOk, btnNo);
 
-        dialog.getStylesheets().add("/home/css/main.css");
+        dialog.getStylesheets().add("/home/resources/css/main.css");
         btnNo.setOnAction(e -> dialog.close());
         dialog.show();
 
@@ -203,7 +206,7 @@ public class ManageEmployeeController implements Initializable {
             for (Employe employe : employeeDB) {
                 employes.add(new TableEmployee(employe.getId(), employe.getNom().toUpperCase(), employe.getPrenom().toUpperCase(), employe.getDateNaissance(),
                         employe.getLieuNaissance(), employe.getAdresse(), employe.getExperience(), employe.getNumTelephone(), employe.getSocialSecurityNumber(),
-                        employe.getDiplome(), employe.getItar(), employe.getDate_debut(), employe.getFonction(), employe.getRenouvlement_de_contrat(), employe.estmarier(),
+                        employe.getDiplome(), employe.getItar(), employe.getDate_debut(), employe.getFonction(), employe.getRenouvlement_de_contrat(), employe.getRegimeScolaire(), employe.estmarier(),
                         employe.getCelibacyTitle(), employe.getMaleChild(), employe.getFemaleChild()));
             }
         }
@@ -218,14 +221,18 @@ public class ManageEmployeeController implements Initializable {
     }
 
 
-    class TableEmployee extends RecursiveTreeObject<TableEmployee> {
+    static class TableEmployee extends RecursiveTreeObject<TableEmployee> {
         StringProperty id, firstname, lastname, birthday, birthplace, job, experience;
         StringProperty addresse, phone, socialSN, diplom, itar, firstdaywor, renouvlementcotract;
-        StringProperty marier, nomCeleb, nombreEM, nombreEF;
+        StringProperty regime;
+        StringProperty marier;
+        StringProperty nomCeleb;
+        StringProperty nombreEM;
+        StringProperty nombreEF;
 
         TableEmployee(int id, String firstname, String lastname, Date birthday, String birthplace, String addresse, String experience,
                       String phone, String socialSN, String diplom, String itar,
-                      Date firstdaywor, String job, String renouvlementcotract, boolean marier, String nomCeleb,
+                      Date firstdaywor, String job, String renouvlementcotract, String regime, boolean marier, String nomCeleb,
                       int nombreEM, int nombreEF) {
 
             this.id = new SimpleStringProperty(String.valueOf(id));
@@ -242,6 +249,7 @@ public class ManageEmployeeController implements Initializable {
             this.itar = new SimpleStringProperty(String.valueOf(itar));
             this.firstdaywor = new SimpleStringProperty(String.valueOf(firstdaywor));
             this.renouvlementcotract = new SimpleStringProperty(String.valueOf(renouvlementcotract));
+            this.regime = new SimpleStringProperty(regime);
             this.marier = new SimpleStringProperty((marier) ? "متزوج" : "أعزب");
             this.nomCeleb = new SimpleStringProperty(String.valueOf(nomCeleb));
             this.nombreEM = new SimpleStringProperty(String.valueOf(nombreEM));
@@ -307,6 +315,10 @@ public class ManageEmployeeController implements Initializable {
         contractRenCol.setPrefWidth(120);
         contractRenCol.setCellValueFactory(param -> param.getValue().getValue().renouvlementcotract);
 
+        regimCol = new JFXTreeTableColumn<>("فترة العمل");
+        regimCol.setPrefWidth(120);
+        regimCol.setCellValueFactory(param -> param.getValue().getValue().regime);
+
         marierCol = new JFXTreeTableColumn<>("الحالة العائلية");
         marierCol.setPrefWidth(100);
         marierCol.setCellValueFactory(param -> param.getValue().getValue().marier);
@@ -328,11 +340,26 @@ public class ManageEmployeeController implements Initializable {
         searchField.textProperty().addListener(e -> filterSearchTable());
         combo.setOnAction(e -> filterSearchTable());
 
-        treeTableView.getColumns().addAll(idCol, firstnameCol, lastNameCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, socialSecurNumbCol, jobCol, diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol);
+        treeTableView.getColumns().addAll(idCol, firstnameCol, lastNameCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, socialSecurNumbCol, jobCol, diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, regimCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol);
         treeTableView.setShowRoot(false);
         treeTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
+    @FXML
+    void printFile() {
+        Text textArea = new Text();
+        textArea.setText("Printing test!    Printing test!\nPrinting test!  Printing test!  Printing test!\nPrinting test!  Printing test!  Printing test!  Printing test!");
+
+        PrinterJob job = PrinterJob.createPrinterJob();
+        job.showPrintDialog(null);
+        Printer printer= job.getPrinter();
+        PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
+        textArea.minWidth(pageLayout.getPrintableWidth());
+        textArea.minHeight(pageLayout.getPrintableHeight());
+        job.printPage(pageLayout,textArea);
+        job.endJob();
+
+    }
 
     private JFXDialog getSpecialDialog(AnchorPane content) {
         JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
@@ -370,12 +397,14 @@ public class ManageEmployeeController implements Initializable {
                 case 12:
                     return employee.getValue().renouvlementcotract.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
                 case 13:
-                    return employee.getValue().marier.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                    return employee.getValue().regime.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
                 case 14:
-                    return employee.getValue().nomCeleb.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                    return employee.getValue().marier.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
                 case 15:
-                    return employee.getValue().nombreEM.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                    return employee.getValue().nomCeleb.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
                 case 16:
+                    return employee.getValue().nombreEM.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 17:
                     return employee.getValue().nombreEF.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
                 default:
                     return employee.getValue().id.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
@@ -391,6 +420,7 @@ public class ManageEmployeeController implements Initializable {
                             employee.getValue().firstdaywor.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             employee.getValue().experience.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             employee.getValue().renouvlementcotract.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().regime.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             employee.getValue().marier.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             employee.getValue().nomCeleb.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             employee.getValue().nombreEM.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||

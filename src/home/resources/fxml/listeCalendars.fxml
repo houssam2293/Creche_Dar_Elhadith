@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<AnchorPane fx:id="rootPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="360.0" prefWidth="459.0"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="home.controllers.ListeCalendarsController">
+    <VBox prefHeight="409.0" prefWidth="459.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox prefHeight="35.0" prefWidth="340.0">
+            <stylesheets>
+                <URL value="@../css/addCalendar.css"/>
+            </stylesheets>
+            <JFXButton onAction="#btnClose" styleClass="button-abort" text=" ">
+                <graphic>
+                    <OctIconView fill="WHITE" glyphName="X" size="20"/>
+                </graphic>
+            </JFXButton>
+            <Label fx:id="topLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="25.0"
+                   prefWidth="419.0" styleClass="titleUserLabel" text="إدارة تقويم">
+                <HBox.margin>
+                    <Insets left="10.0" right="10.0" top="5.0"/>
+                </HBox.margin>
+                <graphic>
+                    <FontAwesomeIconView glyphName="CALENDAR_CHECK_ALT" size="20"/>
+                </graphic>
+            </Label>
+        </HBox>
+        <Label prefHeight="35.0" prefWidth="471.0" text="التقويمات الخاصة بك:">
+            <font>
+                <Font name="System Bold" size="15.0"/>
+            </font>
+            <VBox.margin>
+                <Insets left="15.0"/>
+            </VBox.margin>
+        </Label>
+        <TableView fx:id="tableView" prefHeight="200.0" prefWidth="200.0">
+            <columns>
+                <TableColumn fx:id="nameCol" prefWidth="150.0" text="اسم التقويم"/>
+                <TableColumn fx:id="springCol" prefWidth="150.0" text="السداسي الأول"/>
+                <TableColumn fx:id="fallCol" prefWidth="150.0" text="السداسي الثاني"/>
+            </columns>
+            <VBox.margin>
+                <Insets left="10.0" right="10.0"/>
+            </VBox.margin>
+        </TableView>
+        <HBox alignment="CENTER" prefHeight="42.0" prefWidth="459.0">
+            <VBox.margin>
+                <Insets top="15.0"/>
+            </VBox.margin>
+            <JFXButton onMouseClicked="#openCalendar" prefHeight="40.0" prefWidth="190.0"
+                       stylesheets="@../css/addCalendar.css" text="افتح التقويم المحدد">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0"/>
+                </HBox.margin>
+            </JFXButton>
+            <JFXButton onMouseClicked="#deleteCalendar" prefHeight="40.0" prefWidth="190.0" styleClass="button-abort"
+                       stylesheets="@../css/addCalendar.css" text="حذف التقويم المحدد">
+                <HBox.margin>
+                    <Insets left="5.0" right="5.0"/>
+                </HBox.margin>
+            </JFXButton>
+        </HBox>
+    </VBox>
+</AnchorPane>

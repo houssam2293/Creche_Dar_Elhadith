@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import de.jensd.fx.glyphs.emojione.EmojiOneView;
 import home.dbDir.EmployeDB;
 import home.java.Employe;
 import javafx.collections.FXCollections;
@@ -12,9 +13,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
@@ -29,6 +32,10 @@ public class AddEmployeeFormController implements Initializable {
     private ObservableList<Integer> options =
             FXCollections.observableArrayList(
                     0, 1, 2, 3, 4, 5, 6, 7, 8
+            );
+    private ObservableList<String> typeRegime =
+            FXCollections.observableArrayList(
+                    "صباح", "مساء", "صباح+مساء", "صباح+نصف داخلي", "اليوم كامل"
             );
     private Integer sommeChildren = 0;
 
@@ -76,7 +83,7 @@ public class AddEmployeeFormController implements Initializable {
     private JFXTextField experience;
 
     @FXML
-    private JFXToggleButton stat;
+    private JFXToggleButton stat, renouvlementContrat;
 
     @FXML
     private JFXTextField celibacyTitle;
@@ -85,10 +92,13 @@ public class AddEmployeeFormController implements Initializable {
     private Label sommeChild;
 
     @FXML
-    private JFXComboBox<Integer> maleChild;
+    private EmojiOneView print;
 
     @FXML
-    private JFXComboBox<Integer> femaleChild;
+    private JFXComboBox<Integer> maleChild, femaleChild;
+
+    @FXML
+    private JFXComboBox<String> regime;
 
 
     @FXML
@@ -121,8 +131,11 @@ public class AddEmployeeFormController implements Initializable {
         employe.setDiplome(diplome.getText().trim().toLowerCase());
         employe.setExperience(experience.getText().trim().toLowerCase());
         employe.setItar(itar.getText().trim().toLowerCase());
-        employe.setRenouvlement_de_contrat("oui");
+        if (renouvlementContrat.isSelected())
+            employe.setRenouvlement_de_contrat("نعم");
+        else employe.setRenouvlement_de_contrat("لا");
         employe.setFonction(fonction.getText().trim().toLowerCase());
+        employe.setRegimeScolaire(regime.getValue());
         employe.setDate_debut(Date.valueOf(firstDayOfwork.getValue()));
         if (stat.isSelected()) {
             employe.setStatuSocial(1);
@@ -145,7 +158,7 @@ public class AddEmployeeFormController implements Initializable {
             case 1:
                 Notifications.create()
                         .title("تمت الإضافة بنجاح                                   ")
-                        .graphic(new ImageView(new Image("/home/icons/valid.png")))
+                        .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
                         .hideAfter(Duration.millis(2000))
                         .position(Pos.BOTTOM_RIGHT)
                         .darkStyle()
@@ -174,6 +187,8 @@ public class AddEmployeeFormController implements Initializable {
         femaleChild.getSelectionModel().select(null);
         sommeChild.setText(null);
         stat.setSelected(false);
+        regime.getSelectionModel().select(null);
+        renouvlementContrat.setSelected(false);
         fonction.setText(null);
 
     }
@@ -188,6 +203,10 @@ public class AddEmployeeFormController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        Tooltip tooltip = new Tooltip("حفظ و طباعة");
+        Tooltip.install(print, tooltip);
+        Font font = new Font("Arial Bold", 12);
+        tooltip.setFont(font);
 
         root.setOnKeyPressed(event -> {
             if (event.getCode().equals(ENTER)) {
@@ -201,6 +220,7 @@ public class AddEmployeeFormController implements Initializable {
             }
         });
 
+        regime.setItems(typeRegime);
         maleChild.setItems(options);
         femaleChild.setItems(options);
         maleChild.getSelectionModel().select(0);
@@ -217,6 +237,12 @@ public class AddEmployeeFormController implements Initializable {
                     femaleChild.getSelectionModel().getSelectedItem());
             sommeChild.setText(sommeChildren.toString());
         });
+    }
+
+    @FXML
+    void printFile() {
+        btnAdd();
+
     }
 
     private Integer calculSomme(Integer a, Integer b) {

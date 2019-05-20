@@ -1,25 +1,27 @@
 package home.controllers;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXRippler;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTreeTableView;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.util.Duration;
 
-public class TracController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class TracController implements Initializable {
 
     @FXML
     private StackPane root;
 
     @FXML
-    private AnchorPane choosePane;
+    private AnchorPane choosePane,employeeAnchor,studentAnchor;
 
     @FXML
     private VBox studentPane;
@@ -40,7 +42,7 @@ public class TracController {
     private JFXComboBox<?> comboStudentSectionFilter;
 
     @FXML
-    private JFXTreeTableView<?> tableUserTrac;
+    private JFXTreeTableView<?> tableEmployeeTrac;
 
     @FXML
     private PieChart pieChartEmploye;
@@ -58,7 +60,7 @@ public class TracController {
     private JFXComboBox<?> comboEmployeSearchBy;
 
     @FXML
-    private JFXTreeTableView<?> tableEmployeTrac;
+    private JFXTreeTableView<?> tableStudentTrac;
 
     @FXML
     private PieChart pieChartStudent;
@@ -67,14 +69,13 @@ public class TracController {
     private PieChart pieChartRigimeStudent;
 
     @FXML
+    Pane studentBox,employeeBox;
+
+    @FXML
     void btnFilterStudent() {
 
     }
 
-    @FXML
-    void btnSearchToolsStudent() {
-
-    }
 
     @FXML
     void btnViewStatisticStudent() {
@@ -149,4 +150,14 @@ public class TracController {
 
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        JFXRippler rippler = new JFXRippler(studentBox);
+        JFXRippler rippler1 = new JFXRippler(employeeBox);
+        rippler.setMaskType(JFXRippler.RipplerMask.RECT);
+        rippler1.setMaskType(JFXRippler.RipplerMask.RECT);
+        employeeAnchor.getChildren().add(rippler1);
+        studentAnchor.getChildren().add(rippler);
+
+    }
 }

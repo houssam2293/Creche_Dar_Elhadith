@@ -26,11 +26,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.util.HSSFColor;
+import org.apache.poi.ss.usermodel.*;
+import org.controlsfx.control.Notifications;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -44,6 +51,7 @@ import java.time.LocalTime;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 public class CalendarController implements Initializable {
 
@@ -62,7 +70,7 @@ public class CalendarController implements Initializable {
     private Label errorLabel;
 
     @FXML
-    private Label calendarNameLbl,dateLabel;
+    private Label calendarNameLbl, dateLabel;
 
     @FXML
     private Label monthLabel;
@@ -111,6 +119,7 @@ public class CalendarController implements Initializable {
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
         calendarDB = new CalendarDB();
+
         initializeCalendarGrid();
         initializeCalendarWeekdayHeader();
         initializeMonthSelector();
@@ -141,7 +150,7 @@ public class CalendarController implements Initializable {
             try {
 
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/home/fxml/addEvent.fxml"));
+                loader.setLocation(getClass().getResource("/home/resources/fxml/addEvent.fxml"));
                 AnchorPane rootLayout = loader.load();
                 Stage stage = new Stage(StageStyle.UNDECORATED);
                 stage.initModality(Modality.APPLICATION_MODAL);
@@ -170,7 +179,7 @@ public class CalendarController implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/home/fxml/editEvent.fxml"));
+            loader.setLocation(getClass().getResource("/home/resources/fxml/editEvent.fxml"));
             AnchorPane rootLayout = loader.load();
             Stage stage = new Stage(StageStyle.UNDECORATED);
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -224,6 +233,243 @@ public class CalendarController implements Initializable {
     }
 
 
+    public void exportCalendarExcel() {
+
+        if (calendarLoaded) {
+            FileChooser fileChooser = new FileChooser();
+
+            //Set extension filter
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("excel files (*.xls)", "*.xls");
+            fileChooser.getExtensionFilters().add(extFilter);
+
+            //Show save file dialog
+            File file = fileChooser.showSaveDialog(new Stage());
+
+            if (file != null) {
+                createExcelSheet(file);
+                System.out.println("hi");
+            }
+        } else {
+            Notifications.create()
+                    .title("يرجى تحديد التقويم أولا!                                ")
+                    .darkStyle()
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showWarning();
+        }
+    }
+
+    private void createExcelSheet(File file) {
+        String calendarName = ModelCalendar.getInstance().calendar_name;
+        HSSFWorkbook wb = new HSSFWorkbook();
+        HSSFSheet sheet = wb.createSheet(calendarName);
+
+        //styles
+        HSSFFont headerFont = wb.createFont();
+        headerFont.setBold(true);
+        headerFont.setFontHeight((short) (16*20));
+        headerFont.setColor(IndexedColors.WHITE.getIndex());
+
+        HSSFFont font = wb.createFont();
+        font.setBold(true);
+        font.setFontHeight((short) (16*20));
+
+
+        HSSFCellStyle cellStyleBorderTopRight = wb.createCellStyle();
+        cellStyleBorderTopRight.setAlignment(HorizontalAlignment.CENTER);
+        cellStyleBorderTopRight.setLocked(true);
+        cellStyleBorderTopRight.setFillBackgroundColor(HSSFColor.HSSFColorPredefined.BROWN.getIndex());
+        cellStyleBorderTopRight.setFillForegroundColor(HSSFColor.HSSFColorPredefined.BROWN.getIndex());
+        cellStyleBorderTopRight.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        cellStyleBorderTopRight.setFont(headerFont);
+        cellStyleBorderTopRight.setBorderTop(BorderStyle.THICK);
+        cellStyleBorderTopRight.setBorderRight(BorderStyle.THICK);
+        cellStyleBorderTopRight.setBorderBottom(BorderStyle.DASH_DOT);
+        cellStyleBorderTopRight.setBorderLeft(BorderStyle.DASH_DOT);
+
+        HSSFCellStyle cellStyleBorderTopLeft = wb.createCellStyle();
+        cellStyleBorderTopLeft.setAlignment(HorizontalAlignment.CENTER);
+        cellStyleBorderTopLeft.setLocked(true);
+        cellStyleBorderTopLeft.setFillBackgroundColor(HSSFColor.HSSFColorPredefined.BROWN.getIndex());
+        cellStyleBorderTopLeft.setFillForegroundColor(HSSFColor.HSSFColorPredefined.BROWN.getIndex());
+        cellStyleBorderTopLeft.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        cellStyleBorderTopLeft.setFont(headerFont);
+        cellStyleBorderTopLeft.setBorderTop(BorderStyle.THICK);
+        cellStyleBorderTopLeft.setBorderRight(BorderStyle.DASH_DOT);
+        cellStyleBorderTopLeft.setBorderBottom(BorderStyle.DASH_DOT);
+        cellStyleBorderTopLeft.setBorderLeft(BorderStyle.THICK);
+
+        HSSFCellStyle cellStyleBorderBottomRight = wb.createCellStyle();
+        cellStyleBorderBottomRight.setAlignment(HorizontalAlignment.CENTER);
+        cellStyleBorderBottomRight.setFont(font);
+        cellStyleBorderBottomRight.setBorderTop(BorderStyle.DASH_DOT);
+        cellStyleBorderBottomRight.setBorderRight(BorderStyle.THICK);
+        cellStyleBorderBottomRight.setBorderBottom(BorderStyle.THICK);
+        cellStyleBorderBottomRight.setBorderLeft(BorderStyle.DASH_DOT);
+
+        HSSFCellStyle cellStyleBorderBottomLeft = wb.createCellStyle();
+        cellStyleBorderBottomLeft.setAlignment(HorizontalAlignment.CENTER);
+        cellStyleBorderBottomLeft.setFont(font);
+        cellStyleBorderBottomLeft.setBorderTop(BorderStyle.DASH_DOT);
+        cellStyleBorderBottomLeft.setBorderRight(BorderStyle.DASH_DOT);
+        cellStyleBorderBottomLeft.setBorderBottom(BorderStyle.THICK);
+        cellStyleBorderBottomLeft.setBorderLeft(BorderStyle.THICK);
+
+        HSSFCellStyle cellStyleBorderBottom = wb.createCellStyle();
+        cellStyleBorderBottom.setAlignment(HorizontalAlignment.CENTER);
+        cellStyleBorderBottom.setFont(font);
+        cellStyleBorderBottom.setBorderTop(BorderStyle.DASH_DOT);
+        cellStyleBorderBottom.setBorderRight(BorderStyle.DASH_DOT);
+        cellStyleBorderBottom.setBorderBottom(BorderStyle.THICK);
+        cellStyleBorderBottom.setBorderLeft(BorderStyle.DASH_DOT);
+
+        HSSFCellStyle cellStyleBorderTop = wb.createCellStyle();
+        cellStyleBorderTop.setAlignment(HorizontalAlignment.CENTER);
+        cellStyleBorderTop.setLocked(true);
+        cellStyleBorderTop.setFillBackgroundColor(HSSFColor.HSSFColorPredefined.BROWN.getIndex());
+        cellStyleBorderTop.setFillForegroundColor(HSSFColor.HSSFColorPredefined.BROWN.getIndex());
+        cellStyleBorderTop.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        cellStyleBorderTop.setFont(headerFont);
+        cellStyleBorderTop.setBorderTop(BorderStyle.THICK);
+        cellStyleBorderTop.setBorderRight(BorderStyle.DASH_DOT);
+        cellStyleBorderTop.setBorderBottom(BorderStyle.DASH_DOT);
+        cellStyleBorderTop.setBorderLeft(BorderStyle.DASH_DOT);
+
+        HSSFCellStyle cellStyleBorderRight = wb.createCellStyle();
+        cellStyleBorderRight.setAlignment(HorizontalAlignment.CENTER);
+        cellStyleBorderRight.setFont(font);
+        cellStyleBorderRight.setBorderTop(BorderStyle.DASH_DOT);
+        cellStyleBorderRight.setBorderRight(BorderStyle.THICK);
+        cellStyleBorderRight.setBorderBottom(BorderStyle.DASH_DOT);
+        cellStyleBorderRight.setBorderLeft(BorderStyle.DASH_DOT);
+
+        HSSFCellStyle cellStyleBorderLeft = wb.createCellStyle();
+        cellStyleBorderLeft.setAlignment(HorizontalAlignment.CENTER);
+        cellStyleBorderLeft.setFont(font);
+        cellStyleBorderLeft.setBorderTop(BorderStyle.DASH_DOT);
+        cellStyleBorderLeft.setBorderRight(BorderStyle.DASH_DOT);
+        cellStyleBorderLeft.setBorderBottom(BorderStyle.DASH_DOT);
+        cellStyleBorderLeft.setBorderLeft(BorderStyle.THICK);
+
+        HSSFCellStyle cellStyleBorder = wb.createCellStyle();
+        cellStyleBorder.setAlignment(HorizontalAlignment.CENTER);
+        cellStyleBorder.setFont(font);
+        cellStyleBorder.setBorderTop(BorderStyle.DASH_DOT);
+        cellStyleBorder.setBorderRight(BorderStyle.DASH_DOT);
+        cellStyleBorder.setBorderBottom(BorderStyle.DASH_DOT);
+        cellStyleBorder.setBorderLeft(BorderStyle.DASH_DOT);
+
+        HSSFRow row = sheet.createRow(1);
+        HSSFCell cell;
+
+        cell = row.createCell(1);
+        cell.setCellValue("إسم الحدث");
+        cell.setCellStyle(cellStyleBorderTopLeft);
+        sheet.autoSizeColumn(1);
+
+        cell = row.createCell(2);
+        cell.setCellValue("يوم");
+        cell.setCellStyle(cellStyleBorderTop);
+        sheet.autoSizeColumn(2);
+
+        cell = row.createCell(3);
+        cell.setCellValue("على الساعة");
+        cell.setCellStyle(cellStyleBorderTop);
+        sheet.autoSizeColumn(3);
+
+        cell = row.createCell(4);
+        cell.setCellValue("نوع الحدث");
+        cell.setCellStyle(cellStyleBorderTopRight);
+        sheet.autoSizeColumn(4);
+
+        // Query to get ALL Events from the selected calendar!!
+        String getMonthEventsQuery = "SELECT * From events WHERE CalendarName='" + calendarName + "' ORDER BY EventDate,EventTime ";
+
+        // Store the results here
+        ResultSet result = calendarDB.executeQuery(getMonthEventsQuery);
+        int last = 0;
+        try {
+            if (result.last()) {
+                last = result.getRow();
+                result.beforeFirst();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            int counter = 2;
+            while (result.next()) {
+
+
+                String eventDescript = result.getString("EventDescription");
+
+                Date dDate = result.getDate("EventDate");
+                DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
+                String eventDate = df.format(dDate);
+
+                String eventTime = result.getTime("EventTime").toString();
+
+                String eventType = result.getString("TypeEvent");
+                if (result.getRow() == last) {
+                    row = sheet.createRow(counter);
+                    cell = row.createCell(1);
+                    cell.setCellValue(eventDescript);
+                    cell.setCellStyle(cellStyleBorderBottomLeft);
+
+                    cell = row.createCell(2);
+                    cell.setCellValue(eventDate);
+                    cell.setCellStyle(cellStyleBorderBottom);
+
+                    cell = row.createCell(3);
+                    cell.setCellValue(eventTime);
+                    cell.setCellStyle(cellStyleBorderBottom);
+
+                    cell = row.createCell(4);
+                    cell.setCellValue(eventType);
+                    cell.setCellStyle(cellStyleBorderBottomRight);
+
+                } else {
+                    row = sheet.createRow(counter);
+                    cell = row.createCell(1);
+                    cell.setCellValue(eventDescript);
+                    cell.setCellStyle(cellStyleBorderLeft);
+
+                    cell = row.createCell(2);
+                    cell.setCellValue(eventDate);
+                    cell.setCellStyle(cellStyleBorder);
+
+                    cell = row.createCell(3);
+                    cell.setCellValue(eventTime);
+                    cell.setCellStyle(cellStyleBorder);
+
+                    cell = row.createCell(4);
+                    cell.setCellValue(eventType);
+                    cell.setCellStyle(cellStyleBorderRight);
+
+                }
+                for (int i = 0; i < 4; i++) {
+                    sheet.autoSizeColumn(i);
+                }
+
+                counter++;
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AddEventController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            FileOutputStream out = new FileOutputStream(file);
+            wb.write(out);
+            out.flush();
+            out.close();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void initializeCalendarGrid() {
         int rows = 6;
         int cols = 7;
@@ -232,7 +478,6 @@ public class CalendarController implements Initializable {
                 VBox vPane = new VBox();
                 vPane.getStyleClass().add("calendar_pane");
                 vPane.setMinWidth(calendarGrid.getPrefWidth() / 7);
-
                 vPane.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> addEvent(vPane));
 
                 GridPane.setVgrow(vPane, Priority.ALWAYS);
@@ -294,11 +539,11 @@ public class CalendarController implements Initializable {
 
         String[] months = DateFormatSymbols.getInstance(new Locale("ar")).getMonths();
         String[] spliceMonths = Arrays.copyOfRange(months, 0, 12);
-        //TODO:set the month select to the exact one instead of the default one
         monthSelect.getItems().clear();
         monthSelect.getItems().addAll(spliceMonths);
 
-        monthSelect.getSelectionModel().selectFirst();
+
+        monthSelect.getSelectionModel().select(Calendar.getInstance().get(Calendar.MONTH));
         monthLabel.setText(monthSelect.getSelectionModel().getSelectedItem());
 
         ModelCalendar.getInstance().viewing_month =
@@ -373,7 +618,7 @@ public class CalendarController implements Initializable {
 
     private void showDate(int dayNumber, String descript, String typeEvent, Time eventTime) {
 
-        Image img = new Image("/home/icons/icon2.png");
+        Image img = new Image("/home/resources/icons/icon2.png");
         ImageView imgView = new ImageView();
         imgView.setImage(img);
 
@@ -536,7 +781,7 @@ public class CalendarController implements Initializable {
     public void newCalendarEvent() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/home/fxml/addCalendar.fxml"));
+            loader.setLocation(getClass().getResource("/home/resources/fxml/addCalendar.fxml"));
             AnchorPane rootLayout = loader.load();
             Stage stage = new Stage(StageStyle.UNDECORATED);
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -562,7 +807,7 @@ public class CalendarController implements Initializable {
     private void listCalendarsEvent() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/home/fxml/listeCalendars.fxml"));
+            loader.setLocation(getClass().getResource("/home/resources/fxml/listeCalendars.fxml"));
             AnchorPane rootLayout = loader.load();
             Stage stage = new Stage(StageStyle.UNDECORATED);
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -797,7 +1042,7 @@ public class CalendarController implements Initializable {
     }
 
     void reloadStage() throws IOException {
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/home/fxml/main.fxml")));
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("/home/resources/fxml/main.fxml")));
         ((Stage) holderPane.getScene().getWindow()).setScene(scene);
     }
 }

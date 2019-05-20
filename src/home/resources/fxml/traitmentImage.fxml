@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1242.0" stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="home.controllers.TraitmentImage">
+    <VBox prefHeight="690.0" prefWidth="1242.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <padding>
+            <Insets left="20.0" top="20.0"/>
+        </padding>
+        <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1156.0" spacing="20.0">
+            <Label prefHeight="50.0" prefWidth="373.0" style="-fx-font-size: 23px;" styleClass="title-header"
+                   text="ألبوم الصور">
+                <font>
+                    <Font name="Tahoma" size="34.0"/>
+                </font>
+                <stylesheets>
+                    <URL value="@../css/trac.css"/>
+                    <URL value="@../css/main.css"/>
+                </stylesheets>
+            </Label>
+            <Label fx:id="errorLabel" alignment="CENTER" prefHeight="43.0" prefWidth="290.0"
+                   style="-fx-text-fill: #F00; -fx-font-size: 26px;"/>
+        </HBox>
+        <HBox prefHeight="595.0" prefWidth="1222.0" spacing="10.0">
+            <VBox prefHeight="200.0" prefWidth="600.0">
+                <HBox>
+                    <ListView fx:id="classeListview" prefHeight="495.0" prefWidth="250.0"/>
+                </HBox>
+                <HBox alignment="CENTER" minHeight="50.0" prefHeight="150.0" prefWidth="386.0" spacing="30.0">
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <JFXButton onAction="#btnShow" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium"
+                               text="عرض"/>
+                    <JFXButton onAction="#btnAnnuler" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium"
+                               text="إلغاء"/>
+                    <EmojiOneView fx:id="print" disable="true" fill="#939da4" glyphName="PRINTER"
+                                  onMouseClicked="#printFile" size="50" styleClass="printer"/>
+                </HBox>
+            </VBox>
+            <VBox prefWidth="612.0">
+                <StackPane prefHeight="595.0" prefWidth="612.0">
+                    <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane fx:id="holderPane"/>
+                    </ScrollPane>
+                </StackPane>
+            </VBox>
+        </HBox>
+    </VBox>
+</AnchorPane>
