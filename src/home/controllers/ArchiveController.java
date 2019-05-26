@@ -538,8 +538,9 @@ public class ArchiveController implements Initializable {
            tableemployer.setRoot(treItem);
 
         for (Eleve eleve : archvElv) {
-            eleves.add(new EleveController.TableEleve(eleve.getId(), eleve.getNom().toUpperCase(), eleve.getPrenom().toUpperCase(), eleve.getClasse(), eleve.getDateNaissance(),
-                    eleve.getLieuNaissance(), eleve.getAdresse(), eleve.getPhone(), eleve.getRemarque()));
+            eleves.add(new EleveController.TableEleve(eleve.getId(),eleve.getGender(), eleve.getNom().toUpperCase(), eleve.getPrenom().toUpperCase(), eleve.getClasse(),
+                    eleve.getDateNaissance(), eleve.getLieuNaissance(), eleve.getAdresse(), eleve.getPhone(), eleve.getRemarque(),eleve.getAnneeScolaire(),eleve.getRegime(),
+                    eleve.getPrenomPere(),eleve.getNomMere(), eleve.getPrenomMere(),eleve.getTravailPere(),eleve.getTravailMere(),eleve.getWakil(),eleve.getMaladie()));
         }
 
 

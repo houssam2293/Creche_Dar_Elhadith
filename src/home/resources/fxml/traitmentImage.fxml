@@ -2,56 +2,79 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import de.jensd.fx.glyphs.icons525.Icons525View?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import java.net.URL?>
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1242.0" stylesheets="@../css/main.css"
-            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="home.controllers.TraitmentImage">
-    <VBox prefHeight="690.0" prefWidth="1242.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+<AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1242.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.TraitmentImage">
+    <VBox prefHeight="690.0" prefWidth="1242.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <padding>
-            <Insets left="20.0" top="20.0"/>
+            <Insets left="20.0" top="20.0" />
         </padding>
         <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1156.0" spacing="20.0">
-            <Label prefHeight="50.0" prefWidth="373.0" style="-fx-font-size: 23px;" styleClass="title-header"
-                   text="ألبوم الصور">
+            <Label prefHeight="50.0" prefWidth="373.0" style="-fx-font-size: 23px;" styleClass="title-header" text="ألبوم الصور">
                 <font>
-                    <Font name="Tahoma" size="34.0"/>
+                    <Font name="Tahoma" size="34.0" />
                 </font>
                 <stylesheets>
-                    <URL value="@../css/trac.css"/>
-                    <URL value="@../css/main.css"/>
+                    <URL value="@../css/trac.css" />
+                    <URL value="@../css/main.css" />
                 </stylesheets>
             </Label>
-            <Label fx:id="errorLabel" alignment="CENTER" prefHeight="43.0" prefWidth="290.0"
-                   style="-fx-text-fill: #F00; -fx-font-size: 26px;"/>
+            <Label fx:id="errorLabel" alignment="CENTER" prefHeight="43.0" prefWidth="290.0" style="-fx-text-fill: #F00; -fx-font-size: 26px;" />
         </HBox>
         <HBox prefHeight="595.0" prefWidth="1222.0" spacing="10.0">
             <VBox prefHeight="200.0" prefWidth="600.0">
-                <HBox>
-                    <ListView fx:id="classeListview" prefHeight="495.0" prefWidth="250.0"/>
+                <HBox spacing="5.0">
+                    <ListView fx:id="classeListview" prefHeight="443.0" prefWidth="250.0" />
+               <VBox alignment="BOTTOM_CENTER" prefHeight="470.0" prefWidth="305.0">
+                  <children>
+                     <HBox fx:id="controllBox" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="85.0" prefWidth="332.0" spacing="10.0">
+                        <children>
+                           <Icons525View glyphName="CIRCLE_MINUS" onMouseClicked="#deleteImage" size="35" styleClass="move-fontawesome">
+                              <HBox.margin>
+                                 <Insets right="40.0" />
+                              </HBox.margin>
+                           </Icons525View>
+                           <EmojiOneView glyphName="REWIND" onMouseClicked="#moveFirst" size="35" styleClass="move-fontawesome">
+                              <HBox.margin>
+                                 <Insets />
+                              </HBox.margin>
+                           </EmojiOneView>
+                           <EmojiOneView glyphName="ARROW_BACKWARD" onMouseClicked="#movePrevious" size="35" styleClass="move-fontawesome" />
+                           <EmojiOneView glyphName="ARROW_FORWARD" onMouseClicked="#moveNext" size="35" styleClass="move-fontawesome" />
+                           <EmojiOneView glyphName="FAST_FORWARD" onMouseClicked="#moveEnd" size="35" styleClass="move-fontawesome" />
+                           <Icons525View glyphName="CIRCLEADD" onMouseClicked="#addImage" size="35" styleClass="move-fontawesome">
+                              <HBox.margin>
+                                 <Insets left="40.0" />
+                              </HBox.margin>
+                           </Icons525View>
+                        </children>
+                     </HBox>
+                  </children>
+               </VBox>
                 </HBox>
                 <HBox alignment="CENTER" minHeight="50.0" prefHeight="150.0" prefWidth="386.0" spacing="30.0">
                     <opaqueInsets>
-                        <Insets/>
+                        <Insets />
                     </opaqueInsets>
-                    <JFXButton onAction="#btnShow" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium"
-                               text="عرض"/>
-                    <JFXButton onAction="#btnAnnuler" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium"
-                               text="إلغاء"/>
-                    <EmojiOneView fx:id="print" disable="true" fill="#939da4" glyphName="PRINTER"
-                                  onMouseClicked="#printFile" size="50" styleClass="printer"/>
+                    <JFXButton onAction="#btnShow" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="عرض" />
+                    <JFXButton onAction="#btnAnnuler" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="إلغاء" />
+                    <EmojiOneView fx:id="print" disable="true" fill="#939da4" glyphName="PRINTER" onMouseClicked="#printFile" size="50" styleClass="printer" />
                 </HBox>
             </VBox>
             <VBox prefWidth="612.0">
                 <StackPane prefHeight="595.0" prefWidth="612.0">
-                    <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0">
-                        <AnchorPane fx:id="holderPane"/>
+                    <ScrollPane fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="200.0" prefWidth="200.0">
+                        <AnchorPane fx:id="holderPane" />
                     </ScrollPane>
                 </StackPane>
             </VBox>

@@ -105,7 +105,7 @@ public class Pointag implements Initializable {
         donneSaved = true; // si les donnée sont stocké dans BDD
        /* Notifications notification = Notifications.create()
                 .title("تمت العملية بنجاح                               ")
-                .graphic(new ImageView(new Image("/home/icons/valid.png")))
+                .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
                 .hideAfter(Duration.millis(2000))
                 .position(Pos.BOTTOM_RIGHT);
         notification.darkStyle();

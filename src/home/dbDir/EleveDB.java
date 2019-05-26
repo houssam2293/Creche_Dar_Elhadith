@@ -23,6 +23,7 @@ public class EleveDB {
             while (resultSet.next()) {
                 eleves.add(new Eleve(
                         resultSet.getInt("id"),
+                        resultSet.getInt("gender"),
                         resultSet.getString("nom"),
                         resultSet.getString("prenom"),
                         resultSet.getDate("dateNaissance"),
@@ -38,6 +39,7 @@ public class EleveDB {
                         resultSet.getString("travailPere"),
                         resultSet.getString("travailMere"),
                         resultSet.getString("maladie"),
+                        resultSet.getString("wakil"),
                         resultSet.getString("remarque")));
             }
 
@@ -49,7 +51,7 @@ public class EleveDB {
     }
 
     public int addEleve(Eleve eleve) {
-        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`eleve` ( `id`, `nom`, `prenom`, `dateNaissance`, `lieuNaissance`,`classe`,`anneeScolaire`,`regime`, `adresse`, `phone`, `prenomPere`, `prenomMere`, `nomMere`, `travailPere`, `travailMere`, `maladie`, `remarque`");
+        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`eleve` ( `id`,`gender`, `nom`, `prenom`, `dateNaissance`, `lieuNaissance`,`classe`,`anneeScolaire`,`regime`, `adresse`, `phone`, `prenomPere`, `prenomMere`, `nomMere`, `travailPere`, `travailMere`, `maladie`,`wakil`, `remarque`");
         Connection connection = null;
         Statement st = null;
 
@@ -66,8 +68,9 @@ public class EleveDB {
             st = connection.createStatement();
             sql.append(")values ('");
             sql.append(eleve.getId()).append("','");
-            sql.append(eleve.getPrenom()).append("','");
+            sql.append(eleve.getGender()).append("','");
             sql.append(eleve.getNom()).append("','");
+            sql.append(eleve.getPrenom()).append("','");
             sql.append(eleve.getDateNaissance()).append("','");
             sql.append(eleve.getLieuNaissance()).append("','");
             sql.append(eleve.getClasse()).append("','");
@@ -81,6 +84,7 @@ public class EleveDB {
             sql.append(eleve.getTravailPere()).append("','");
             sql.append(eleve.getTravailMere()).append("','");
             sql.append(eleve.getMaladie()).append("','");
+            sql.append(eleve.getWakil()).append("','");
             sql.append(eleve.getRemarque()).append("');");
             st.executeUpdate(sql.toString());
 
@@ -126,8 +130,9 @@ public class EleveDB {
                 st = con.createStatement();
 
                 sql.append("`id`='").append(eleve.getId());
-                sql.append("', `nom`='").append(eleve.getPrenom());
-                sql.append("', `prenom`='").append(eleve.getNom());
+                sql.append("', `gender`='").append(eleve.getGender());
+                sql.append("', `nom`='").append(eleve.getNom());
+                sql.append("', `prenom`='").append(eleve.getPrenom());
                 sql.append("', `dateNaissance`='").append(eleve.getDateNaissance().toString());
                 sql.append("', `lieuNaissance`='").append(eleve.getLieuNaissance());
                 sql.append("', `classe`='").append(eleve.getClasse());
@@ -141,6 +146,7 @@ public class EleveDB {
                 sql.append("', `travailPere`='").append(eleve.getTravailPere());
                 sql.append("', `travailMere`='").append(eleve.getTravailMere());
                 sql.append("', `maladie`='").append(eleve.getMaladie());
+                sql.append("', `wakil`='").append(eleve.getWakil());
                 sql.append("', `remarque`='").append(eleve.getRemarque());
 
                 sql.append("' WHERE `id`=").append(eleve.getId()).append(";");
@@ -148,6 +154,50 @@ public class EleveDB {
                 int status = st.executeUpdate(sql.toString());
                 System.out.println("Status : " + status);
             }else return 2;
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception code: " + ex.getErrorCode());
+            System.out.println("SQLException msg: " + ex.getMessage());
+            //ex.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (st != null) {
+                    st.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return 1;
+    }
+
+
+    public int notes(int id, Eleve eleve){
+        StringBuilder sql = new StringBuilder("UPDATE `eleve` SET ");
+        Connection con = null;
+        Statement st = null;
+
+        try {
+            con = new ConnectionClasse().getConnection();
+
+            if (con == null) {
+                return -1;
+            }
+
+            if (eleveExist(eleve.getId())) {
+                st = con.createStatement();
+
+                sql.append("`remarque`='").append(eleve.getRemarque());
+
+                sql.append("' WHERE `id`=").append(eleve.getId()).append(";");
+
+                int status = st.executeUpdate(sql.toString());
+                System.out.println("Status : " + status);
+            }
+            else return 2;
         } catch (SQLException ex) {
             System.out.println("SQL Exception code: " + ex.getErrorCode());
             System.out.println("SQLException msg: " + ex.getMessage());
@@ -191,7 +241,7 @@ public class EleveDB {
     }
 
 
-    private boolean eleveExist(int id) {
+    public boolean eleveExist(int id) {
         Connection con = new ConnectionClasse().getConnection();
         if (con == null) // if connection failed
         {

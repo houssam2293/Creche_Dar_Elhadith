@@ -1,6 +1,5 @@
 package home.controllers;
 
-import com.jfoenix.controls.JFXTextArea;
 import home.dbDir.EleveDB;
 import home.java.Eleve;
 import javafx.fxml.FXML;
@@ -24,7 +23,7 @@ public class ImageModel implements Initializable {
     private GridPane namesGrid;
 
     @FXML
-    private ImageView modelPicture;
+    private ImageView modelPicture, imageHolder;
 
     @FXML
     private Label nameLable;
@@ -40,39 +39,26 @@ public class ImageModel implements Initializable {
 
     @FXML
     private Label classeLable;
-    private List<Eleve> eleveDeLaClasse = new ArrayList<>();
-    private EleveDB eleveDB;
+    private Eleve eleveDeLaClasse = new Eleve();
 
-    void setStudentClasse(String selectedItem) {
-        List<Eleve> eleves = eleveDB.getEleve();
-        for (Eleve eleve : eleves) {
-            if (eleve.getClasse().toUpperCase().equals(selectedItem)) {
-                eleveDeLaClasse.add(eleve);
-            }
-            System.out.println("Current selected classe : " + selectedItem);
-            System.out.println("Current Student classe in the list : " + eleve.getClasse());
-        }
 
-        if (eleveDeLaClasse.isEmpty()) {
-            System.out.println("Import of Student list failed!");
-        } else {
+    void setStudentClasse(String selectedItem,Eleve eleve) {
+        classeLable.setText(selectedItem);
+        eleveDeLaClasse=eleve;
             populateScene();
-        }
     }
 
 
-    private void populateScene(){
-        classeLable.setText(eleveDeLaClasse.get(0).getClasse().toUpperCase());
-        nameLable.setText(eleveDeLaClasse.get(0).getNom() + " " + eleveDeLaClasse.get(0).getPrenom());
-        birthdayLable.setText(eleveDeLaClasse.get(0).getDateNaissance().toString());
+    private void populateScene() {
+        System.out.println("eleveDeLaClasse : "+eleveDeLaClasse.getNom() + " " + eleveDeLaClasse.getPrenom());
+        nameLable.setText(eleveDeLaClasse.getNom() + " " + eleveDeLaClasse.getPrenom());
+        birthdayLable.setText(eleveDeLaClasse.getDateNaissance().toString());
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        eleveDB = new EleveDB();
     }
-
 
 
 }

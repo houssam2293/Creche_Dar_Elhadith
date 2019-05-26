@@ -1,8 +1,6 @@
 package home.controllers;
 
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXToggleButton;
+import com.jfoenix.controls.*;
 import home.dbDir.EleveDB;
 import home.java.Eleve;
 import javafx.fxml.FXML;
@@ -28,6 +26,11 @@ public class EditEleveFormController implements Initializable {
 
     @FXML
     private JFXTextField id;
+    @FXML
+    private JFXRadioButton gender1;
+    @FXML
+    private JFXRadioButton gender2;
+
 
     @FXML
     private JFXTextField lastNameField;
@@ -71,6 +74,8 @@ public class EditEleveFormController implements Initializable {
     private JFXTextField fonction;
     @FXML
     private JFXTextField fonction1;
+    @FXML
+    private JFXTextField wakil;
 
     @FXML
     private JFXTextField remarque;
@@ -112,7 +117,11 @@ public class EditEleveFormController implements Initializable {
         eleve.setNomMere(lastNameMother.getText().trim().toLowerCase());
         eleve.setTravailPere(fonction.getText().trim().toLowerCase());
         eleve.setTravailMere(fonction1.getText().trim().toLowerCase());
+        eleve.setWakil(wakil.getText().trim().toLowerCase());
         eleve.setRemarque(remarque.getText().trim().toLowerCase());
+        if (gender1.isSelected())
+            eleve.setGender(1);
+        else eleve.setGender(2);
 
 
         int status = new EleveDB().editEleve(eleve);
@@ -159,7 +168,11 @@ public class EditEleveFormController implements Initializable {
         eleve.setNomMere(lastNameMother.getText().trim().toLowerCase());
         eleve.setTravailPere(fonction.getText().trim().toLowerCase());
         eleve.setTravailMere(fonction1.getText().trim().toLowerCase());
+        eleve.setWakil(wakil.getText().trim().toLowerCase());
         eleve.setRemarque(remarque.getText().trim().toLowerCase());
+        if (eleve.getGender()==1)
+            gender1.setSelected(true);
+        else gender2.setSelected(true);
 
     }
 
@@ -167,6 +180,17 @@ public class EditEleveFormController implements Initializable {
     void btnClose() {
 
         EleveController.editUserDialog.close();
+    }
+
+    @FXML
+    void hit1(){
+        gender2.setSelected(false);
+    }
+
+
+    @FXML
+    void hit2(){
+        gender1.setSelected(false);
     }
 
     @Override
@@ -202,6 +226,10 @@ public class EditEleveFormController implements Initializable {
         fonction.setText(eleveSelected.getTravailPere());
         fonction1.setText(eleveSelected.getTravailMere());
         maladie.setText(eleveSelected.getMaladie());
+        wakil.setText(eleveSelected.getWakil());
         remarque.setText(eleveSelected.getRemarque());
+        if (eleveSelected.getGender()==1)
+            gender1.setSelected(true);
+        else gender2.setSelected(true);
 
     }}

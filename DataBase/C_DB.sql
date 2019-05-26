@@ -113,3 +113,10 @@ INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `co
 INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('3', 'atelier', '0-112-255');
 INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('4', 'sieste', '154-86-187');
 INSERT INTO `creche_dar_elhadith`.`colortable` (`idcolorevent`, `nameevent`, `color`) VALUES ('5', 'jeux', '243-30-180');
+
+CREATE TABLE `creche_dar_elhadith`.`images` (
+  `idimages` INT NOT NULL AUTO_INCREMENT,
+  `imageName` VARCHAR(45) NOT NULL,
+  `studentInimage` VARCHAR(45) NOT NULL,
+  `image` MEDIUMBLOB NOT NULL,
+  PRIMARY KEY (`idimages`, `imageName`, `studentInimage`));

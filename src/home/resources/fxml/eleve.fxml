@@ -12,82 +12,101 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane fx:id="root" alignment="TOP_LEFT" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
-           xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.EleveController">
-   <VBox nodeOrientation="RIGHT_TO_LEFT" spacing="10.0">
-      <StackPane.margin>
-         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-      </StackPane.margin>
-      <HBox prefHeight="60.0" prefWidth="200.0" spacing="15.0">
-         <Label fx:id="titleLabel" alignment="CENTER" prefHeight="50.0" prefWidth="266.0"
-                styleClass="title-header" text="إدارة العمال">
-            <font>
-               <Font name="Tahoma" size="34.0"/>
-            </font>
-         </Label>
-         <Label id="errorLabel" fx:id="errorLabel" prefHeight="50.0" prefWidth="393.0"/>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" spacing="5.0">
-         <JFXTextField fx:id="searchField" labelFloat="true" prefHeight="43.0" prefWidth="192.0" promptText="بحث"
-                       styleClass="field">
-            <HBox.margin>
-               <Insets right="15.0"/>
-            </HBox.margin>
-            <font>
-               <Font name="Arabic Typesetting" size="26.0"/>
-            </font>
-         </JFXTextField>
-         <JFXComboBox id="combo" fx:id="combo" labelFloat="true" prefHeight="56.0" prefWidth="172.0"
-                      promptText="البحث عن طريق" styleClass="combo-medium">
-            <HBox.margin>
-               <Insets right="15.0"/>
-            </HBox.margin>
-         </JFXComboBox>
-         <JFXButton buttonType="RAISED" contentDisplay="CENTER" onMouseClicked="#updateTable" prefHeight="41.0"
-                    prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" stylesheets="@../css/eleve.css"
-                    text=" ">
-            <graphic>
-               <FontAwesomeIconView glyphName="REFRESH" size="24" wrappingWidth="22.571428298950195"/>
-            </graphic>
-            <HBox.margin>
-               <Insets right="15.0"/>
-            </HBox.margin>
-         </JFXButton>
-         <JFXButton buttonType="RAISED" onAction="#addEleve" prefHeight="39.0" prefWidth="130.0"
-                    ripplerFill="#4264eb" styleClass="btn-view" stylesheets="@../css/eleve.css" text="إضافة">
-            <HBox.margin>
-               <Insets right="15.0"/>
-            </HBox.margin>
-            <font>
-               <Font name="Arabic Typesetting" size="24.0"/>
-            </font>
-         </JFXButton>
-         <JFXButton buttonType="RAISED" onAction="#editEleve" prefHeight="47.0" prefWidth="133.0"
-                    ripplerFill="#4264eb" styleClass="btn-view" stylesheets="@../css/eleve.css" text="تحديث">
-            <HBox.margin>
-               <Insets right="15.0"/>
-            </HBox.margin>
-            <font>
-               <Font name="Arabic Typesetting" size="24.0"/>
-            </font>
-         </JFXButton>
-         <JFXButton buttonType="RAISED" onAction="#removeEleve" prefHeight="39.0" prefWidth="130.0"
-                    ripplerFill="#4468eb" styleClass="btn-view" stylesheets="@../css/eleve.css" text="إزالة">
-            <HBox.margin>
-               <Insets right="15.0"/>
-            </HBox.margin>
-            <font>
-               <Font name="Arabic Typesetting" size="24.0"/>
-            </font>
-         </JFXButton>
-         <JFXButton buttonType="RAISED" layoutX="796.0" layoutY="11.0" onAction="#printEleve" prefHeight="39.0"
-                    prefWidth="130.0" ripplerFill="#4468eb" styleClass="btn-view" stylesheets="@../css/eleve.css"
-                    text="طبع">
-            <font>
-               <Font name="Arabic Typesetting" size="24.0"/>
-            </font>
-         </JFXButton>
-      </HBox>
-      <JFXTreeTableView fx:id="treeTableView" fixedCellSize="0.0"/>
-   </VBox>
+<StackPane fx:id="root" alignment="TOP_LEFT" stylesheets="@../css/eleve.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.EleveController">
+   <children>
+      <VBox nodeOrientation="RIGHT_TO_LEFT" prefWidth="1871.0" spacing="10.0">
+         <children>
+            <HBox prefHeight="60.0" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <Label id="headtitle" fx:id="titleLabel" alignment="CENTER" prefHeight="50.0" prefWidth="266.0" styleClass="title-header" text="إدارة التلاميذ">
+                     <font>
+                        <Font name="Tahoma" size="34.0" />
+                     </font>
+                  </Label>
+                  <Label id="errorLabel" fx:id="errorLabel" prefHeight="50.0" prefWidth="393.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="87.0" prefWidth="1120.0" spacing="5.0">
+               <children>
+                  <JFXTextField fx:id="searchField" labelFloat="true" prefHeight="49.0" prefWidth="192.0" promptText="بحث" styleClass="field">
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Arabic Typesetting" size="26.0" />
+                     </font>
+                  </JFXTextField>
+                  <JFXComboBox id="combo" fx:id="combo" labelFloat="true" prefHeight="48.0" prefWidth="192.0" promptText="البحث عن طريق" styleClass="combo-medium">
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                  </JFXComboBox>
+                  <JFXButton fx:id="Refresher" contentDisplay="CENTER" onMouseClicked="#updateTable" prefHeight="40.0" prefWidth="35.0" ripplerFill="#4476ff" style="-fx-background-color: white; -fx-border-color: #4476ff;" styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#0059f0" textOverrun="CLIP">
+                     <graphic>
+                        <FontAwesomeIconView fill="#4476ff" glyphName="REFRESH" size="30" textAlignment="CENTER" wrappingWidth="22.571428298950195" />
+                     </graphic>
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                  </JFXButton>
+                  <JFXButton fx:id="Adder" contentDisplay="CENTER" onAction="#addEleve" prefHeight="40.0" prefWidth="35.0" ripplerFill="#15d32b" style="-fx-background-color: white; -fx-border-color: green;" styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433" textOverrun="CLIP">
+                     <HBox.margin>
+                        <Insets right="15.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Arabic Typesetting" size="24.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="#0b8a1c" glyphName="PLUS" size="30" textAlignment="CENTER" wrappingWidth="22.571428298950195" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="Editer" contentDisplay="CENTER" layoutX="509.0" layoutY="27.0" onAction="#editEleve" prefHeight="40.0" prefWidth="35.0" ripplerFill="#4144ff" style="-fx-background-color: white; -fx-border-color: blue;" styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433" textOverrun="CLIP">
+                     <font>
+                        <Font name="Arabic Typesetting" size="24.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="#0037ff" glyphName="EDIT" size="30" textAlignment="CENTER" wrappingWidth="22.571428298950195" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="Remover" contentDisplay="CENTER" layoutX="586.0" layoutY="27.0" onAction="#removeEleve" prefHeight="40.0" prefWidth="35.0" ripplerFill="#f23a3a" style="-fx-background-color: white; -fx-border-color: red;" styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433" textOverrun="CLIP">
+                     <font>
+                        <Font name="Arabic Typesetting" size="24.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="RED" glyphName="TIMES" size="30" textAlignment="CENTER" wrappingWidth="22.571428298950195" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="Ficher" contentDisplay="CENTER" layoutX="650.0" layoutY="29.0" onAction="#ficheEleve" prefHeight="40.0" prefWidth="35.0" ripplerFill="#9e5eff" style="-fx-background-color: white; -fx-border-color: #9e5eff;" styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433" textOverrun="CLIP">
+                     <font>
+                        <Font name="Arabic Typesetting" size="24.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="#9e5eff" glyphName="USER" size="30" textAlignment="CENTER" wrappingWidth="22.571428298950195" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="Marker" contentDisplay="CENTER" layoutX="650.0" layoutY="29.0" onAction="#notes" prefHeight="40.0" prefWidth="35.0" ripplerFill="#f65bfc" style="-fx-background-color: white; -fx-border-color: #f65bfc;" styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433" textOverrun="CLIP">
+                     <font>
+                        <Font name="Arabic Typesetting" size="24.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView fill="#f65bfc" glyphName="COMMENT" size="30" textAlignment="RIGHT" wrappingWidth="22.571428298950195" />
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="Printer" contentDisplay="CENTER" layoutX="648.0" layoutY="27.0" prefHeight="40.0" prefWidth="35.0" ripplerFill="BLACK" style="-fx-background-color: white; -fx-border-color: black;" styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433" textOverrun="CLIP">
+                     <font>
+                        <Font name="Arabic Typesetting" size="24.0" />
+                     </font>
+                     <graphic>
+                        <FontAwesomeIconView glyphName="PRINT" size="30" textAlignment="CENTER" wrappingWidth="22.571428298950195" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <JFXTreeTableView fx:id="treeTableView" fixedCellSize="0.0" />
+         </children>
+         <StackPane.margin>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </StackPane.margin>
+      </VBox>
+   </children>
 </StackPane>

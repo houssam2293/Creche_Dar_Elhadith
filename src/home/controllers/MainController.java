@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
@@ -53,16 +54,16 @@ public class MainController implements Initializable {
     private AnchorPane calendarPane, settingsPane, images;
     private StackPane tracPane, stock, manageStudentPane,pointag, manageEmployePane, archiv;
     @FXML
-    private StackPane rightPane;
+    private StackPane rightPane,classePane;
     @FXML
     private Pane paneSlider;
 
     @FXML
-    private HBox boxesPane, boxHome, boxStudent, boxTrac, boxImages, boxCalandar, boxPoint, boxEmploye, boxArchive, boxStock, boxSettings, boxGuide, boxAbout;
+    private HBox boxesPane, boxHome, boxStudent, boxClasse, boxTrac, boxImages, boxCalandar, boxPoint, boxEmploye, boxArchive, boxStock, boxSettings, boxGuide, boxAbout;
     @FXML
     private FontAwesomeIconView iconHome, iconAccount;
     @FXML
-    private MaterialDesignIconView iconGuide, iconAbout, iconPoint, iconStudent, iconStock, iconArchive;
+    private MaterialDesignIconView  iconAbout, iconPoint, iconClasse, iconStudent, iconStock, iconArchive;
     @FXML
     private MaterialIconView iconImages;
     @FXML
@@ -80,6 +81,9 @@ public class MainController implements Initializable {
 
     private final byte NUMBER_IMAGE_SLIDER = 3;
     private int counter = 1;
+
+    public MainController() {
+    }
 
     /*---------------------------------------------------------*/
 
@@ -179,10 +183,6 @@ public class MainController implements Initializable {
         styleBox(11);
     }
 
-    @FXML
-    public void guideClicked() {
-        styleBox(6);
-    }
 
     @FXML
     public void aboutClicked() {
@@ -190,15 +190,23 @@ public class MainController implements Initializable {
     }
 
 
+    @FXML
     public void stockBoxClicked() {
         setNode(stock);
         styleBox(9);
     }
 
     @FXML
+    void classeClicked(MouseEvent event) {
+        styleBox(6);
+        setNode(classePane);
+    }
+
+
+    @FXML
     public void pointageClicked() {
         styleBox(7);
-        //setNode(pointag);
+        setNode(pointag);
     }
 
     private void sliderAutoChangePictures() {
@@ -258,7 +266,10 @@ public class MainController implements Initializable {
         rippler4.setMaskType(JFXRippler.RipplerMask.RECT);
         boxesPane.getChildren().addAll(rippler, rippler1, rippler2, rippler3, rippler4);
         //sliderAutoChangePictures();
-
+        holderPane.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.F11) {
+                ((Stage) holderPane.getScene().getWindow()).setFullScreen(true);
+            }});
 
         try {
             settingsPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/settings.fxml"));
@@ -268,8 +279,9 @@ public class MainController implements Initializable {
             manageStudentPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/eleve.fxml"));
             archiv = FXMLLoader.load(getClass().getResource("/home/resources/fxml/archive.fxml"));
             stock = FXMLLoader.load(getClass().getResource("/home/resources/fxml/stock.fxml"));
-            //pointag = FXMLLoader.load(getClass().getResource("/home/resources/fxml/pointag.fxml"));
+            pointag = FXMLLoader.load(getClass().getResource("/home/resources/fxml/pointag.fxml"));
             images = FXMLLoader.load(getClass().getResource("/home/resources/fxml/traitmentImage.fxml"));
+            classePane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/classe.fxml"));
 
 
         } catch (IOException e) {
@@ -301,7 +313,7 @@ public class MainController implements Initializable {
         iconAccount.setFill(Paint.valueOf("#4a4949"));
         iconSettings.setFill(Paint.valueOf("#4a4949"));
         iconArchive.setFill(Paint.valueOf("#4a4949"));
-        iconGuide.setFill(Paint.valueOf("#4a4949"));
+        iconClasse.setFill(Paint.valueOf("#4a4949"));
         iconAbout.setFill(Paint.valueOf("#4a4949"));
         iconStock.setFill(Paint.valueOf("#4a4949"));
         iconImages.setFill(Paint.valueOf("#4a4949"));
@@ -313,8 +325,8 @@ public class MainController implements Initializable {
         boxCalandar.setStyle("-fx-border: 0");
         boxEmploye.setStyle("-fx-border: 0");
         boxArchive.setStyle("-fx-border: 0");
+        boxClasse.setStyle("-fx-border: 0");
         boxSettings.setStyle("-fx-border: 0");
-        boxGuide.setStyle("-fx-border: 0");
         boxAbout.setStyle("-fx-border: 0");
         boxStock.setStyle("-fx-border: 0");
         boxImages.setStyle("-fx-border: 0");
@@ -345,8 +357,8 @@ public class MainController implements Initializable {
                 iconSettings.setFill(Paint.valueOf("#2196f3"));
                 break;
             case 6:
-                boxGuide.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
-                iconGuide.setFill(Paint.valueOf("#2196f3"));
+                boxClasse.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");
+                iconClasse.setFill(Paint.valueOf("#2196f3"));
                 break;
             case 7:
                 boxPoint.setStyle("-fx-background-color: #f2f2f2;-fx-border-color: #0078D7;-fx-border-width: 0px 0px 0px 3px;-fx-border-style: solid;");

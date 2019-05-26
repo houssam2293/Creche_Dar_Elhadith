@@ -2,262 +2,198 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import de.jensd.fx.glyphs.materialdesignicons.*?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import de.jensd.fx.glyphs.octicons.OctIconView?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import java.net.URL?>
-<HBox fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-      nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1292.0" styleClass="parent"
-      xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="home.controllers.MainController">
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1292.0" styleClass="parent" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.MainController">
     <stylesheets>
-        <URL value="@../css/main.css"/>
-        <URL value="@../css/system.css"/>
+        <URL value="@../css/main.css" />
+        <URL value="@../css/system.css" />
     </stylesheets>
-    <VBox fx:id="sidebar" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-          prefHeight="600.0" prefWidth="50.0" styleClass="white-pane">
-        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" onMouseClicked="#expandSidebar"
-              prefHeight="50.0" spacing="10.0" styleClass="sidebar-options">
-            <FontAwesomeIconView glyphName="NAVICON" size="24"/>
+    <VBox fx:id="sidebar" maxHeight="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="50.0" styleClass="white-pane">
+        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" onMouseClicked="#expandSidebar" prefHeight="50.0" spacing="10.0" styleClass="sidebar-options">
+            <FontAwesomeIconView glyphName="NAVICON" size="24" />
         </HBox>
         <VBox VBox.vgrow="ALWAYS">
-            <HBox fx:id="boxHome" alignment="CENTER_RIGHT" maxHeight="-Infinity"
-                  maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                  onMouseClicked="#homeClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
-                <FontAwesomeIconView fx:id="iconHome" fill="#4a4949" glyphName="HOME" size="26"/>
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                       minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="الرئيسية"
-                       HBox.hgrow="ALWAYS">
+            <HBox fx:id="boxHome" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#homeClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                <FontAwesomeIconView fx:id="iconHome" fill="#4a4949" glyphName="HOME" size="26" />
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="الرئيسية" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                     <font>
-                        <Font name="Calibri" size="14.0"/>
+                        <Font name="Calibri" size="14.0" />
                     </font>
                 </Label>
             </HBox>
-            <HBox fx:id="boxEmploye" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="310.0"
-                  maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                  minWidth="-Infinity" onMouseClicked="#EmployeeClicked" prefHeight="50.0" spacing="15.0"
-                  styleClass="sidebar-options">
-                <FontAwesomeIconView fx:id="iconAccount" fill="#4a4949" glyphName="USERS" size="22"/>
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                       minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة العمال"
-                       HBox.hgrow="ALWAYS">
+            <HBox fx:id="boxEmploye" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="310.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#EmployeeClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                <FontAwesomeIconView fx:id="iconAccount" fill="#4a4949" glyphName="USERS" size="22" />
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة العمال" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                     <font>
-                        <Font name="Calibri" size="14.0"/>
+                        <Font name="Calibri" size="14.0" />
                     </font>
                 </Label>
             </HBox>
-            <HBox fx:id="boxStudent" alignment="CENTER_RIGHT" maxHeight="-Infinity"
-                  maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                  onMouseClicked="#studentClicked" prefHeight="50.0" spacing="15.0"
-                  styleClass="sidebar-options">
-                <MaterialDesignIconView fx:id="iconStudent" fill="#4a4949" glyphName="HUMAN_CHILD" size="30"
-                                        wrappingWidth="28.0"/>
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                       minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة الطلاب"
-                       HBox.hgrow="ALWAYS">
+            <HBox fx:id="boxStudent" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#studentClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                <MaterialDesignIconView fx:id="iconStudent" fill="#4a4949" glyphName="HUMAN_CHILD" size="30" wrappingWidth="28.0" />
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة الطلاب" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                     <font>
-                        <Font name="Calibri" size="14.0"/>
+                        <Font name="Calibri" size="14.0" />
                     </font>
                 </Label>
             </HBox>
-            <HBox fx:id="boxCalandar" alignment="CENTER_RIGHT" maxHeight="-Infinity"
-                  maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                  onMouseClicked="#calBoxClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
-                <OctIconView fx:id="iconCalandar" fill="#4a4949" glyphName="CALENDAR" size="28"
-                             wrappingWidth="23.0"/>
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                       minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="جدول أوقات"
-                       HBox.hgrow="ALWAYS">
+         <HBox fx:id="boxClasse" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#classeClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+            <children>
+               <MaterialDesignIconView fx:id="iconClasse" fill="#4a4949" glyphName="SCHOOL" size="30" wrappingWidth="28.0" />
+               <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة الطلاب" HBox.hgrow="ALWAYS">
+                  <HBox.margin>
+                     <Insets />
+                  </HBox.margin>
+                  <font>
+                     <Font name="Calibri" size="14.0" />
+                  </font>
+               </Label>
+            </children>
+         </HBox>
+            <HBox fx:id="boxCalandar" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#calBoxClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                <OctIconView fx:id="iconCalandar" fill="#4a4949" glyphName="CALENDAR" size="28" wrappingWidth="23.0" />
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="جدول أوقات" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                     <font>
-                        <Font name="Calibri" size="14.0"/>
+                        <Font name="Calibri" size="14.0" />
                     </font>
                 </Label>
             </HBox>
-            <HBox fx:id="boxPoint" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="210.0" maxHeight="-Infinity"
-                  maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                  onMouseClicked="#pointageClicked" prefHeight="50.0" spacing="15.0"
-                  styleClass="sidebar-options">
-                <MaterialDesignIconView fx:id="iconPoint" fill="#4a4949" glyphName="TABLE_EDIT" size="28"
-                                        wrappingWidth="25.0"/>
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                       minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="عد العمال"
-                       HBox.hgrow="ALWAYS">
+            <HBox fx:id="boxPoint" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pointageClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                <MaterialDesignIconView fx:id="iconPoint" fill="#4a4949" glyphName="TABLE_EDIT" size="28" wrappingWidth="25.0" />
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="عد العمال" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                     <font>
-                        <Font name="Calibri" size="14.0"/>
+                        <Font name="Calibri" size="14.0" />
                     </font>
                 </Label>
             </HBox>
-            <HBox fx:id="boxStock" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="160.0" maxHeight="-Infinity"
-                  maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                  onMouseClicked="#stockBoxClicked" prefHeight="50.0" spacing="15.0"
-                  styleClass="sidebar-options">
-                <MaterialDesignIconView fx:id="iconStock" fill="#4a4949" glyphName="FACTORY" size="26"
-                                        wrappingWidth="25.0"/>
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                       minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة المخزن"
-                       HBox.hgrow="ALWAYS">
+            <HBox fx:id="boxStock" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="160.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#stockBoxClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                <MaterialDesignIconView fx:id="iconStock" fill="#4a4949" glyphName="FACTORY" size="26" wrappingWidth="25.0" />
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة المخزن" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                     <font>
-                        <Font name="Calibri" size="14.0"/>
+                        <Font name="Calibri" size="14.0" />
                     </font>
                 </Label>
             </HBox>
-            <HBox fx:id="boxArchive" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity"
-                  onMouseClicked="#ArchiveClicked" prefWidth="50.0" spacing="10.0" styleClass="sidebar-options">
-                <MaterialDesignIconView fx:id="iconArchive" fill="#4a4949" glyphName="ARCHIVE" size="26"
-                                        wrappingWidth="30.0"/>
-                <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                       prefHeight="50.0" prefWidth="249.0" text="الأرشيف">
+            <HBox fx:id="boxArchive" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#ArchiveClicked" prefWidth="50.0" spacing="10.0" styleClass="sidebar-options">
+                <MaterialDesignIconView fx:id="iconArchive" fill="#4a4949" glyphName="ARCHIVE" size="26" wrappingWidth="30.0" />
+                <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="249.0" text="الأرشيف">
                     <font>
-                        <Font size="14.0"/>
+                        <Font size="14.0" />
                     </font>
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                 </Label>
             </HBox>
-            <HBox fx:id="boxTrac" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="210.0" maxHeight="-Infinity"
-                  maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                  onMouseClicked="#traceabilityClicked" prefHeight="50.0" spacing="15.0"
-                  styleClass="sidebar-options">
-                <OctIconView fx:id="iconTrac" fill="#4a4949" glyphName="GRAPH" size="24"/>
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                       minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إحصائيات"
-                       HBox.hgrow="ALWAYS">
+            <HBox fx:id="boxTrac" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#traceabilityClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                <OctIconView fx:id="iconTrac" fill="#4a4949" glyphName="GRAPH" size="24" />
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إحصائيات" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                     <font>
-                        <Font name="Calibri" size="14.0"/>
+                        <Font name="Calibri" size="14.0" />
                     </font>
                 </Label>
             </HBox>
-            <HBox fx:id="boxImages" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="360.0"
-                  maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                  minWidth="-Infinity" onMouseClicked="#imagesClicked" prefHeight="50.0" spacing="15.0"
-                  styleClass="sidebar-options">
-                <MaterialIconView fx:id="iconImages" fill="#4a4949" glyphName="PHOTO_LIBRARY" size="24"/>
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                       minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="صور"
-                       HBox.hgrow="ALWAYS">
+            <HBox fx:id="boxImages" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="360.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#imagesClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                <MaterialIconView fx:id="iconImages" fill="#4a4949" glyphName="PHOTO_LIBRARY" size="24" />
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="صور" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                     <font>
-                        <Font name="Calibri" size="14.0"/>
+                        <Font name="Calibri" size="14.0" />
                     </font>
                 </Label>
             </HBox>
-            <HBox fx:id="boxSettings" alignment="CENTER_RIGHT" maxHeight="-Infinity"
-                  maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                  onMouseClicked="#settingsClicked" prefHeight="50.0" spacing="15.0"
-                  styleClass="sidebar-options">
-                <Icons525View fx:id="iconSettings" fill="#4a4949" glyphName="WP_COG_O" size="23"/>
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                       minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إعدادات"
-                       textAlignment="RIGHT" HBox.hgrow="ALWAYS">
+            <HBox fx:id="boxSettings" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#settingsClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
+                <Icons525View fx:id="iconSettings" fill="#4a4949" glyphName="WP_COG_O" size="23" />
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إعدادات" textAlignment="RIGHT" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                     <font>
-                        <Font name="Calibri" size="14.0"/>
+                        <Font name="Calibri" size="14.0" />
                     </font>
                 </Label>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="260.0" maxHeight="-Infinity"
-                  maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                  onMouseClicked="#logoutClicked" prefHeight="50.0" prefWidth="50.0" spacing="15.0"
-                  styleClass="sidebar-options">
-                <FontAwesomeIconView fill="#4a4949" glyphName="POWER_OFF" size="24"/>
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
-                       minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="تسجيل الخروج"
-                       HBox.hgrow="ALWAYS">
+            <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#logoutClicked" prefHeight="50.0" prefWidth="50.0" spacing="15.0" styleClass="sidebar-options">
+                <FontAwesomeIconView fill="#4a4949" glyphName="POWER_OFF" size="24" />
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="تسجيل الخروج" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
                     <font>
-                        <Font name="Calibri" size="14.0"/>
+                        <Font name="Calibri" size="14.0" />
                     </font>
                 </Label>
             </HBox>
         </VBox>
-        <HBox fx:id="boxGuide" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity"
-              onMouseClicked="#guideClicked" spacing="10.0" styleClass="sidebar-options">
-            <MaterialDesignIconView fx:id="iconGuide" glyphName="TELEVISION_GUIDE" size="25"/>
-            <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                   prefHeight="50.0" prefWidth="249.0" text="إرشادات">
-                <font>
-                    <Font size="14.0"/>
-                </font>
-                <HBox.margin>
-                    <Insets/>
-                </HBox.margin>
-            </Label>
-        </HBox>
-        <HBox fx:id="boxAbout" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity"
-              onMouseClicked="#aboutClicked" spacing="10.0" styleClass="sidebar-options">
-            <MaterialDesignIconView fx:id="iconAbout" glyphName="INFORMATION_OUTLINE" size="27"/>
-            <Label prefHeight="50.0" prefWidth="249.0" text="حول البرنامج"/>
+        <HBox fx:id="boxAbout" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#aboutClicked" spacing="10.0" styleClass="sidebar-options">
+            <MaterialDesignIconView fx:id="iconAbout" glyphName="INFORMATION_OUTLINE" size="27" />
+            <Label prefHeight="50.0" prefWidth="249.0" text="حول البرنامج" />
         </HBox>
     </VBox>
     <StackPane fx:id="rightPane" prefWidth="1194.0" HBox.hgrow="ALWAYS">
-        <AnchorPane fx:id="holderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                    minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0"
-                    style="-fx-background-color: #FFF;"/>
-        <VBox fx:id="homePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-              minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0"
-              styleClass="white-pane">
-            <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                  minHeight="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="1242.0"
-                  style="-fx-background-color: #F2F2F2;" VBox.vgrow="NEVER">
-                <Pane fx:id="paneSlider" maxHeight="1.7976931348623157E308"
-                      maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity"
-                      prefHeight="200.0" prefWidth="1193.0" styleClass="header-pane" HBox.hgrow="ALWAYS">
+        <AnchorPane fx:id="holderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0" style="-fx-background-color: #FFF;" />
+        <VBox fx:id="homePane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="690.0" prefWidth="1186.0" styleClass="white-pane">
+            <HBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="1242.0" style="-fx-background-color: #F2F2F2;" VBox.vgrow="NEVER">
+                <Pane fx:id="paneSlider" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="200.0" prefWidth="1193.0" styleClass="header-pane" HBox.hgrow="ALWAYS">
                     <HBox.margin>
-                        <Insets/>
+                        <Insets />
                     </HBox.margin>
-                    <ImageView fx:id="imgSlider" fitHeight="200.0" fitWidth="1242.0"
-                               pickOnBounds="true">
+                    <ImageView fx:id="imgSlider" fitHeight="200.0" fitWidth="1242.0" pickOnBounds="true">
                         <viewport>
-                            <Rectangle2D width="1192.0"/>
+                            <Rectangle2D width="1192.0" />
                         </viewport>
-                        <Image url="@../images/slider/4.png"/>
+                        <Image url="@../images/slider/4.png" />
                     </ImageView>
                     <VBox prefHeight="200.0" prefWidth="1274.0" spacing="15.0">
                         <padding>
-                            <Insets left="50.0" top="50.0"/>
+                            <Insets left="50.0" top="50.0" />
                         </padding>
                         <Label disable="true" styleClass="title1" textAlignment="RIGHT">
                             <font>
-                                <Font name="Calibri Light" size="40.0"/>
+                                <Font name="Calibri Light" size="40.0" />
                             </font>
                         </Label>
-                        <Label fx:id="dateLabel" disable="true" prefHeight="62.0" prefWidth="607.0"
-                               styleClass="title-date" text=" " visible="false">
+                        <Label fx:id="dateLabel" disable="true" prefHeight="62.0" prefWidth="607.0" styleClass="title-date" text=" " visible="false">
                             <font>
-                                <Font size="16.0"/>
+                                <Font size="16.0" />
                             </font>
                         </Label>
                     </VBox>
@@ -265,212 +201,148 @@
             </HBox>
             <HBox prefHeight="346.0" prefWidth="1219.0" spacing="10.0" style="-fx-background-color: #c4c4c4;">
                 <padding>
-                    <Insets top="30.0"/>
+                    <Insets top="30.0" />
                 </padding>
                 <Pane prefHeight="341.0" prefWidth="1236.0">
-                    <ImageView fitHeight="319.0" fitWidth="1332.0" layoutY="-20.0"
-                               nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true">
+                    <ImageView fitHeight="319.0" fitWidth="1332.0" layoutY="-20.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true">
                         <viewport>
-                            <Rectangle2D width="1192.0"/>
+                            <Rectangle2D width="1192.0" />
                         </viewport>
-                        <Image url="@../images/slider/3.png"/>
+                        <Image url="@../images/slider/3.png" />
                     </ImageView>
                 </Pane>
             </HBox>
-            <HBox fx:id="boxesPane" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="300.0"
-                  prefWidth="200.0" spacing="10.0" style="-fx-background-color: #C4C4C4;"
-                  styleClass="white-pane" VBox.vgrow="ALWAYS">
+            <HBox fx:id="boxesPane" alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="300.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #C4C4C4;" styleClass="white-pane" VBox.vgrow="ALWAYS">
                 <padding>
-                    <Insets top="30.0"/>
+                    <Insets top="30.0" />
                 </padding>
-                <VBox fx:id="calBox" alignment="TOP_CENTER" layoutX="612.0" layoutY="60.0"
-                      maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                      onMouseClicked="#calndarClicked" prefHeight="200.0" prefWidth="201.0"
-                      styleClass="cards">
+                <VBox fx:id="calBox" alignment="TOP_CENTER" layoutX="612.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#calndarClicked" prefHeight="200.0" prefWidth="201.0" styleClass="cards">
                     <padding>
-                        <Insets left="10.0" top="10.0"/>
+                        <Insets left="10.0" top="10.0" />
                     </padding>
-                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                          minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
-                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <Image url="@../icons/icons8_Calendar_1_50px.png"/>
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../icons/icons8_Calendar_1_50px.png" />
                         </ImageView>
-                        <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="-3.0" layoutY="67.0"
-                                   pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../icons/tick.png"/>
+                        <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="-3.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../icons/tick.png" />
                         </ImageView>
                     </Pane>
-                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0"
-                           prefWidth="160.0" styleClass="title-smaller" text="جدول أوقات"
-                           textAlignment="RIGHT" wrapText="true">
+                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="160.0" styleClass="title-smaller" text="جدول أوقات" textAlignment="RIGHT" wrapText="true">
                         <font>
-                            <Font name="Calibri Light" size="20.0"/>
+                            <Font name="Calibri Light" size="20.0" />
                         </font>
                     </Label>
-                    <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity"
-                           maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                           prefHeight="46.0" prefWidth="172.0" styleClass="content-little"
-                           text="يمكنك الإطلاع على جدول الأوقات أو تعديله" textFill="#747474"
-                           wrapText="true">
+                    <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="172.0" styleClass="content-little" text="يمكنك الإطلاع على جدول الأوقات أو تعديله" textFill="#747474" wrapText="true">
                         <font>
-                            <Font name="Calibri Light" size="20.0"/>
+                            <Font name="Calibri Light" size="20.0" />
                         </font>
                         <VBox.margin>
-                            <Insets top="10.0"/>
+                            <Insets top="10.0" />
                         </VBox.margin>
                     </Label>
                 </VBox>
-                <VBox fx:id="manageEmployeBox" alignment="TOP_CENTER" maxHeight="-Infinity"
-                      maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                      onMouseClicked="#EmployeeClicked" prefHeight="200.0" prefWidth="201.0"
-                      styleClass="cards">
+                <VBox fx:id="manageEmployeBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#EmployeeClicked" prefHeight="200.0" prefWidth="201.0" styleClass="cards">
                     <padding>
-                        <Insets left="10.0" top="10.0"/>
+                        <Insets left="10.0" top="10.0" />
                     </padding>
-                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                          minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
-                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <Image url="@../icons/icons8_Conference_50px.png"/>
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../icons/icons8_Conference_50px.png" />
                         </ImageView>
-                        <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="-11.0" layoutY="70.0"
-                                   pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../icons/tick.png"/>
+                        <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="-11.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../icons/tick.png" />
                         </ImageView>
                     </Pane>
-                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0"
-                           prefWidth="166.0" styleClass="title-smaller" text="إدارة العمال"
-                           textAlignment="RIGHT" wrapText="true">
+                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="33.0" prefWidth="166.0" styleClass="title-smaller" text="إدارة العمال" textAlignment="RIGHT" wrapText="true">
                         <font>
-                            <Font name="Calibri Light" size="20.0"/>
+                            <Font name="Calibri Light" size="20.0" />
                         </font>
                     </Label>
-                    <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity"
-                           maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                           prefHeight="55.0" prefWidth="175.0" styleClass="content-little"
-                           text="إضافة/إزالة/تحديث     قائمة العمال" textFill="#747474" wrapText="true">
+                    <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="175.0" styleClass="content-little" text="إضافة/إزالة/تحديث     قائمة العمال" textFill="#747474" wrapText="true">
                         <font>
-                            <Font name="Calibri Light" size="18.0"/>
+                            <Font name="Calibri Light" size="18.0" />
                         </font>
                     </Label>
                 </VBox>
-                <VBox fx:id="manageStudentBox" alignment="TOP_CENTER" maxHeight="-Infinity"
-                      maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                      onMouseClicked="#studentBoxClicked" prefHeight="200.0" prefWidth="201.0"
-                      styleClass="cards">
+                <VBox fx:id="manageStudentBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#studentBoxClicked" prefHeight="200.0" prefWidth="201.0" styleClass="cards">
                     <padding>
-                        <Insets left="10.0" top="10.0"/>
+                        <Insets left="10.0" top="10.0" />
                     </padding>
-                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                          minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
-                        <ImageView fitHeight="85.0" fitWidth="88.0" layoutX="10.0" layoutY="1.0"
-                                   pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../icons/icons8_Students_50px.png"/>
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
+                        <ImageView fitHeight="85.0" fitWidth="88.0" layoutX="10.0" layoutY="1.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../icons/icons8_Students_50px.png" />
                         </ImageView>
-                        <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="-9.0" layoutY="70.0"
-                                   pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../icons/tick.png"/>
+                        <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="-9.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../icons/tick.png" />
                         </ImageView>
                     </Pane>
-                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0"
-                           prefWidth="175.0" styleClass="title-smaller" text="إدارة الطلاب"
-                           textAlignment="RIGHT" wrapText="true">
+                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="175.0" styleClass="title-smaller" text="إدارة الطلاب" textAlignment="RIGHT" wrapText="true">
                         <font>
-                            <Font name="Calibri Light" size="20.0"/>
+                            <Font name="Calibri Light" size="20.0" />
                         </font>
                         <VBox.margin>
-                            <Insets/>
+                            <Insets />
                         </VBox.margin>
                     </Label>
-                    <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity"
-                           maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                           prefHeight="52.0" prefWidth="174.0" styleClass="content-little"
-                           text="إضافة/إزالة/تحديث     قائمة التلاميذ" textFill="#747474"
-                           wrapText="true">
+                    <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="52.0" prefWidth="174.0" styleClass="content-little" text="إضافة/إزالة/تحديث     قائمة التلاميذ" textFill="#747474" wrapText="true">
                         <font>
-                            <Font name="Calibri Light" size="20.0"/>
+                            <Font name="Calibri Light" size="20.0" />
                         </font>
                         <VBox.margin>
-                            <Insets top="10.0"/>
+                            <Insets top="10.0" />
                         </VBox.margin>
                     </Label>
                 </VBox>
-                <VBox fx:id="tracBox" alignment="TOP_CENTER" layoutX="382.0" layoutY="60.0"
-                      maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                      onMouseClicked="#traceabilityClicked" prefHeight="200.0" prefWidth="201.0"
-                      styleClass="cards">
+                <VBox fx:id="tracBox" alignment="TOP_CENTER" layoutX="382.0" layoutY="60.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#traceabilityClicked" prefHeight="200.0" prefWidth="201.0" styleClass="cards">
                     <padding>
-                        <Insets left="10.0" top="10.0"/>
+                        <Insets left="10.0" top="10.0" />
                     </padding>
-                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                          minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
-                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <Image url="@../icons/icons8_Training_50px.png"/>
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../icons/icons8_Training_50px.png" />
                         </ImageView>
-                        <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="2.0" layoutY="70.0"
-                                   pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../icons/tick.png"/>
+                        <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="2.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../icons/tick.png" />
                         </ImageView>
                     </Pane>
-                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0"
-                           prefWidth="116.0" styleClass="title-smaller" text="إحصائيات"
-                           textAlignment="RIGHT" wrapText="true">
+                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="116.0" styleClass="title-smaller" text="إحصائيات" textAlignment="RIGHT" wrapText="true">
                         <font>
-                            <Font name="Calibri Light" size="20.0"/>
+                            <Font name="Calibri Light" size="20.0" />
                         </font>
                     </Label>
-                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity"
-                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0"
-                           prefWidth="155.0" styleClass="content-little" text="الإطلاع على الإحصائيات"
-                           textFill="#747474" wrapText="true">
+                    <Label layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="46.0" prefWidth="155.0" styleClass="content-little" text="الإطلاع على الإحصائيات" textFill="#747474" wrapText="true">
                         <font>
-                            <Font name="Calibri Light" size="20.0"/>
+                            <Font name="Calibri Light" size="20.0" />
                         </font>
                         <VBox.margin>
-                            <Insets top="10.0"/>
+                            <Insets top="10.0" />
                         </VBox.margin>
                     </Label>
                 </VBox>
-                <VBox fx:id="pointBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                      minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pointClicked"
-                      prefHeight="200.0" prefWidth="201.0" styleClass="cards">
+                <VBox fx:id="pointBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pointClicked" prefHeight="200.0" prefWidth="201.0" styleClass="cards">
                     <padding>
-                        <Insets left="10.0" top="10.0"/>
+                        <Insets left="10.0" top="10.0" />
                     </padding>
-                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                          minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
-                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true"
-                                   preserveRatio="true">
-                            <Image url="@../icons/icons8_Report_Card_50px.png"/>
+                    <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="100.0">
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../icons/icons8_Report_Card_50px.png" />
                         </ImageView>
-                        <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="3.0" layoutY="70.0"
-                                   pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../icons/warn.png"/>
+                        <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="3.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../icons/warn.png" />
                         </ImageView>
                     </Pane>
-                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                           minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0"
-                           prefWidth="119.0" styleClass="title-smaller" text="عد العمال"
-                           textAlignment="CENTER" wrapText="true">
+                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="119.0" styleClass="title-smaller" text="عد العمال" textAlignment="CENTER" wrapText="true">
                         <font>
-                            <Font name="Calibri Light" size="20.0"/>
+                            <Font name="Calibri Light" size="20.0" />
                         </font>
                     </Label>
-                    <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity"
-                           maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-                           prefHeight="49.0" prefWidth="161.0" styleClass="content-little"
-                           text="تسجيل الدخول و الخروج العمال" textFill="#747474" wrapText="true">
+                    <Label alignment="CENTER" layoutX="10.0" layoutY="110.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="49.0" prefWidth="161.0" styleClass="content-little" text="تسجيل الدخول و الخروج العمال" textFill="#747474" wrapText="true">
                         <font>
-                            <Font name="Calibri Light" size="20.0"/>
+                            <Font name="Calibri Light" size="20.0" />
                         </font>
                         <VBox.margin>
-                            <Insets top="10.0"/>
+                            <Insets top="10.0" />
                         </VBox.margin>
                     </Label>
                 </VBox>

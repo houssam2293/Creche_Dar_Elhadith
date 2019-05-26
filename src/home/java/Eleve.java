@@ -1,6 +1,7 @@
 package home.java;
 
 
+import javafx.beans.property.StringProperty;
 import sun.net.idn.StringPrep;
 
 import java.util.Date;
@@ -9,6 +10,7 @@ import java.util.Date;
 public class Eleve {
 
     private int Id;
+    private int gender;
     private String nom;
     private String prenom;
     private Date dateNaissance;
@@ -24,13 +26,15 @@ public class Eleve {
     private String travailPere;
     private String travailMere;
     private String maladie;
+    private String wakil;
     private String remarque;
 
 
-    public Eleve(int Id, String nom, String prenom,Date dateNaissance, String lieuNaissance,String classe,String anneeScolaire,
-                 String regime,String adresse,String phone,String prenomPere, String prenomMere, String nomMere, String travailPere,String travailMere,
-                 String maladie,String remarque) {
+    public Eleve(int Id, int gender, String nom, String prenom, Date dateNaissance, String lieuNaissance, String classe, String anneeScolaire,
+                 String regime, String adresse, String phone, String prenomPere, String prenomMere, String nomMere, String travailPere, String travailMere,
+                 String maladie, String wakil, String remarque) {
         this.Id=Id;
+        this.gender=gender;
         this.nom=nom;
         this.prenom=prenom;
         this.dateNaissance=dateNaissance;
@@ -46,6 +50,7 @@ public class Eleve {
         this.travailPere=travailPere;
         this.travailMere=travailMere;
         this.maladie=maladie;
+        this.wakil=wakil;
         this.remarque=remarque;
 
     }
@@ -235,5 +240,21 @@ public class Eleve {
 
     public void setNomMere(String nomMere) {
         this.nomMere = nomMere;
+    }
+
+    public String getWakil() {
+        return wakil;
+    }
+
+    public void setWakil(String wakil) {
+        this.wakil = wakil;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 }

@@ -163,7 +163,7 @@ public class SettingsController extends Component implements Initializable {
                 case 1:
                     Notifications.create()
                             .title("تمت العملية بنجاح                                   ")
-                            .graphic(new ImageView(new Image("/home/icons/valid.png")))
+                            .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
                             .hideAfter(Duration.millis(2000))
                             .position(Pos.BOTTOM_RIGHT)
                             .darkStyle()
@@ -196,7 +196,7 @@ public class SettingsController extends Component implements Initializable {
                     case 1:
                         Notifications.create()
                                 .title("تمت العملية بنجاح                                   ")
-                                .graphic(new ImageView(new Image("/home/icons/valid.png")))
+                                .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
                                 .hideAfter(Duration.millis(2000))
                                 .position(Pos.BOTTOM_RIGHT)
                                 .darkStyle()
@@ -208,7 +208,7 @@ public class SettingsController extends Component implements Initializable {
             } else {
                 Notifications.create()
                         .title("كلمتا المرور غير متطابقتين!                            ")
-                        .graphic(new ImageView(new Image("/home/icons/icons8_Cancel_48px.png")))
+                        .graphic(new ImageView(new Image("/home/resources/icons/icons8_Cancel_48px.png")))
                         .hideAfter(Duration.millis(2000))
                         .position(Pos.BOTTOM_RIGHT)
                         .darkStyle()
@@ -239,7 +239,7 @@ public class SettingsController extends Component implements Initializable {
                 case 1:
                     Notifications.create()
                             .title("تمت العملية بنجاح                                   ")
-                            .graphic(new ImageView(new Image("/home/icons/valid.png")))
+                            .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
                             .hideAfter(Duration.millis(2000))
                             .position(Pos.BOTTOM_RIGHT)
                             .darkStyle()

@@ -1,13 +1,16 @@
 package home.controllers;
 
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXToggleButton;
-import home.dbDir.EleveDB;
+import com.jfoenix.controls.*;
+import home.controllers.EleveController;
 import home.java.Eleve;
+import home.dbDir.EleveDB;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -29,6 +32,13 @@ public class AddEleveFormController implements Initializable {
 
     @FXML
     private JFXTextField id;
+
+    @FXML
+    private JFXRadioButton gender1;
+
+    @FXML
+    private JFXRadioButton gender2;
+
 
     @FXML
     private JFXTextField lastNameField;
@@ -72,6 +82,8 @@ public class AddEleveFormController implements Initializable {
     private JFXTextField fonction;
     @FXML
     private JFXTextField fonction1;
+    @FXML
+    private JFXTextField wakil;
 
     @FXML
     private JFXTextField remarque;
@@ -109,7 +121,11 @@ public class AddEleveFormController implements Initializable {
         eleve.setNomMere(lastNameMother.getText().trim().toLowerCase());
         eleve.setTravailPere(fonction.getText().trim().toLowerCase());
         eleve.setTravailMere(fonction1.getText().trim().toLowerCase());
+        eleve.setWakil(wakil.getText().trim().toLowerCase());
         eleve.setRemarque(remarque.getText().trim().toLowerCase());
+        if (gender1.isSelected())
+            eleve.setGender(1);
+        else eleve.setGender(2);
 
 
         int status = new EleveDB().addEleve(eleve);
@@ -141,6 +157,8 @@ public class AddEleveFormController implements Initializable {
     @FXML
     void btnClear() {
         id.setText(null);
+        gender1.setSelected(false);
+        gender2.setSelected(false);
         firstNameField.setText(null);
         lastNameField.setText(null);
         birthDate.setValue(null);
@@ -157,6 +175,8 @@ public class AddEleveFormController implements Initializable {
         lastNameMother.setText(null);
         fonction.setText(null);
         fonction1.setText(null);
+        wakil.setText(null);
+        remarque.setText(null);
 
     }
 
@@ -164,6 +184,16 @@ public class AddEleveFormController implements Initializable {
     void btnClose() {
         EleveController.addUserDialog.close();
 
+    }
+
+    @FXML
+    void hit1(){
+        gender2.setSelected(false);
+    }
+
+    @FXML
+    void hit2(){
+        gender1.setSelected(false);
     }
 
 

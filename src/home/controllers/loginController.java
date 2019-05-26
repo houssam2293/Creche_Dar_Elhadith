@@ -73,6 +73,8 @@ public class loginController implements Initializable {
             window.setResizable(true);
             window.setTitle("مؤسسة دار الحديث");
             window.getIcons().add(new Image("/home/resources/icons/icon.png"));
+            window.setFullScreen(true);
+            window.setFullScreenExitHint("أنقر على 'Echap' للخروج من وضع شاشة كاملة");
             window.setScene(new Scene(root));
             window.show();
         } else {
