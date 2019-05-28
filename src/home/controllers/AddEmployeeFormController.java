@@ -202,7 +202,7 @@ public class AddEmployeeFormController implements Initializable {
     }
 
 
-    void valider() {
+    private void valider() {
         // start of validation
         id.setOnKeyReleased(t -> {
             if (new Validation().isNumber(id)) {

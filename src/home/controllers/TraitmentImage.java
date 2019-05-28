@@ -1,8 +1,10 @@
 package home.controllers;
 
 import de.jensd.fx.glyphs.emojione.EmojiOneView;
+import de.jensd.fx.glyphs.icons525.Icons525View;
 import home.dbDir.EleveDB;
 import home.java.Eleve;
+import home.java.EleveCellFactory;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,20 +14,26 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 public class TraitmentImage implements Initializable {
 
     @FXML
-    private Label errorLabel;
+    private Label errorLabel, listViewsLabel;
 
     @FXML
     private HBox controllBox;
@@ -34,7 +42,13 @@ public class TraitmentImage implements Initializable {
     private ListView<String> classeListview;
 
     @FXML
-    private EmojiOneView print;
+    private ListView<Eleve> studentListview;
+
+    @FXML
+    private EmojiOneView print, first, previous, next, last;
+
+    @FXML
+    private Icons525View addImage, deleteImage;
 
     @FXML
     private AnchorPane holderPane;
@@ -42,8 +56,9 @@ public class TraitmentImage implements Initializable {
     private AnchorPane imageModel;
 
     private EleveDB eleveDB;
+    private ImageModel imagemodel;
+    private Image selectedImage = null;
 
-    List<Eleve> eleves;
     private String selectedClasse;
     private ObservableList<String> classes =
             FXCollections.observableArrayList(
@@ -54,7 +69,11 @@ public class TraitmentImage implements Initializable {
     void btnAnnuler() {
         holderPane.getChildren().clear();
         controllBox.setVisible(false);
+        studentListview.getItems().clear();
+        studentListview.setVisible(false);
         classeListview.setItems(classes);
+        classeListview.setVisible(true);
+        listViewsLabel.setText("الأقسام");
     }
 
     @FXML
@@ -62,40 +81,33 @@ public class TraitmentImage implements Initializable {
         print.setDisable(false);
         print.setFill(Paint.valueOf("#2196f3"));
         controllBox.setVisible(true);
+        listViewsLabel.setText("تلاميذ القسم");
+        studentListview.getItems().clear();
         selectedClasse = classeListview.getSelectionModel().getSelectedItem();
-        ObservableList<String> classe = FXCollections.observableArrayList();
-        eleves = eleveDB.getEleve();
-        for (Eleve eleve : eleves) {
-            assert false;
-            classe.add(eleve.getPrenom() + " - " + eleve.getNom());
-        }
-        classeListview.setItems(classe);
-        classeListview.setOnMouseClicked(event -> {
-            String selected = classeListview.getSelectionModel().getSelectedItem();
-            String[] selectedStudent = selected.split("-");
-            loadScene(selectedStudent[0], selectedStudent[1]);
+        List<Eleve> eleves = eleveDB.getEleveDeClasse(selectedClasse);
+        ArrayList<Eleve> students = new ArrayList<>(eleves);
+        classeListview.setVisible(false);
+        studentListview.getItems().addAll(students);
+        studentListview.setCellFactory(new EleveCellFactory());
+        studentListview.setVisible(true);
+        studentListview.setOnMouseClicked(event -> {
+            Eleve selected = studentListview.getSelectionModel().getSelectedItem();
+            loadScene(selected);
         });
 
 
     }
 
-    private void loadScene(String nom, String prenom) {
-        Eleve eleve = new Eleve();
-        System.out.println("nom : " + nom);
-        System.out.println("prenom : " + prenom);
-
-        for (Eleve eleve1 : eleves) {
-            System.out.println("elve dans la liste : "  + eleve1.getNom()+ " " + eleve1.getPrenom());
-            if (nom.equals(eleve1.getNom())) {
-                //TODO fix this next
-                eleve = eleve1;
-            }//eleve = eleve1;
-        }
+    private void loadScene(Eleve eleve) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/home/resources/fxml/imageModel.fxml"));
             imageModel = loader.load();
-            ImageModel imagemodel = loader.getController();
+            imagemodel = loader.getController();
             imagemodel.setStudentClasse(selectedClasse, eleve);
+            if (ImageModel.imageDeleted) {
+                selectedImage = null;
+            }
+            imagemodel.setImageHolder(selectedImage);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -105,6 +117,7 @@ public class TraitmentImage implements Initializable {
 
     @FXML
     void printFile() {
+        imagemodel.print();
 
     }
 
@@ -123,33 +136,45 @@ public class TraitmentImage implements Initializable {
 
     @FXML
     void addImage() {
-        System.out.println("add Image clicked!");
+        FileChooser fileChooser = new FileChooser();
 
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("image files (png,jpg,jpeg,bmp,gif)", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif");
+        fileChooser.getExtensionFilters().add(extFilter);
+
+        //Show save file dialog
+        File file = fileChooser.showOpenDialog(errorLabel.getScene().getWindow());
+        selectedImage = new Image(file.toURI().toString());
+        imagemodel.setImageHolder(selectedImage);
     }
 
     @FXML
     void deleteImage() {
-        System.out.println("delete Image clicked!");
+        imagemodel.deleteImage();
     }
 
     @FXML
     void moveEnd() {
-        System.out.println("move end clicked!");
+        studentListview.getSelectionModel().selectLast();
+        loadScene(studentListview.getSelectionModel().getSelectedItem());
     }
 
     @FXML
     void moveFirst() {
-        System.out.println("move first clicked!");
+        studentListview.getSelectionModel().selectFirst();
+        loadScene(studentListview.getSelectionModel().getSelectedItem());
     }
 
     @FXML
     void moveNext() {
-        System.out.println("move next clicked!");
+        studentListview.getSelectionModel().selectNext();
+        loadScene(studentListview.getSelectionModel().getSelectedItem());
     }
 
     @FXML
     void movePrevious() {
-        System.out.println("move previous clicked!");
+        studentListview.getSelectionModel().selectPrevious();
+        loadScene(studentListview.getSelectionModel().getSelectedItem());
     }
 
     @Override
@@ -157,5 +182,32 @@ public class TraitmentImage implements Initializable {
 
         classeListview.setItems(classes);
         eleveDB = new EleveDB();
+        Tooltip printTooltip, nextTooltip, previousTooltip, lastTooltip, firstTooltip, addImageTooltip, deleteImageTooltip;
+        printTooltip = new Tooltip(" طباعة");
+        nextTooltip = new Tooltip(" التالي");
+        previousTooltip = new Tooltip(" السابق");
+        lastTooltip = new Tooltip(" الأخير");
+        firstTooltip = new Tooltip(" الأول");
+        addImageTooltip = new Tooltip(" إضافة صورة");
+        deleteImageTooltip = new Tooltip(" حذف صورة");
+
+        Font font = new Font("Arial Bold", 12);
+        Tooltip.install(print, printTooltip);
+        Tooltip.install(next, nextTooltip);
+        Tooltip.install(previous, previousTooltip);
+        Tooltip.install(last, lastTooltip);
+        Tooltip.install(first, firstTooltip);
+        Tooltip.install(addImage, addImageTooltip);
+        Tooltip.install(deleteImage, deleteImageTooltip);
+
+        printTooltip.setFont(font);
+        nextTooltip.setFont(font);
+        previousTooltip.setFont(font);
+        lastTooltip.setFont(font);
+        firstTooltip.setFont(font);
+        addImageTooltip.setFont(font);
+        deleteImageTooltip.setFont(font);
+
+
     }
 }

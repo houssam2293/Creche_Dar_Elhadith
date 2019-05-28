@@ -1,80 +1,91 @@
 package home.java;
 
-import java.time.LocalTime;
-import java.util.Date;
-
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.scene.control.*;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
+import java.time.LocalTime;
 
 
 public class Pointage {
-
     private int id;
-    private final SimpleStringProperty fullName;
-    private final SimpleStringProperty type;
+    private final SimpleStringProperty firstName;
+    private final SimpleStringProperty lastName;
     private JFXTimePicker tempEnt;
-    private JFXTimePicker tempSor;
+    private CheckBox remark;
     private TextField remarkk;
-    private CheckBox confirm;
 
 
-
-    public Pointage(int id, String fullName, String type,String remark, String tempEnt, String tempSor) {
+    public Pointage(int id, String fName, String lName, String remarque, String value) {
         this.id = id;
-        this.fullName = new SimpleStringProperty(fullName);
-        this.type = new SimpleStringProperty(type);
+        this.firstName = new SimpleStringProperty(fName);
+        this.lastName = new SimpleStringProperty(lName);
         this.tempEnt = new JFXTimePicker();
         this.tempEnt.setValue(LocalTime.now());
-        this.tempSor = new JFXTimePicker();
-        this.tempSor.setValue(LocalTime.of(16,30));
-        this.remarkk = new TextField(remark);
-        this.confirm = new CheckBox();
-        confirm.setSelected(true);
+        this.remark = new CheckBox();
+        this.remarkk = new TextField();
+        this.remarkk.promptTextProperty().setValue("لا توجد ملاحظات");
 
     }
 
-    public int getId() {return id;}
-    public void setId(int id){this.id = id;}
-
-    public String getfullNam() {
-        return fullName.get();
-    }
-    public void setfullNam(String fName) {
-        fullName.set(fName);
-    }
-
-    public String gettype() {
-        return type.get();
-    }
-    public void setType(String fName) {
-        type.set(fName);
+    public Pointage(int id, String fName, String lName, String remarque) {
+        this.id = id;
+        this.firstName = new SimpleStringProperty(fName);
+        this.lastName = new SimpleStringProperty(lName);
+        this.tempEnt = new JFXTimePicker();
+        this.tempEnt.setValue(LocalTime.now());
+        this.remark = new CheckBox();
+        this.remarkk = new TextField(remarque);
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName.get();
+    }
+
+    public void setFirstName(String fName) {
+        firstName.set(fName);
+    }
+
+    public String getLastName() {
+        return lastName.get();
+    }
+
+    public void setLastName(String fName) {
+        lastName.set(fName);
+    }
 
     public JFXTimePicker getTempEnt() {
         return tempEnt;
     }
+
     public void setTempEnt(JFXTimePicker remark) {
         this.tempEnt = remark;
     }
 
-    public JFXTimePicker getTempSor() {
-        return tempSor;
-    }
-    public void setTempSor(JFXTimePicker remark) {
-        this.tempSor = remark;
-    }
 
     public TextField getRemarkk() {
         return remarkk;
     }
+
     public void setRemarkk(TextField remark) {
         this.remarkk = remark;
     }
 
-    public CheckBox getConfirm(){return confirm; }
-    public void setConfirm(CheckBox confirm){this.confirm= confirm; }
+
+    public CheckBox getRemark() {
+        return remark;
+    }
+
+    public void setRemark(CheckBox remark) {
+        this.remark = remark;
+    }
 }

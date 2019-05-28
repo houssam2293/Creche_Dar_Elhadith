@@ -2,6 +2,9 @@ package home.controllers;
 
 import com.jfoenix.controls.*;
 
+import home.dbDir.EmployeDB;
+import home.dbDir.PointageDB;
+import home.java.Employe;
 import home.java.Pointage;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -15,7 +18,8 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -26,6 +30,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -52,12 +57,10 @@ public class Pointag implements Initializable {
     @FXML
     private JFXComboBox<String> combo;
 
-    @FXML // Cols of table
-    private TableColumn idCol, genreEmpCol, namEmpCol,
-            dateCol, presenceCol, heureEntCol, heureSortCol;
+    static JFXDialog listeAbsences;
+    ObservableList<Pointage> data ;
+    TableColumn idCol,fullNameCol,jobCol,timeEntCol,remarqCol,actionCol;
 
-    static JFXDialog addUserDialog;
-    private ObservableList<Pointage> data;
 
 
     private boolean donneSaved= false;
@@ -65,8 +68,18 @@ public class Pointag implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         donneSaved= false;
         //combo.setItems(options);
+       /* searchField.setOnKeyReleased(t -> {
+            if(new Validation().alphanumValid(searchField))
+                searchField.setStyle("-fx-border-color: red ; -fx-border-width: 2px ;");
+            else
+                searchField.setStyle("-fx-border-color: green ; -fx-border-width: 2px ;");
+
+
+        });*/
+
         combo.getItems().addAll("رقم التسجيل", "الإسم", "اللقب", "الوظيفة");
         initializeTable();
+
 
 
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -83,49 +96,49 @@ public class Pointag implements Initializable {
     @FXML
     void confirm(ActionEvent event) {
         //Todo add a la table de poitage
-        errorLabel.setText("No connection to database!!");
+        // errorLabel.setText("No connection to database!!");
+        int i = 0;
+        for(Pointage poi : data) //insertion des données a BDD
+        {
+            i = new PointageDB().addPointage(poi);
 
-
-        ObservableList<Pointage> dataRows = FXCollections.observableArrayList();
-                for(Pointage poi : data)
-                {
-                    dataRows.add(poi);
-                    if (poi.getConfirm().isSelected())
-                    System.out.println("l'id est"+poi.getId()+" nom:"+poi.getfullNam()+ "emploie est:"+poi.gettype() +" temp entrée:"+poi.getTempEnt().getValue().toString().substring(0,5)+
-                            " temp de sortit"+poi.getTempSor().getValue().toString().substring(0,5)+" la remarque est:"+poi.getRemarkk().getText()+" est present aujourdh'hui");
-                    else
-                        System.out.println("l'id est"+poi.getId()+" nom:"+poi.getfullNam()+ "emploie est:"+poi.gettype() +" temp entrée:"+poi.getTempEnt().getValue().toString().substring(0,5)+
-                                " temp de sortit"+poi.getTempSor().getValue().toString().substring(0,5)+" la remarque est:"+poi.getRemarkk().getText()+"est absent aujourdh'ui");
-
-                    //System.out.println("la valeur 11est:"+poi.getTempEnt().getValue().toString().substring(0,5));
-
-
-                }
+        }
+                    /* System.out.println("l'id est"+poi.getId()+" nom:"+poi.getFirstName()+ "emploie est:"+poi.getLastName() +" temp entrée:"+poi.getTempEnt().getValue().toString().substring(0,5)+
+                                "  la remarque est:"+poi.getRemarkk().getText()+"est absent aujourdh'ui");*/
 
         donneSaved = true; // si les donnée sont stocké dans BDD
-       /* Notifications notification = Notifications.create()
-                .title("تمت العملية بنجاح                               ")
-                .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
-                .hideAfter(Duration.millis(2000))
-                .position(Pos.BOTTOM_RIGHT);
-        notification.darkStyle();
-        notification.show();
-        return;*/
+        switch (i) {
+            case -1:System.out.println("Error connecting to DB!");
+                errorLabel.setText("No connection to database!!");
+                break;
+            case 0:System.out.println("Unknown Error failed to add Pointage" );
+                break;
+            case 1:
+                Notifications.create()
+                        .title("تمت الإضافة بنجاح                                   ")
+                        .graphic(new ImageView(new Image("/home/icons/valid.png")))
+                        .hideAfter(Duration.millis(2000))
+                        .position(Pos.BOTTOM_RIGHT)
+                        .darkStyle()
+                        .show();
+        }
 
     }
 
     @FXML
     void sortir(ActionEvent event) {
-      //  errorLabel.setText("");
-            if (!donneSaved){
-            System.out.println("Index is null !");
+        //  errorLabel.setText("");
+        if (!donneSaved){
             Notifications.create()
                     .title("  يرجى حفظ البيانات قبل الخروج  ")
                     .darkStyle()
                     .hideAfter(Duration.millis(2000))
                     .position(Pos.BOTTOM_RIGHT)
                     .showWarning();
-            }
+            return;}
+        else{
+            //TODO add pointer to principale menu
+        }
 
 
     }
@@ -140,74 +153,80 @@ public class Pointag implements Initializable {
             addUserPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/listeAbsence.fxml"));
         } catch (IOException ignored) {
         }
-        addUserDialog = getSpecialDialog(addUserPane);
-        addUserDialog.show();
+        listeAbsences = getSpecialDialog(addUserPane);
+        listeAbsences.show();
     }
 
     private JFXDialog getSpecialDialog(AnchorPane content) {
+        JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
         //  dialog.setOnDialogClosed((event) -> updateTable());
-        return new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
-    }
-    public void updateTable(MouseEvent mouseEvent) {
-        initializeTable();
+        return dialog;
     }
 
+    public void updateTable() {
+        List<Employe> employes = FXCollections.observableArrayList();
+        data = null ;
+        data = FXCollections.observableArrayList();
 
+        List<Employe> employeeDB = new EmployeDB().getEmployee();
+        if (employeeDB == null) {
+            errorLabel.setText("Connection Failed !");
+        } else {
+            for (Employe employe : employeeDB) {
+                employes.add(employe);
+            }
+            for (int i=0; i < employes.size();i++){
+                Employe ep=employes.get(i);
+                data.add(new Pointage(ep.getId(),ep.getNom()+" "+ep.getPrenom(), ep.getFonction(),"remark",""));
+            }
+        }
+        tableview.setItems(data);
+
+    }
 
     private void initializeTable() {
-      //  tableview = new TableView();
 
-        TableColumn idCol = new TableColumn("رقم التسجيل");
+        idCol = new TableColumn("رقم التسجيل");
         idCol.setPrefWidth(120);
-
-        TableColumn NameCol = new TableColumn("اسم و لقب العامل");
-        NameCol.setPrefWidth(120);
-
-        TableColumn typeEmp = new TableColumn("الوظيفة");
-        typeEmp.setPrefWidth(120);
-
-        TableColumn timeEnt = new TableColumn("توقيت الدخول");
-        timeEnt.setPrefWidth(150);
-        TableColumn timeSor = new TableColumn("توقيت الخروج");
-        timeSor.setPrefWidth(150);
-
-        TableColumn remarq = new TableColumn("ملاحظات");
-        TableColumn actionCol = new TableColumn("تسجيل الدخول");
+        fullNameCol = new TableColumn("اسم و لقب العامل");
+        jobCol = new TableColumn("الوظيفة");
+        timeEntCol = new TableColumn("توقيت الدخول");
+        timeEntCol.setPrefWidth(120);
+        remarqCol = new TableColumn("ملاحظات");
+        actionCol = new TableColumn("تسجيل الدخول");
         actionCol.setPrefWidth(120);
 
-        tableview.getColumns().addAll(idCol, NameCol, typeEmp, timeEnt, timeSor, remarq,actionCol );
+        tableview.getColumns().addAll(idCol, fullNameCol, jobCol, timeEntCol, actionCol,remarqCol );
+        updateTable();
+      /* data = FXCollections.observableArrayList(
+                new Pointage(1,"محمد رياض محمد رياض", "موظف","لا توجد ملاحظات",""),
+                new Pointage(2,"جمال الدين", "معلم","لا توجد ملاحظات", ""),
+                new Pointage(3,"ريتاج امال", "معلم", "لا توجد ملاحظات",""),
+                new Pointage(4,"أمين انور", "موظف", "لا توجد ملاحظات",""),
+                new Pointage(5,"شيماء نور", "عامل نظافة", "لا توجد ملاحظات","")
+        );*/
 
-        data = FXCollections.observableArrayList(
-                new Pointage(1,"محمد", "موظف","لا توجد ملاحظات","", ""),
-                new Pointage(2,"جمال", "معلم","لا توجد ملاحظات","", ""),
-                new Pointage(3,"ريتاج", "معلم", "لا توجد ملاحظات","",""),
-                new Pointage(4,"أمين", "موظف", "لا توجد ملاحظات","",""),
-                new Pointage(5,"شيماء", "عامل نظافة", "لا توجد ملاحظات","","")
-        );
         idCol.setCellValueFactory(
                 new PropertyValueFactory<Pointage,String>("id")
         );
-
-        NameCol.setCellValueFactory(
-                new PropertyValueFactory<Pointage,String>("fullName")
+        fullNameCol.setCellValueFactory(
+                new PropertyValueFactory<Pointage,String>("firstName")
         );
-        typeEmp.setCellValueFactory(
-                new PropertyValueFactory<Pointage,String>("type")
+        jobCol.setCellValueFactory(
+                new PropertyValueFactory<Pointage,String>("lastName")
         );
-        timeEnt.setCellValueFactory(
+        timeEntCol.setCellValueFactory(
                 new PropertyValueFactory<Pointage,String>("tempEnt")
         );
-        timeSor.setCellValueFactory(
-                new PropertyValueFactory<Pointage,String>("tempSor"));
-
-        remarq.setCellValueFactory(
+        remarqCol.setCellValueFactory(
                 new PropertyValueFactory<Pointage,String>("remarkk")
         );
-       actionCol.setCellValueFactory(
-                new PropertyValueFactory<Pointage,String>("confirm")
+
+        actionCol.setCellValueFactory(
+                new PropertyValueFactory<Pointage,String>("remark")
         );
 
-        tableview.setItems(data);
+        // tableview.setItems(data);
     }
 
 

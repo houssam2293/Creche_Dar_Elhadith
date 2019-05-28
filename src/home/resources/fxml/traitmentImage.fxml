@@ -34,25 +34,35 @@
         <HBox prefHeight="595.0" prefWidth="1222.0" spacing="10.0">
             <VBox prefHeight="200.0" prefWidth="600.0">
                 <HBox spacing="5.0">
-                    <ListView fx:id="classeListview" prefHeight="443.0" prefWidth="250.0" />
+               <VBox spacing="5.0">
+                  <children>
+                     <Label fx:id="listViewsLabel" alignment="CENTER" prefHeight="32.0" prefWidth="249.0" styleClass="titleUserLabel" text="الأقسام" />
+                     <StackPane>
+                        <children>
+                                <ListView fx:id="classeListview" prefHeight="443.0" prefWidth="250.0" styleClass="list-cell" />
+                           <ListView fx:id="studentListview" layoutX="10.0" layoutY="10.0" prefHeight="443.0" prefWidth="250.0" visible="false" />
+                        </children>
+                     </StackPane>
+                  </children>
+               </VBox>
                <VBox alignment="BOTTOM_CENTER" prefHeight="470.0" prefWidth="305.0">
                   <children>
-                     <HBox fx:id="controllBox" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="85.0" prefWidth="332.0" spacing="10.0">
+                     <HBox fx:id="controllBox" alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="85.0" prefWidth="332.0" spacing="10.0" visible="false">
                         <children>
-                           <Icons525View glyphName="CIRCLE_MINUS" onMouseClicked="#deleteImage" size="35" styleClass="move-fontawesome">
+                           <Icons525View fx:id="deleteImage" glyphName="CIRCLE_MINUS" onMouseClicked="#deleteImage" size="35" styleClass="move-fontawesome">
                               <HBox.margin>
                                  <Insets right="40.0" />
                               </HBox.margin>
                            </Icons525View>
-                           <EmojiOneView glyphName="REWIND" onMouseClicked="#moveFirst" size="35" styleClass="move-fontawesome">
+                           <EmojiOneView fx:id="first" glyphName="REWIND" onMouseClicked="#moveFirst" size="35" styleClass="move-fontawesome">
                               <HBox.margin>
                                  <Insets />
                               </HBox.margin>
                            </EmojiOneView>
-                           <EmojiOneView glyphName="ARROW_BACKWARD" onMouseClicked="#movePrevious" size="35" styleClass="move-fontawesome" />
-                           <EmojiOneView glyphName="ARROW_FORWARD" onMouseClicked="#moveNext" size="35" styleClass="move-fontawesome" />
-                           <EmojiOneView glyphName="FAST_FORWARD" onMouseClicked="#moveEnd" size="35" styleClass="move-fontawesome" />
-                           <Icons525View glyphName="CIRCLEADD" onMouseClicked="#addImage" size="35" styleClass="move-fontawesome">
+                           <EmojiOneView fx:id="previous" glyphName="ARROW_BACKWARD" onMouseClicked="#movePrevious" size="35" styleClass="move-fontawesome" />
+                           <EmojiOneView fx:id="next" glyphName="ARROW_FORWARD" onMouseClicked="#moveNext" size="35" styleClass="move-fontawesome" />
+                           <EmojiOneView fx:id="last" glyphName="FAST_FORWARD" onMouseClicked="#moveEnd" size="35" styleClass="move-fontawesome" />
+                           <Icons525View fx:id="addImage" glyphName="CIRCLEADD" onMouseClicked="#addImage" size="35" styleClass="move-fontawesome">
                               <HBox.margin>
                                  <Insets left="40.0" />
                               </HBox.margin>

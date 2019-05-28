@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
 import home.dbDir.EmployeDB;
 import home.java.Employe;
+import home.java.Validation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ import org.controlsfx.control.Notifications;
 
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.ENTER;
@@ -224,6 +226,11 @@ public class EditEmployeeFormController implements Initializable {
                 btnClose();
             }
         });
+
+        root.setOnKeyReleased(e -> {
+            valider();
+        });
+
         stat.setOnAction(event -> actionToggleButton());
 
         regime.setItems(typeRegime);
@@ -281,5 +288,128 @@ public class EditEmployeeFormController implements Initializable {
 
     private Integer calculSomme(Integer a, Integer b) {
         return a + b;
+    }
+
+    void valider() {
+        // start of validation
+        id.setOnKeyReleased(t -> {
+            if (new Validation().isNumber(id)) {
+                id.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                id.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        firstNameField.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(firstNameField)) {
+                firstNameField.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                firstNameField.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        lastNameField.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(lastNameField)) {
+                lastNameField.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                lastNameField.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        fonction.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(fonction)) {
+                fonction.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                fonction.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        itar.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(itar)) {
+                itar.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                itar.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        addresse.setOnKeyReleased(t -> {
+            if (/*new Validation().arabValid(addresse)*/true) {
+                addresse.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                addresse.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        birthPlace.setOnKeyReleased(t -> {
+            if (/*new Validation().arabValid(birthPlace)*/true) {
+                birthPlace.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                birthPlace.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        phoneNumber.setOnKeyReleased(t -> {
+            if (new Validation().phoneValid(phoneNumber)) {
+                phoneNumber.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                phoneNumber.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        socialSecurtyNumber.setOnKeyReleased(t -> {
+            if (new Validation().alphanumValid(socialSecurtyNumber)) {
+                socialSecurtyNumber.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                socialSecurtyNumber.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        diplome.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(diplome)) {
+                diplome.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                diplome.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        celibacyTitle.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(celibacyTitle)) {
+                celibacyTitle.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                celibacyTitle.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        experience.setOnKeyReleased(t -> {
+            if (new Validation().isNumber(experience)) {
+                experience.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                experience.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        birthDate.setOnKeyReleased(t -> {
+            LocalDate date = LocalDate.parse("2005-01-01");// On suppose que l'employer agé de 15 ou plus
+            LocalDate birthdat = birthDate.getValue();
+            int a = date.compareTo(birthdat);
+            if (a>0) {
+                birthDate.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                birthDate.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        firstDayOfwork.setOnKeyReleased(t -> {
+            LocalDate date = LocalDate.now();
+            LocalDate birthdat = firstDayOfwork.getValue();
+            int a = date.compareTo(birthdat);
+
+            if (a>-1) {
+                firstDayOfwork.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                firstDayOfwork.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+
     }
 }

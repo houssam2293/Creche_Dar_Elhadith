@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import home.controllers.EleveController;
 import home.java.Eleve;
 import home.dbDir.EleveDB;
+import home.java.Validation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +20,7 @@ import org.controlsfx.control.Notifications;
 
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.ENTER;
@@ -209,6 +211,148 @@ public class AddEleveFormController implements Initializable {
         root.setOnKeyPressed(e -> {
             if (e.getCode().equals(ESCAPE)) {
                 btnClose();
+            }
+        });
+
+        root.setOnKeyReleased(e -> {
+            valider();
+        });
+
+    }
+
+    void valider(){
+
+        id.setOnKeyReleased(t -> {
+            if (new Validation().isNumber(id)) {
+                id.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+
+            } else {
+                id.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+
+            }
+        });
+        firstNameField.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(firstNameField)) {
+                firstNameField.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                firstNameField.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        lastNameField.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(lastNameField)) {
+                lastNameField.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                lastNameField.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        birthDate.setOnKeyReleased(t -> {
+            LocalDate date = LocalDate.parse("2005-01-01");// On suppose que l'employer agé de 15 ou plus
+            LocalDate birthdat = birthDate.getValue();
+            int a = date.compareTo(birthdat);
+            if (a>0) {
+                birthDate.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                birthDate.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        birthPlace.setOnKeyReleased(t -> {
+            if (/*new Validation().arabValid(birthPlace)*/true) {
+                birthPlace.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                birthPlace.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        classe.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(classe)) {
+                classe.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                classe.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        schoolYear.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(schoolYear)) {
+                schoolYear.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                schoolYear.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        regime.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(regime)) {
+                regime.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                regime.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        addresse.setOnKeyReleased(t -> {
+            if (/*new Validation().arabValid(addresse)*/true) {
+                addresse.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                addresse.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        phoneNumber.setOnKeyReleased(t -> {
+            if (new Validation().phoneValid(phoneNumber)) {
+                phoneNumber.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                phoneNumber.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        maladie.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(maladie) || new Validation().frenshValid(maladie)) {
+                maladie.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                maladie.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        nameFather.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(nameFather)) {
+                nameFather.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                nameFather.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        firstNameMother.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(firstNameMother)) {
+                firstNameMother.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                firstNameMother.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        lastNameMother.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(lastNameMother)) {
+                lastNameMother.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                lastNameMother.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        fonction.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(fonction)) {
+                fonction.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                fonction.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        fonction1.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(fonction1)) {
+                fonction1.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                fonction1.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        wakil.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(wakil)) {
+                wakil.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                wakil.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        remarque.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(remarque)) {
+                remarque.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                remarque.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
             }
         });
 

@@ -50,6 +50,48 @@ public class EleveDB {
         return eleves;
     }
 
+    public List<Eleve> getEleveDeClasse(String classe) {
+        Connection connection = new ConnectionClasse().getConnection();
+        if (connection == null) {
+            return null;
+        }
+        String sql = "select * from Eleve where classe='" + classe + "'";
+        List<Eleve> eleves = new ArrayList<>();
+
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                eleves.add(new Eleve(
+                        resultSet.getInt("id"),
+                        resultSet.getInt("gender"),
+                        resultSet.getString("nom"),
+                        resultSet.getString("prenom"),
+                        resultSet.getDate("dateNaissance"),
+                        resultSet.getString("lieuNaissance"),
+                        resultSet.getString("classe"),
+                        resultSet.getString("anneeScolaire"),
+                        resultSet.getString("regime"),
+                        resultSet.getString("adresse"),
+                        resultSet.getString("phone"),
+                        resultSet.getString("prenomPere"),
+                        resultSet.getString("prenomMere"),
+                        resultSet.getString("nomMere"),
+                        resultSet.getString("travailPere"),
+                        resultSet.getString("travailMere"),
+                        resultSet.getString("maladie"),
+                        resultSet.getString("wakil"),
+                        resultSet.getString("remarque")));
+            }
+
+        } catch (SQLException ex) {
+            return null;
+        }
+
+        return eleves;
+    }
+
     public int addEleve(Eleve eleve) {
         StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`eleve` ( `id`,`gender`, `nom`, `prenom`, `dateNaissance`, `lieuNaissance`,`classe`,`anneeScolaire`,`regime`, `adresse`, `phone`, `prenomPere`, `prenomMere`, `nomMere`, `travailPere`, `travailMere`, `maladie`,`wakil`, `remarque`");
         Connection connection = null;
@@ -153,7 +195,7 @@ public class EleveDB {
 
                 int status = st.executeUpdate(sql.toString());
                 System.out.println("Status : " + status);
-            }else return 2;
+            } else return 2;
         } catch (SQLException ex) {
             System.out.println("SQL Exception code: " + ex.getErrorCode());
             System.out.println("SQLException msg: " + ex.getMessage());
@@ -175,7 +217,7 @@ public class EleveDB {
     }
 
 
-    public int notes(int id, Eleve eleve){
+    public int notes(int id, Eleve eleve) {
         StringBuilder sql = new StringBuilder("UPDATE `eleve` SET ");
         Connection con = null;
         Statement st = null;
@@ -196,8 +238,7 @@ public class EleveDB {
 
                 int status = st.executeUpdate(sql.toString());
                 System.out.println("Status : " + status);
-            }
-            else return 2;
+            } else return 2;
         } catch (SQLException ex) {
             System.out.println("SQL Exception code: " + ex.getErrorCode());
             System.out.println("SQLException msg: " + ex.getMessage());

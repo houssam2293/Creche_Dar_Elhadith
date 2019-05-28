@@ -1,17 +1,17 @@
 package home.controllers;
 
-import home.dbDir.EleveDB;
 import home.java.Eleve;
+import home.java.NodePrinter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.print.*;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class ImageModel implements Initializable {
@@ -40,17 +40,38 @@ public class ImageModel implements Initializable {
     @FXML
     private Label classeLable;
     private Eleve eleveDeLaClasse = new Eleve();
+    static boolean imageDeleted = false;
 
 
-    void setStudentClasse(String selectedItem,Eleve eleve) {
+    void setImageHolder(Image image) {
+        imageDeleted = false;
+        imageHolder.setImage(image);
+    }
+
+    void deleteImage() {
+        imageHolder.setImage(null);
+        imageDeleted = true;
+    }
+
+    void setStudentClasse(String selectedItem, Eleve eleve) {
         classeLable.setText(selectedItem);
-        eleveDeLaClasse=eleve;
-            populateScene();
+        eleveDeLaClasse = eleve;
+        populateScene();
+    }
+
+    void print() {
+        PrinterJob job = PrinterJob.createPrinterJob();
+        //todo: fix this next
+        NodePrinter printer = new NodePrinter();
+        boolean success = printer.print(job, true, root);
+        if (success) {
+            job.endJob();
+        }
+
     }
 
 
     private void populateScene() {
-        System.out.println("eleveDeLaClasse : "+eleveDeLaClasse.getNom() + " " + eleveDeLaClasse.getPrenom());
         nameLable.setText(eleveDeLaClasse.getNom() + " " + eleveDeLaClasse.getPrenom());
         birthdayLable.setText(eleveDeLaClasse.getDateNaissance().toString());
     }

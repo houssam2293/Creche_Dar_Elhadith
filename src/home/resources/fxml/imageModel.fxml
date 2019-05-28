@@ -11,12 +11,12 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" prefHeight="1170.0" prefWidth="827.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ImageModel">
-    <HBox layoutX="330.0" layoutY="20.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" spacing="10.0" AnchorPane.topAnchor="20.0">
+<AnchorPane fx:id="root" maxHeight="784.0" maxWidth="587.0" prefHeight="784.0" prefWidth="587.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ImageModel">
+    <HBox layoutX="167.0" layoutY="14.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" spacing="10.0" AnchorPane.topAnchor="20.0">
         <Label fx:id="classeLable" alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="23.0" prefWidth="72.0" styleClass="field" textFill="#fc0202" />
         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="106.0" styleClass="field" text="القسم رقم : " />
     </HBox>
-    <GridPane fx:id="namesGrid" prefHeight="300.0" prefWidth="827.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+    <GridPane fx:id="namesGrid" layoutY="50.0" maxWidth="602.0" prefHeight="160.0" prefWidth="602.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
         <columnConstraints>
             <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="100.0" />
@@ -37,38 +37,38 @@
             <RowConstraints minHeight="10.0" prefHeight="100.0" vgrow="NEVER" />
         </rowConstraints>
     </GridPane>
-    <ImageView fx:id="modelPicture" fitHeight="300.0" fitWidth="827.0" layoutY="374.0" pickOnBounds="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="374.0">
+    <ImageView fx:id="modelPicture" fitHeight="274.0" fitWidth="601.0" layoutX="1.0" layoutY="210.0" pickOnBounds="true" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="210.0">
         <Image url="@../images/imageModels/1.png" />
     </ImageView>
-    <VBox alignment="CENTER" layoutX="107.0" layoutY="438.0" prefHeight="198.0" prefWidth="606.0" spacing="10.0">
+    <VBox alignment="CENTER" layoutX="62.0" layoutY="270.0" prefHeight="197.0" prefWidth="454.0" spacing="10.0">
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
         </padding>
         <HBox nodeOrientation="LEFT_TO_RIGHT" spacing="10.0">
             <VBox>
                 <HBox nodeOrientation="RIGHT_TO_LEFT">
-                    <Label contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="72.0" styleClass="field" text="مديري:" wrapText="true" />
-                    <Label fx:id="directeurLable" contentDisplay="CENTER" prefHeight="23.0" prefWidth="233.0" styleClass="field-smaller" text="director gose here" textFill="#544343" wrapText="true" />
+                    <Label contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="88.0" styleClass="field-smaller" text="مديري:" wrapText="true" />
+                    <Label fx:id="directeurLable" contentDisplay="CENTER" prefHeight="23.0" prefWidth="170.0" styleClass="field-smaller" text="director gose here" textFill="#544343" wrapText="true" />
                 </HBox>
                 <HBox nodeOrientation="RIGHT_TO_LEFT">
-                    <Label contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="78.0" styleClass="field" text="معلمتي:" textFill="#544343" wrapText="true" />
-                    <Label fx:id="teacherLabel" contentDisplay="CENTER" prefHeight="26.0" prefWidth="242.0" styleClass="field-smaller" text="director gose here" textFill="#544343" wrapText="true" />
+                    <Label contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="26.0" prefWidth="72.0" styleClass="field-smaller" text="معلمتي:" textFill="#544343" wrapText="true" />
+                    <Label fx:id="teacherLabel" contentDisplay="CENTER" prefHeight="26.0" prefWidth="173.0" styleClass="field-smaller" text="director gose here" textFill="#544343" wrapText="true" />
                 </HBox>
             </VBox>
             <VBox alignment="CENTER" spacing="5.0">
                 <HBox nodeOrientation="RIGHT_TO_LEFT">
-                    <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="93.0" styleClass="field" text="أنا:" wrapText="true" />
+                    <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="93.0" styleClass="field-smaller" text="أنا:" wrapText="true" />
                     <Label fx:id="nameLable" prefHeight="19.0" prefWidth="182.0" styleClass="field-smaller" text="name gose here" textAlignment="RIGHT" wrapText="true" />
                 </HBox>
                 <HBox nodeOrientation="RIGHT_TO_LEFT">
-                    <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="116.0" styleClass="field" text="تاريخ ميلادي" wrapText="true" />
+                    <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="23.0" prefWidth="116.0" styleClass="field-smaller" text="تاريخ ميلادي" wrapText="true" />
                     <Label fx:id="birthdayLable" contentDisplay="CENTER" prefHeight="19.0" prefWidth="163.0" styleClass="field-smaller" text="birth day gose here" wrapText="true" />
                 </HBox>
             </VBox>
         </HBox>
         <HBox alignment="TOP_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="99.0" prefWidth="561.0">
-            <Label alignment="TOP_RIGHT" contentDisplay="CENTER" prefHeight="99.0" prefWidth="583.0" styleClass="field" text="     مديري الفاض لك منـي كل الشكر و التقدير و عطر  الوُرُود لكلِ مـجهوداتك السامية ، فأنت  صانع الأجيال معلمتـي الغالية يا بانية الأجيال ، و عنوان    الـمجد كنت و لا زلت النبـراس الذي ينيـر دربـي" textAlignment="CENTER" textFill="#9a5f5f" wrapText="true" />
+            <Label alignment="TOP_RIGHT" contentDisplay="CENTER" prefHeight="85.0" prefWidth="457.0" styleClass="field-smaller" text="     مديري الفاض لك منـي كل الشكر و التقدير و عطر  الوُرُود لكلِ مـجهوداتك السامية ، فأنت  صانع الأجيال معلمتـي الغالية يا بانية الأجيال ، و عنوان    الـمجد كنت و لا زلت النبـراس الذي ينيـر دربـي" textAlignment="CENTER" textFill="#9a5f5f" wrapText="true" />
         </HBox>
     </VBox>
-   <ImageView fx:id="imageHolder" fitHeight="490.0" fitWidth="827.0" layoutX="1.0" layoutY="679.0" pickOnBounds="true" />
+   <ImageView fx:id="imageHolder" fitHeight="299.0" fitWidth="601.0" layoutX="1.0" layoutY="484.0" pickOnBounds="true" />
 </AnchorPane>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="root" alignment="TOP_LEFT" prefHeight="690.0" prefWidth="1192.0" style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.Pointag">
+    <children>
+        <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="750.0" prefWidth="1313.0" spacing="10.0">
+            <children>
+                <HBox prefHeight="60.0" prefWidth="200.0" spacing="15.0">
+                    <children>
+                        <Label fx:id="titleLabel" alignment="CENTER" prefHeight="50.0" prefWidth="457.0" styleClass="title-header" text="تسجيل الحضور اليومي">
+                            <font>
+                                <Font name="Tahoma" size="34.0" />
+                            </font>
+                        </Label>
+                        <Label fx:id="errorLabel" prefHeight="50.0" prefWidth="393.0" />
+                        <Label fx:id="titleLabel1" alignment="CENTER" prefHeight="50.0" prefWidth="367.0" styleClass="title-header">
+                            <font>
+                                <Font name="Tahoma" size="34.0" />
+                            </font>
+                        </Label>
+                        <ImageView fitHeight="77.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../images/logo.png" />
+                            </image>
+                        </ImageView>
+                    </children>
+                </HBox>
+                <HBox prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label fx:id="time" prefHeight="71.0" prefWidth="325.0" styleClass="timepointag" text="timing label" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="5.0">
+                    <children>
+                        <JFXTextField fx:id="searchField" labelFloat="true" prefHeight="39.0" prefWidth="197.0" promptText="بحث" styleClass="field">
+                            <HBox.margin>
+                                <Insets right="15.0" />
+                            </HBox.margin>
+                        </JFXTextField>
+                        <JFXComboBox id="combo" fx:id="combo" labelFloat="true" prefHeight="39.0" prefWidth="247.0" promptText="عرض العمال عن طريق">
+                            <HBox.margin>
+                                <Insets right="15.0" />
+                            </HBox.margin>
+                        </JFXComboBox>
+                        <JFXButton buttonType="RAISED" contentDisplay="CENTER" onMouseClicked="#updateTable" prefHeight="41.0" prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
+                            <graphic>
+                                <FontAwesomeIconView glyphName="REFRESH" size="24" wrappingWidth="22.571428298950195" />
+                            </graphic>
+                            <HBox.margin>
+                                <Insets right="15.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                        <Label prefHeight="15.0" prefWidth="315.0" text="forSpace" visible="false" />
+                        <JFXButton buttonType="RAISED" onAction="#listeview" prefHeight="39.0" prefWidth="195.0" ripplerFill="#4264eb" styleClass="btn-view" text="سجل الغيابات" />
+                        <Label prefHeight="22.0" prefWidth="195.0" />
+                        <JFXButton buttonType="RAISED" onAction="#confirm" prefHeight="39.0" prefWidth="130.0" ripplerFill="#4264eb" styleClass="btn-view" text="تأكيد">
+                            <HBox.margin>
+                                <Insets right="15.0" />
+                            </HBox.margin>
+                        </JFXButton>
+                        <JFXButton buttonType="RAISED" onAction="#sortir" prefHeight="39.0" prefWidth="130.0" ripplerFill="#4264eb" styleClass="btn-view" text="خروج" />
+                    </children>
+                </HBox>
+                <TableView fx:id="tableview" prefHeight="453.0" prefWidth="1152.0" />
+            </children>
+            <stylesheets>
+                <URL value="@../css/manageEmployee.css" />
+                <URL value="@../css/main.css" />
+            </stylesheets>
+            <StackPane.margin>
+                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </StackPane.margin>
+        </VBox>
+    </children>
+    <stylesheets>
+        <URL value="@../css/main.css" />
+        <URL value="@../css/manageEmployee.css" />
+        <URL value="@../css/pointag.css" />
+
+    </stylesheets>
+</StackPane>
