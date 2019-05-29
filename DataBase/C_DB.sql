@@ -4,6 +4,17 @@ DROP DATABASE IF EXISTS `creche_dar_elhadith`;
 CREATE DATABASE `creche_dar_elhadith` CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `creche_dar_elhadith`;
 
+create TABLE `creche_dar_elhadith`.`Classe` (
+`num` int(4) unsigned NOT NULL AUTO_INCREMENT,
+`id` varchar(30) DEFAULT NULL,
+`ClassNam` varchar(22) NOT NULL,
+`ClassRom` varchar(22) NOT NULL,
+`maxNbrElev` varchar(30) DEFAULT NULL,
+`remarque` varchar(500) DEFAULT NULL,
+PRIMARY KEY (`num`)
+);
+
+
 CREATE TABLE `creche_dar_elhadith`.`compte` (
   `email` VARCHAR(45) NOT NULL,
   `login` VARCHAR(45) NOT NULL,
