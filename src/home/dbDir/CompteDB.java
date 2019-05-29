@@ -157,7 +157,7 @@ public class CompteDB {
 
         try {
             st = con.createStatement();
-            String sql = "DELETE FROM `employe` WHERE `email`=" + email + ";";
+            String sql = "DELETE FROM `employe` WHERE `email`='" + email + "';";
             st.executeUpdate(sql);
             return 1;
         } catch (SQLException e) {
@@ -178,11 +178,12 @@ public class CompteDB {
 
         try {
             st = con.createStatement();
-            String sql = "UPDATE `compte` SET `password` = " + password + " WHERE `email`=" + email + ";";
+            String sql = "UPDATE `compte` SET `password` = '" + password + "' WHERE `email`='" + email + "';";
             st.executeUpdate(sql);
             return 1;
         } catch (SQLException e) {
             System.out.println("Error : " + e.getErrorCode());
+            System.out.println("Error msg : " + e.getMessage());
             //e.printStackTrace();
             return 0;
         }

@@ -24,6 +24,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -51,9 +52,9 @@ public class MainController implements Initializable {
     private VBox calBox, tracBox, manageStudentBox, pointBox, manageEmployeBox;
 
     private AnchorPane calendarPane, settingsPane, images;
-    private StackPane tracPane, stock, manageStudentPane,pointag, manageEmployePane, archiv;
+    private StackPane tracPane, stock, manageStudentPane, pointag, manageEmployePane, archiv;
     @FXML
-    private StackPane rightPane,classePane;
+    private StackPane rightPane, classePane;
     @FXML
     private Pane paneSlider;
 
@@ -62,7 +63,7 @@ public class MainController implements Initializable {
     @FXML
     private FontAwesomeIconView iconHome, iconAccount;
     @FXML
-    private MaterialDesignIconView  iconAbout, iconPoint, iconClasse, iconStudent, iconStock, iconArchive;
+    private MaterialDesignIconView iconAbout, iconPoint, iconClasse, iconStudent, iconStock, iconArchive;
     @FXML
     private MaterialIconView iconImages;
     @FXML
@@ -268,7 +269,8 @@ public class MainController implements Initializable {
         holderPane.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.F11) {
                 ((Stage) holderPane.getScene().getWindow()).setFullScreen(true);
-            }});
+            }
+        });
 
         try {
             settingsPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/settings.fxml"));
@@ -286,7 +288,18 @@ public class MainController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        double x = Screen.getPrimary().getVisualBounds().getWidth();
+        double y = Screen.getPrimary().getVisualBounds().getHeight();
+        settingsPane.setPrefSize(x, y);
+        manageEmployePane.setPrefSize(x, y);
+        tracPane.setPrefSize(x, y);
+        calendarPane.setPrefSize(x, y);
+        manageStudentPane.setPrefSize(x, y);
+        archiv.setPrefSize(x, y);
+        stock.setPrefSize(x, y);
+        pointag.setPrefSize(x, y);
+        images.setPrefSize(x, y);
+        classePane.setPrefSize(x, y);
     }
 
     private void setNode(Node node) {

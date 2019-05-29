@@ -10,16 +10,20 @@ import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.URL;
@@ -49,8 +53,8 @@ public class ResetPassword implements Initializable {
     private Text erreurText;
 
     private CompteDB compteDB;
-    private boolean accountExist = false;
     private String eMail;
+    private boolean accoutExist=false;
 
     private double xOffset;
     private double yOffset;
@@ -83,20 +87,70 @@ public class ResetPassword implements Initializable {
 
     @FXML
     void confirmer() {
-        List<Compte> accoutList = compteDB.getAccounts();
         if (!emailValidation()) {
             erreurText.setText("يرجى إدخال بريد إلكتروني صحيح!");
             erreurText.setVisible(true);
             hideText();
         } else {
-            for (Compte compte : accoutList) {
-                if (email.getText().equals(compte.getEmail())) {
-                    accountExist = true;
-                    compte.getEmail();
-                }
+            Compte accout = null;
+            accout= compteDB.getAcountInformation(email.getText());
+            if (accout.getEmail() == null) {
+                erreurText.setText("بريد إلكتروني الذي أدخل لا يوجد في قاعدة البيانات!");
+                erreurText.setVisible(true);
+                hideText();
+            } else {
+                eMail = accout.getEmail();
+                System.out.println("Email in data base : " + accout.getEmail());
+                accoutExist = true;
             }
-            if (checkPass()) {
+            if (checkPass()&accoutExist) {
+                System.out.println("EMAIL : " + eMail);
+                System.out.println("Password : "  + DigestUtils.shaHex(password.getText()));
+                int status = compteDB.resetPassword(eMail, DigestUtils.shaHex(password.getText()));
+                switch (status) {
+                    case -1:
+                        System.out.println("Error connecting to DB!");
+                        break;
+                    case 2:
+                        System.out.println("Error Employer exist!");
+                        break;
+                    case 0:
+                        System.out.println("Unknown Error failed to add Employer");
+                        break;
+                    case 1:
+                        Notifications.create()
+                                .title("تم تغيير كلمة المرور بنجاح                                   ")
+                                .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
+                                .hideAfter(Duration.millis(2000))
+                                .position(Pos.BOTTOM_RIGHT)
+                                .darkStyle()
+                                .show();
+                }
+                Timeline textFade = new Timeline(new KeyFrame(Duration.ZERO, e -> {
+                    FadeTransition ft = new FadeTransition();
+                    ft.setNode(erreurText);
+                    ft.setDuration(new Duration(3000));
+                    ft.setFromValue(1.0);
+                    ft.setToValue(0.3);
+                    ft.setCycleCount(0);
+                    ft.setAutoReverse(true);
+                    ft.play();
+                }),
+                        new KeyFrame(Duration.seconds(3))
+                );
+                textFade.play();
+                textFade.setOnFinished(e ->annuler());
 
+            } else {
+                if (accoutExist) {
+                    erreurText.setText("كلمة المرور غير متطابقة!");
+                    erreurText.setVisible(true);
+                    hideText();
+                } else {
+                    erreurText.setText("بريد إلكتروني الذي أدخل لا يوجد في قاعدة البيانات!");
+                    erreurText.setVisible(true);
+                    hideText();
+                }
             }
         }
 
