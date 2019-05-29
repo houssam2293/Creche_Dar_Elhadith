@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="ArchvDataEmp" nodeOrientation="RIGHT_TO_LEFT" prefHeight="594.0" prefWidth="600.0" stylesheets="@../css/eleve.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ShowArchDataEmlyController">
+   <children>
+      <Label layoutX="275.0" layoutY="17.0" prefHeight="43.0" prefWidth="88.0" text="شهادة عمل" underline="true">
+         <styleClass>
+            <String fx:value="title-header" />
+            <String fx:value="titleUserLabel" />
+         </styleClass></Label>
+      <Label layoutX="42.0" layoutY="84.0" prefHeight="43.0" prefWidth="88.0" text="رقم التسجيل :" />
+      <Label fx:id="Id" layoutX="122.0" layoutY="84.0" prefHeight="43.0" prefWidth="136.0" />
+      <Label layoutX="292.0" layoutY="129.0" prefHeight="43.0" prefWidth="49.0" text="الاسم :" />
+      <Label fx:id="nam" layoutX="91.0" layoutY="126.0" prefHeight="43.0" prefWidth="149.0" />
+      <Label fx:id="fnam" layoutX="339.0" layoutY="130.0" prefHeight="43.0" prefWidth="162.0" />
+      <Label layoutX="42.0" layoutY="126.0" prefHeight="43.0" prefWidth="55.0" text="اللقب :" />
+      <Label layoutX="42.0" layoutY="164.0" prefHeight="43.0" prefWidth="112.0" text="تاريخ ومكان الميلاد :" />
+      <Label fx:id="birthday" layoutX="154.0" layoutY="164.0" prefHeight="43.0" prefWidth="300.0" />
+      <Label layoutX="43.0" layoutY="210.0" prefHeight="43.0" prefWidth="49.0" text="المهنة :" />
+      <Label fx:id="job" layoutX="79.0" layoutY="211.0" prefHeight="43.0" prefWidth="162.0" />
+      <Label layoutX="41.0" layoutY="250.0" prefHeight="43.0" prefWidth="49.0" text="العنوان :" />
+      <Label fx:id="adress" layoutX="91.0" layoutY="251.0" prefHeight="43.0" prefWidth="276.0" />
+      <Label layoutX="41.0" layoutY="295.0" prefHeight="43.0" prefWidth="80.0" text="فترة العمل :" />
+      <Label fx:id="regime" layoutX="116.0" layoutY="295.0" prefHeight="43.0" prefWidth="142.0" />
+      <Label layoutX="269.0" layoutY="211.0" prefHeight="43.0" prefWidth="125.0" text="عدد سنوات التدريس :" />
+      <Label fx:id="experience" layoutX="392.0" layoutY="212.0" prefHeight="43.0" prefWidth="185.0" />
+      <Label fx:id="firstDayOfwork" layoutX="194.0" layoutY="341.0" prefHeight="43.0" prefWidth="247.0" />
+      <Label layoutX="41.0" layoutY="340.0" prefHeight="43.0" prefWidth="162.0" text="تاريخ أول تعيين في المؤسسة :" />
+      <Label fx:id="remarque" layoutX="107.0" layoutY="384.0" prefHeight="43.0" prefWidth="457.0" />
+      <Label layoutX="40.0" layoutY="383.0" prefHeight="43.0" prefWidth="69.0" text="ملاحظات :" />
+      <EmojiOneView fx:id="print" fill="#2196f3" glyphName="PRINTER" layoutX="286.0" layoutY="562.0" onMouseClicked="#printFile" size="50" styleClass="printer" />
+      <EmojiOneView glyphName="X" layoutX="25.0" layoutY="27.0" onMouseClicked="#btnClose" size="20" styleClass="icon-close" wrappingWidth="14.0" />
+   </children>
+</AnchorPane>

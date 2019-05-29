@@ -2,6 +2,8 @@ package home.controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import home.dbDir.EleveDB;
+import home.dbDir.EmployeDB;
 import home.java.Eleve;
 import home.java.Employe;
 import home.controllers.ManageEmployeeController;
@@ -9,38 +11,52 @@ import home.controllers.EleveController;
 
 import javafx.animation.FadeTransition;
 import javafx.animation.SequentialTransition;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.print.*;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TreeItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+
+import static home.controllers.ShowArchvDataController.eleveSelected;
+import static home.controllers.ShowArchDataEmlyController.emplSelected;
+
+
 
 public class ArchiveController implements Initializable {
 
     @FXML
     public StackPane archiv;
 
+    @FXML
+    public ScrollPane showdataelev;
     @FXML
     public JFXButton cree;
 
@@ -108,10 +124,10 @@ public class ArchiveController implements Initializable {
     private JFXTreeTableView<?> tableEmployeTrac;
 
     @FXML
-    private JFXTreeTableView<ManageEmployeeController.TableEmployee> tableemployer;
+    private JFXTreeTableView<TableEmployee> tableemployer;
 
     @FXML // Cols of table
-    private JFXTreeTableColumn<ManageEmployeeController.TableEmployee, String> idCol, firstnameCol, lastNameCol,
+    private JFXTreeTableColumn<TableEmployee, String> idCol, firstnameCol, lastNameCol,
             dateOfBirthCol, placeOfBirthCol, jobCol;
     @FXML
     private JFXComboBox<String> comboEleve,comboEmployer;
@@ -126,18 +142,19 @@ public class ArchiveController implements Initializable {
     @FXML
     private JFXTextField searchField;
     @FXML
-    private JFXTreeTableView<?> tableEleveTrac;
+    private JFXTreeTableView tableEleveTrac;
     @FXML
-    private JFXTreeTableView<EleveController.TableEleve> tableEleve;
+    private JFXTreeTableView<TableEleve> tableEleve;
 
 
 
     @FXML // Cols of table
-    public JFXTreeTableColumn<EleveController.TableEleve, String> idCole, firstnameCole,classRoomCol, lastNameCole,
+    public JFXTreeTableColumn<TableEleve, String> idCole, firstnameCole,classRoomCol, lastNameCole,
             dateOfBirthCole, placeOfBirthCole, jobCole, addressCol,remarqueCol, phoneCol;
     public static JFXDialog addUserDialog, editUserDialog;
 
-
+    ArrayList<Employe> archv;
+    ArrayList<Eleve> archvElv ;
 
     public void initialize(URL url, ResourceBundle rb)  {
 
@@ -379,13 +396,13 @@ public class ArchiveController implements Initializable {
 
 
     private void updateTable(String nome) {
-        ArrayList<Employe> archv = new ArrayList<>();
-        ArrayList<Eleve> archvElv = new ArrayList<>();
+        archv = new ArrayList<>();
+        archvElv = new ArrayList<>();
 
-        ObservableList<ManageEmployeeController.TableEmployee> employes = FXCollections.observableArrayList();
-        ObservableList<EleveController.TableEleve> eleves =FXCollections.observableArrayList();
+        ObservableList<TableEmployee> employes = FXCollections.observableArrayList();
+        ObservableList<TableEleve> eleves =FXCollections.observableArrayList();
         try {
-            File file = new File("c:\\Archive creche darelhadith\\"+nome+".txt");
+            File file = new File("D:\\Creche darelhadith\\Archive\\"+nome+".txt");
             FileReader reader = new FileReader(file);
             BufferedReader li=new BufferedReader(reader);
             String line;
@@ -527,24 +544,25 @@ public class ArchiveController implements Initializable {
             System.err.println("Error: " + e.getMessage());
 
         }
-        for (Employe employe : archv) {
-            employes.add(new ManageEmployeeController.TableEmployee(employe.getId(), employe.getNom().toUpperCase(), employe.getPrenom().toUpperCase(), employe.getDateNaissance(),
+        for(int i=0;i<archv.size();i++){
+            Employe employe=archv.get(i);
+            employes.add( new TableEmployee(employe.getId(), employe.getNom().toUpperCase(), employe.getPrenom().toUpperCase(), employe.getDateNaissance(),
                     employe.getLieuNaissance(), employe.getAdresse(), employe.getExperience(), employe.getNumTelephone(), employe.getSocialSecurityNumber(),
-                    employe.getDiplome(), employe.getItar(), employe.getDate_debut(), employe.getFonction(), employe.getRenouvlement_de_contrat(), employe.getRegimeScolaire(), employe.estmarier(),
+                    employe.getDiplome(), employe.getItar(), employe.getDate_debut(), employe.getFonction(), employe.getRenouvlement_de_contrat(), employe.estmarier(),
                     employe.getCelibacyTitle(), employe.getMaleChild(), employe.getFemaleChild()));
         }
 
-            final TreeItem<ManageEmployeeController.TableEmployee> treItem = new RecursiveTreeItem<>(employes, RecursiveTreeObject::getChildren);
-           tableemployer.setRoot(treItem);
+        final TreeItem<TableEmployee> treItem = new RecursiveTreeItem<>(employes, RecursiveTreeObject::getChildren);
+        tableemployer.setRoot(treItem);
 
-        for (Eleve eleve : archvElv) {
-            eleves.add(new EleveController.TableEleve(eleve.getId(),eleve.getGender(), eleve.getNom().toUpperCase(), eleve.getPrenom().toUpperCase(), eleve.getClasse(),
-                    eleve.getDateNaissance(), eleve.getLieuNaissance(), eleve.getAdresse(), eleve.getPhone(), eleve.getRemarque(),eleve.getAnneeScolaire(),eleve.getRegime(),
-                    eleve.getPrenomPere(),eleve.getNomMere(), eleve.getPrenomMere(),eleve.getTravailPere(),eleve.getTravailMere(),eleve.getWakil(),eleve.getMaladie()));
+        for(int i=0;i<archvElv.size();i++){
+            Eleve eleve=archvElv.get(i);
+            eleves.add(new TableEleve(eleve.getId(), eleve.getNom().toUpperCase(), eleve.getPrenom().toUpperCase(), eleve.getClasse(), eleve.getDateNaissance(),
+                    eleve.getLieuNaissance(), eleve.getAdresse(), eleve.getPhone(), eleve.getRemarque()));;
         }
 
 
-        final TreeItem<EleveController.TableEleve> treeItem = new RecursiveTreeItem<>(eleves, RecursiveTreeObject::getChildren);
+        final TreeItem<TableEleve> treeItem = new RecursiveTreeItem<>(eleves, RecursiveTreeObject::getChildren);
         try {
             tableEleve.setRoot(treeItem);
         } catch (Exception ex) {
@@ -632,6 +650,165 @@ public class ArchiveController implements Initializable {
         job.endJob();
 
     }
+    @FXML
+    public void showDataElev(ActionEvent actionEvent) throws IOException {
+        int index = tableEleve.getSelectionModel().getSelectedIndex(); // selected index
+        String id = idCole.getCellData(index);
+        if (id == null) {
+            System.out.println("Index is null !");
+            Notifications.create()
+                    .title("يرجى تحديد الحقل المراد تحديثه                                ")
+                    .darkStyle()
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showWarning();
+            return;
+        }
+
+        eleveSelected = new Eleve();
+        eleveSelected.setId(Integer.parseInt(id));
+        eleveSelected.setPrenom(firstnameCole.getCellData(index));
+        eleveSelected.setNom(lastNameCole.getCellData(index));
+        eleveSelected.setClasse(classRoomCol.getCellData(index));
+        eleveSelected.setDateNaissance(Date.valueOf(dateOfBirthCole.getCellData(index)));
+        eleveSelected.setLieuNaissance(placeOfBirthCole.getCellData(index));
+        eleveSelected.setAdresse(addressCol.getCellData(index));
+        eleveSelected.setPhone(phoneCol.getCellData(index));
+        eleveSelected.setRemarque(remarqueCol.getCellData(index));
+        List<Eleve> studentDB = archvElv;
+        if (studentDB == null) {
+            System.out.println("Connection Failed !");
+        } else {
+            for (Eleve eleve : studentDB) {
+                if (eleve.getId() == Integer.parseInt(id)){
+                    eleveSelected.setPrenomPere(eleve.getPrenomPere());
+                    eleveSelected.setNomMere(eleve.getNomMere());
+                    eleveSelected.setPrenomMere(eleve.getPrenomMere());
+                    eleveSelected.setAnneeScolaire(eleve.getAnneeScolaire());
+                }
+                }
+
+            }
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/home/resources/fxml/ShowArchvData.fxml"));
+        AnchorPane rootLayout = loader.load();
+        Stage stage = new Stage(StageStyle.UNDECORATED);
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+
+        Scene scene = new Scene(rootLayout);
+        stage.setScene(scene);
+        stage.showAndWait();
+
+
+
+
 }
+    @FXML
+    public void showDataEmply(ActionEvent actionEvent) throws IOException {
+        int index = tableemployer.getSelectionModel().getSelectedIndex(); // selected index
+        String id = idCol.getCellData(index);
+        if (id == null) {
+            System.out.println("Index is null !");
+            Notifications.create()
+                    .title("يرجى تحديد الحقل المراد تحديثه                                ")
+                    .darkStyle()
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showWarning();
+            return;
+        }
+
+        emplSelected = new Employe();
+        emplSelected.setId(Integer.parseInt(id));
+        emplSelected.setPrenom(firstnameCol.getCellData(index));
+        emplSelected.setNom(lastNameCol.getCellData(index));
+        emplSelected.setFonction(jobCol.getCellData(index));
+        emplSelected.setDateNaissance(Date.valueOf(dateOfBirthCol.getCellData(index)));
+        emplSelected.setLieuNaissance(placeOfBirthCol.getCellData(index));
+       // emplSelected.setRemarque(remarqueCol.getCellData(index));
+        List<Employe> emplyDB = archv;
+        if (emplyDB == null) {
+            System.out.println("Connection Failed !");
+        } else {
+            for (Employe employe : emplyDB) {
+                if (employe.getId() == Integer.parseInt(id)){
+                    emplSelected.setAdresse(employe.getAdresse());
+                    emplSelected.setRegimeScolaire(employe.getRegimeScolaire());
+                    emplSelected.setExperience(employe.getExperience());
+                    emplSelected.setDate_debut(employe.getDate_debut());
+                }
+            }
+
+        }
+
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/home/resources/fxml/ShowArchDataEmly.fxml"));
+        AnchorPane rootLayout = loader.load();
+        Stage stage = new Stage(StageStyle.UNDECORATED);
+        stage.initModality(Modality.APPLICATION_MODAL);
+
+
+        Scene scene = new Scene(rootLayout);
+        stage.setScene(scene);
+        stage.showAndWait();
+
+    }
+
+    static class TableEmployee extends RecursiveTreeObject<TableEmployee> {
+        StringProperty id, firstname, lastname, birthday, birthplace, job, experience;
+        StringProperty addresse, phone, socialSN, diplom, itar, firstdaywor, renouvlementcotract;
+        StringProperty marier, nomCeleb, nombreEM, nombreEF;
+
+        TableEmployee(int id, String firstname, String lastname, java.util.Date birthday, String birthplace, String addresse, String experience,
+                      String phone, String socialSN, String diplom, String itar,
+                      java.util.Date firstdaywor, String job, String renouvlementcotract, boolean marier, String nomCeleb,
+                      int nombreEM, int nombreEF) {
+
+            this.id = new SimpleStringProperty(String.valueOf(id));
+            this.firstname = new SimpleStringProperty(String.valueOf(firstname));
+            this.lastname = new SimpleStringProperty(String.valueOf(lastname));
+            this.birthday = new SimpleStringProperty(String.valueOf(birthday));
+            this.birthplace = new SimpleStringProperty(String.valueOf(birthplace));
+            this.job = new SimpleStringProperty(String.valueOf(job));
+            this.experience = new SimpleStringProperty(String.valueOf(experience));
+            this.addresse = new SimpleStringProperty(String.valueOf(addresse));
+            this.phone = new SimpleStringProperty(String.valueOf(phone));
+            this.socialSN = new SimpleStringProperty(String.valueOf(socialSN));
+            this.diplom = new SimpleStringProperty(String.valueOf(diplom));
+            this.itar = new SimpleStringProperty(String.valueOf(itar));
+            this.firstdaywor = new SimpleStringProperty(String.valueOf(firstdaywor));
+            this.renouvlementcotract = new SimpleStringProperty(String.valueOf(renouvlementcotract));
+            this.marier = new SimpleStringProperty((marier) ? "متزوج" : "أعزب");
+            this.nomCeleb = new SimpleStringProperty(String.valueOf(nomCeleb));
+            this.nombreEM = new SimpleStringProperty(String.valueOf(nombreEM));
+            this.nombreEF = new SimpleStringProperty(String.valueOf(nombreEF));
+
+        }
+    }
+    static class TableEleve extends RecursiveTreeObject<TableEleve> {
+        StringProperty id, firstname, lastname, classroom, birthday, birthplace;
+        StringProperty addresse, phone, remarque;
+
+
+        public TableEleve(int id, String firstname, String lastname, String classroom, java.util.Date birthday, String birthplace, String addresse, String phone,
+                          String remarque) {
+
+            this.id = new SimpleStringProperty(String.valueOf(id));
+            this.firstname = new SimpleStringProperty(String.valueOf(firstname));
+            this.lastname = new SimpleStringProperty(String.valueOf(lastname));
+            this.classroom = new SimpleStringProperty(String.valueOf(classroom));
+            this.birthday = new SimpleStringProperty(String.valueOf(birthday));
+            this.birthplace = new SimpleStringProperty(String.valueOf(birthplace));
+            this.addresse = new SimpleStringProperty(String.valueOf(addresse));
+            this.phone = new SimpleStringProperty(String.valueOf(phone));
+            this.remarque = new SimpleStringProperty(String.valueOf(remarque));
+
+
+        }
+    }
+}
+
 
 
