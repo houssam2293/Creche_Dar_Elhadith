@@ -168,6 +168,27 @@ public class CompteDB {
 
     }
 
+    public int resetPassword(String email, String password) {
+        Connection con = new ConnectionClasse().getConnection();
+        if (con == null) // if connection failed
+        {
+            return -1;
+        }
+        Statement st;
+
+        try {
+            st = con.createStatement();
+            String sql = "UPDATE `compte` SET `password` = " + password + " WHERE `email`=" + email + ";";
+            st.executeUpdate(sql);
+            return 1;
+        } catch (SQLException e) {
+            System.out.println("Error : " + e.getErrorCode());
+            //e.printStackTrace();
+            return 0;
+        }
+
+    }
+
     private boolean accountExist(Compte compte, String type) {
         Connection con = new ConnectionClasse().getConnection();
         if (con == null) // if connection failed
