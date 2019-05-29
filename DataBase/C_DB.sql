@@ -45,6 +45,15 @@ create TABLE `creche_dar_elhadith`.`employe` (
   `nombreEnfantF` int(2) DEFAULT NULL,
   PRIMARY KEY (`id`));
 
+CREATE TABLE `creche_dar_elhadith`.`pointage` (
+      `idEmp` INT REFERENCES id(employe),
+      `name` VARCHAR(45) NOT NULL,
+      `dateJour` Date NOT NULL,
+      `timeEntre` VARCHAR(45) NOT NULL,
+	  `remark` INT NOT NULL,
+      `presence` INT NOT NULL,
+      PRIMARY KEY (`idEmp`,`dateJour`));
+
 create TABLE `creche_dar_elhadith`.`eleve` (
     `num` int(4)  NOT NULL AUTO_INCREMENT,
     `id` varchar(22) DEFAULT NULL,

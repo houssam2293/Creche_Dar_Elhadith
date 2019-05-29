@@ -1,7 +1,7 @@
 package home.dbDir;
 
 import com.jfoenix.controls.JFXDatePicker;
-import home.java.Pointage;
+import home.java.PointageModel;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PointageDB {
 
-    public List<Pointage> getPointage(LocalDate date) {
+    public List<PointageModel> getPointage(LocalDate date) {
         Connection connection = new ConnectionClasse().getConnection();
         if (connection == null) {
             return null;
@@ -18,7 +18,7 @@ public class PointageDB {
         String sql = "select idEmp,name,fonction,remark from creche_dar_elhadith.employe,creche_dar_elhadith.pointage " +
                 "where dateJour=? and presence = 0 and id = idEmp;";
 
-        List<Pointage> pointages = new ArrayList<>();
+        List<PointageModel> pointageModels = new ArrayList<>();
 
 
         try {
@@ -32,7 +32,7 @@ public class PointageDB {
                 return null;
             }
             while (resultSet.next()) {
-                pointages.add(new Pointage(
+                pointageModels.add(new PointageModel(
                         resultSet.getInt("idEmp"),
                         resultSet.getString("name"),
                         resultSet.getString("fonction"),
@@ -45,10 +45,10 @@ public class PointageDB {
             return null;
         }
 
-        return pointages;
+        return pointageModels;
     }
 
-    public int addPointage(Pointage point) {
+    public int addPointage(PointageModel point) {
         JFXDatePicker a = new JFXDatePicker();
         a.setValue(LocalDate.now());
         if (pointExist(point.getId(), a.getValue())) {
@@ -158,7 +158,7 @@ public class PointageDB {
     }
 
 
-    public boolean pointExist(int id, LocalDate date) {
+    private boolean pointExist(int id, LocalDate date) {
         Connection con = new ConnectionClasse().getConnection();
         if (con == null) // if connection failed
         {
@@ -172,7 +172,7 @@ public class PointageDB {
 
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                return true; // Pointage already exists
+                return true; // PointageModel already exists
             }
             return false;
         } catch (SQLException se) {

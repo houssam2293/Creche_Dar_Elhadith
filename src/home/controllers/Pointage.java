@@ -1,11 +1,12 @@
 package home.controllers;
 
-import com.jfoenix.controls.*;
-
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXTextField;
 import home.dbDir.EmployeDB;
 import home.dbDir.PointageDB;
 import home.java.Employe;
-import home.java.Pointage;
+import home.java.PointageModel;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -16,7 +17,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -33,8 +37,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
+public class Pointage implements Initializable {
 
-public class Pointag implements Initializable {
 
 
     @FXML
@@ -47,23 +51,112 @@ public class Pointag implements Initializable {
     private Label errorLabel;
 
     @FXML
+    private Label titleLabel1;
+
+    @FXML
     private Label time;
 
     @FXML
     private JFXTextField searchField;
-    @FXML
-    private TableView tableview;
 
     @FXML
     private JFXComboBox<String> combo;
 
+    @FXML
+    private TableView tableview;
     static JFXDialog listeAbsences;
-    ObservableList<Pointage> data ;
-    TableColumn idCol,fullNameCol,jobCol,timeEntCol,remarqCol,actionCol;
-
-
+    private ObservableList<PointageModel> data ;
+    private TableColumn idCol,fullNameCol,jobCol,timeEntCol,remarqCol,actionCol;
 
     private boolean donneSaved= false;
+
+    @FXML
+    void confirm(ActionEvent event) {
+        int i = 0;
+        for(PointageModel poi : data) //insertion des données a BDD
+        {
+            i = new PointageDB().addPointage(poi);
+
+        }
+                    /* System.out.println("l'id est"+poi.getId()+" nom:"+poi.getFirstName()+ "emploie est:"+poi.getLastName() +" temp entrée:"+poi.getTempEnt().getValue().toString().substring(0,5)+
+                                "  la remarque est:"+poi.getRemarkk().getText()+"est absent aujourdh'ui");*/
+
+        donneSaved = true; // si les donnée sont stocké dans BDD
+        switch (i) {
+            case -1:System.out.println("Error connecting to DB!");
+                errorLabel.setText("No connection to database!!");
+                break;
+            case 0:System.out.println("Unknown Error failed to add PointageModel" );
+                break;
+            case 1:
+                Notifications.create()
+                        .title("تمت الإضافة بنجاح                                   ")
+                        .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
+                        .hideAfter(Duration.millis(2000))
+                        .position(Pos.BOTTOM_RIGHT)
+                        .darkStyle()
+                        .show();
+        }
+
+    }
+
+    @FXML
+    void listeview(ActionEvent event) {
+        errorLabel.setText("");
+        AnchorPane addUserPane = null;
+        try {
+            addUserPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/listeAbsence.fxml"));
+        } catch (IOException ignored) {
+        }
+        listeAbsences = getSpecialDialog(addUserPane);
+        listeAbsences.show();
+
+    }
+
+    private JFXDialog getSpecialDialog(AnchorPane content) {
+        JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
+        //  dialog.setOnDialogClosed((event) -> updateTable());
+        return dialog;
+    }
+    @FXML
+    void sortir(ActionEvent event) {
+        if (!donneSaved){
+            Notifications.create()
+                    .title("  يرجى حفظ البيانات قبل الخروج  ")
+                    .darkStyle()
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showWarning();
+            return;}
+        else{
+            //TODO add pointer to principale menu
+        }
+
+    }
+
+    @FXML
+    void updateTable() {
+        List<Employe> employes = FXCollections.observableArrayList();
+        data = null ;
+        data = FXCollections.observableArrayList();
+
+        List<Employe> employeeDB = new EmployeDB().getEmployee();
+        if (employeeDB == null) {
+            errorLabel.setText("Connection Failed !");
+        } else {
+            for (Employe employe : employeeDB) {
+                employes.add(employe);
+            }
+            for (int i=0; i < employes.size();i++){
+                Employe ep=employes.get(i);
+                data.add(new PointageModel(ep.getId(),ep.getNom()+" "+ep.getPrenom(), ep.getFonction(),"remark",""));
+            }
+        }
+        tableview.setItems(data);
+        tableview.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         donneSaved= false;
@@ -91,99 +184,8 @@ public class Pointag implements Initializable {
         );
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
-    }
-
-    @FXML
-    void confirm(ActionEvent event) {
-        //Todo add a la table de poitage
-        // errorLabel.setText("No connection to database!!");
-        int i = 0;
-        for(Pointage poi : data) //insertion des données a BDD
-        {
-            i = new PointageDB().addPointage(poi);
-
-        }
-                    /* System.out.println("l'id est"+poi.getId()+" nom:"+poi.getFirstName()+ "emploie est:"+poi.getLastName() +" temp entrée:"+poi.getTempEnt().getValue().toString().substring(0,5)+
-                                "  la remarque est:"+poi.getRemarkk().getText()+"est absent aujourdh'ui");*/
-
-        donneSaved = true; // si les donnée sont stocké dans BDD
-        switch (i) {
-            case -1:System.out.println("Error connecting to DB!");
-                errorLabel.setText("No connection to database!!");
-                break;
-            case 0:System.out.println("Unknown Error failed to add Pointage" );
-                break;
-            case 1:
-                Notifications.create()
-                        .title("تمت الإضافة بنجاح                                   ")
-                        .graphic(new ImageView(new Image("/home/icons/valid.png")))
-                        .hideAfter(Duration.millis(2000))
-                        .position(Pos.BOTTOM_RIGHT)
-                        .darkStyle()
-                        .show();
-        }
 
     }
-
-    @FXML
-    void sortir(ActionEvent event) {
-        //  errorLabel.setText("");
-        if (!donneSaved){
-            Notifications.create()
-                    .title("  يرجى حفظ البيانات قبل الخروج  ")
-                    .darkStyle()
-                    .hideAfter(Duration.millis(2000))
-                    .position(Pos.BOTTOM_RIGHT)
-                    .showWarning();
-            return;}
-        else{
-            //TODO add pointer to principale menu
-        }
-
-
-    }
-
-
-    @FXML
-    void listeview(ActionEvent event) {
-
-        errorLabel.setText("");
-        AnchorPane addUserPane = null;
-        try {
-            addUserPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/listeAbsence.fxml"));
-        } catch (IOException ignored) {
-        }
-        listeAbsences = getSpecialDialog(addUserPane);
-        listeAbsences.show();
-    }
-
-    private JFXDialog getSpecialDialog(AnchorPane content) {
-        JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
-        //  dialog.setOnDialogClosed((event) -> updateTable());
-        return dialog;
-    }
-
-    public void updateTable() {
-        List<Employe> employes = FXCollections.observableArrayList();
-        data = null ;
-        data = FXCollections.observableArrayList();
-
-        List<Employe> employeeDB = new EmployeDB().getEmployee();
-        if (employeeDB == null) {
-            errorLabel.setText("Connection Failed !");
-        } else {
-            for (Employe employe : employeeDB) {
-                employes.add(employe);
-            }
-            for (int i=0; i < employes.size();i++){
-                Employe ep=employes.get(i);
-                data.add(new Pointage(ep.getId(),ep.getNom()+" "+ep.getPrenom(), ep.getFonction(),"remark",""));
-            }
-        }
-        tableview.setItems(data);
-
-    }
-
     private void initializeTable() {
 
         idCol = new TableColumn("رقم التسجيل");
@@ -199,35 +201,33 @@ public class Pointag implements Initializable {
         tableview.getColumns().addAll(idCol, fullNameCol, jobCol, timeEntCol, actionCol,remarqCol );
         updateTable();
       /* data = FXCollections.observableArrayList(
-                new Pointage(1,"محمد رياض محمد رياض", "موظف","لا توجد ملاحظات",""),
-                new Pointage(2,"جمال الدين", "معلم","لا توجد ملاحظات", ""),
-                new Pointage(3,"ريتاج امال", "معلم", "لا توجد ملاحظات",""),
-                new Pointage(4,"أمين انور", "موظف", "لا توجد ملاحظات",""),
-                new Pointage(5,"شيماء نور", "عامل نظافة", "لا توجد ملاحظات","")
+                new PointageModel(1,"محمد رياض محمد رياض", "موظف","لا توجد ملاحظات",""),
+                new PointageModel(2,"جمال الدين", "معلم","لا توجد ملاحظات", ""),
+                new PointageModel(3,"ريتاج امال", "معلم", "لا توجد ملاحظات",""),
+                new PointageModel(4,"أمين انور", "موظف", "لا توجد ملاحظات",""),
+                new PointageModel(5,"شيماء نور", "عامل نظافة", "لا توجد ملاحظات","")
         );*/
 
         idCol.setCellValueFactory(
-                new PropertyValueFactory<Pointage,String>("id")
+                new PropertyValueFactory<PointageModel,String>("id")
         );
         fullNameCol.setCellValueFactory(
-                new PropertyValueFactory<Pointage,String>("firstName")
+                new PropertyValueFactory<PointageModel,String>("firstName")
         );
         jobCol.setCellValueFactory(
-                new PropertyValueFactory<Pointage,String>("lastName")
+                new PropertyValueFactory<PointageModel,String>("lastName")
         );
         timeEntCol.setCellValueFactory(
-                new PropertyValueFactory<Pointage,String>("tempEnt")
+                new PropertyValueFactory<PointageModel,String>("tempEnt")
         );
         remarqCol.setCellValueFactory(
-                new PropertyValueFactory<Pointage,String>("remarkk")
+                new PropertyValueFactory<PointageModel,String>("remarkk")
         );
 
         actionCol.setCellValueFactory(
-                new PropertyValueFactory<Pointage,String>("remark")
+                new PropertyValueFactory<PointageModel,String>("remark")
         );
 
         // tableview.setItems(data);
     }
-
-
 }

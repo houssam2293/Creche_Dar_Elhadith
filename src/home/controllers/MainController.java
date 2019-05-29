@@ -50,7 +50,6 @@ public class MainController implements Initializable {
     @FXML
     private VBox calBox, tracBox, manageStudentBox, pointBox, manageEmployeBox;
 
-    private VBox guidePane;
     private AnchorPane calendarPane, settingsPane, images;
     private StackPane tracPane, stock, manageStudentPane,pointag, manageEmployePane, archiv;
     @FXML
@@ -279,7 +278,7 @@ public class MainController implements Initializable {
             manageStudentPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/eleve.fxml"));
             archiv = FXMLLoader.load(getClass().getResource("/home/resources/fxml/archive.fxml"));
             stock = FXMLLoader.load(getClass().getResource("/home/resources/fxml/stock.fxml"));
-            pointag = FXMLLoader.load(getClass().getResource("/home/resources/fxml/pointag.fxml"));
+            pointag = FXMLLoader.load(getClass().getResource("/fxml/pointage.fxml"));
             images = FXMLLoader.load(getClass().getResource("/home/resources/fxml/traitmentImage.fxml"));
             classePane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/classe.fxml"));
 

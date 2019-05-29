@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
 import java.time.LocalTime;
 
 
-public class Pointage {
+public class PointageModel {
     private int id;
     private final SimpleStringProperty firstName;
     private final SimpleStringProperty lastName;
@@ -17,7 +17,7 @@ public class Pointage {
     private TextField remarkk;
 
 
-    public Pointage(int id, String fName, String lName, String remarque, String value) {
+    public PointageModel(int id, String fName, String lName, String remarque, String value) {
         this.id = id;
         this.firstName = new SimpleStringProperty(fName);
         this.lastName = new SimpleStringProperty(lName);
@@ -29,7 +29,7 @@ public class Pointage {
 
     }
 
-    public Pointage(int id, String fName, String lName, String remarque) {
+    public PointageModel(int id, String fName, String lName, String remarque) {
         this.id = id;
         this.firstName = new SimpleStringProperty(fName);
         this.lastName = new SimpleStringProperty(lName);
