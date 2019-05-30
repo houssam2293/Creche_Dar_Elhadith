@@ -6,6 +6,7 @@ import home.dbDir.CompteDB;
 import home.dbDir.EmployeDB;
 import home.java.Compte;
 import home.java.Employe;
+import home.java.FileVisitorImpl;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.collections.FXCollections;
@@ -37,6 +38,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -475,8 +478,16 @@ public class SettingsController extends Component implements Initializable {
         Process p;
         p = null;
         try {
+            Path startingDir = Paths.get("C:\\");
+            String fileName = "mysqldump.exe";
+            FileVisitorImpl visitor = new FileVisitorImpl();
+            visitor.setStartDir(startingDir);
+            visitor.setFileName(fileName);
+            Files.walkFileTree(startingDir, visitor);
+            String filePathe = visitor.getFilePath();
+            System.out.println("mysqldump.exe reside in : " + filePathe);
             Runtime runtime = Runtime.getRuntime();
-            p=runtime.exec("C:\\Program Files\\MySQL\\MySQL Workbench 8.0 CE\\mysqldump.exe -uroot -proot --add-drop-database -B creche_dar_elhadith -r"+path);
+            p = runtime.exec(filePathe + " -uroot -proot --add-drop-database -B creche_dar_elhadith -r" + path);
 
             int processComplete = p.waitFor();
             if (processComplete==0) {
