@@ -158,7 +158,7 @@ public class ResetPassword implements Initializable {
     }
 
     private boolean emailValidation() {
-        String regex = "^(.+)@(.+)$";
+        String regex = "^(.+)@(.+[fr/com/dz])$";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(email.getText());
         return matcher.matches();
@@ -190,6 +190,13 @@ public class ResetPassword implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         compteDB = new CompteDB();
+        email.setOnKeyReleased(event -> {
+            if (emailValidation()) {
+                email.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                email.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
         topLabel.setOnMousePressed(event -> {
             Stage stage = (Stage) rootPane.getScene().getWindow();
             xOffset = stage.getX() - event.getScreenX();

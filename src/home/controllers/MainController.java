@@ -1,6 +1,8 @@
 package home.controllers;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
 import com.jfoenix.controls.JFXRippler;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import de.jensd.fx.glyphs.icons525.Icons525View;
@@ -24,11 +26,14 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -249,6 +254,39 @@ public class MainController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         styleBox(0);
 
+        String date = new SimpleDateFormat("dd").format(new Date());
+        if(date.compareTo("30")==0) {
+            JFXDialogLayout content = new JFXDialogLayout();
+            Text headerText = new Text("حفظ البيانات عملية\n\n");
+            Text contentText = new Text("يرجى حفظ ملف البيانات على فلاشة \n\n(في حالة تلف أو ضياع البيانات يمكنك استرجاعها من هذا الملف )");
+            headerText.setStyle("-fx-font-size: 19px");
+            contentText.setStyle("-fx-font-size: 18px");
+
+            content.setHeading(headerText);
+            content.setBody(contentText);
+
+            JFXDialog dialog = new JFXDialog(rightPane, content, JFXDialog.DialogTransition.CENTER);
+
+            JFXButton btnOk = new JFXButton("نعم");
+            btnOk.setOnAction(e -> {
+                dialog.close();
+                saveData();
+            });
+
+            JFXButton btnNo = new JFXButton("لا");
+            btnOk.setPrefSize(120, 40);
+            btnNo.setPrefSize(120, 40);
+            btnOk.setStyle("-fx-font-size: 18px");
+            btnNo.setStyle("-fx-font-size: 18px");
+
+            content.setActions(btnOk, btnNo);
+
+            dialog.getStylesheets().add("/home/resources/css/main.css");
+            btnNo.setOnAction(e -> dialog.close());
+            dialog.show();
+
+        }
+
         imgSlider.fitWidthProperty().bind(holderPane.widthProperty());
         imgSlider.fitHeightProperty().bind(paneSlider.heightProperty());
 
@@ -297,7 +335,7 @@ public class MainController implements Initializable {
         manageStudentPane.setPrefSize(x, y);
         archiv.setPrefSize(x, y);
         stock.setPrefSize(x, y);
-        pointag.setPrefSize(x, y);
+       // pointag.setPrefSize(x, y);
         images.setPrefSize(x, y);
         classePane.setPrefSize(x, y);
     }
@@ -396,5 +434,37 @@ public class MainController implements Initializable {
         }
     }
 
+    public void saveData(){
+        String path=null;
+        Stage stg = new Stage();
+        FileChooser fc = new FileChooser();
+        File file = fc.showSaveDialog(stg);
+        String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+
+        try {
+
+            path = file.getAbsolutePath();
+            path = path.replace('\\', '/');
+            path = path + "_" + date + ".sql";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        Process p=null;
+        try {
+            Runtime runtime = Runtime.getRuntime();
+            p=runtime.exec("C:\\Program Files\\MySQL\\MySQL Workbench 8.0 CE\\mysqldump.exe -uroot -proot --add-drop-database -B creche_dar_elhadith -r"+path);
+
+            int processComplete = p.waitFor();
+            if (processComplete==0) {
+                System.out.println("Backup Created Succuss");
+            }else{
+                System.out.println("Can't Create backup");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

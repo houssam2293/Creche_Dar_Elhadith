@@ -263,11 +263,11 @@ public class ManageEmployeeController implements Initializable {
         idCol.setPrefWidth(120);
         idCol.setCellValueFactory(param -> param.getValue().getValue().id);
 
-        firstnameCol = new JFXTreeTableColumn<>("الإسم");
+        firstnameCol = new JFXTreeTableColumn<>("اللقب");
         firstnameCol.setPrefWidth(150);
         firstnameCol.setCellValueFactory(param -> param.getValue().getValue().firstname);
 
-        lastNameCol = new JFXTreeTableColumn<>("اللقب");
+        lastNameCol = new JFXTreeTableColumn<>("الإسم");
         lastNameCol.setPrefWidth(150);
         lastNameCol.setCellValueFactory(param -> param.getValue().getValue().lastname);
 
@@ -342,7 +342,6 @@ public class ManageEmployeeController implements Initializable {
 
         treeTableView.getColumns().addAll(idCol, firstnameCol, lastNameCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, socialSecurNumbCol, jobCol, diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, regimCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol);
         treeTableView.setShowRoot(false);
-        treeTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     @FXML

@@ -72,8 +72,8 @@ public class EmployeDB {
 
             sql.append(")values ('");
             sql.append(employe.getId()).append("','");
-            sql.append(employe.getPrenom()).append("','");
             sql.append(employe.getNom()).append("','");
+            sql.append(employe.getPrenom()).append("','");
             sql.append(employe.getDateNaissance()).append("','");
             sql.append(employe.getLieuNaissance()).append("','");
             sql.append(employe.getAdresse()).append("','");
@@ -137,8 +137,8 @@ public class EmployeDB {
                 st = con.createStatement();
 
                 sql.append("`id`='").append(employe.getId());
-                sql.append("', `nom`='").append(employe.getPrenom());
-                sql.append("', `prenom`='").append(employe.getNom());
+                sql.append("', `nom`='").append(employe.getNom());
+                sql.append("', `prenom`='").append(employe.getPrenom());
                 sql.append("', `dateNaissance`='").append(employe.getDateNaissance().toString());
                 sql.append("', `adresse`='").append(employe.getAdresse());
                 sql.append("', `numTelephone`='").append(employe.getNumTelephone());
@@ -162,7 +162,7 @@ public class EmployeDB {
 
                 int status = st.executeUpdate(sql.toString());
                 System.out.println("Status : " + status);
-            }else return 2;
+            } else return 2;
         } catch (SQLException ex) {
             System.out.println("SQL Exception code: " + ex.getErrorCode());
             System.out.println("SQLException msg: " + ex.getMessage());
@@ -202,6 +202,30 @@ public class EmployeDB {
             return 0;
         }
 
+    }
+
+    public int countEmploye(String regime) {
+        Connection con = new ConnectionClasse().getConnection();
+        int count = 0;
+        if (con == null) // if connection failed
+        {
+            return -1;
+        }
+        Statement st;
+        try {
+
+            st = con.createStatement();
+            String sql = "SELECT count(id) FROM creche_dar_elhadith.employe where regime = '" + regime + "';";
+            ResultSet resultSet = st.executeQuery(sql);
+            while (resultSet.next()) {
+                count = resultSet.getInt("count(id)");
+            }
+            return count;
+        } catch (SQLException e) {
+            System.out.println("Error : " + e.getErrorCode());
+            //e.printStackTrace();
+            return -1;
+        }
     }
 
 

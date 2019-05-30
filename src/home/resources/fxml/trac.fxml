@@ -1,234 +1,208 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import javafx.geometry.*?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-<?import java.lang.String?>
-<?import java.net.*?>
-<StackPane fx:id="root" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1186.0"
-           style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171"
-           xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.TracController">
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="root" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1186.0" style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.TracController">
     <stylesheets>
-        <URL value="@../css/main.css"/>
-        <URL value="@../css/trac.css"/>
+        <URL value="@../css/main.css" />
+        <URL value="@../css/trac.css" />
     </stylesheets>
     <AnchorPane fx:id="choosePane" prefHeight="690.0" prefWidth="1186.0">
-        <Label alignment="CENTER" layoutX="502.0" layoutY="21.0" prefHeight="51.0" prefWidth="209.0"
-               text="الإحصائيات">
+        <Label alignment="CENTER" layoutX="502.0" layoutY="21.0" prefHeight="51.0" prefWidth="209.0" text="الإحصائيات">
             <font>
-                <Font name="Tahoma" size="34.0"/>
+                <Font name="Tahoma" size="34.0" />
             </font>
             <styleClass>
-                <String fx:value="title-header"/>
-                <String fx:value="title"/>
+                <String fx:value="title-header" />
+                <String fx:value="title" />
             </styleClass>
         </Label>
-        <AnchorPane fx:id="employeeAnchor" layoutX="141.0" layoutY="95.0" prefHeight="500.0" prefWidth="440.0"
-                    styleClass="box-chooser" AnchorPane.leftAnchor="141.0" AnchorPane.topAnchor="95.0">
+        <AnchorPane fx:id="employeeAnchor" layoutX="141.0" layoutY="95.0" prefHeight="500.0" prefWidth="440.0" styleClass="box-chooser" AnchorPane.leftAnchor="141.0" AnchorPane.topAnchor="95.0">
             <ImageView fitHeight="490.0" fitWidth="432.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true">
-                <Image url="@../icons/teacher-cartoon.jpg"/>
+                <Image url="@../icons/teacher-cartoon.jpg" />
             </ImageView>
-            <Pane fx:id="employeeBox" onMouseClicked="#showEmploye" opacity="0.82" prefHeight="500.0"
-                  prefWidth="440.0" style="-fx-background-color: #148BB1;" styleClass="pane-chooser">
-                <Label alignment="CENTER" layoutX="134.0" layoutY="94.0" prefHeight="66.0"
-                       prefWidth="182.0" styleClass="title-chooser" text="العمال"/>
-                <Label alignment="CENTER" layoutX="70.0" layoutY="160.0" prefHeight="151.0"
-                       prefWidth="301.0" styleClass="content-chooser" text="إحصائيات حول العمال"
-                       wrapText="true"/>
-                <JFXButton layoutX="83.0" layoutY="347.0" onAction="#showEmploye" prefHeight="57.0"
-                           prefWidth="264.0" styleClass="btn-chooser" text="عرض الإحصائيات"/>
+            <Pane fx:id="employeeBox" onMouseClicked="#showEmploye" opacity="0.82" prefHeight="500.0" prefWidth="440.0" style="-fx-background-color: #148BB1;" styleClass="pane-chooser">
+                <Label alignment="CENTER" layoutX="134.0" layoutY="94.0" prefHeight="66.0" prefWidth="182.0" styleClass="title-chooser" text="العمال" />
+                <Label alignment="CENTER" layoutX="70.0" layoutY="160.0" prefHeight="151.0" prefWidth="301.0" styleClass="content-chooser" text="إحصائيات حول العمال" wrapText="true" />
+                <JFXButton layoutX="83.0" layoutY="347.0" onAction="#showEmploye" prefHeight="57.0" prefWidth="264.0" styleClass="btn-chooser" text="عرض الإحصائيات" />
             </Pane>
         </AnchorPane>
-        <AnchorPane fx:id="studentAnchor" layoutX="616.0" layoutY="95.0" prefHeight="500.0" prefWidth="440.0"
-                    styleClass="box-chooser" AnchorPane.leftAnchor="616.0" AnchorPane.topAnchor="95.0">
+        <AnchorPane fx:id="studentAnchor" layoutX="616.0" layoutY="95.0" prefHeight="500.0" prefWidth="440.0" styleClass="box-chooser" AnchorPane.leftAnchor="616.0" AnchorPane.topAnchor="95.0">
             <ImageView fitHeight="490.0" fitWidth="432.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true">
-                <Image url="@../icons/student.jpg"/>
+                <Image url="@../icons/student.jpg" />
             </ImageView>
-            <Pane fx:id="studentBox" onMouseClicked="#showStudent" opacity="0.82" prefHeight="500.0"
-                  prefWidth="440.0" style="-fx-background-color: #694A97;" styleClass="pane-chooser">
-                <Label alignment="CENTER" layoutX="134.0" layoutY="94.0" prefHeight="66.0"
-                       prefWidth="197.0" styleClass="title-chooser" text="الطلاب"/>
-                <Label alignment="CENTER" layoutX="70.0" layoutY="160.0" prefHeight="151.0"
-                       prefWidth="301.0" styleClass="content-chooser" text="إحصائيات حول الطلاب"
-                       wrapText="true"/>
-                <JFXButton layoutX="83.0" layoutY="347.0" onAction="#showStudent" prefHeight="57.0"
-                           prefWidth="264.0" styleClass="btn-chooser" text="عرض الإحصائيات"/>
+            <Pane fx:id="studentBox" onMouseClicked="#showStudent" opacity="0.82" prefHeight="500.0" prefWidth="440.0" style="-fx-background-color: #694A97;" styleClass="pane-chooser">
+                <Label alignment="CENTER" layoutX="134.0" layoutY="94.0" prefHeight="66.0" prefWidth="197.0" styleClass="title-chooser" text="الطلاب" />
+                <Label alignment="CENTER" layoutX="70.0" layoutY="160.0" prefHeight="151.0" prefWidth="301.0" styleClass="content-chooser" text="إحصائيات حول الطلاب" wrapText="true" />
+                <JFXButton layoutX="83.0" layoutY="347.0" onAction="#showStudent" prefHeight="57.0" prefWidth="264.0" styleClass="btn-chooser" text="عرض الإحصائيات" />
             </Pane>
         </AnchorPane>
     </AnchorPane>
     <VBox fx:id="studentPane" prefHeight="690.0" prefWidth="1150.0" spacing="10.0" visible="false">
         <padding>
-            <Insets left="20.0" top="20.0"/>
+            <Insets left="20.0" top="20.0" />
         </padding>
         <StackPane.margin>
-            <Insets right="10.0"/>
+            <Insets right="10.0" />
         </StackPane.margin>
         <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1156.0" spacing="20.0">
-            <Label prefHeight="50.0" prefWidth="373.0" style="-fx-font-size: 23px;"
-                   styleClass="title-header" text="إحصائيات --&gt; الطلاب">
+            <Label prefHeight="50.0" prefWidth="373.0" style="-fx-font-size: 23px;" styleClass="title-header" text="إحصائيات --&gt; الطلاب">
                 <font>
-                    <Font name="Tahoma" size="34.0"/>
+                    <Font name="Tahoma" size="34.0" />
                 </font>
                 <stylesheets>
-                    <URL value="@../css/trac.css"/>
-                    <URL value="@../css/main.css"/>
+                    <URL value="@../css/trac.css" />
+                    <URL value="@../css/main.css" />
                 </stylesheets>
             </Label>
-            <Label fx:id="errorLabelStudent" alignment="CENTER" prefHeight="43.0" prefWidth="290.0"
-                   style="-fx-text-fill: #F00; -fx-font-size: 26px;"/>
+            <Label fx:id="errorLabelStudent" alignment="CENTER" prefHeight="43.0" prefWidth="290.0" style="-fx-text-fill: #F00; -fx-font-size: 26px;" />
             <HBox alignment="CENTER_RIGHT" prefHeight="53.0" prefWidth="455.0">
-                <JFXButton alignment="CENTER" buttonType="RAISED" onMouseClicked="#btnBackward"
-                           prefHeight="41.0" prefWidth="36.0" ripplerFill="#4476ff"
-                           styleClass="btn-view" text=" ">
+                <JFXButton alignment="CENTER" buttonType="RAISED" onMouseClicked="#btnBackward" prefHeight="41.0" prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                     <graphic>
-                        <Icons525View glyphName="CHEVRON"/>
+                        <Icons525View glyphName="CHEVRON" />
                     </graphic>
                 </JFXButton>
             </HBox>
         </HBox>
         <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
             <VBox.margin>
-                <Insets top="20.0"/>
+                <Insets top="20.0" />
             </VBox.margin>
             <padding>
-                <Insets left="10.0"/>
+                <Insets left="10.0" />
             </padding>
-            <JFXTextField fx:id="searchStudentField" labelFloat="true" prefHeight="39.0" prefWidth="235.0"
-                          promptText="بحث" styleClass="field">
+            <JFXTextField fx:id="searchStudentField" labelFloat="true" prefHeight="39.0" prefWidth="235.0" promptText="بحث" styleClass="field">
                 <font>
-                    <Font size="18.0"/>
+                    <Font size="18.0" />
                 </font>
             </JFXTextField>
-            <JFXComboBox fx:id="comboStudentSearchBy" labelFloat="true" prefHeight="39.0" prefWidth="195.0"
-                         promptText="البحث عن طريق" styleClass="combo-medium"/>
-            <JFXButton alignment="CENTER" buttonType="RAISED" onMouseClicked="#updateTableUser"
-                       prefHeight="41.0" prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view"
-                       text=" ">
+            <JFXComboBox fx:id="comboStudentSearchBy" labelFloat="true" prefHeight="39.0" prefWidth="195.0" promptText="البحث عن طريق" styleClass="combo-medium" />
+            <JFXButton alignment="CENTER" buttonType="RAISED" onMouseClicked="#updateTableUser" prefHeight="41.0" prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
                 <graphic>
-                    <FontAwesomeIconView glyphName="REFRESH" size="24" wrappingWidth="22.571428298950195"/>
+                    <FontAwesomeIconView glyphName="REFRESH" size="24" wrappingWidth="22.571428298950195" />
                 </graphic>
                 <HBox.margin>
-                    <Insets/>
+                    <Insets />
                 </HBox.margin>
                 <padding>
-                    <Insets left="10.0"/>
+                    <Insets left="10.0" />
                 </padding>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onMouseClicked="#btnViewStatisticStudent" ripplerFill="#4476ff"
-                       styleClass="btn-view" text="التفاصيل">
+            <JFXButton buttonType="RAISED" onMouseClicked="#btnViewStatisticStudent" ripplerFill="#4476ff" styleClass="btn-view" text="التفاصيل">
                 <graphic>
-                    <EmojiOneView glyphName="BAR_CHART" size="20"/>
+                    <EmojiOneView glyphName="BAR_CHART" size="20" />
                 </graphic>
             </JFXButton>
         </HBox>
-        <HBox fx:id="searchToolsBox" alignment="CENTER_LEFT" fillHeight="false" prefHeight="50.0"
-              prefWidth="200.0" spacing="20.0" style="-fx-background-color: #FFF;">
+        <HBox fx:id="searchToolsBox" alignment="CENTER_LEFT" fillHeight="false" prefHeight="50.0" prefWidth="200.0" spacing="20.0" style="-fx-background-color: #FFF;">
             <VBox.margin>
-                <Insets/>
+                <Insets />
             </VBox.margin>
             <padding>
-                <Insets left="10.0"/>
+                <Insets left="10.0" />
             </padding>
-            <JFXComboBox fx:id="comboStudentSectionFilter" prefHeight="30.0" prefWidth="120.0"
-                         promptText="القسم" styleClass="combo-medium"/>
-            <JFXButton buttonType="RAISED" onAction="#btnFilterStudent" prefHeight="43.0" prefWidth="90.0"
-                       ripplerFill="#4476ff" styleClass="btn-view" text="إختيار"/>
+            <JFXComboBox fx:id="comboStudentSectionFilter" prefHeight="30.0" prefWidth="120.0" promptText="القسم" styleClass="combo-medium" />
+            <JFXButton buttonType="RAISED" onAction="#btnFilterStudent" prefHeight="43.0" prefWidth="90.0" ripplerFill="#4476ff" styleClass="btn-view" text="إختيار" />
         </HBox>
-        <HBox>
+        <HBox spacing="10.0">
             <VBox.margin>
-                <Insets/>
+                <Insets />
             </VBox.margin>
-            <JFXTreeTableView fx:id="tableStudentTrac" maxHeight="-Infinity" maxWidth="-Infinity"
-                              prefHeight="480.0" prefWidth="840.0"/>
-            <VBox alignment="TOP_CENTER" prefHeight="499.0" prefWidth="325.0" spacing="10.0">
-                <PieChart fx:id="pieChartStudent" maxHeight="-Infinity" maxWidth="-Infinity"
-                          prefHeight="240.0" prefWidth="300.0"/>
-                <PieChart fx:id="pieChartRigimeStudent" maxHeight="-Infinity" maxWidth="-Infinity"
-                          prefHeight="240.0" prefWidth="300.0"/>
+            <JFXTreeTableView fx:id="tableStudentTrac" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="480.0" prefWidth="624.0" />
+            <VBox alignment="TOP_CENTER" prefHeight="474.0" prefWidth="543.0" spacing="10.0">
+            <StackPane prefHeight="468.0" prefWidth="538.0">
+               <children>
+                      <PieChart fx:id="pieChartStudent" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="472.0" prefWidth="538.0" visible="false" />
+                      <PieChart fx:id="pieChartRigimeStudent" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="469.0" prefWidth="543.0" />
+               </children>
+            </StackPane>
             </VBox>
         </HBox>
     </VBox>
     <VBox fx:id="employePane" prefHeight="690.0" prefWidth="1150.0" spacing="10.0" visible="false">
         <padding>
-            <Insets left="20.0" top="20.0"/>
+            <Insets left="20.0" top="20.0" />
         </padding>
         <HBox alignment="CENTER_LEFT" prefHeight="66.0" prefWidth="1156.0" spacing="20.0">
-            <Label prefHeight="50.0" prefWidth="391.0" style="-fx-font-size: 23px;"
-                   styleClass="title-header" text="إحصائيات --&gt; العمال">
+            <Label prefHeight="50.0" prefWidth="391.0" style="-fx-font-size: 23px;" styleClass="title-header" text="إحصائيات --&gt; العمال">
                 <font>
-                    <Font name="Tahoma" size="34.0"/>
+                    <Font name="Tahoma" size="34.0" />
                 </font>
                 <stylesheets>
-                    <URL value="@../css/trac.css"/>
-                    <URL value="@../css/main.css"/>
+                    <URL value="@../css/trac.css" />
+                    <URL value="@../css/main.css" />
                 </stylesheets>
             </Label>
-            <Label fx:id="errorLabelEmploye" prefHeight="43.0" prefWidth="290.0"
-                   style="-fx-text-fill: #F00; -fx-font-size: 26px;"/>
+            <Label fx:id="errorLabelEmploye" prefHeight="43.0" prefWidth="290.0" style="-fx-text-fill: #F00; -fx-font-size: 26px;" />
             <HBox alignment="CENTER_RIGHT" prefHeight="53.0" prefWidth="455.0">
-                <JFXButton alignment="CENTER" buttonType="RAISED" onMouseClicked="#btnBackward"
-                           prefHeight="41.0" prefWidth="36.0" ripplerFill="#4476ff"
-                           styleClass="btn-view" text=" ">
+                <JFXButton alignment="CENTER" buttonType="RAISED" onMouseClicked="#btnBackward" prefHeight="41.0" prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
                     <padding>
-                        <Insets left="10.0"/>
+                        <Insets left="10.0" />
                     </padding>
                     <graphic>
-                        <Icons525View glyphName="CHEVRON"/>
+                        <Icons525View glyphName="CHEVRON" />
                     </graphic>
                 </JFXButton>
             </HBox>
         </HBox>
         <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="200.0" spacing="20.0">
             <VBox.margin>
-                <Insets top="20.0"/>
+                <Insets top="20.0" />
             </VBox.margin>
-            <JFXTextField fx:id="searchEmployeField" labelFloat="true" prefHeight="39.0" prefWidth="197.0"
-                          promptText="بحث" styleClass="field">
+            <JFXTextField fx:id="searchEmployeField" labelFloat="true" prefHeight="39.0" prefWidth="197.0" promptText="بحث" styleClass="field">
                 <font>
-                    <Font size="18.0"/>
+                    <Font size="18.0" />
                 </font>
             </JFXTextField>
-            <JFXComboBox fx:id="comboEmployeSearchBy" labelFloat="true" prefHeight="39.0" prefWidth="240.0"
-                         promptText="البحث عن طريق" style="-fx-font-size: 18px;" styleClass="combo-medium"/>
-            <JFXButton buttonType="RAISED" onMouseClicked="#updateTableEmploye" prefHeight="41.0"
-                       prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
+            <JFXComboBox fx:id="comboEmployeSearchBy" labelFloat="true" prefHeight="39.0" prefWidth="240.0" promptText="البحث عن طريق" style="-fx-font-size: 18px;" styleClass="combo-medium" />
+            <JFXButton buttonType="RAISED" onMouseClicked="#updateTableEmploye" prefHeight="41.0" prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
                 <graphic>
-                    <FontAwesomeIconView glyphName="REFRESH" size="24" wrappingWidth="22.571428298950195"/>
+                    <FontAwesomeIconView glyphName="REFRESH" size="24" wrappingWidth="22.571428298950195" />
                 </graphic>
                 <padding>
-                    <Insets left="10.0"/>
+                    <Insets left="10.0" />
                 </padding>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#viewChartEmploye" prefHeight="39.0" prefWidth="135.0"
-                       ripplerFill="#4476ff" styleClass="btn-view" text="التفاصيل">
+            <JFXButton buttonType="RAISED" onAction="#viewChartEmploye" prefHeight="39.0" prefWidth="135.0" ripplerFill="#4476ff" styleClass="btn-view" text="التفاصيل">
                 <graphic>
-                    <EmojiOneView glyphName="BAR_CHART" size="20"/>
+                    <EmojiOneView glyphName="BAR_CHART" size="20" />
                 </graphic>
             </JFXButton>
         </HBox>
-        <HBox>
+        <HBox spacing="10.0">
             <VBox.margin>
-                <Insets/>
+                <Insets />
             </VBox.margin>
-            <JFXTreeTableView fx:id="tableEmployeeTrac" maxWidth="-Infinity" prefHeight="499.0"
-                              prefWidth="840.0"/>
-            <VBox alignment="TOP_CENTER" prefHeight="499.0" prefWidth="325.0" spacing="10.0">
-                <PieChart fx:id="pieChartEmploye" maxHeight="-Infinity" maxWidth="-Infinity"
-                          prefHeight="240.0" prefWidth="300.0"/>
-                <PieChart fx:id="pieChartEmployeRigime" maxHeight="-Infinity" maxWidth="-Infinity"
-                          prefHeight="240.0" prefWidth="300.0"/>
+            <JFXTreeTableView fx:id="tableEmployeeTrac" maxWidth="-Infinity" prefHeight="480.0" prefWidth="624.0" />
+            <VBox alignment="TOP_CENTER" prefHeight="499.0" prefWidth="558.0" spacing="10.0">
+            <StackPane prefHeight="504.0" prefWidth="550.0">
+               <children>
+                      <PieChart fx:id="pieChartEmploye" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="507.0" prefWidth="559.0" visible="false" />
+                      <PieChart fx:id="pieChartEmployeRigime" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="504.0" prefWidth="556.0" />
+               </children>
+            </StackPane>
             </VBox>
         </HBox>
     </VBox>

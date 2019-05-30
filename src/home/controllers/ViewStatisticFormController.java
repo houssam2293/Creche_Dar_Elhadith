@@ -1,18 +1,23 @@
 package home.controllers;
 
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXTreeTableView;
+import home.dbDir.EmployeDB;
+import home.java.Employe;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
-public class ViewStatisticFormController {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class ViewStatisticFormController implements Initializable {
+
 
     @FXML
     private Label userSelected;
@@ -24,28 +29,10 @@ public class ViewStatisticFormController {
     private JFXButton btnChartType;
 
     @FXML
-    private AnchorPane tablePane;
-
-    @FXML
-    private JFXTreeTableView<?> tableView;
-
-    @FXML
-    private JFXTextField searchField;
-
-    @FXML
-    private JFXComboBox<?> comboSearchBy;
-
-    @FXML
-    private Label errorLabel;
-
-    @FXML
-    private AnchorPane chartPane;
-
-    @FXML
     private AnchorPane barChartPane;
 
     @FXML
-    private BarChart<?, ?> statisticUserBarChart;
+    private BarChart statisticUserBarChart;
 
     @FXML
     private CategoryAxis xAxis;
@@ -53,18 +40,24 @@ public class ViewStatisticFormController {
     @FXML
     private NumberAxis yAxis;
 
-    @FXML
-    private AnchorPane pieChartPane;
-
-    @FXML
-    private PieChart numberErrorPieChart;
-
-    @FXML
-    private PieChart totalSolvedPieChart;
+    private List<String> employesNames;
 
     @FXML
     void btnClose() {
-
+        TracController.detailChart.close();
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        EmployeDB employeDB = new EmployeDB();
+        List<Employe> employes = employeDB.getEmployee();
+        employesNames = new ArrayList<>();
+        for (Employe employe : employes) {
+            employesNames.add(employe.getNom() + " " + employe.getPrenom());
+        }
+        for (String s : employesNames) {
+            System.out.println("Current employee : " + s);
+        }
+
+    }
 }
