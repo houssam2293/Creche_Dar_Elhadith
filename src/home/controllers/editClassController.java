@@ -2,7 +2,7 @@ package home.controllers;
 
 import com.jfoenix.controls.JFXTextField;
 import home.dbDir.classeDB;
-import home.java.Classe;
+import home.java.ClasseModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -35,10 +35,10 @@ public class editClassController implements Initializable {
     @FXML
     private JFXTextField remarque;
 
-    static Classe classSelected;
+    static ClasseModel classSelected;
 
     public void btnEdit(ActionEvent actionEvent) {
-        Classe cls = new Classe();
+        ClasseModel cls = new ClasseModel();
         cls.setId(Integer.valueOf(id.getText()));
         cls.setClassNam(ClassNam.getText().trim().toLowerCase());
         cls.setClassRom(ClassRom.getText().trim().toLowerCase());

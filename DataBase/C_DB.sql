@@ -6,7 +6,7 @@ USE `creche_dar_elhadith`;
 
 create TABLE `creche_dar_elhadith`.`Classe` (
 `num` int(4) unsigned NOT NULL AUTO_INCREMENT,
-`id` varchar(30) DEFAULT NULL,
+`id` varchar(20) DEFAULT NULL,
 `ClassNam` varchar(22) NOT NULL,
 `ClassRom` varchar(22) NOT NULL,
 `maxNbrElev` varchar(30) DEFAULT NULL,
@@ -72,7 +72,7 @@ create TABLE `creche_dar_elhadith`.`eleve` (
     `prenom` varchar(22) NOT NULL,
     `dateNaissance` Date NOT NULL,
     `lieuNaissance` varchar(30) DEFAULT NULL,
-    `classe` varchar(3) DEFAULT NULL,
+    `classe` varchar(20) DEFAULT NULL,
     `anneeScolaire` varchar(10) DEFAULT NULL,
     `regime` varchar(50) DEFAULT NULL,
     `adresse` varchar(50) DEFAULT NULL,

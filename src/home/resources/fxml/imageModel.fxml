@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="root" maxHeight="784.0" maxWidth="587.0" prefHeight="784.0" prefWidth="587.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ImageModel">
+<AnchorPane fx:id="root" maxHeight="784.0" maxWidth="587.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="784.0" prefWidth="587.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ImageModel">
     <HBox layoutX="167.0" layoutY="14.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" spacing="10.0" AnchorPane.topAnchor="20.0">
         <Label fx:id="classeLable" alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="23.0" prefWidth="72.0" styleClass="field" textFill="#fc0202" />
         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="23.0" prefWidth="106.0" styleClass="field" text="القسم رقم : " />

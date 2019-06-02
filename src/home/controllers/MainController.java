@@ -90,6 +90,8 @@ public class MainController implements Initializable {
 
     private final byte NUMBER_IMAGE_SLIDER = 3;
     private int counter = 1;
+    static final boolean saved=true;
+    private boolean dataSavedThisMonth;
 
     public MainController() {
     }
@@ -259,10 +261,12 @@ public class MainController implements Initializable {
         styleBox(0);
 
         String date = new SimpleDateFormat("dd").format(new Date());
-        if (date.compareTo("31") == 0) {
+        if (date.compareTo("27") == 0)
+            dataSavedThisMonth = !saved;
+        if (!dataSavedThisMonth && date.compareTo("31") == 0) {
             JFXDialogLayout content = new JFXDialogLayout();
             Text headerText = new Text("حفظ البيانات عملية\n\n");
-            Text contentText = new Text("يرجى حفظ ملف البيانات على فلاشة \n\n(في حالة تلف أو ضياع البيانات يمكنك استرجاعها من هذا الملف )");
+            Text contentText = new Text("يرجى حفظ ملف قاعدة البيانات على فلاشة \n\n(في حالة تلف أو ضياع البيانات يمكنك استرجاعها من هذا الملف )");
             headerText.setStyle("-fx-font-size: 19px");
             contentText.setStyle("-fx-font-size: 18px");
 
@@ -275,6 +279,7 @@ public class MainController implements Initializable {
             btnOk.setOnAction(e -> {
                 dialog.close();
                 saveData();
+                dataSavedThisMonth = true;
             });
 
             JFXButton btnNo = new JFXButton("لا");

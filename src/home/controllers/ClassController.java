@@ -5,7 +5,7 @@ import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import de.jensd.fx.glyphs.emojione.EmojiOneView;
 import home.dbDir.EleveDB;
 import home.dbDir.classeDB;
-import home.java.Classe;
+import home.java.ClasseModel;
 import home.java.Eleve;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -48,7 +48,7 @@ public class ClassController implements Initializable {
     public JFXButton remove;
     public JFXButton cree;
     public VBox ClassHome;
-    String clss;
+    private String clss;
 
     @FXML
     private StackPane Class;
@@ -64,15 +64,15 @@ public class ClassController implements Initializable {
     @FXML // Cols of table
     public JFXTreeTableColumn<TableEleve, String> idCole, nameCole,dateOfBirthCole,remarqueCol;
 
-    public static JFXDialog addUserDialog, editUserDialog;
+    static JFXDialog addUserDialog, editUserDialog;
 
 
     public void initialize(URL location, ResourceBundle resources) {
-        List<Classe> clsDB = new classeDB().getClasse();
+        List<ClasseModel> clsDB = new classeDB().getClasse();
         if (clsDB == null) {
             System.out.println("Connection Failed !");
         } else {
-            for (Classe clss : clsDB) {
+            for (ClasseModel clss : clsDB) {
                 ClassSelect.getItems().add(clss.getClassNam());
 
             }
@@ -108,13 +108,13 @@ public class ClassController implements Initializable {
                     .showWarning();
             return;
         }
-        List<Classe> clsDB = new classeDB().getClasse();
+        List<ClasseModel> clsDB = new classeDB().getClasse();
         if (clsDB == null) {
             System.out.println("Connection Failed !");
         } else {
-            for (Classe clsse : clsDB) {
+            for (ClasseModel clsse : clsDB) {
                 if (clsse.getClassNam().compareTo(cls)==0){
-                    classSelected=new Classe();
+                    classSelected=new ClasseModel();
                     classSelected.setId(clsse.getId());
                     classSelected.setClassNam(clsse.getClassNam());
                     classSelected.setClassRom(clsse.getClassRom());
@@ -302,11 +302,11 @@ public class ClassController implements Initializable {
     @FXML
     private void updateListview() {
         ClassSelect.getItems().clear();
-        List<Classe> clsDB = new classeDB().getClasse();
+        List<ClasseModel> clsDB = new classeDB().getClasse();
         if (clsDB == null) {
             System.out.println("Connection Failed !");
         } else {
-            for (Classe clss : clsDB) {
+            for (ClasseModel clss : clsDB) {
                 ClassSelect.getItems().add(clss.getClassNam());
 
             }

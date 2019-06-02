@@ -13,9 +13,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.print.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -346,19 +344,44 @@ public class ManageEmployeeController implements Initializable {
 
     @FXML
     void printFile() {
-        Text textArea = new Text();
-        textArea.setText("Printing test!    Printing test!\nPrinting test!  Printing test!  Printing test!\nPrinting test!  Printing test!  Printing test!  Printing test!");
+        int index = treeTableView.getSelectionModel().getSelectedIndex(); // selected index
+        String id = idCol.getCellData(index);
+        if (id == null) {
+            System.out.println("Index is null !");
+            Notifications.create()
+                    .title("يرجى تحديد الحقل المراد تحديثه                                ")
+                    .darkStyle()
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showWarning();
+            return;
+        }
 
-        PrinterJob job = PrinterJob.createPrinterJob();
-        job.showPrintDialog(null);
-        Printer printer= job.getPrinter();
-        PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
-        textArea.minWidth(pageLayout.getPrintableWidth());
-        textArea.minHeight(pageLayout.getPrintableHeight());
-        job.printPage(pageLayout,textArea);
-        job.endJob();
+        employeeSelected = new Employe();
+        employeeSelected.setId(Integer.parseInt(id));
+        employeeSelected.setPrenom(firstnameCol.getCellData(index));
+        employeeSelected.setNom(lastNameCol.getCellData(index));
+        employeeSelected.setDateNaissance(java.sql.Date.valueOf(dateOfBirthCol.getCellData(index)));
+        employeeSelected.setLieuNaissance(placeOfBirthCol.getCellData(index));
+        employeeSelected.setAdresse(addressCol.getCellData(index));
+        employeeSelected.setNumTelephone(phoneCol.getCellData(index));
+        employeeSelected.setSocialSecurityNumber(socialSecurNumbCol.getCellData(index));
+        employeeSelected.setDiplome(diplomeCol.getCellData(index));
+        employeeSelected.setExperience(experienceCol.getCellData(index));
+        employeeSelected.setItar(itarCol.getCellData(index));
+        employeeSelected.setRenouvlement_de_contrat(contractRenCol.getCellData(index));
+        employeeSelected.setFonction(jobCol.getCellData(index));
+        employeeSelected.setRegimeScolaire(regimCol.getCellData(index));
+        employeeSelected.setDate_debut(java.sql.Date.valueOf(dateFirstEmploCol.getCellData(index)));
+        if (marierCol.getCellData(index).toLowerCase().equals("متزوج")) {
+            employeeSelected.setStatuSocial(1);
+            employeeSelected.setCelibacyTitle(nomCelebCol.getCellData(index));
+            employeeSelected.setMaleChild(Integer.parseInt(nombreEMCol.getCellData(index)));
+            employeeSelected.setFemaleChild(Integer.parseInt(nombreEFCol.getCellData(index)));
+        } else employeeSelected.setStatuSocial(0);
 
     }
+
 
     private JFXDialog getSpecialDialog(AnchorPane content) {
         JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);

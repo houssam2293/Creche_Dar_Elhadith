@@ -2,7 +2,7 @@ package home.controllers;
 
 import com.jfoenix.controls.JFXTextField;
 import home.dbDir.classeDB;
-import home.java.Classe;
+import home.java.ClasseModel;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -38,7 +38,7 @@ public class AddClassController {
     @FXML
     void btnAdd() {
 
-        Classe cls = new Classe();
+        ClasseModel cls = new ClasseModel();
         cls.setId(Integer.valueOf(id.getText()));
         cls.setClassNam(ClassNam.getText().trim().toLowerCase());
         cls.setClassRom(ClassRom.getText().trim().toLowerCase());
@@ -51,10 +51,10 @@ public class AddClassController {
                 System.out.println("Error connecting to DB!");
                 break;
             case 2:
-                System.out.println("Error Classe!");
+                System.out.println("Error ClasseModel!");
                 break;
             case 0:
-                System.out.println("Unknown Error failed to add Classe");
+                System.out.println("Unknown Error failed to add ClasseModel");
                 break;
             case 1:
                 Notifications.create()

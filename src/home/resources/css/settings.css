@@ -85,4 +85,15 @@
     -fx-cursor: hand
 }
 
+.user-header{
+    -fx-text-fill: #74d9fb;
+    -fx-font-family: "Arabic Typesetting";
+    -fx-font-size: 30px;
+}
+
+.account-owner{
+    -fx-font-family: "Arabic Typesetting";
+    -fx-font-size: 28px;
+}
+
 /* End Error Part */

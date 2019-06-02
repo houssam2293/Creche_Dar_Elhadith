@@ -66,6 +66,9 @@ public class SettingsController extends Component implements Initializable {
     private HBox languageOption;
 
     @FXML
+    private HBox newUserOption;
+
+    @FXML
     private HBox savePoint;
     @FXML
     private VBox changeUsernamePaneFull;
@@ -80,7 +83,7 @@ public class SettingsController extends Component implements Initializable {
     private HBox boxError, saveBox;
 
     @FXML
-    private Label errorLabel;
+    private Label errorLabel,accountUser;
 
     @FXML
     private VBox changeUsernamePane;
@@ -113,6 +116,18 @@ public class SettingsController extends Component implements Initializable {
     private PasswordField verifyPasswordPassPart;
 
     @FXML
+    private VBox addNewUserPane;
+
+    @FXML
+    private TextField newUsernameNewUserPart;
+
+    @FXML
+    private PasswordField newPasswordUserPart;
+
+    @FXML
+    private PasswordField newConfirmationPasswordUserPart;
+
+    @FXML
     private FontAwesomeIconView iconValid;
     @FXML
     private VBox save;
@@ -127,6 +142,7 @@ public class SettingsController extends Component implements Initializable {
     private CompteDB compteDB;
 
 
+
     @FXML
     void btnSave(ActionEvent event) {
         if (changeUsernamePane.isVisible()) {
@@ -137,7 +153,13 @@ public class SettingsController extends Component implements Initializable {
             savePassword();
         } else if (changeLanguagePane.isVisible()) {
             saveLanguage();
+        } else if (addNewUserPane.isVisible()) {
+            addNewUser();
         }
+
+    }
+
+    private void addNewUser() {
 
     }
 
@@ -270,12 +292,20 @@ public class SettingsController extends Component implements Initializable {
         comboLanguage.getSelectionModel().select(0);
         addListenerOption();
         compteDB = new CompteDB();
+        accountUser.setText(currentUser.getLogin());
 
         // max length of username
         newUsernameUserPart.setOnKeyReleased(event -> { // this event for check max length of the answer area
             if (newUsernameUserPart.getText().length() > 25) {
                 newUsernameUserPart.setText(newUsernameUserPart.getText().substring(0, 25));
                 newUsernameUserPart.positionCaret(newUsernameUserPart.getText().length());
+            }
+        });
+
+        newUsernameNewUserPart.setOnKeyReleased(event -> { // this event for check max length of the answer area
+            if (newUsernameNewUserPart.getText().length() > 25) {
+                newUsernameNewUserPart.setText(newUsernameNewUserPart.getText().substring(0, 25));
+                newUsernameNewUserPart.positionCaret(newUsernameNewUserPart.getText().length());
             }
         });
 
@@ -318,6 +348,20 @@ public class SettingsController extends Component implements Initializable {
             }
             showIconPassPart();
         });
+        newPasswordUserPart.setOnKeyReleased(event -> { // this event for check max length of the answer area
+            if (newPasswordUserPart.getText().length() > 50) {
+                newPasswordUserPart.setText(newPasswordUserPart.getText().substring(0, 50));
+                newPasswordUserPart.positionCaret(newPasswordUserPart.getText().length());
+            }
+        });
+        newConfirmationPasswordUserPart.setOnKeyReleased(event -> { // this event for check max length of the answer area
+            if (newConfirmationPasswordUserPart.getText().length() > 50) {
+                newConfirmationPasswordUserPart.setText(newConfirmationPasswordUserPart.getText().substring(0, 50));
+                newConfirmationPasswordUserPart.positionCaret(newConfirmationPasswordUserPart.getText().length());
+            }
+            showIconPassPart();
+        });
+
     }
 
     private void showIconPassPart() {
@@ -339,6 +383,7 @@ public class SettingsController extends Component implements Initializable {
             changeUsernamePane.setVisible(true);
             changeEmailPane.setVisible(false);
             changePasswordPane.setVisible(false);
+            addNewUserPane.setVisible(false);
             changeLanguagePane.setVisible(false);
             save.setVisible(false);
             saveBox.setVisible(true);
@@ -348,8 +393,10 @@ public class SettingsController extends Component implements Initializable {
             passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            newUserOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
             changePasswordPane.setPrefHeight(0);
+            addNewUserPane.setPrefHeight(0);
 
             // Change the text in top selected box
             headerLabel.setText("إسم المستخدم");
@@ -363,6 +410,7 @@ public class SettingsController extends Component implements Initializable {
             changeUsernamePane.setVisible(false);
             changeEmailPane.setVisible(true);
             changePasswordPane.setVisible(false);
+            addNewUserPane.setVisible(false);
             changeLanguagePane.setVisible(false);
             save.setVisible(false);
             saveBox.setVisible(true);
@@ -370,9 +418,11 @@ public class SettingsController extends Component implements Initializable {
             emailOption.getChildren().get(0).setStyle("-fx-font-weight: bold");
             passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            newUserOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
             changePasswordPane.setPrefHeight(0);
+            addNewUserPane.setPrefHeight(0);
 
             // Change the text in top selected box
             headerLabel.setText("البريد الإلكتروني");
@@ -386,6 +436,7 @@ public class SettingsController extends Component implements Initializable {
             changeUsernamePane.setVisible(false);
             changeEmailPane.setVisible(false);
             changePasswordPane.setVisible(true);
+            addNewUserPane.setVisible(false);
             changeLanguagePane.setVisible(false);
             save.setVisible(false);
             saveBox.setVisible(true);
@@ -393,9 +444,11 @@ public class SettingsController extends Component implements Initializable {
             emailOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             passwordOption.getChildren().get(0).setStyle("-fx-font-weight: bold");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            newUserOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
             changePasswordPane.setPrefHeight(252);
+            addNewUserPane.setPrefHeight(0);
 
             // Change the text in top selected box
             headerLabel.setText("كلمة المرور");
@@ -406,11 +459,42 @@ public class SettingsController extends Component implements Initializable {
             currentPasswordPassPart.setText("");
             verifyPasswordPassPart.setText("");
         });
+
+        newUserOption.setOnMouseClicked(e->{
+            System.out.println("Add New User Clicked!");
+            changeUsernamePane.setVisible(false);
+            changeEmailPane.setVisible(false);
+            changePasswordPane.setVisible(false);
+            addNewUserPane.setVisible(true);
+            changeLanguagePane.setVisible(false);
+            save.setVisible(false);
+            saveBox.setVisible(true);
+            usernameOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            emailOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            newUserOption.getChildren().get(0).setStyle("-fx-font-weight: bold");
+            savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            btnCloseErrorMsg();
+            changePasswordPane.setPrefHeight(0);
+            addNewUserPane.setPrefHeight(252);
+
+            // Change the text in top selected box
+            headerLabel.setText("إضافة مستخدم");
+            contentLabel.setText("إضافة مستخدم جديد");
+
+            // Remove value from field
+            newUsernameNewUserPart.setText("");
+            newPasswordUserPart.setText("");
+            newConfirmationPasswordUserPart.setText("");
+        });
+
         savePoint.setOnMouseClicked(e -> {
 
             changeUsernamePane.setVisible(false);
             changeEmailPane.setVisible(false);
             changePasswordPane.setVisible(false);
+            addNewUserPane.setVisible(false);
             changeLanguagePane.setVisible(false);
             saveBox.setVisible(false);
             save.setVisible(true);
@@ -418,9 +502,11 @@ public class SettingsController extends Component implements Initializable {
             emailOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             savePoint.getChildren().get(0).setStyle("-fx-font-weight: bold");
+            newUserOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
             changePasswordPane.setPrefHeight(0);
+            addNewUserPane.setPrefHeight(0);
 
             // Change the text in top selected box
             headerLabel.setText("حفظ البيانات");
@@ -433,16 +519,19 @@ public class SettingsController extends Component implements Initializable {
             changeUsernamePane.setVisible(false);
             changeEmailPane.setVisible(false);
             changePasswordPane.setVisible(false);
+            addNewUserPane.setVisible(false);
             changeLanguagePane.setVisible(true);
             save.setVisible(false);
             saveBox.setVisible(true);
             usernameOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             emailOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            newUserOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: bold");
             savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
             changePasswordPane.setPrefHeight(0);
+            addNewUserPane.setPrefHeight(0);
 
             // Change the text in top selected box
             headerLabel.setText("اللغة");
@@ -461,6 +550,8 @@ public class SettingsController extends Component implements Initializable {
         String filename;
         Stage stg = new Stage();
         FileChooser fc = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("MySql files (*.sql)", "*.sql");
+        fc.getExtensionFilters().add(extFilter);
         File file = fc.showSaveDialog(stg);
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
@@ -485,7 +576,6 @@ public class SettingsController extends Component implements Initializable {
             visitor.setFileName(fileName);
             Files.walkFileTree(startingDir, visitor);
             String filePathe = visitor.getFilePath();
-            System.out.println("mysqldump.exe reside in : " + filePathe);
             Runtime runtime = Runtime.getRuntime();
             p = runtime.exec(filePathe + " -uroot -proot --add-drop-database -B creche_dar_elhadith -r" + path);
 
@@ -507,6 +597,8 @@ public class SettingsController extends Component implements Initializable {
 
         Stage stg = new Stage();
         FileChooser fc = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("MySql files (*.sql)", "*.sql");
+        fc.getExtensionFilters().add(extFilter);
         File file = fc.showOpenDialog(stg);
         //JFileChooser fc = new JFileChooser();
 
@@ -519,8 +611,18 @@ public class SettingsController extends Component implements Initializable {
             //e.printStackTrace();
             e.getMessage();
         }
-
-        String[] restoreCmd = new String[]{"C:\\Program Files\\MySQL\\MySQL Workbench 8.0 CE\\mysql.exe ", "--user=root" , "--password=root" , "-e", "source " + path};
+        Path startingDir = Paths.get("C:\\");
+        String fileName = "mysqldump.exe";
+        FileVisitorImpl visitor = new FileVisitorImpl();
+        visitor.setStartDir(startingDir);
+        visitor.setFileName(fileName);
+        try {
+            Files.walkFileTree(startingDir, visitor);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String filePathe = visitor.getFilePath();
+        String[] restoreCmd = new String[]{filePathe , "--user=root" , "--password=root" , "-e", "source " + path};
         Process runtimProcess;
         try {
             runtimProcess = Runtime.getRuntime().exec(restoreCmd);

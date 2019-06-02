@@ -4,6 +4,7 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import home.dbDir.EleveDB;
 import home.dbDir.EmployeDB;
+import home.java.CryptoUtils;
 import home.java.Eleve;
 import home.java.Employe;
 import home.controllers.ManageEmployeeController;
@@ -33,6 +34,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.controlsfx.control.Notifications;
 
 import java.io.BufferedReader;
@@ -398,12 +400,16 @@ public class ArchiveController implements Initializable {
     private void updateTable(String nome) {
         archv = new ArrayList<>();
         archvElv = new ArrayList<>();
+        String key = DigestUtils.shaHex("Bechlaghem Mohammed Sends His Regards!").substring(8);
 
         ObservableList<TableEmployee> employes = FXCollections.observableArrayList();
         ObservableList<TableEleve> eleves =FXCollections.observableArrayList();
         try {
-            File file = new File("D:\\Creche darelhadith\\Archive\\"+nome+".txt");
-            FileReader reader = new FileReader(file);
+            File file = new File(System.getenv("APPDATA")+"\\Archive creche darelhadith\\"+nome+".encrypted");
+            File decryptedFile = new File(file.getParent()+"\\"+nome+".txt");
+            CryptoUtils.decrypt(key,file,decryptedFile);
+            System.out.println("Decryption working great!");
+            FileReader reader = new FileReader(decryptedFile);
             BufferedReader li=new BufferedReader(reader);
             String line;
             int i=0;
@@ -536,7 +542,7 @@ public class ArchiveController implements Initializable {
 
             }
             reader.close();
-
+            decryptedFile.delete();
 
         }
         catch (Exception e)

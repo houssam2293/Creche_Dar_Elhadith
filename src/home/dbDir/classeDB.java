@@ -1,6 +1,6 @@
 package home.dbDir;
 
-import home.java.Classe;
+import home.java.ClasseModel;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,20 +8,20 @@ import java.util.List;
 
 public class classeDB {
 
-    public List<Classe> getClasse() {
+    public List<ClasseModel> getClasse() {
         Connection connection = new ConnectionClasse().getConnection();
         if (connection == null) {
             return null;
         }
         String sql = "select * from Classe";
-        List<Classe> classes = new ArrayList<>();
+        List<ClasseModel> classes = new ArrayList<>();
 
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                classes.add(new Classe(
+                classes.add(new ClasseModel(
                         resultSet.getInt("id"),
                         resultSet.getString("ClassNam"),
                         resultSet.getString("ClassRom"),
@@ -45,7 +45,7 @@ public class classeDB {
         try {
             st = con.createStatement();
             String sql = "DELETE FROM `Classe` WHERE `ClassNam`='" + ClassNam + "';";
-           // String sql = "DELETE FROM Classe WHERE `ClassNam`=" + ClassNam + ";";
+           // String sql = "DELETE FROM ClasseModel WHERE `ClassNam`=" + ClassNam + ";";
             st.executeUpdate(sql);
             //TODO when the database is done add the cascade to delete the instance from all of the tables
             return 1;
@@ -57,8 +57,8 @@ public class classeDB {
 
     }
 
-    public int addClasse(Classe cls) {
-        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`Classe` ( `id`, `ClassNam`, `ClassRom`, `maxNbrElev`, `remarque`");
+    public int addClasse(ClasseModel cls) {
+        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`ClasseModel` ( `id`, `ClassNam`, `ClassRom`, `maxNbrElev`, `remarque`");
         Connection connection = null;
         Statement st = null;
 
@@ -122,8 +122,8 @@ public class classeDB {
             return true;
         }
     }
-    public int editEmployee(Classe clss) {
-        StringBuilder sql = new StringBuilder("UPDATE `Classe` SET ");
+    public int editEmployee(ClasseModel clss) {
+        StringBuilder sql = new StringBuilder("UPDATE `ClasseModel` SET ");
         Connection con = null;
         Statement st = null;
 

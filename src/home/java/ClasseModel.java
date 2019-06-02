@@ -2,7 +2,7 @@ package home.java;
 
 
 
-public class Classe {
+public class ClasseModel {
     private int Id;
     private String ClassNam;
     private String ClassRom;
@@ -10,10 +10,10 @@ public class Classe {
     private String remarque;
 
 
-    public Classe (){
+    public ClasseModel(){
 
     }
-    public Classe (int Id,String ClassNam,String ClassRom,int maxNbrElev,String remarque){
+    public ClasseModel(int Id, String ClassNam, String ClassRom, int maxNbrElev, String remarque){
         this.Id=Id;
         this.ClassNam=ClassNam;
         this.ClassRom=ClassRom;

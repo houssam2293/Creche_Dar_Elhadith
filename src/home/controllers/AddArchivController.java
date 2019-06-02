@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
 import home.dbDir.EleveDB;
 import home.dbDir.EmployeDB;
+import home.java.CryptoUtils;
 import home.java.Eleve;
 import home.java.Employe;
 import javafx.event.ActionEvent;
@@ -13,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -56,11 +58,12 @@ public class AddArchivController  implements Initializable {
 
     @FXML
     public void NewArchiv(ActionEvent actionEvent) throws IOException {
-        File dir = new File ("c:\\Archive creche darelhadith");
+        String key = DigestUtils.shaHex("Bechlaghem Mohammed Sends His Regards!").substring(8);
+        File dir = new File (System.getenv("APPDATA")+"\\Archive creche darelhadith");
         dir.mkdir();
         String nom= yearSelect.getSelectionModel().getSelectedItem();
         System.out.println(nom);
-        File file = new File("c:\\Archive creche darelhadith\\"+nom+".txt");
+        File file = new File(System.getenv("APPDATA")+"\\Archive creche darelhadith\\"+nom+".txt");
         FileWriter writer = new FileWriter(file);
         if (file.exists()) {
             System.out.println("File exists");
@@ -134,6 +137,16 @@ public class AddArchivController  implements Initializable {
 
 
         }
+
+        File encryptedFile = new File(file.getParent()+"\\"+nom+".encrypted");
+
+        try {
+            CryptoUtils.encrypt(key, file, encryptedFile);
+        } catch (CryptoUtils.CryptoException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+        file.delete();
         ((Stage) addArchiv.getScene().getWindow()).close();
     }
 

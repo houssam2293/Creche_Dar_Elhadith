@@ -1,10 +1,11 @@
 package home.controllers;
 
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXColorPicker;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.*;
 import home.dbDir.CalendarDB;
+import home.dbDir.classeDB;
+import home.java.ClasseCellFactory;
+import home.java.ClasseModel;
+import home.java.CryptoUtils;
 import home.java.ModelCalendar;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -20,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,11 +33,16 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
-import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
 import org.controlsfx.control.Notifications;
 
+import javax.crypto.Cipher;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -84,6 +91,14 @@ public class CalendarController implements Initializable {
     @FXML
     private JFXButton loadCalendar;
 
+    @FXML
+    private JFXTabPane utilityTab,contentTab;
+
+    @FXML
+    private JFXButton addTimebtn, editTimebtn, printTimebtn;
+
+    @FXML
+    private ListView<ClasseModel> classeListView;
 
     @FXML
     private JFXComboBox<String> selectedYear;
@@ -119,6 +134,30 @@ public class CalendarController implements Initializable {
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
         calendarDB = new CalendarDB();
+
+        utilityTab.setOnMouseClicked(e->{
+            if (utilityTab.getSelectionModel().isSelected(2)) {
+                contentTab.getSelectionModel().select(1);
+            } else {
+                contentTab.getSelectionModel().select(0);
+            }
+        });
+        contentTab.setOnMouseClicked(event ->{
+            if (contentTab.getSelectionModel().isSelected(1)) {
+                utilityTab.getSelectionModel().select(2);
+            } else {
+                utilityTab.getSelectionModel().select(0);
+            }
+        });
+
+        List<ClasseModel> clsDB = new classeDB().getClasse();
+        ArrayList<ClasseModel> classeModels = new ArrayList<>(clsDB);
+        classeListView.getItems().addAll(classeModels);
+        classeListView.setCellFactory(new ClasseCellFactory());
+        classeListView.setOnMouseClicked(event -> {
+            ClasseModel classe = classeListView.getSelectionModel().getSelectedItem();
+            enableButtons(classe);
+        });
 
         initializeCalendarGrid();
         initializeCalendarWeekdayHeader();
@@ -267,12 +306,12 @@ public class CalendarController implements Initializable {
         //styles
         HSSFFont headerFont = wb.createFont();
         headerFont.setBold(true);
-        headerFont.setFontHeight((short) (16*20));
+        headerFont.setFontHeight((short) (16 * 20));
         headerFont.setColor(IndexedColors.WHITE.getIndex());
 
         HSSFFont font = wb.createFont();
         font.setBold(true);
-        font.setFontHeight((short) (16*20));
+        font.setFontHeight((short) (16 * 20));
 
 
         HSSFCellStyle cellStyleBorderTopRight = wb.createCellStyle();
@@ -1039,6 +1078,43 @@ public class CalendarController implements Initializable {
         blue = colors[2];
         c = Color.rgb(Integer.parseInt(red), Integer.parseInt(green), Integer.parseInt(blue));
         jeuxCP.setValue(c);
+    }
+
+    private void enableButtons(ClasseModel classe) {
+        addTimebtn.setDisable(false);
+        editTimebtn.setDisable(false);
+        printTimebtn.setDisable(false);
+    }
+
+    @FXML
+    void printTimeTable(ActionEvent event) {
+
+        String key = DigestUtils.shaHex("Bechlaghem Mohammed Sends His Regards!").substring(8);
+        FileChooser fileChooser = new FileChooser();
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("text files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File inputFile = fileChooser.showOpenDialog(new Stage());
+        System.out.println(inputFile.getName());
+        File encryptedFile = new File(inputFile.getParent()+"\\document.encrypted");
+        File decryptedFile = new File(inputFile.getParent()+"\\document.decrypted.txt");
+        try {
+            CryptoUtils.encrypt(key, inputFile, encryptedFile);
+            CryptoUtils.decrypt(key, encryptedFile, decryptedFile);
+        } catch (CryptoUtils.CryptoException ex) {
+            System.out.println(ex.getMessage());
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    void editTimeTable(ActionEvent event) {
+
+    }
+
+    @FXML
+    void addTimeTable(ActionEvent event) {
+
     }
 
     void reloadStage() throws IOException {
