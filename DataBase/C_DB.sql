@@ -138,5 +138,6 @@ CREATE TABLE `creche_dar_elhadith`.`images` (
   `idimages` INT NOT NULL AUTO_INCREMENT,
   `imageName` VARCHAR(45) NOT NULL,
   `studentInimage` VARCHAR(45) NOT NULL,
-  `image` MEDIUMBLOB NOT NULL,
-  PRIMARY KEY (`idimages`, `imageName`, `studentInimage`));
+  `imagesExtension` VARCHAR(4) NOT NULL,
+  `imageClasse` VARCHAR(22) NOT NULL,
+  PRIMARY KEY (`idimages`, `imageName`, `studentInimage`, `imagesExtension`));

@@ -5,9 +5,6 @@ import java.util.Date;
 
 
 public class Eleve {
-    private final static Eleve inctance = new Eleve();
-
-    public static Eleve getInstance() {return inctance;}
 
 
     private int Id;

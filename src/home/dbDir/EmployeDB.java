@@ -45,6 +45,12 @@ public class EmployeDB {
 
         } catch (SQLException ex) {
             return null;
+        } finally {
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
 
         return employes;

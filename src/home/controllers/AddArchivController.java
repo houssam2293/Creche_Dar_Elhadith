@@ -58,12 +58,12 @@ public class AddArchivController  implements Initializable {
 
     @FXML
     public void NewArchiv(ActionEvent actionEvent) throws IOException {
-        String key = DigestUtils.shaHex("Bechlaghem Mohammed Sends His Regards!").substring(8);
-        File dir = new File (System.getenv("APPDATA")+"\\Archive creche darelhadith");
-        dir.mkdir();
         String nom= yearSelect.getSelectionModel().getSelectedItem();
+        String key = DigestUtils.shaHex("Bechlaghem Mohammed Sends His Regards!").substring(8);
+        File dir = new File (System.getenv("APPDATA")+"\\Archive creche darelhadith\\"+nom);
+        dir.mkdir();
         System.out.println(nom);
-        File file = new File(System.getenv("APPDATA")+"\\Archive creche darelhadith\\"+nom+".txt");
+        File file = new File(System.getenv("APPDATA")+"\\Archive creche darelhadith\\"+nom+"\\"+nom+".txt");
         FileWriter writer = new FileWriter(file);
         if (file.exists()) {
             System.out.println("File exists");

@@ -18,8 +18,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -44,6 +48,11 @@ public class loginController implements Initializable {
     private String pass, username;
 
     private CompteDB compteDB;
+
+    @FXML
+    private AnchorPane root;
+
+
 
     @FXML
     private RadioButton francais_radio;
@@ -83,6 +92,9 @@ public class loginController implements Initializable {
 
         }
     }
+
+
+
 
     @FXML
     void btnClose() {
@@ -125,7 +137,7 @@ public class loginController implements Initializable {
 
 
     private boolean checkPass() {
-        boolean check= false;
+        boolean check = false;
         List<Compte> accounts = compteDB.getAccounts();
         if (!accounts.isEmpty()) {
             for (Compte compte : accounts) {
@@ -133,7 +145,7 @@ public class loginController implements Initializable {
                         && compte.getPassword().equals(DigestUtils.shaHex(password.getText()))) {
                     username = compte.getLogin();
                     pass = compte.getPassword();
-                    check=true;
+                    check = true;
                     SettingsController.currentUser = compte;
                 }
             }

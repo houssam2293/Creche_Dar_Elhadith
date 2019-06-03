@@ -90,8 +90,7 @@ public class MainController implements Initializable {
 
     private final byte NUMBER_IMAGE_SLIDER = 3;
     private int counter = 1;
-    static final boolean saved=true;
-    private boolean dataSavedThisMonth;
+    private boolean dataSavedThisMonth=true;
 
     public MainController() {
     }
@@ -261,9 +260,7 @@ public class MainController implements Initializable {
         styleBox(0);
 
         String date = new SimpleDateFormat("dd").format(new Date());
-        if (date.compareTo("27") == 0)
-            dataSavedThisMonth = !saved;
-        if (!dataSavedThisMonth && date.compareTo("31") == 0) {
+        if (date.compareTo("01") == 0) {
             JFXDialogLayout content = new JFXDialogLayout();
             Text headerText = new Text("حفظ البيانات عملية\n\n");
             Text contentText = new Text("يرجى حفظ ملف قاعدة البيانات على فلاشة \n\n(في حالة تلف أو ضياع البيانات يمكنك استرجاعها من هذا الملف )");
@@ -279,7 +276,6 @@ public class MainController implements Initializable {
             btnOk.setOnAction(e -> {
                 dialog.close();
                 saveData();
-                dataSavedThisMonth = true;
             });
 
             JFXButton btnNo = new JFXButton("لا");
@@ -335,18 +331,7 @@ public class MainController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        double x = Screen.getPrimary().getVisualBounds().getWidth();
-        double y = Screen.getPrimary().getVisualBounds().getHeight();
-        settingsPane.setPrefSize(x, y);
-        manageEmployePane.setPrefSize(x, y);
-        tracPane.setPrefSize(x, y);
-        calendarPane.setPrefSize(x, y);
-        manageStudentPane.setPrefSize(x, y);
-        archiv.setPrefSize(x, y);
-        stock.setPrefSize(x, y);
-        // pointag.setPrefSize(x, y);
-        images.setPrefSize(x, y);
-        classePane.setPrefSize(x, y);
+
     }
 
     private void setNode(Node node) {

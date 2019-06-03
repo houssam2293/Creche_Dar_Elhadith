@@ -282,7 +282,7 @@ public class EleveDB {
     }
 
 
-    public boolean eleveExist(int id) {
+    private boolean eleveExist(int id) {
         Connection con = new ConnectionClasse().getConnection();
         if (con == null) // if connection failed
         {

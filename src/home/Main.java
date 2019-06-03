@@ -22,6 +22,7 @@ public class Main extends Application {
         launch(args);
     }
 
+
     @Override
     public void start(Stage primaryStage) {
         InputStream input = null;
@@ -73,7 +74,7 @@ public class Main extends Application {
 
                     } else {
 
-                        Parent root = FXMLLoader.load(getClass().getResource("resources/fxml/login.fxml"));
+                        Parent root = FXMLLoader.load(getClass().getResource("resources/fxml/preLoadLogin.fxml"));
                         primaryStage.setTitle("مؤسسة دار الحديث");
                         primaryStage.getIcons().add(new Image("/home/resources/icons/icon.png"));
                         primaryStage.setResizable(false);

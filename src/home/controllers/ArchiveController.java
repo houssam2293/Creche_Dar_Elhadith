@@ -153,7 +153,7 @@ public class ArchiveController implements Initializable {
     @FXML // Cols of table
     public JFXTreeTableColumn<TableEleve, String> idCole, firstnameCole,classRoomCol, lastNameCole,
             dateOfBirthCole, placeOfBirthCole, jobCole, addressCol,remarqueCol, phoneCol;
-    public static JFXDialog addUserDialog, editUserDialog;
+    public static JFXDialog addUserDialog;
 
     ArrayList<Employe> archv;
     ArrayList<Eleve> archvElv ;
@@ -405,7 +405,7 @@ public class ArchiveController implements Initializable {
         ObservableList<TableEmployee> employes = FXCollections.observableArrayList();
         ObservableList<TableEleve> eleves =FXCollections.observableArrayList();
         try {
-            File file = new File(System.getenv("APPDATA")+"\\Archive creche darelhadith\\"+nome+".encrypted");
+            File file = new File(System.getenv("APPDATA")+"\\Archive creche darelhadith\\"+nome+"\\"+nome+".encrypted");
             File decryptedFile = new File(file.getParent()+"\\"+nome+".txt");
             CryptoUtils.decrypt(key,file,decryptedFile);
             System.out.println("Decryption working great!");

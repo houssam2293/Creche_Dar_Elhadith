@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<StackPane fx:id="root" prefHeight="512.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.PreLoadLogin">
+    <AnchorPane fx:id="holderPane" prefHeight="515.0" prefWidth="718.0">
+        <ImageView fx:id="imageView" fitHeight="538.0" fitWidth="722.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Image url="@../images/02.jpg" />
+        </ImageView>
+        <Pane layoutX="1.0" layoutY="158.0" prefHeight="154.0" prefWidth="717.0" AnchorPane.bottomAnchor="226.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="158.0">
+            <Pane opacity="0.61" prefHeight="154.0" prefWidth="717.0" style="-fx-background-color: black;" />
+            <Label layoutX="189.0" layoutY="13.0" prefHeight="123.0" prefWidth="389.0" text="جمعية دار الحديث">
+                <textFill>
+                    <LinearGradient>
+                        <stops>
+                            <Stop color="#4d7dfa" />
+                            <Stop color="#5470ff" offset="1.0" />
+                        </stops>
+                    </LinearGradient>
+                </textFill>
+                <font>
+                    <Font size="48.0" />
+                </font>
+            </Label>
+        </Pane>
+        <ProgressBar fx:id="progresse" layoutX="89.0" layoutY="424.0" prefHeight="11.0" prefWidth="544.0" progress="0.0" />
+    </AnchorPane>
+</StackPane>
