@@ -62,7 +62,7 @@ public class NodePrinter {
             Node oldClip = node.getClip();
             List<Transform> oldTransforms = new ArrayList<>(node.getTransforms());
             // set the printingRectangle bounds as clip
-            node.setClip(new javafx.scene.shape.Rectangle(printRectX, printRectY,
+            node.setClip(new Rectangle(printRectX, printRectY,
                     printRectWith, printRectHeight));
 
             int columns = printInfo.getColumnCount();
@@ -139,7 +139,7 @@ public class NodePrinter {
 
     /**
      * Determines the scale and the number of rows and columns needed to print the determined contents of the component
-     * @param pageLayout the {@link javafx.print.PageLayout} that defines the printable area of a page.
+     * @param pageLayout the {@link PageLayout} that defines the printable area of a page.
      * @return a PrintInfo instance that encapsulates the computed values for scale, number of rows and columns.
      */
     public PrintInfo getPrintInfo(final PageLayout pageLayout) {
@@ -161,7 +161,7 @@ public class NodePrinter {
     }
 
     /**
-     * Encapsulates information for printing with a specific {@link javafx.print.PageLayout},
+     * Encapsulates information for printing with a specific {@link PageLayout},
      * i.e. the scale dependent on the screen DPI as well as the number of rows and columns for poster printing.
      */
     public static class PrintInfo {
@@ -172,8 +172,8 @@ public class NodePrinter {
         /**
          * Constructs a new PrintInfo instance.
          * @param scale The scale of the content.
-         * @param rowCount The number of rows that are needed to print the content completely with the {@link javafx.print.PageLayout}.
-         * @param columnCount The number of columns that are needed to print the content completely with the {@link javafx.print.PageLayout}.
+         * @param rowCount The number of rows that are needed to print the content completely with the {@link PageLayout}.
+         * @param columnCount The number of columns that are needed to print the content completely with the {@link PageLayout}.
          */
         public PrintInfo(final double scale, final int rowCount, final int columnCount) {
             this.scale = scale;

@@ -2,12 +2,13 @@ package home.controllers;
 
 import de.jensd.fx.glyphs.emojione.EmojiOneView;
 import de.jensd.fx.glyphs.icons525.Icons525View;
+import home.dbDir.ClasseDB;
 import home.dbDir.EleveDB;
+import home.java.ClasseCellFactory;
+import home.java.ClasseModel;
 import home.java.Eleve;
 import home.java.EleveCellFactory;
 import javafx.animation.FadeTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -42,7 +43,7 @@ public class TraitmentImage implements Initializable {
     private HBox controllBox;
 
     @FXML
-    private ListView<String> classeListview;
+    private ListView<ClasseModel> classeListview;
 
     @FXML
     private ListView<Eleve> studentListview;
@@ -65,10 +66,6 @@ public class TraitmentImage implements Initializable {
     private Image selectedImage = null;
 
     private String selectedClasse;
-    private ObservableList<String> classes =
-            FXCollections.observableArrayList(
-                    "C01", "C02", "C03", "C04", "C05", "C06", "C07", "C08", "C09", "C10", "C11", "C12"
-            );
 
     @FXML
     void btnAnnuler() {
@@ -76,30 +73,36 @@ public class TraitmentImage implements Initializable {
         controllBox.setVisible(false);
         studentListview.getItems().clear();
         studentListview.setVisible(false);
-        classeListview.setItems(classes);
+        classeListview.getItems().clear();
+        List<ClasseModel> clsDB = new ClasseDB().getClasse();
+        ArrayList<ClasseModel> classes = new ArrayList<>(clsDB);
+        classeListview.getItems().addAll(classes);
+        classeListview.setCellFactory(new ClasseCellFactory());
         classeListview.setVisible(true);
         listViewsLabel.setText("الأقسام");
     }
 
     @FXML
     void btnShow() {
-        print.setDisable(false);
-        print.setFill(Paint.valueOf("#2196f3"));
-        controllBox.setVisible(true);
-        listViewsLabel.setText("تلاميذ القسم");
-        studentListview.getItems().clear();
-        selectedClasse = classeListview.getSelectionModel().getSelectedItem();
-        List<Eleve> eleves = eleveDB.getEleveDeClasse(selectedClasse);
-        ArrayList<Eleve> students = new ArrayList<>(eleves);
-        classeListview.setVisible(false);
-        studentListview.getItems().addAll(students);
-        studentListview.setCellFactory(new EleveCellFactory());
-        studentListview.setVisible(true);
-        studentListview.setOnMouseClicked(event -> {
-            selected = studentListview.getSelectionModel().getSelectedItem();
-            loadScene(selected);
-        });
+        if (!classeListview.getSelectionModel().isEmpty()) {
+            print.setDisable(false);
+            print.setFill(Paint.valueOf("#2196f3"));
+            controllBox.setVisible(true);
+            listViewsLabel.setText("تلاميذ القسم");
+            studentListview.getItems().clear();
+            selectedClasse = classeListview.getSelectionModel().getSelectedItem().getClassNam();
+            List<Eleve> eleves = eleveDB.getEleveDeClasse(selectedClasse);
+            ArrayList<Eleve> students = new ArrayList<>(eleves);
+            classeListview.setVisible(false);
+            studentListview.getItems().addAll(students);
+            studentListview.setCellFactory(new EleveCellFactory());
+            studentListview.setVisible(true);
+            studentListview.setOnMouseClicked(event -> {
+                selected = studentListview.getSelectionModel().getSelectedItem();
+                loadScene(selected);
+            });
 
+        }
 
     }
 
@@ -195,8 +198,10 @@ public class TraitmentImage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        classeListview.setItems(classes);
+        List<ClasseModel> clsDB = new ClasseDB().getClasse();
+        ArrayList<ClasseModel> classes = new ArrayList<>(clsDB);
+        classeListview.getItems().addAll(classes);
+        classeListview.setCellFactory(new ClasseCellFactory());
         eleveDB = new EleveDB();
         Tooltip printTooltip, nextTooltip, previousTooltip, lastTooltip, firstTooltip, addImageTooltip, deleteImageTooltip;
         printTooltip = new Tooltip(" طباعة");

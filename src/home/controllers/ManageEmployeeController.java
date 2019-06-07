@@ -30,6 +30,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static home.controllers.EditEmployeeFormController.employeeSelected;
+import static home.controllers.employePaymentController.paidEmploye;
 
 
 public class ManageEmployeeController implements Initializable {
@@ -58,7 +59,7 @@ public class ManageEmployeeController implements Initializable {
             dateOfBirthCol, placeOfBirthCol, jobCol, addressCol, phoneCol, socialSecurNumbCol,
             diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, regimCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol;
 
-    static JFXDialog addUserDialog, editUserDialog;
+    static JFXDialog addUserDialog, editUserDialog, paymentUserDialog;
 
 
     @Override
@@ -80,6 +81,37 @@ public class ManageEmployeeController implements Initializable {
         }
         addUserDialog = getSpecialDialog(addUserPane);
         addUserDialog.show();
+    }
+
+    @FXML
+    void money() {
+        errorLabel.setText("");
+        int index = treeTableView.getSelectionModel().getSelectedIndex(); // selected index
+        String id = idCol.getCellData(index);
+        if (id == null) {
+            System.out.println("Index is null !");
+            Notifications.create()
+                    .title("يرجى تحديد الحقل المراد تحديثه                                ")
+                    .darkStyle()
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showWarning();
+            return;
+        }
+        paidEmploye = new Employe();
+        paidEmploye.setId(Integer.parseInt(id));
+        paidEmploye.setNom(lastNameCol.getCellData(index));
+
+
+        AnchorPane paymentUserPane = null;
+        try {
+            paymentUserPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/employePayment.fxml"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        paymentUserDialog = getSpecialDialog(paymentUserPane);
+        paymentUserDialog.show();
+
     }
 
     @FXML

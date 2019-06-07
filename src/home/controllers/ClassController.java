@@ -3,8 +3,8 @@ package home.controllers;
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import de.jensd.fx.glyphs.emojione.EmojiOneView;
+import home.dbDir.ClasseDB;
 import home.dbDir.EleveDB;
-import home.dbDir.classeDB;
 import home.java.ClasseModel;
 import home.java.Eleve;
 import javafx.beans.property.SimpleStringProperty;
@@ -68,7 +68,7 @@ public class ClassController implements Initializable {
 
 
     public void initialize(URL location, ResourceBundle resources) {
-        List<ClasseModel> clsDB = new classeDB().getClasse();
+        List<ClasseModel> clsDB = new ClasseDB().getClasse();
         if (clsDB == null) {
             System.out.println("Connection Failed !");
         } else {
@@ -108,7 +108,7 @@ public class ClassController implements Initializable {
                     .showWarning();
             return;
         }
-        List<ClasseModel> clsDB = new classeDB().getClasse();
+        List<ClasseModel> clsDB = new ClasseDB().getClasse();
         if (clsDB == null) {
             System.out.println("Connection Failed !");
         } else {
@@ -176,7 +176,7 @@ public class ClassController implements Initializable {
 
         JFXButton btnOk = new JFXButton("نعم");
         btnOk.setOnAction(e -> {
-            int status =  new classeDB().removClasse(clss);
+            int status = new ClasseDB().removClasse(clss);
             System.out.println("status : " + status);
             if (status == -1) {
                 System.out.println("Connection Failed !");
@@ -302,7 +302,7 @@ public class ClassController implements Initializable {
     @FXML
     private void updateListview() {
         ClassSelect.getItems().clear();
-        List<ClasseModel> clsDB = new classeDB().getClasse();
+        List<ClasseModel> clsDB = new ClasseDB().getClasse();
         if (clsDB == null) {
             System.out.println("Connection Failed !");
         } else {

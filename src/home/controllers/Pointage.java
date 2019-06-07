@@ -63,7 +63,7 @@ public class Pointage implements Initializable {
     private JFXComboBox<String> combo;
 
     @FXML
-    private TableView tableview;
+    private TableView<PointageModel> tableview;
     static JFXDialog listeAbsences;
     private ObservableList<PointageModel> data ;
     private TableColumn idCol,fullNameCol,jobCol,timeEntCol,remarqCol,actionCol;
@@ -72,15 +72,24 @@ public class Pointage implements Initializable {
 
     @FXML
     void confirm(ActionEvent event) {
+
+        ObservableList<PointageModel> person = tableview.getSelectionModel().getSelectedItems();
+        if (person.isEmpty()) {
+            System.out.println("Liste is null !");
+            Notifications.create()
+                    .title("يرجى تحديد العامل                   ")
+                    .darkStyle()
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showWarning();
+            return;
+        }
         int i = 0;
-        for(PointageModel poi : data) //insertion des données a BDD
+        for (PointageModel poi : person) //insertion des données a BDD
         {
             i = new PointageDB().addPointage(poi);
 
         }
-                    /* System.out.println("l'id est"+poi.getId()+" nom:"+poi.getFirstName()+ "emploie est:"+poi.getLastName() +" temp entrée:"+poi.getTempEnt().getValue().toString().substring(0,5)+
-                                "  la remarque est:"+poi.getRemarkk().getText()+"est absent aujourdh'ui");*/
-
         donneSaved = true; // si les donnée sont stocké dans BDD
         switch (i) {
             case -1:System.out.println("Error connecting to DB!");
@@ -118,6 +127,7 @@ public class Pointage implements Initializable {
         //  dialog.setOnDialogClosed((event) -> updateTable());
         return dialog;
     }
+
     @FXML
     void sortir(ActionEvent event) {
         if (!donneSaved){
@@ -186,6 +196,8 @@ public class Pointage implements Initializable {
         clock.play();
 
     }
+
+
     private void initializeTable() {
 
         idCol = new TableColumn("رقم التسجيل");

@@ -1,7 +1,7 @@
 package home.controllers;
 
 import com.jfoenix.controls.JFXTextField;
-import home.dbDir.classeDB;
+import home.dbDir.ClasseDB;
 import home.java.ClasseModel;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -45,7 +45,7 @@ public class AddClassController {
         cls.setmaxNbrElev(Integer.valueOf(maxNbrElev.getText()));
         cls.setremarque(remarque.getText().trim().toLowerCase());
 
-        int status = new classeDB().addClasse(cls);
+        int status = new ClasseDB().addClasse(cls);
         switch (status) {
             case -1:
                 System.out.println("Error connecting to DB!");

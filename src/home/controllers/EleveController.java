@@ -9,25 +9,21 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Tooltip;
+import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
-import sun.plugin.javascript.navig.Anchor;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,18 +32,16 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import static home.controllers.EditEleveFormController.eleveSelected;
-import static home.controllers.ficheEleveController.eleveFiled;
 import static home.controllers.EleveRemarqueController.notedEleve;
+import static home.controllers.elevePaymentController.paidEleve;
+import static home.controllers.elevePrintController.elevePrinted;
+import static home.controllers.ficheEleveController.eleveFiled;
+
 
 
 public class EleveController<Adding> implements Initializable {
 
-    ObservableList<String> options =
-            FXCollections.observableArrayList(
-                    "رقم التسجيل", "الجنس","الإسم", "اللقب", "القسم", "تاريخ الملاد", "مكان الملاد", "الهاتف", "ملاحظات", "العنوان",
-                    "السنة الدراسية", "النظام", "اسم الأب", "اسم الأم", "لقب الأم"
-                    , "مهنة الأب", "مهنة الأم", "وكيل", "مرض"
-            );
+    public static JFXDialog addUserDialog, editUserDialog, notesUserDialog, fileUserDialog, paymentUserDialog, printUserDialog;
 
     @FXML
     private StackPane root;
@@ -73,24 +67,29 @@ public class EleveController<Adding> implements Initializable {
     private JFXButton Marker;
     @FXML
     private JFXButton Printer;
-
-    @FXML
-    private JFXComboBox<String> combo;
-
     @FXML // Cols of table
     public JFXTreeTableColumn<TableEleve, String> idCol, genderCol, firstnameCol, lastNameCol, classRoomCol,
             dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, remarqueCol,
             schoolYearCol, regimeCol, nameFatherCol, nameMotherCol, lastNameMotherCol, workFatherCol, workMotherCol,
-            wakilCol, maladieCol;
+            wakilCol, maladieCol, tranchesCol, montantRestantCol;
 
-    public static JFXDialog addUserDialog, editUserDialog, notesUserDialog, fileUserDialog;
+    @FXML
+    private JFXComboBox<String> combo;
+    ObservableList<String> options =
+            FXCollections.observableArrayList(
+                    "رقم التسجيل", "الجنس", "الإسم", "اللقب", "القسم", "تاريخ الملاد", "مكان الملاد", "الهاتف", "ملاحظات", "العنوان",
+                    "السنة الدراسية", "النظام", "اسم الأب", "اسم الأم", "لقب الأم"
+                    , "مهنة الأب", "مهنة الأم", "وكيل", "مرض", "قطع"
+            );
+    @FXML
+    private JFXButton Money;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         //combo.setItems(options);
-        combo.getItems().addAll(new String[]{"رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد",
-                "مكان الملاد", "القسم", "العنوان", "الهاتف", "ملاحظات"});
+        combo.getItems().addAll("رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد",
+                "مكان الملاد", "القسم", "العنوان", "الهاتف", "ملاحظات", "قطع");
         initializeTable();
 
         Refresher.setTooltip(new Tooltip("تحديث"));
@@ -100,6 +99,7 @@ public class EleveController<Adding> implements Initializable {
         Ficher.setTooltip(new Tooltip("بطاقة"));
         Marker.setTooltip(new Tooltip("ملاحظة"));
         Printer.setTooltip(new Tooltip("طبع"));
+        Money.setTooltip(new Tooltip("دفع"));
     }
 
 
@@ -142,7 +142,7 @@ public class EleveController<Adding> implements Initializable {
         eleveSelected.setAdresse(addressCol.getCellData(index));
         eleveSelected.setPhone(phoneCol.getCellData(index));
         eleveSelected.setRemarque(remarqueCol.getCellData(index));
-        eleveSelected.setAnneeScolaire(schoolYearCol.getCellData(index));
+        eleveSelected.setAnneeScolaire(Integer.parseInt(schoolYearCol.getCellData(index)));
         eleveSelected.setRegime(regimeCol.getCellData(index));
         eleveSelected.setPrenomPere(nameFatherCol.getCellData(index));
         eleveSelected.setPrenomMere(nameMotherCol.getCellData(index));
@@ -252,7 +252,7 @@ public class EleveController<Adding> implements Initializable {
         eleveFiled.setAdresse(addressCol.getCellData(index));
         eleveFiled.setPhone(phoneCol.getCellData(index));
         eleveFiled.setRemarque(remarqueCol.getCellData(index));
-        eleveFiled.setAnneeScolaire(schoolYearCol.getCellData(index));
+        eleveFiled.setAnneeScolaire(Integer.parseInt(schoolYearCol.getCellData(index)));
         eleveFiled.setRegime(regimeCol.getCellData(index));
         eleveFiled.setPrenomPere(nameFatherCol.getCellData(index));
         eleveFiled.setPrenomMere(nameMotherCol.getCellData(index));
@@ -305,6 +305,88 @@ public class EleveController<Adding> implements Initializable {
         notesUserDialog.show();
     }
 
+    @FXML
+    public void print(ActionEvent actionEvent) {
+        errorLabel.setText("");
+        int index = treeTableView.getSelectionModel().getSelectedIndex(); // selected index
+        String id = idCol.getCellData(index);
+        if (id == null) {
+            System.out.println("Index is null !");
+            Notifications.create()
+                    .title("يرجى تحديد الحقل المراد تحديثه                                ")
+                    .darkStyle()
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showWarning();
+            return;
+        }
+
+        elevePrinted = new Eleve();
+        elevePrinted.setId(Integer.parseInt(id));
+        elevePrinted.setPrenom(firstnameCol.getCellData(index));
+        elevePrinted.setNom(lastNameCol.getCellData(index));
+        elevePrinted.setClasse(classRoomCol.getCellData(index));
+        elevePrinted.setAdresse(addressCol.getCellData(index));
+        elevePrinted.setPhone(phoneCol.getCellData(index));
+
+
+        AnchorPane printElevePane = null;
+        try {
+            printElevePane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/elevePrintForm.fxml"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        printUserDialog = getSpecialDialog(printElevePane);
+        printUserDialog.show();
+    }
+
+
+    @FXML
+    public void payerTranche(ActionEvent actionEvent) {
+
+        errorLabel.setText("");
+        int index = treeTableView.getSelectionModel().getSelectedIndex(); // selected index
+        String id = idCol.getCellData(index);
+        String tranches = tranchesCol.getCellData(index);
+        String montantRestant = montantRestantCol.getCellData(index);
+        if (id == null) {
+            System.out.println("Index is null !");
+            Notifications.create()
+                    .title("يرجى تحديد الحقل المراد تحديثه                                ")
+                    .darkStyle()
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showWarning();
+            return;
+        }
+        paidEleve = new Eleve();
+        paidEleve.setId(Integer.parseInt(id));
+        paidEleve.setNom(lastNameCol.getCellData(index));
+        paidEleve.setTranches(Integer.parseInt(tranches));
+        paidEleve.setMontantRestant(Double.parseDouble(montantRestant));
+
+        if (paidEleve.getMontantRestant() == 0) {
+            System.out.println("Already paid !");
+            Notifications.create()
+                    .title("هذا التلميذ دفع كل حقوق التسجيل                      ")
+                    .darkStyle()
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showWarning();
+            return;
+        } else {
+
+            AnchorPane paymentUserPane = null;
+            try {
+                paymentUserPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/elevePayment.fxml"));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            paymentUserDialog = getSpecialDialog(paymentUserPane);
+            paymentUserDialog.show();
+        }
+
+    }
 
     @FXML
     private void updateTable() {
@@ -321,7 +403,7 @@ public class EleveController<Adding> implements Initializable {
             for (Eleve eleve : studentDB) {
                 eleves.add(new TableEleve(eleve.getId(), eleve.getGender(), eleve.getNom().toUpperCase(), eleve.getPrenom().toUpperCase(), eleve.getClasse(), eleve.getDateNaissance(),
                         eleve.getLieuNaissance().toUpperCase(), eleve.getAdresse(), eleve.getPhone(), eleve.getRemarque(), eleve.getAnneeScolaire(), eleve.getRegime(),
-                        eleve.getPrenomPere(), eleve.getPrenomMere(), eleve.getNomMere(), eleve.getTravailPere(), eleve.getTravailMere(), eleve.getWakil(),eleve.getMaladie()));
+                        eleve.getPrenomPere(), eleve.getPrenomMere(), eleve.getNomMere(), eleve.getTravailPere(), eleve.getTravailMere(), eleve.getWakil(), eleve.getMaladie(), eleve.getTranches(), eleve.getMontantRestant()));
             }
         }
 
@@ -334,42 +416,7 @@ public class EleveController<Adding> implements Initializable {
 
     }
 
-
-    static class TableEleve extends RecursiveTreeObject<TableEleve> {
-        StringProperty id, gender, firstname, lastname, classroom, birthday, birthplace;
-        StringProperty addresse, phone, remarque;
-        StringProperty schoolYear, regime, nameFather, nameMother, lastNameMother, workFather, workMother, wakil, maladie;
-
-
-        public TableEleve(int id, int gender, String firstname, String lastname, String classroom, Date birthday, String birthplace, String addresse, String phone,
-                             String remarque, String schoolYear, String regime, String nameFather, String nameMother,
-                          String lastNameMother, String workFather, String workMother, String wakil ,String maladie) {
-
-            this.id = new SimpleStringProperty(String.valueOf(id));
-            this.gender= new SimpleStringProperty(String.valueOf(gender));
-            this.firstname = new SimpleStringProperty(String.valueOf(firstname));
-            this.lastname = new SimpleStringProperty(String.valueOf(lastname));
-            this.classroom = new SimpleStringProperty(String.valueOf(classroom));
-            this.birthday = new SimpleStringProperty(String.valueOf(birthday));
-            this.birthplace = new SimpleStringProperty(String.valueOf(birthplace));
-            this.addresse = new SimpleStringProperty(String.valueOf(addresse));
-            this.phone = new SimpleStringProperty(String.valueOf(phone));
-            this.remarque = new SimpleStringProperty(String.valueOf(remarque));
-            this.schoolYear=new SimpleStringProperty(String.valueOf(schoolYear));
-            this.regime=new SimpleStringProperty(String.valueOf(regime));
-            this.nameFather=new SimpleStringProperty(String.valueOf(nameFather));
-            this.nameMother=new SimpleStringProperty(String.valueOf(nameMother));
-            this.lastNameMother=new SimpleStringProperty(String.valueOf(lastNameMother));
-            this.workFather=new SimpleStringProperty(String.valueOf(workFather));
-            this.workMother=new SimpleStringProperty(String.valueOf(workMother));
-            this.wakil=new SimpleStringProperty(String.valueOf(wakil));
-            this.maladie=new SimpleStringProperty(String.valueOf(maladie));
-
-
-        }
-    }
-
-    public void initializeTable() {
+    private void initializeTable() {
         idCol = new JFXTreeTableColumn<>("رقم التسجيل");
         idCol.setPrefWidth(120);
         idCol.setCellValueFactory(param -> param.getValue().getValue().id);
@@ -460,6 +507,16 @@ public class EleveController<Adding> implements Initializable {
         maladieCol.setCellValueFactory(param -> param.getValue().getValue().maladie);
         maladieCol.setVisible(false);
 
+        tranchesCol = new JFXTreeTableColumn<>("قطع");
+        tranchesCol.setPrefWidth(150);
+        tranchesCol.setCellValueFactory(param -> param.getValue().getValue().tranches);
+        tranchesCol.setVisible(true);
+
+        montantRestantCol = new JFXTreeTableColumn<>("مبلغ متبقي");
+        montantRestantCol.setPrefWidth(150);
+        montantRestantCol.setCellValueFactory(param -> param.getValue().getValue().montantRestant);
+        montantRestantCol.setVisible(false);
+
 
         updateTable();
 
@@ -467,20 +524,20 @@ public class EleveController<Adding> implements Initializable {
         combo.setOnAction(e -> filterSearchTable());
 
         treeTableView.getColumns().addAll(idCol, genderCol, firstnameCol, lastNameCol, classRoomCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, remarqueCol,
-                schoolYearCol, regimeCol, nameFatherCol, nameMotherCol, lastNameMotherCol, workFatherCol, workMotherCol, wakilCol, maladieCol);
+                schoolYearCol, regimeCol, nameFatherCol, nameMotherCol, lastNameMotherCol, workFatherCol, workMotherCol, wakilCol, maladieCol, tranchesCol, montantRestantCol);
         treeTableView.setShowRoot(false);
         treeTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
-    public JFXDialog getSpecialDialog(AnchorPane content) {
+    private JFXDialog getSpecialDialog(AnchorPane content) {
         JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
         dialog.setOnDialogClosed((event) -> updateTable());
         return dialog;
     }
 
-
-
     private void filterSearchTable() {
+
+        int index = treeTableView.getSelectionModel().getSelectedIndex();
         treeTableView.setPredicate(eleves -> {
             switch (combo.getSelectionModel().getSelectedIndex()) {
                 case 0:
@@ -501,6 +558,8 @@ public class EleveController<Adding> implements Initializable {
                     return eleves.getValue().phone.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
                 case 8:
                     return eleves.getValue().remarque.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 9:
+                    return eleves.getValue().tranches.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
                 default:
                     return eleves.getValue().id.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             eleves.getValue().firstname.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
@@ -510,9 +569,46 @@ public class EleveController<Adding> implements Initializable {
                             eleves.getValue().classroom.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             eleves.getValue().addresse.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             eleves.getValue().phone.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
-                            eleves.getValue().remarque.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                            eleves.getValue().remarque.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            eleves.getValue().tranches.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
             }
         });
+    }
+
+    static class TableEleve extends RecursiveTreeObject<TableEleve> {
+        StringProperty id, gender, firstname, lastname, classroom, birthday, birthplace;
+        StringProperty addresse, phone, remarque;
+        StringProperty schoolYear, regime, nameFather, nameMother, lastNameMother, workFather, workMother, wakil, maladie, tranches, montantRestant;
+
+
+        public TableEleve(int id, int gender, String firstname, String lastname, String classroom, Date birthday, String birthplace, String addresse, String phone,
+                          String remarque, int schoolYear, String regime, String nameFather, String nameMother,
+                          String lastNameMother, String workFather, String workMother, String wakil, String maladie, int tranches, double montantRestant) {
+
+            this.id = new SimpleStringProperty(String.valueOf(id));
+            this.gender = new SimpleStringProperty(String.valueOf(gender));
+            this.firstname = new SimpleStringProperty(String.valueOf(firstname));
+            this.lastname = new SimpleStringProperty(String.valueOf(lastname));
+            this.classroom = new SimpleStringProperty(String.valueOf(classroom));
+            this.birthday = new SimpleStringProperty(String.valueOf(birthday));
+            this.birthplace = new SimpleStringProperty(String.valueOf(birthplace));
+            this.addresse = new SimpleStringProperty(String.valueOf(addresse));
+            this.phone = new SimpleStringProperty(String.valueOf(phone));
+            this.remarque = new SimpleStringProperty(String.valueOf(remarque));
+            this.schoolYear = new SimpleStringProperty(String.valueOf(schoolYear));
+            this.regime = new SimpleStringProperty(String.valueOf(regime));
+            this.nameFather = new SimpleStringProperty(String.valueOf(nameFather));
+            this.nameMother = new SimpleStringProperty(String.valueOf(nameMother));
+            this.lastNameMother = new SimpleStringProperty(String.valueOf(lastNameMother));
+            this.workFather = new SimpleStringProperty(String.valueOf(workFather));
+            this.workMother = new SimpleStringProperty(String.valueOf(workMother));
+            this.wakil = new SimpleStringProperty(String.valueOf(wakil));
+            this.maladie = new SimpleStringProperty(String.valueOf(maladie));
+            this.tranches = new SimpleStringProperty(String.valueOf(tranches));
+            this.montantRestant = new SimpleStringProperty(String.valueOf(montantRestant));
+
+
+        }
     }
 
 

@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class classeDB {
+public class ClasseDB {
 
     public List<ClasseModel> getClasse() {
         Connection connection = new ConnectionClasse().getConnection();

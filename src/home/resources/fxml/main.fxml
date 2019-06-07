@@ -2,22 +2,15 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.*?>
 <?import de.jensd.fx.glyphs.materialicons.MaterialIconView?>
 <?import de.jensd.fx.glyphs.octicons.OctIconView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.geometry.Rectangle2D?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
 <HBox fx:id="parent" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1292.0" styleClass="parent" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.MainController">
     <stylesheets>
         <URL value="@../css/main.css" />
@@ -64,7 +57,8 @@
          <HBox fx:id="boxClasse" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#classeClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
             <children>
                <MaterialDesignIconView fx:id="iconClasse" fill="#4a4949" glyphName="SCHOOL" size="30" wrappingWidth="28.0" />
-               <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة الطلاب" HBox.hgrow="ALWAYS">
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                       minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="إدارة الأقسام" HBox.hgrow="ALWAYS">
                   <HBox.margin>
                      <Insets />
                   </HBox.margin>

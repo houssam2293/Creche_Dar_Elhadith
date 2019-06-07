@@ -240,7 +240,7 @@ public class EditEmployeeFormController implements Initializable {
         id.setText(String.valueOf(employeeSelected.getId()));
         lastNameField.setText(employeeSelected.getNom());
         firstNameField.setText(employeeSelected.getPrenom());
-        birthDate.setValue(java.time.LocalDate.parse(String.valueOf(employeeSelected.getDateNaissance())));
+        birthDate.setValue(LocalDate.parse(String.valueOf(employeeSelected.getDateNaissance())));
         birthPlace.setText(employeeSelected.getLieuNaissance());
         itar.setText(employeeSelected.getItar());
         addresse.setText(employeeSelected.getAdresse());
@@ -251,7 +251,7 @@ public class EditEmployeeFormController implements Initializable {
             renouvlementContrat.setSelected(true);
         else renouvlementContrat.setSelected(false);
         experience.setText(employeeSelected.getExperience());
-        firstDayOfwork.setValue(java.time.LocalDate.parse(String.valueOf(employeeSelected.getDate_debut())));
+        firstDayOfwork.setValue(LocalDate.parse(String.valueOf(employeeSelected.getDate_debut())));
         fonction.setText(employeeSelected.getFonction());
         regime.getSelectionModel().select(employeeSelected.getRegimeScolaire());
 

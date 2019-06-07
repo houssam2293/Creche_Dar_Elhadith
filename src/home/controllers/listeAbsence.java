@@ -2,6 +2,7 @@ package home.controllers;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXRadioButton;
 import home.dbDir.PointageDB;
 import home.java.PointageModel;
 import javafx.collections.FXCollections;
@@ -11,11 +12,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -35,12 +38,51 @@ public class listeAbsence implements Initializable {
     private JFXDatePicker dateJ;
     @FXML
     private Label listevide;
+    @FXML
     private TableColumn idCol, fullNameCol, jobCol, remarqCol;
+    @FXML
+    private JFXRadioButton checkAbsent;
+    @FXML
+    private JFXRadioButton checkPresent;
+    @FXML
+    private JFXRadioButton checkOut;
+    @FXML
+    private ToggleGroup lang;
 
-
+    private int radioSelec = 1;
     @FXML
     void btnClose() {
         Pointage.listeAbsences.close();
+    }
+
+    @FXML
+    void selectedRadio() {
+        checkAbsent.setOnMouseClicked(t -> {
+
+            checkOut.setSelected(false);
+            checkPresent.setSelected(false);
+            checkAbsent.setSelected(true);
+
+            radioSelec = 1;
+
+        });
+        checkPresent.setOnMouseClicked(t -> {
+            checkOut.setSelected(false);
+            checkAbsent.setSelected(false);
+            checkPresent.setSelected(true);
+
+            radioSelec = 2;
+
+        });
+        checkOut.setOnMouseClicked(t -> {
+            checkAbsent.setSelected(false);
+            checkPresent.setSelected(false);
+            checkOut.setSelected(true);
+
+            radioSelec = 3;
+
+        });
+
     }
 
     @FXML
@@ -48,8 +90,15 @@ public class listeAbsence implements Initializable {
         List<PointageModel> pointagesses = FXCollections.observableArrayList();
         ObservableList<PointageModel> data = null;
         data = FXCollections.observableArrayList();
-
-        List<PointageModel> pointageModelDB = new PointageDB().getPointage(dateJ.getValue());
+        List<PointageModel> pointageModelDB = new PointageDB().getPresences(dateJ.getValue());
+        ;
+        if (radioSelec == 1) {
+            pointageModelDB = new PointageDB().getAbsences(dateJ.getValue());
+        } else if (radioSelec == 2) {
+            pointageModelDB = new PointageDB().getPresences(dateJ.getValue());
+        } else if (radioSelec == 3) {
+            pointageModelDB = new PointageDB().getOut(dateJ.getValue());
+        }
         if (pointageModelDB == null) {
 
             listevide.setText("لا يوجد غيابات");
@@ -59,15 +108,12 @@ public class listeAbsence implements Initializable {
         } else {
             for (PointageModel poi : pointageModelDB) {
                 pointagesses.add(poi);
-                System.out.println("try");
 
             }
             for (int i = 0; i < pointagesses.size(); i++) {
                 PointageModel ep = pointagesses.get(i);
                 listevide.setText("");
-                System.out.println("i= " + i);
                 data.add(ep);
-                System.out.println(ep.getFirstName() + " zid " + ep.getId());
 
 
             }
@@ -85,7 +131,7 @@ public class listeAbsence implements Initializable {
         );
 
         remarqCol.setCellValueFactory(
-                new PropertyValueFactory<PointageModel, String>("remarkk")
+                new PropertyValueFactory<PointageModel, String>("label")
         );
         tableview.setItems(data);
 
@@ -99,12 +145,13 @@ public class listeAbsence implements Initializable {
 
         idCol.setPrefWidth(120);
         fullNameCol = new TableColumn("اسم و لقب العامل");
-        fullNameCol.setPrefWidth(120);
+        fullNameCol.setPrefWidth(150);
         jobCol = new TableColumn("الوظيفة");
         jobCol.setPrefWidth(120);
         remarqCol = new TableColumn("ملاحظات");
         remarqCol.setPrefWidth(120);
         tableview.getColumns().addAll(idCol, fullNameCol, jobCol, remarqCol);
+        dateJ.setValue(LocalDate.now());
 
         // updateTable();
       /*  Tooltip tooltip = new Tooltip();

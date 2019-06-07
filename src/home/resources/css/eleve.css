@@ -21,8 +21,8 @@
 
 
 .JFXButton {
- -fx-font-family: "Arabic Typesetting"
- ;-fx-font-weight: bold;
+ -fx-font-family: "Arabic Typesetting";
+ -fx-font-weight: bold;
     -fx-background-color: #2196f3;
     -fx-text-fill: white;
     -fx-cursor: hand;

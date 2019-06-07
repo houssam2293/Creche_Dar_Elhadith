@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-
-<AnchorPane fx:id="ArchvData" nodeOrientation="RIGHT_TO_LEFT" prefHeight="594.0" prefWidth="600.0" stylesheets="@../css/eleve.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ShowArchvDataController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="ArchvData" nodeOrientation="RIGHT_TO_LEFT" prefHeight="598.0"
+            prefWidth="600.0" stylesheets="@../css/eleve.css" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="home.controllers.ShowArchvDataController">
    <children>
       <Label layoutX="275.0" layoutY="17.0" prefHeight="43.0" prefWidth="88.0" text="شهادة التلميذ" underline="true" />
       <Label layoutX="42.0" layoutY="84.0" prefHeight="43.0" prefWidth="88.0" text="رقم التسجيل :" />
@@ -29,7 +33,17 @@
       <Label layoutX="41.0" layoutY="340.0" prefHeight="43.0" prefWidth="55.0" text="المعلم(ة) :" />
       <Label fx:id="remarque" layoutX="107.0" layoutY="384.0" prefHeight="43.0" prefWidth="457.0" />
       <Label layoutX="40.0" layoutY="383.0" prefHeight="43.0" prefWidth="69.0" text="ملاحظات :" />
-      <EmojiOneView fx:id="print" fill="#2196f3" glyphName="PRINTER" layoutX="286.0" layoutY="562.0" onMouseClicked="#printFile" size="50" styleClass="printer" />
+       <EmojiOneView fx:id="print" fill="#2196f3" glyphName="PRINTER" layoutX="332.0" layoutY="549.0"
+                     onMouseClicked="#printFile" size="50" styleClass="printer"/>
       <EmojiOneView glyphName="X" layoutX="25.0" layoutY="27.0" onMouseClicked="#btnClose" size="20" styleClass="icon-close" wrappingWidth="14.0" />
+       <JFXButton layoutX="209.0" layoutY="507.0" onAction="#ClssPictr" prefHeight="51.0" prefWidth="49.0" text=" ">
+           <graphic>
+               <ImageView fitHeight="43.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
+                   <image>
+                       <Image url="@../icons/blue-camera-icon.png"/>
+                   </image>
+               </ImageView>
+           </graphic>
+       </JFXButton>
    </children>
 </AnchorPane>

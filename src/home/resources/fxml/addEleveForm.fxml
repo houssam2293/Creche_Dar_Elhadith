@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXDatePicker?>
-<?import com.jfoenix.controls.JFXRadioButton?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXToggleButton?>
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import java.net.*?>
 <AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.AddEleveFormController">
    <children>
       <ScrollPane hbarPolicy="NEVER" layoutY="1.0" prefHeight="641.0" prefWidth="480.0" stylesheets="@../css/scrollPane.css" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
@@ -69,23 +62,42 @@
                   </HBox>
                   <HBox layoutX="50.0" layoutY="246.0" spacing="20.0">
                      <children>
-                        <JFXTextField fx:id="classe" labelFloat="true" prefHeight="36.0" prefWidth="290.0" promptText="قسم" styleClass="field" />
-                        <JFXTextField fx:id="schoolYear" labelFloat="true" prefHeight="36.0" prefWidth="290.0" promptText="سنة" styleClass="field" />
+                         <JFXTextField fx:id="classe" labelFloat="true" prefHeight="45.0" prefWidth="165.0"
+                                       promptText="قسم" styleClass="field"/>
+                         <JFXComboBox fx:id="schoolYear" prefHeight="45.0" prefWidth="150.0" promptText="السنة"
+                                      styleClass="combo-medium"/>
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="regime" labelFloat="true" prefHeight="25.0" prefWidth="523.0" promptText="معاش" styleClass="field" />
+                   <HBox>
+                       <children>
+                           <JFXComboBox fx:id="regime" prefWidth="150.0" promptText="فترة الدراسة" styleClass="field"/>
+                     </children>
+                  </HBox>
+                   <HBox>
+                       <children>
+                           <JFXToggleButton fx:id="toggler" contentDisplay="RIGHT" onAction="#trancheOn"
+                                            prefHeight="43.0" prefWidth="150.0" styleClass="label" text="بالقطع"
+                                            toggleColor="#2196f3" toggleLineColor="#67b2e8">
+                               <HBox.margin>
+                                   <Insets/>
+                               </HBox.margin>
+                           </JFXToggleButton>
+                           <JFXComboBox fx:id="tranches" disable="true" prefWidth="150.0" promptText="عدد القطع"
+                                        styleClass="field">
+                               <HBox.margin>
+                                   <Insets left="30.0" top="10.0"/>
+                               </HBox.margin>
+                           </JFXComboBox>
+                       </children>
+                   </HBox>
                   <JFXTextField fx:id="addresse" labelFloat="true" prefHeight="25.0" prefWidth="523.0" promptText="العنوان " styleClass="field">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>
                   </JFXTextField>
                   <JFXTextField fx:id="phoneNumber" labelFloat="true" layoutX="50.0" layoutY="395.0" prefHeight="25.0" prefWidth="523.0" promptText="رقم الهاتف" styleClass="field" />
-                  <VBox prefHeight="123.0" prefWidth="391.0" spacing="20.0">
-                     <children>
-                        <JFXToggleButton fx:id="stat" contentDisplay="RIGHT" onAction="#actionToggleButton" text="مريض" toggleColor="#2196f3" toggleLineColor="#67b2e8" />
-                        <JFXTextField fx:id="maladie" disable="true" labelFloat="true" prefHeight="45.0" prefWidth="386.0" promptText="نوع المرض" style="-fx-font-size: 18px;" />
-                     </children>
-                  </VBox>
+                   <JFXTextField fx:id="maladie" labelFloat="true" prefHeight="45.0" prefWidth="386.0" promptText="مرض"
+                                 styleClass="field"/>
                   <JFXTextField fx:id="nameFather" labelFloat="true" layoutX="50.0" layoutY="311.0" prefHeight="26.0" prefWidth="370.0" promptText="اسم الاب" styleClass="field" />
                   <HBox prefHeight="30.0" prefWidth="386.0" spacing="20.0">
                      <children>

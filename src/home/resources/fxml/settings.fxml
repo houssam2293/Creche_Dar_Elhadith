@@ -1,28 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
-
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 <AnchorPane id="setting" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1186.0" styleClass="root" stylesheets="@../css/settings.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.SettingsController">
-   <HBox layoutX="40.0" layoutY="14.0" prefHeight="50.0" prefWidth="911.0">
-      <children>
-          <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="275.0" styleClass="title-header" text="إعدادات" textAlignment="RIGHT" />
-         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0" prefWidth="274.0" styleClass="user-header" text="المستخدم الحالي:" textAlignment="RIGHT" />
-         <Label fx:id="accountUser" alignment="CENTER" contentDisplay="CENTER" layoutX="285.0" layoutY="10.0" prefHeight="50.0" prefWidth="274.0" styleClass="account-owner" textAlignment="RIGHT" textFill="#296b9e" />
-      </children>
-   </HBox>
-    <VBox layoutX="40.0" layoutY="95.0" prefHeight="208.0" prefWidth="293.0" styleClass="box-select">
+    <HBox layoutX="40.0" layoutY="14.0" prefHeight="50.0" prefWidth="911.0">
+        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="50.0" prefWidth="275.0" styleClass="title-header"
+               text="إعدادات" textAlignment="RIGHT"/>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0"
+               prefWidth="274.0" styleClass="user-header" text="المستخدم الحالي:" textAlignment="RIGHT"/>
+        <Label fx:id="accountUser" alignment="CENTER" contentDisplay="CENTER" layoutX="285.0" layoutY="10.0"
+               prefHeight="50.0" prefWidth="274.0" styleClass="account-owner" textAlignment="RIGHT" textFill="#296b9e"/>
+    </HBox>
+    <VBox layoutX="40.0" layoutY="95.0" prefHeight="347.0" prefWidth="293.0" styleClass="box-select">
         <HBox fx:id="usernameOption" prefHeight="50.0" prefWidth="270.0" styleClass="box-option">
             <Label prefHeight="50.0" prefWidth="290.0" style="-fx-font-weight: bold;" text="إسم المستخدم" />
         </HBox>
@@ -35,16 +31,23 @@
             <Label prefHeight="50.0" prefWidth="290.0" text="كلمة المرور" />
         </HBox>
         <Line endX="290.0" stroke="#dddddd" />
-      <HBox fx:id="newUserOption" layoutX="10.0" layoutY="11.0" prefHeight="50.0" prefWidth="270.0" styleClass="box-option">
-         <children>
+        <HBox fx:id="newUserOption" layoutX="10.0" layoutY="11.0" prefHeight="50.0" prefWidth="270.0"
+              styleClass="box-option">
             <Label prefHeight="50.0" prefWidth="290.0" text="إضافة مستخدم جديد" />
-         </children>
-      </HBox>
+        </HBox>
       <Line endX="290.0" stroke="#dddddd" />
         <HBox fx:id="savePoint" prefHeight="50.0" prefWidth="270.0" styleClass="box-option">
             <Label prefHeight="50.0" prefWidth="290.0" text="تحميل وحفظ البيانات" />
         </HBox>
         <Line endX="290.0" stroke="#dddddd" />
+        <HBox fx:id="moneyOptions" prefHeight="50.0" prefWidth="270.0" styleClass="box-option">
+            <Label prefHeight="50.0" prefWidth="290.0" text="أسعار التسجيل"/>
+        </HBox>
+        <Line endX="290.0" stroke="#dddddd"/>
+        <HBox fx:id="charityOptions" prefHeight="50.0" prefWidth="270.0" styleClass="box-option">
+            <Label prefHeight="50.0" prefWidth="290.0" text="إدارة دالتبرعات"/>
+        </HBox>
+        <Line endX="290.0" stroke="#dddddd"/>
         <HBox fx:id="languageOption" prefHeight="50.0" prefWidth="270.0" styleClass="box-option">
             <Label prefHeight="50.0" prefWidth="290.0" text="اللغة" />
         </HBox>
@@ -118,31 +121,28 @@
                     <FontAwesomeIconView fx:id="iconValid" fill="#09cd09" glyphName="CHECK" size="24" visible="false" />
                 </HBox>
             </VBox>
-         <VBox fx:id="addNewUserPane" layoutX="10.0" layoutY="10.0" prefHeight="177.0" prefWidth="601.0" spacing="15.0" visible="false">
-            <padding>
-               <Insets top="35.0" />
-            </padding>
-            <children>
-               <HBox prefHeight="53.0" prefWidth="601.0" spacing="20.0">
-                  <children>
-                     <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="إسم المستخدم الجديد" textAlignment="RIGHT" />
-                     <TextField fx:id="newUsernameNewUserPart" prefHeight="40.0" prefWidth="300.0" styleClass="field" />
-                  </children>
-               </HBox>
-               <HBox prefHeight="53.0" prefWidth="601.0" spacing="20.0">
-                  <children>
-                     <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="كلمة المرور" textAlignment="RIGHT" />
-                     <PasswordField fx:id="newPasswordUserPart" prefHeight="40.0" prefWidth="300.0" styleClass="field" />
-                  </children>
-               </HBox>
-               <HBox layoutX="10.0" layoutY="113.0" prefHeight="53.0" prefWidth="601.0" spacing="20.0">
-                  <children>
-                     <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0" styleClass="right-label" text="تأكيد كلمة المرور" textAlignment="RIGHT" />
-                     <PasswordField fx:id="newConfirmationPasswordUserPart" prefHeight="40.0" prefWidth="300.0" styleClass="field" />
-                  </children>
-               </HBox>
-            </children>
-         </VBox>
+            <VBox fx:id="addNewUserPane" layoutX="10.0" layoutY="10.0" prefHeight="177.0" prefWidth="601.0"
+                  spacing="15.0" visible="false">
+                <padding>
+                    <Insets top="35.0"/>
+                </padding>
+                <HBox prefHeight="53.0" prefWidth="601.0" spacing="20.0">
+                    <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0"
+                           styleClass="right-label" text="إسم المستخدم الجديد" textAlignment="RIGHT"/>
+                    <TextField fx:id="newUsernameNewUserPart" prefHeight="40.0" prefWidth="300.0" styleClass="field"/>
+                </HBox>
+                <HBox prefHeight="53.0" prefWidth="601.0" spacing="20.0">
+                    <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0"
+                           styleClass="right-label" text="كلمة المرور" textAlignment="RIGHT"/>
+                    <PasswordField fx:id="newPasswordUserPart" prefHeight="40.0" prefWidth="300.0" styleClass="field"/>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="113.0" prefHeight="53.0" prefWidth="601.0" spacing="20.0">
+                    <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="178.0"
+                           styleClass="right-label" text="تأكيد كلمة المرور" textAlignment="RIGHT"/>
+                    <PasswordField fx:id="newConfirmationPasswordUserPart" prefHeight="40.0" prefWidth="300.0"
+                                   styleClass="field"/>
+                </HBox>
+            </VBox>
             <VBox fx:id="changeLanguagePane" prefHeight="108.0" prefWidth="601.0" spacing="15.0" visible="false">
                 <padding>
                     <Insets top="35.0" />
@@ -157,6 +157,117 @@
                     <JFXButton layoutX="190.0" layoutY="136.0" onAction="#deserialiser" prefHeight="50.0" prefWidth="212.0" styleClass="btn" text="تحميل البيانات" />
                     <JFXButton layoutX="193.0" layoutY="14.0" onAction="#btnSaveArchiv" prefHeight="53.0" prefWidth="212.0" styleClass="btn" text="حفظ البيانات في الارشيف" />
                     <JFXButton layoutX="192.0" layoutY="74.0" onAction="#serialiser" prefHeight="53.0" prefWidth="212.0" styleClass="btn" text="حفظ البيانات على فلاشة" />
+                </AnchorPane>
+            </VBox>
+            <VBox fx:id="money" prefHeight="342.0" prefWidth="601.0" stylesheets="@../css/eleve.css" visible="false">
+                <AnchorPane prefHeight="335.0" prefWidth="601.0">
+                    <VBox prefHeight="319.0" prefWidth="601.0" spacing="15.0" AnchorPane.bottomAnchor="0.0"
+                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <padding>
+                            <Insets top="35.0"/>
+                        </padding>
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                            <VBox.margin>
+                                <Insets/>
+                            </VBox.margin>
+                            <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0"
+                                   prefWidth="150.0" styleClass="right-label" textAlignment="RIGHT"/>
+                            <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0"
+                                   prefWidth="150.0" styleClass="right-label" text="تلاميذ" textAlignment="RIGHT"/>
+                        </HBox>
+                        <HBox prefHeight="53.0" prefWidth="601.0" spacing="20.0">
+                            <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0"
+                                   prefWidth="150.0" styleClass="right-label" text="صباح" textAlignment="RIGHT"/>
+                            <TextField fx:id="eleveMatin" layoutX="208.0" layoutY="10.0" prefHeight="40.0"
+                                       prefWidth="180.0" styleClass="field"/>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="45.0" prefHeight="53.0" prefWidth="601.0" spacing="20.0">
+                            <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0"
+                                   prefWidth="150.0" styleClass="right-label" text="مساء" textAlignment="RIGHT"/>
+                            <TextField fx:id="eleveAprem" layoutX="208.0" layoutY="10.0" prefHeight="40.0"
+                                       prefWidth="180.0" styleClass="field"/>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="149.0" prefHeight="53.0" prefWidth="601.0" spacing="20.0">
+                            <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0"
+                                   prefWidth="150.0" styleClass="right-label" text="صباح+مساء" textAlignment="RIGHT"/>
+                            <TextField fx:id="eleveMatAprem" layoutX="208.0" layoutY="10.0" prefHeight="40.0"
+                                       prefWidth="180.0" styleClass="field"/>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="165.0" prefHeight="53.0" prefWidth="601.0" spacing="20.0">
+                            <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0"
+                                   prefWidth="150.0" styleClass="right-label" text="صباح+نصف داخلي"
+                                   textAlignment="RIGHT"/>
+                            <TextField fx:id="eleveDemi" layoutX="208.0" layoutY="10.0" prefHeight="40.0"
+                                       prefWidth="180.0" styleClass="field"/>
+                        </HBox>
+                        <HBox layoutX="10.0" layoutY="205.0" prefHeight="53.0" prefWidth="601.0" spacing="20.0">
+                            <Label alignment="CENTER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0"
+                                   prefWidth="150.0" styleClass="right-label" text="يوم كامل" textAlignment="RIGHT"/>
+                            <TextField fx:id="eleveFull" layoutX="208.0" layoutY="10.0" prefHeight="40.0"
+                                       prefWidth="180.0" styleClass="field"/>
+                        </HBox>
+                    </VBox>
+                </AnchorPane>
+            </VBox>
+            <VBox fx:id="charity" prefHeight="342.0" prefWidth="601.0" stylesheets="@../css/eleve.css" visible="false">
+                <AnchorPane prefHeight="179.0" prefWidth="346.0" stylesheets="@../css/eleve.css">
+                    <VBox layoutY="60.0" prefHeight="229.0" prefWidth="278.0" AnchorPane.bottomAnchor="78.0"
+                          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="323.0" AnchorPane.topAnchor="60.0">
+                        <HBox>
+                            <VBox.margin>
+                                <Insets top="20.0"/>
+                            </VBox.margin>
+                            <JFXTextField fx:id="from" alignment="TOP_LEFT" prefHeight="20.0" prefWidth="166.0"
+                                          promptText="من طرف" styleClass="label">
+                                <HBox.margin>
+                                    <Insets left="20.0"/>
+                                </HBox.margin>
+                            </JFXTextField>
+                        </HBox>
+                        <HBox styleClass="label">
+                            <JFXTextField fx:id="sumCharity" alignment="TOP_LEFT" prefHeight="27.0" prefWidth="166.0"
+                                          promptText="مبلغ">
+                                <HBox.margin>
+                                    <Insets left="20.0" top="20.0"/>
+                                </HBox.margin>
+                            </JFXTextField>
+                        </HBox>
+                        <HBox>
+                            <Label fx:id="date" text="Date">
+                                <HBox.margin>
+                                    <Insets left="20.0" top="30.0"/>
+                                </HBox.margin>
+                            </Label>
+                        </HBox>
+                    </VBox>
+                    <HBox layoutX="120.0" layoutY="276.0" prefHeight="50.0" prefWidth="601.0"
+                          AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                          AnchorPane.topAnchor="280.0">
+                        <JFXButton mnemonicParsing="false" onMouseClicked="#btnAdd" prefHeight="20.0" prefWidth="80.0"
+                                   ripplerFill="#0058e5" styleClass="btn-medium" stylesheets="@../css/eleve.css"
+                                   text="OK" textAlignment="CENTER">
+                            <HBox.margin>
+                                <Insets bottom="5.0" left="220.0"/>
+                            </HBox.margin>
+                        </JFXButton>
+                        <JFXButton layoutX="130.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnPrint"
+                                   onMouseClicked="#btnAdd" prefHeight="20.0" prefWidth="80.0" ripplerFill="#0058e5"
+                                   styleClass="btn-medium" stylesheets="@../css/eleve.css" text="طبع"
+                                   textAlignment="CENTER">
+                            <HBox.margin>
+                                <Insets left="15.0"/>
+                            </HBox.margin>
+                        </JFXButton>
+                    </HBox>
+                    <VBox layoutX="330.0" layoutY="14.0" prefHeight="295.0" prefWidth="271.0">
+                        <ImageView fitHeight="212.0" fitWidth="271.0" pickOnBounds="true" preserveRatio="true">
+                            <Image url="@../images/logo.png"/>
+                        </ImageView>
+                    </VBox>
+                    <Label layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="150.0"
+                           style="-fx-font-weight: bold; -fx-font-size: 22;" text="وصل تبرع"
+                           AnchorPane.bottomAnchor="276.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="350.0"
+                           AnchorPane.topAnchor="14.0"/>
                 </AnchorPane>
             </VBox>
         </StackPane>

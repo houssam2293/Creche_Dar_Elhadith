@@ -6,6 +6,7 @@ import java.util.Date;
 
 public class EntreStock extends RecursiveTreeObject<EntreStock> {
     private int id;
+    private int typeProduit;
     private String nom;
     private int quantite;
     private double prix;
@@ -13,8 +14,10 @@ public class EntreStock extends RecursiveTreeObject<EntreStock> {
     private Date dateExp;
     private String fournisseur;
     private double prixTotale;
-    public EntreStock(int id,String nom, int quantite,double prix,Date dateFab,Date dateExp,String fournisseur,Double prixTotale) {
+
+    public EntreStock(int id, int typeProduit, String nom, int quantite, double prix, Date dateFab, Date dateExp, String fournisseur, Double prixTotale) {
        this.id=id;
+        this.typeProduit = typeProduit;
         this.nom=nom;
         this.quantite=quantite;
         this.prix=prix;
@@ -89,5 +92,13 @@ public class EntreStock extends RecursiveTreeObject<EntreStock> {
 
     public void setPrixTotale(double prixTotale) {
         this.prixTotale = prixTotale;
+    }
+
+    public int getTypeProduit() {
+        return typeProduit;
+    }
+
+    public void setTypeProduit(int typeProduit) {
+        this.typeProduit = typeProduit;
     }
 }

@@ -8,9 +8,8 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
 <?import java.net.URL?>
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="480.0"
-            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="home.controllers.EntreStockFormController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="480.0"
+            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="home.controllers.EntreStockFormController">
     <stylesheets>
         <URL value="@../css/main.css"/>
         <URL value="@../css/manageEmployee.css"/>
@@ -39,18 +38,19 @@
                     </styleClass>
                 </Label>
             </HBox>
-            <JFXTextField fx:id="idField" labelFloat="true" prefHeight="39.0" prefWidth="290.0"
-                          promptText="رقم السلعة" styleClass="field">
+            <JFXTextField fx:id="idField" labelFloat="true" prefHeight="39.0" prefWidth="290.0" promptText="رقم السلعة"
+                          styleClass="field">
                 <VBox.margin>
                     <Insets top="-40.0"/>
                 </VBox.margin>
             </JFXTextField>
+            <JFXComboBox fx:id="comboProd" prefWidth="150.0" promptText="نوع السلعة" styleClass="combo-medium"/>
             <JFXTextField fx:id="nomField" labelFloat="true" layoutX="50.0" layoutY="395.0" prefHeight="25.0"
-                          prefWidth="523.0" promptText="نوع السلعة" styleClass="field"/>
+                          prefWidth="523.0" promptText="إسم السلعة" styleClass="field"/>
             <JFXDatePicker fx:id="dateFabField" defaultColor="#2196f3" prefHeight="30.0" prefWidth="220.0"
                            promptText="تاريخ ادخال السلعة" styleClass="field"/>
-            <JFXDatePicker fx:id="dateExpField" defaultColor="#2196f3" layoutX="50.0" layoutY="135.0"
-                           prefHeight="30.0" prefWidth="220.0" promptText="تاريخ اخراج السلعة" styleClass="field"/>
+            <JFXDatePicker fx:id="dateExpField" defaultColor="#2196f3" layoutX="50.0" layoutY="135.0" prefHeight="30.0"
+                           prefWidth="220.0" promptText="تاريخ اخراج السلعة" styleClass="field"/>
             <JFXTextField fx:id="quantiteField" labelFloat="true" prefHeight="25.0" prefWidth="523.0"
                           promptText="الكمية" styleClass="field">
                 <VBox.margin>
@@ -65,10 +65,8 @@
                 <opaqueInsets>
                     <Insets/>
                 </opaqueInsets>
-                <JFXButton onAction="#add" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium"
-                           text="إضافة"/>
-                <JFXButton onAction="#delete" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium"
-                           text="مسح"/>
+                <JFXButton onAction="#add" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="إضافة"/>
+                <JFXButton onAction="#delete" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="مسح"/>
             </HBox>
         </VBox>
     </ScrollPane>

@@ -1,17 +1,18 @@
 package home.controllers;
 
 import com.jfoenix.controls.*;
-import home.controllers.EleveController;
-import home.java.Eleve;
 import home.dbDir.EleveDB;
+import home.dbDir.fraisDB;
+import home.dbDir.tarifsDB;
+import home.java.Eleve;
+import home.java.Frais;
+import home.java.Tarifs;
 import home.java.Validation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -28,6 +29,24 @@ import static javafx.scene.input.KeyCode.ESCAPE;
 
 public class AddEleveFormController implements Initializable {
 
+
+    double matin;
+    double aprem;
+    double mataprem;
+    double demi;
+    double complet;
+    private ObservableList<String> typeRegime =
+            FXCollections.observableArrayList(
+                    "صباح", "مساء", "صباح+مساء", "صباح+نصف داخلي", "اليوم كامل"
+            );
+    private ObservableList<Integer> anneeScolaire =
+            FXCollections.observableArrayList(
+                    1, 2
+            );
+    private ObservableList<Integer> LesTranches =
+            FXCollections.observableArrayList(
+                    0, 1, 2, 3, 4
+            );
 
     @FXML
     private VBox root;
@@ -56,21 +75,23 @@ public class AddEleveFormController implements Initializable {
     @FXML
     private JFXTextField classe;
     @FXML
-    private JFXTextField schoolYear;
+    private JFXComboBox<Integer> schoolYear;
 
 
     @FXML
-    private JFXTextField regime;
+    private JFXComboBox<String> regime;
     @FXML
     private JFXTextField addresse;
     @FXML
     private JFXTextField phoneNumber;
 
     @FXML
-    private JFXToggleButton stat;
+    private JFXToggleButton toggler;
+    @FXML
+    private JFXComboBox<Integer> tranches;
+
     @FXML
     private JFXTextField maladie;
-
 
     @FXML
     private JFXTextField nameFather;
@@ -92,12 +113,12 @@ public class AddEleveFormController implements Initializable {
 
 
     @FXML
-    void actionToggleButton() {
-        if (stat.isSelected()) {
-            maladie.setDisable(false);
+    void trancheOn() {
+        if (toggler.isSelected()) {
+            tranches.setDisable(false);
 
         } else {
-            maladie.setDisable(true);
+            tranches.setDisable(true);
 
         }
 
@@ -106,6 +127,7 @@ public class AddEleveFormController implements Initializable {
     @FXML
     void btnAdd() {
 
+        double montant = 0;
         Eleve eleve = new Eleve();
         eleve.setId(Integer.valueOf(id.getText()));
         eleve.setNom(lastNameField.getText().trim().toLowerCase());
@@ -113,8 +135,25 @@ public class AddEleveFormController implements Initializable {
         eleve.setDateNaissance(Date.valueOf(birthDate.getValue()));
         eleve.setLieuNaissance(birthPlace.getText().trim().toLowerCase());
         eleve.setClasse(classe.getText().trim().toLowerCase());
-        eleve.setAnneeScolaire(schoolYear.getText().trim().toLowerCase());
-        eleve.setRegime(regime.getText().trim().toLowerCase());
+        eleve.setAnneeScolaire(schoolYear.getValue());
+        eleve.setRegime(regime.getValue());
+        if (regime.getValue().equals("صباح"))
+            montant = matin;
+        else if (regime.getValue().equals("مساء"))
+            montant = aprem;
+        else if (regime.getValue().equals("صباح+مساء"))
+            montant = mataprem;
+        else if (regime.getValue().equals("صباح+نصف داخلي"))
+            montant = demi;
+        else if (regime.getValue().equals("اليوم كامل"))
+            montant = complet;
+        if (toggler.isSelected()) {
+            eleve.setTranches(tranches.getValue());
+            eleve.setMontantRestant(montant);
+        } else {
+            eleve.setTranches(0);
+            eleve.setMontantRestant(0);
+        }
         eleve.setAdresse(addresse.getText().trim().toLowerCase());
         eleve.setPhone(phoneNumber.getText().trim().toLowerCase());
         eleve.setMaladie(maladie.getText().trim().toLowerCase());
@@ -142,15 +181,42 @@ public class AddEleveFormController implements Initializable {
                 System.out.println("Unknown Error failed to add Eleve");
                 break;
             case 1:
-                Notifications.create()
-                        .title("تمت الإضافة بنجاح                                   ")
-                        .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
-                        .hideAfter(Duration.millis(2000))
-                        .position(Pos.BOTTOM_RIGHT)
-                        .darkStyle()
-                        .show();
+                if (!toggler.isSelected()) {
+                    Frais fraisEleve = new Frais();
+                    double total = montant;
+                    fraisEleve.setFraisEleve(montant);
 
-                EleveController.addUserDialog.close();
+                    int status2 = new fraisDB().addFraisEleve(fraisEleve);
+                    switch (status2) {
+                        case -1:
+                            System.out.println("Error connecting to DB!");
+                            break;
+                        case 2:
+                            System.out.println("Error Eleve exist!");
+                            break;
+                        case 0:
+                            System.out.println("Unknown Error failed to add Eleve");
+                            break;
+                        case 1:
+                            Notifications.create()
+                                    .title("تمت الإضافة بنجاح                                   ")
+                                    .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
+                                    .hideAfter(Duration.millis(2000))
+                                    .position(Pos.BOTTOM_RIGHT)
+                                    .darkStyle()
+                                    .show();
+                            EleveController.addUserDialog.close();
+                    }
+                } else {
+                    Notifications.create()
+                            .title("تمت الإضافة بنجاح                                   ")
+                            .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
+                            .hideAfter(Duration.millis(2000))
+                            .position(Pos.BOTTOM_RIGHT)
+                            .darkStyle()
+                            .show();
+                    EleveController.addUserDialog.close();
+                }
         }
 
 
@@ -166,11 +232,12 @@ public class AddEleveFormController implements Initializable {
         birthDate.setValue(null);
         birthPlace.setText(null);
         classe.setText(null);
-        schoolYear.setText(null);
-        regime.setText(null);
+        schoolYear.getSelectionModel().select(null);
+        regime.getSelectionModel().select(null);
         addresse.setText(null);
         phoneNumber.setText(null);
-        stat.setSelected(false);
+        toggler.setSelected(false);
+        tranches.getSelectionModel().select(null);
         maladie.setText(null);
         nameFather.setText(null);
         firstNameMother.setText(null);
@@ -198,9 +265,20 @@ public class AddEleveFormController implements Initializable {
         gender1.setSelected(false);
     }
 
+    void SettingTarifs() {
+        Tarifs LesTarifs = new tarifsDB().getTarifs();
+        matin = LesTarifs.getMatin();
+        aprem = LesTarifs.getAprem();
+        mataprem = LesTarifs.getMatAprem();
+        demi = LesTarifs.getDemi();
+        complet = LesTarifs.getComplet();
+
+    }
+
 
     public void initialize(URL location, ResourceBundle resources) {
 
+        SettingTarifs();
 
         root.setOnKeyPressed(event -> {
             if (event.getCode().equals(ENTER)) {
@@ -217,6 +295,11 @@ public class AddEleveFormController implements Initializable {
         root.setOnKeyReleased(e -> {
             valider();
         });
+
+        regime.setItems(typeRegime);
+        schoolYear.setItems(anneeScolaire);
+        tranches.setItems(LesTranches);
+
 
     }
 
@@ -270,20 +353,22 @@ public class AddEleveFormController implements Initializable {
                 classe.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
             }
         });
-        schoolYear.setOnKeyReleased(t -> {
-            if (new Validation().arabValid(schoolYear)) {
+       /* schoolYear.setOnKeyReleased(t -> {
+            if (new Validation().isNumber(schoolYear)) {
                 schoolYear.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+
             } else {
                 schoolYear.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+
             }
-        });
-        regime.setOnKeyReleased(t -> {
+        });*/
+       /* regime.setOnKeyReleased(t -> {
             if (new Validation().arabValid(regime)) {
                 regime.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
             } else {
                 regime.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
             }
-        });
+        });*/
 
         addresse.setOnKeyReleased(t -> {
             if (/*new Validation().arabValid(addresse)*/true) {

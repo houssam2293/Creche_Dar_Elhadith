@@ -1,20 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.geometry.Insets?>
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<StackPane fx:id="root" alignment="TOP_LEFT" stylesheets="@../css/eleve.css" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.EleveController">
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" alignment="TOP_LEFT" prefHeight="690.0" prefWidth="1192.0"
+           stylesheets="@../css/eleve.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
+           fx:controller="home.controllers.EleveController">
    <children>
-      <VBox nodeOrientation="RIGHT_TO_LEFT" prefWidth="1871.0" spacing="10.0">
+       <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="750.0" prefWidth="1313.0" spacing="10.0">
          <children>
             <HBox prefHeight="60.0" prefWidth="200.0" spacing="15.0">
                <children>
@@ -92,17 +89,32 @@
                         <FontAwesomeIconView fill="#f65bfc" glyphName="COMMENT" size="30" textAlignment="RIGHT" wrappingWidth="22.571428298950195" />
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="Printer" contentDisplay="CENTER" layoutX="648.0" layoutY="27.0" prefHeight="40.0" prefWidth="35.0" ripplerFill="BLACK" style="-fx-background-color: white; -fx-border-color: black;" styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433" textOverrun="CLIP">
+                   <JFXButton fx:id="Printer" contentDisplay="CENTER" layoutX="648.0" layoutY="27.0" onAction="#print"
+                              prefHeight="40.0" prefWidth="35.0" ripplerFill="BLACK"
+                              style="-fx-background-color: white; -fx-border-color: black;" styleClass="btn-medium"
+                              stylesheets="@../css/eleve.css" text=" " textFill="#14a433" textOverrun="CLIP">
                      <font>
                         <Font name="Arabic Typesetting" size="24.0" />
                      </font>
                      <graphic>
                         <FontAwesomeIconView glyphName="PRINT" size="30" textAlignment="CENTER" wrappingWidth="22.571428298950195" />
                      </graphic>
-                  </JFXButton>
+                   </JFXButton>
+                   <JFXButton fx:id="Money" contentDisplay="CENTER" layoutX="836.0" layoutY="29.0"
+                              onAction="#payerTranche" prefHeight="40.0" prefWidth="35.0" ripplerFill="BLACK"
+                              style="-fx-background-color: white; -fx-border-color: black;" styleClass="btn-medium"
+                              stylesheets="@../css/eleve.css" text=" " textFill="#14a433" textOverrun="CLIP">
+                       <font>
+                           <Font name="Arabic Typesetting" size="24.0"/>
+                       </font>
+                       <graphic>
+                           <EmojiOneView glyphName="EURO" strokeType="OUTSIDE" strokeWidth="0.0"
+                                         style="-glyph-size: 30;"/>
+                       </graphic>
+                   </JFXButton>
                </children>
             </HBox>
-            <JFXTreeTableView fx:id="treeTableView" fixedCellSize="0.0" />
+             <JFXTreeTableView fx:id="treeTableView" fixedCellSize="0.0" prefHeight="492.0" prefWidth="1000.0"/>
          </children>
          <StackPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

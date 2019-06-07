@@ -2,16 +2,10 @@ package home.controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import home.dbDir.EleveDB;
-import home.dbDir.EmployeDB;
 import home.java.CryptoUtils;
 import home.java.Eleve;
 import home.java.Employe;
-import home.controllers.ManageEmployeeController;
-import home.controllers.EleveController;
-
 import javafx.animation.FadeTransition;
-import javafx.animation.SequentialTransition;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -24,7 +18,10 @@ import javafx.geometry.Pos;
 import javafx.print.*;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TreeItem;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
@@ -47,8 +44,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import static home.controllers.ShowArchvDataController.eleveSelected;
 import static home.controllers.ShowArchDataEmlyController.emplSelected;
+import static home.controllers.ShowArchvDataController.eleveSelected;
 
 
 
@@ -438,7 +435,7 @@ public class ArchiveController implements Initializable {
                     E.setClasse(classe);
 
                      String nombreStuding = li.readLine();
-                     E.setAnneeScolaire(nombreStuding);
+                    E.setAnneeScolaire(Integer.valueOf(nombreStuding));
 
                      String regim = li.readLine();
                      E.setRegime(regim);

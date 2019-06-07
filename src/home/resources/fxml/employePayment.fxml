@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="179.0" prefWidth="346.0"
+            stylesheets="@../css/eleve.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            fx:controller="home.controllers.employePaymentController">
+    <children>
+        <HBox layoutX="10.0" layoutY="10.0" AnchorPane.bottomAnchor="202.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <EmojiOneView glyphName="X" onMouseClicked="#btnClose" size="20" styleClass="icon-close"
+                              wrappingWidth="14.0">
+                    <HBox.margin>
+                        <Insets left="10.0" top="10.0"/>
+                    </HBox.margin>
+                </EmojiOneView>
+                <EmojiOneView glyphName="PRINTER" onMouseClicked="#btnClose" size="20" styleClass="icon-close"
+                              wrappingWidth="14.0">
+                    <HBox.margin>
+                        <Insets left="15.0" top="10.0"/>
+                    </HBox.margin>
+                </EmojiOneView>
+                <Label fx:id="date" text="Date">
+                    <HBox.margin>
+                        <Insets left="150.0" top="10.0"/>
+                    </HBox.margin>
+                </Label>
+            </children>
+        </HBox>
+        <JFXTextField fx:id="salary" alignment="TOP_LEFT" layoutX="10.0" layoutY="98.0" prefHeight="27.0"
+                      prefWidth="166.0" promptText="أجر" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="10.0"
+                      AnchorPane.rightAnchor="170.0" AnchorPane.topAnchor="150.0"/>
+        <JFXButton fx:id="btnOk" layoutX="117.0" layoutY="196.0" mnemonicParsing="false" onMouseClicked="#btnAdd"
+                   prefHeight="44.0" prefWidth="95.0" ripplerFill="#003fe5" styleClass="btn-medium"
+                   stylesheets="@../css/eleve.css" text="OK" textAlignment="CENTER" AnchorPane.bottomAnchor="5.0"
+                   AnchorPane.topAnchor="220.0"/>
+        <Label fx:id="name" layoutX="20.0" layoutY="61.0" text="Name" AnchorPane.topAnchor="90.0"/>
+        <Label fx:id="id" layoutX="20.0" layoutY="34.0" text="ID" AnchorPane.topAnchor="55.0"/>
+    </children>
+</AnchorPane>

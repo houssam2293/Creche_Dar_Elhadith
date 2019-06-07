@@ -2,10 +2,9 @@ package home.controllers;
 
 import com.jfoenix.controls.*;
 import home.dbDir.CalendarDB;
-import home.dbDir.classeDB;
+import home.dbDir.ClasseDB;
 import home.java.ClasseCellFactory;
 import home.java.ClasseModel;
-import home.java.CryptoUtils;
 import home.java.ModelCalendar;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -33,7 +32,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -42,7 +40,6 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.controlsfx.control.Notifications;
 
-import javax.crypto.Cipher;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -150,7 +147,7 @@ public class CalendarController implements Initializable {
             }
         });
 
-        List<ClasseModel> clsDB = new classeDB().getClasse();
+        List<ClasseModel> clsDB = new ClasseDB().getClasse();
         ArrayList<ClasseModel> classeModels = new ArrayList<>(clsDB);
         classeListView.getItems().addAll(classeModels);
         classeListView.setCellFactory(new ClasseCellFactory());
@@ -1089,22 +1086,8 @@ public class CalendarController implements Initializable {
     @FXML
     void printTimeTable(ActionEvent event) {
 
-        String key = DigestUtils.shaHex("Bechlaghem Mohammed Sends His Regards!").substring(8);
-        FileChooser fileChooser = new FileChooser();
-        //Set extension filter
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("text files (*.txt)", "*.txt");
-        fileChooser.getExtensionFilters().add(extFilter);
-        File inputFile = fileChooser.showOpenDialog(new Stage());
-        System.out.println(inputFile.getName());
-        File encryptedFile = new File(inputFile.getParent()+"\\document.encrypted");
-        File decryptedFile = new File(inputFile.getParent()+"\\document.decrypted.txt");
-        try {
-            CryptoUtils.encrypt(key, inputFile, encryptedFile);
-            CryptoUtils.decrypt(key, encryptedFile, decryptedFile);
-        } catch (CryptoUtils.CryptoException ex) {
-            System.out.println(ex.getMessage());
-            ex.printStackTrace();
-        }
+        //todo:this is next
+
     }
 
     @FXML

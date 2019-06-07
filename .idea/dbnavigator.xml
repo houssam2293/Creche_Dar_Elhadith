@@ -83,8 +83,7 @@ PRIMARY KEY (`num`)
           <driver-library value="" />
           <driver value="" />
           <url value="jdbc:mysql://localhost:3306/creche_dar_elhadith?useUnicode=true&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC" />
-          <os-authentication value="false" />
-          <empty-authentication value="false" />
+          <type value="USER_PASSWORD" />
           <user value="root" />
           <deprecated-pwd value="cm9vdA==" />
         </database>
@@ -122,7 +121,7 @@ PRIMARY KEY (`num`)
           <max-connection-pool-size value="7" />
           <alternative-statement-delimiter value="" />
         </details>
-        <object-filters hide-empty-schemas="false">
+        <object-filters hide-empty-schemas="false" hide-pseudo-columns="false">
           <object-type-filter use-master-settings="true">
             <object-type name="SCHEMA" enabled="true" />
             <object-type name="USER" enabled="true" />

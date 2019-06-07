@@ -1,22 +1,14 @@
 package home.controllers;
 
-import home.dbDir.EleveDB;
 import home.java.Eleve;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
-import javafx.util.converter.DateTimeStringConverter;
 
-
-import java.awt.*;
 import java.net.URL;
-import java.sql.Date;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.ESCAPE;
@@ -107,7 +99,7 @@ public class ficheEleveController implements Initializable {
         birthDay.setText(eleveFiled.getDateNaissance().toString());
         birthPlace.setText(eleveFiled.getLieuNaissance());
         classRoom.setText(eleveFiled.getClasse());
-        schoolYear.setText(eleveFiled.getAnneeScolaire());
+        schoolYear.setText(String.valueOf(eleveFiled.getAnneeScolaire()));
         adresse.setText(eleveFiled.getAdresse());
         regime.setText(eleveFiled.getRegime());
         phone.setText(eleveFiled.getPhone());

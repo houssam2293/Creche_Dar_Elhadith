@@ -5,6 +5,8 @@ import java.util.Date;
 
 
 public class Eleve {
+    private final static Eleve instance = new Eleve();
+    private int anneeScolaire;
 
 
     private int Id;
@@ -14,7 +16,7 @@ public class Eleve {
     private Date dateNaissance;
     private String lieuNaissance;
     private String classe;
-    private String anneeScolaire;
+    private int tranches;
     private String regime;
     private String adresse;
     private String phone;
@@ -26,11 +28,11 @@ public class Eleve {
     private String maladie;
     private String wakil;
     private String remarque;
+    private double montantRestant;
 
-
-    public Eleve(int Id, int gender, String nom, String prenom, Date dateNaissance, String lieuNaissance, String classe, String anneeScolaire,
+    public Eleve(int Id, int gender, String nom, String prenom, Date dateNaissance, String lieuNaissance, String classe, int anneeScolaire,
                  String regime, String adresse, String phone, String prenomPere, String prenomMere, String nomMere, String travailPere, String travailMere,
-                 String maladie, String wakil, String remarque) {
+                 String maladie, String wakil, String remarque, int tranches, double montantRestant) {
         this.Id=Id;
         this.gender=gender;
         this.nom=nom;
@@ -50,7 +52,13 @@ public class Eleve {
         this.maladie=maladie;
         this.wakil=wakil;
         this.remarque=remarque;
+        this.tranches = tranches;
+        this.montantRestant = montantRestant;
 
+    }
+
+    public static Eleve getInstance() {
+        return instance;
     }
 
     public Eleve() {
@@ -124,14 +132,13 @@ public class Eleve {
         this.classe = value;
     }
 
-
-    public String getAnneeScolaire() {
+    public int getAnneeScolaire() {
         // Automatically generated method. Please delete this comment before entering specific code.
         return this.anneeScolaire;
     }
 
 
-    public void setAnneeScolaire(String value) {
+    public void setAnneeScolaire(int value) {
         // Automatically generated method. Please delete this comment before entering specific code.
         this.anneeScolaire = value;
     }
@@ -254,5 +261,21 @@ public class Eleve {
 
     public void setGender(int gender) {
         this.gender = gender;
+    }
+
+    public double getMontantRestant() {
+        return montantRestant;
+    }
+
+    public void setMontantRestant(double montantRestant) {
+        this.montantRestant = montantRestant;
+    }
+
+    public int getTranches() {
+        return tranches;
+    }
+
+    public void setTranches(int tranches) {
+        this.tranches = tranches;
     }
 }

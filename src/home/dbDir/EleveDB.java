@@ -29,7 +29,7 @@ public class EleveDB {
                         resultSet.getDate("dateNaissance"),
                         resultSet.getString("lieuNaissance"),
                         resultSet.getString("classe"),
-                        resultSet.getString("anneeScolaire"),
+                        resultSet.getInt("anneeScolaire"),
                         resultSet.getString("regime"),
                         resultSet.getString("adresse"),
                         resultSet.getString("phone"),
@@ -40,7 +40,9 @@ public class EleveDB {
                         resultSet.getString("travailMere"),
                         resultSet.getString("maladie"),
                         resultSet.getString("wakil"),
-                        resultSet.getString("remarque")));
+                        resultSet.getString("remarque"),
+                        resultSet.getInt("tranches"),
+                        resultSet.getDouble("montantRestant")));
             }
 
         } catch (SQLException ex) {
@@ -71,7 +73,7 @@ public class EleveDB {
                         resultSet.getDate("dateNaissance"),
                         resultSet.getString("lieuNaissance"),
                         resultSet.getString("classe"),
-                        resultSet.getString("anneeScolaire"),
+                        resultSet.getInt("anneeScolaire"),
                         resultSet.getString("regime"),
                         resultSet.getString("adresse"),
                         resultSet.getString("phone"),
@@ -82,7 +84,9 @@ public class EleveDB {
                         resultSet.getString("travailMere"),
                         resultSet.getString("maladie"),
                         resultSet.getString("wakil"),
-                        resultSet.getString("remarque")));
+                        resultSet.getString("remarque"),
+                        resultSet.getInt("tranches"),
+                        resultSet.getDouble("montantRestant")));
             }
 
         } catch (SQLException ex) {
@@ -93,7 +97,7 @@ public class EleveDB {
     }
 
     public int addEleve(Eleve eleve) {
-        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`eleve` ( `id`,`gender`, `nom`, `prenom`, `dateNaissance`, `lieuNaissance`,`classe`,`anneeScolaire`,`regime`, `adresse`, `phone`, `prenomPere`, `prenomMere`, `nomMere`, `travailPere`, `travailMere`, `maladie`,`wakil`, `remarque`");
+        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`eleve` ( `id`,`gender`, `nom`, `prenom`, `dateNaissance`, `lieuNaissance`,`classe`,`anneeScolaire`,`regime`, `adresse`, `phone`, `prenomPere`, `prenomMere`, `nomMere`, `travailPere`, `travailMere`, `maladie`,`wakil`, `remarque`, `tranches`, `montantRestant`");
         Connection connection = null;
         Statement st = null;
 
@@ -127,7 +131,9 @@ public class EleveDB {
             sql.append(eleve.getTravailMere()).append("','");
             sql.append(eleve.getMaladie()).append("','");
             sql.append(eleve.getWakil()).append("','");
-            sql.append(eleve.getRemarque()).append("');");
+            sql.append(eleve.getRemarque()).append("','");
+            sql.append(eleve.getTranches()).append("','");
+            sql.append(eleve.getMontantRestant()).append("');");
             st.executeUpdate(sql.toString());
 
 
@@ -259,6 +265,78 @@ public class EleveDB {
         return 1;
     }
 
+    public int countRegimeEleve(String regime) {
+        Connection con = new ConnectionClasse().getConnection();
+        int count = 0;
+        if (con == null) // if connection failed
+        {
+            return -1;
+        }
+        Statement st;
+        try {
+
+            st = con.createStatement();
+            String sql = "SELECT count(id) FROM creche_dar_elhadith.eleve where regime = '" + regime + "';";
+            ResultSet resultSet = st.executeQuery(sql);
+            while (resultSet.next()) {
+                count = resultSet.getInt("count(id)");
+            }
+            return count;
+        } catch (SQLException e) {
+            System.out.println("Error : " + e.getErrorCode());
+            //e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public int countGenderEleve(int gender) {
+        Connection con = new ConnectionClasse().getConnection();
+        int count = 0;
+        if (con == null) // if connection failed
+        {
+            return -1;
+        }
+        Statement st;
+        try {
+
+            st = con.createStatement();
+            String sql = "SELECT count(id) FROM creche_dar_elhadith.eleve where gender = '" + gender + "';";
+            ResultSet resultSet = st.executeQuery(sql);
+            while (resultSet.next()) {
+                count = resultSet.getInt("count(id)");
+            }
+            return count;
+        } catch (SQLException e) {
+            System.out.println("Error : " + e.getErrorCode());
+            //e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public int countSchoolYear(int anneeScolaire) {
+        Connection con = new ConnectionClasse().getConnection();
+        int count = 0;
+        if (con == null) // if connection failed
+        {
+            return -1;
+        }
+        Statement st;
+        try {
+
+            st = con.createStatement();
+            String sql = "SELECT count(id) FROM creche_dar_elhadith.eleve where anneeScolaire = '" + anneeScolaire + "';";
+            ResultSet resultSet = st.executeQuery(sql);
+            while (resultSet.next()) {
+                count = resultSet.getInt("count(id)");
+            }
+            return count;
+        } catch (SQLException e) {
+            System.out.println("Error : " + e.getErrorCode());
+            //e.printStackTrace();
+            return -1;
+        }
+    }
+
     public int removeEleve(int id) {
         Connection con = new ConnectionClasse().getConnection();
         if (con == null) // if connection failed
@@ -281,8 +359,51 @@ public class EleveDB {
 
     }
 
+    public int deductTranche(int id, int tranche, double montantreduit) {
+        StringBuilder sql = new StringBuilder("UPDATE `eleve` SET ");
+        Connection con = null;
+        Statement st = null;
 
-    private boolean eleveExist(int id) {
+        try {
+            con = new ConnectionClasse().getConnection();
+
+            if (con == null) {
+                return -1;
+            }
+
+
+            st = con.createStatement();
+
+            sql.append("`tranches`=tranches-'").append(tranche);
+            sql.append("', `montantRestant`=montantRestant-'").append(montantreduit);
+
+            sql.append("' WHERE `id`=").append(id).append(";");
+
+            int status = st.executeUpdate(sql.toString());
+            System.out.println("Status : " + status);
+
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception code: " + ex.getErrorCode());
+            System.out.println("SQLException msg: " + ex.getMessage());
+            //ex.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (st != null) {
+                    st.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+        return 1;
+    }
+
+
+    public boolean eleveExist(int id) {
         Connection con = new ConnectionClasse().getConnection();
         if (con == null) // if connection failed
         {

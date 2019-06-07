@@ -1,10 +1,10 @@
 package home.controllers;
 
 import home.java.Eleve;
-import home.java.NodePrinter;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.print.*;
+import javafx.print.Printer;
+import javafx.print.PrinterJob;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -60,13 +60,33 @@ public class ImageModel implements Initializable {
     }
 
     void print() {
-        PrinterJob job = PrinterJob.createPrinterJob();
-        //todo: fix this next
-        NodePrinter printer = new NodePrinter();
-        boolean success = printer.print(job, true, root);
-        if (success) {
-            job.endJob();
+            /*PrinterJob job = PrinterJob.createPrinterJob();
+            Printer printer= job.getPrinter();
+            PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
+            root.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            job.printPage(pageLayout,root);
+        job.endJob();*/
+        Printer printer = Printer.getDefaultPrinter();
+        PrinterJob job = PrinterJob.createPrinterJob(printer);
+        if (job != null) {
+            boolean showDialog = job.showPageSetupDialog(null);
+            if (showDialog) {
+                root.setScaleX(-0.80);
+                root.setScaleY(0.80);
+                root.setTranslateX(50);
+                root.setTranslateY(-10);
+                boolean success = job.printPage(root);
+                if (success) {
+                    job.endJob();
+                }
+                root.setTranslateX(0);
+                root.setTranslateY(0);
+                root.setScaleX(1.0);
+                root.setScaleY(1.0);
+            }
         }
+        //todo: fix this next
+
 
     }
 

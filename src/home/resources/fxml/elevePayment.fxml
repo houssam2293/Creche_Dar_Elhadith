@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="340.0" prefWidth="327.0"
+            stylesheets="@../css/eleve.css" xmlns="http://javafx.com/javafx/8.0.172-ea"
+            fx:controller="home.controllers.elevePaymentController">
+    <children>
+        <EmojiOneView glyphName="X" onMouseClicked="#btnClose" size="20" styleClass="icon-close" wrappingWidth="14.0"
+                      AnchorPane.bottomAnchor="202.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="0.0"
+                      AnchorPane.topAnchor="10.0"/>
+        <EmojiOneView glyphName="PRINTER" layoutX="10.0" layoutY="27.0" onMouseClicked="#btnClose" size="20"
+                      styleClass="icon-close" wrappingWidth="14.0" AnchorPane.leftAnchor="40.0"
+                      AnchorPane.topAnchor="10.0"/>
+        <VBox onMouseClicked="#btnClose" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <Label fx:id="id" text="ID">
+                    <VBox.margin>
+                        <Insets left="10.0" top="50.0"/>
+                    </VBox.margin>
+                </Label>
+                <Label fx:id="name" text="Name">
+                    <VBox.margin>
+                        <Insets left="10.0" top="20.0"/>
+                    </VBox.margin>
+                </Label>
+                <HBox>
+                    <children>
+                        <Label text="مبلغ متبقي:">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </Label>
+                        <Label fx:id="montantRestant" text="Label">
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </HBox>
+                <HBox>
+                    <children>
+                        <Label text="قطع متبقية:">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </Label>
+                        <Label fx:id="tranchesRestantes" text="Label">
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </HBox>
+                <HBox>
+                    <children>
+                        <JFXTextField fx:id="payment" alignment="TOP_RIGHT" prefHeight="25.0" prefWidth="135.0"
+                                      promptText="المبلغ">
+                            <HBox.margin>
+                                <Insets left="10.0"/>
+                            </HBox.margin>
+                        </JFXTextField>
+                        <JFXTextField fx:id="tranches" alignment="TOP_RIGHT" layoutX="10.0" layoutY="10.0"
+                                      prefHeight="25.0" prefWidth="135.0" promptText="رقم القطع معنية">
+                            <HBox.margin>
+                                <Insets left="20.0"/>
+                            </HBox.margin>
+                        </JFXTextField>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </HBox>
+                <Label fx:id="date" text="Date">
+                    <VBox.margin>
+                        <Insets left="10.0" top="25.0"/>
+                    </VBox.margin>
+                </Label>
+                <JFXButton fx:id="btnOk" mnemonicParsing="false" onMouseClicked="#btnAdd" prefHeight="27.0"
+                           prefWidth="95.0" ripplerFill="#0049e5" styleClass="btn-medium"
+                           stylesheets="@../css/eleve.css" text="OK" textAlignment="CENTER">
+                    <VBox.margin>
+                        <Insets bottom="10.0" left="105.0" top="20.0"/>
+                    </VBox.margin>
+                </JFXButton>
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>

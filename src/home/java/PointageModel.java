@@ -3,6 +3,7 @@ package home.java;
 import com.jfoenix.controls.JFXTimePicker;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.time.LocalTime;
@@ -15,6 +16,7 @@ public class PointageModel {
     private JFXTimePicker tempEnt;
     private CheckBox remark;
     private TextField remarkk;
+    private Label label;
 
 
     public PointageModel(int id, String fName, String lName, String remarque, String value) {
@@ -37,6 +39,8 @@ public class PointageModel {
         this.tempEnt.setValue(LocalTime.now());
         this.remark = new CheckBox();
         this.remarkk = new TextField(remarque);
+        this.label = new Label();
+        this.label.setText(remarque);
     }
 
     public void setId(int id) {
@@ -88,4 +92,15 @@ public class PointageModel {
     public void setRemark(CheckBox remark) {
         this.remark = remark;
     }
+
+    public Label getLabel() {
+        return label;
+    }
+
+    public void setLabel(Label label) {
+        this.label = label;
+    }
+
+
+
 }

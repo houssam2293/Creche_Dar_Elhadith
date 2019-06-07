@@ -1,7 +1,7 @@
 package home.controllers;
 
 import com.jfoenix.controls.JFXTextField;
-import home.dbDir.classeDB;
+import home.dbDir.ClasseDB;
 import home.java.ClasseModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -46,7 +46,7 @@ public class editClassController implements Initializable {
         cls.setremarque(remarque.getText().trim().toLowerCase());
 
 
-        int status = new classeDB().editEmployee(cls);
+        int status = new ClasseDB().editEmployee(cls);
         switch (status) {
             case -1:
                 System.out.println("Error connecting to DB!");

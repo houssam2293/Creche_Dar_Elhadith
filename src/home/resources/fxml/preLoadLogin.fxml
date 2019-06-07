@@ -4,16 +4,15 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.text.Font?>
-
 <StackPane fx:id="root" prefHeight="512.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.PreLoadLogin">
     <AnchorPane fx:id="holderPane" prefHeight="515.0" prefWidth="718.0">
-        <ImageView fx:id="imageView" fitHeight="538.0" fitWidth="722.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ImageView fx:id="imageView" fitHeight="538.0" fitWidth="722.0" pickOnBounds="true" smooth="false"
+                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                   AnchorPane.topAnchor="0.0">
             <Image url="@../images/02.jpg" />
         </ImageView>
         <Pane layoutX="1.0" layoutY="158.0" prefHeight="154.0" prefWidth="717.0" AnchorPane.bottomAnchor="226.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="158.0">

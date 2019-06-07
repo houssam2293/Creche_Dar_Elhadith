@@ -1,24 +1,34 @@
 package home.controllers;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import home.dbDir.StockDB;
+import home.java.EntreStock;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
-import org.controlsfx.control.Notifications;
-import home.dbDir.StockDB;
-import home.java.EntreStock;
 import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
+
 import java.net.URL;
 import java.sql.Date;
 import java.util.ResourceBundle;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+
 import static javafx.scene.input.KeyCode.ENTER;
 import static javafx.scene.input.KeyCode.ESCAPE;
 
 public class EditStockFormController implements Initializable {
+
+    private ObservableList<String> typeProduit =
+            FXCollections.observableArrayList(
+                    "طعام", "كتب و كراريس", "أخرى"
+            );
 
     @FXML
     private VBox root;
@@ -44,6 +54,8 @@ public class EditStockFormController implements Initializable {
     @FXML
     private JFXTextField fournisseurField;
 
+    @FXML
+    private JFXComboBox<String> comboProd;
 
 
 
@@ -60,6 +72,12 @@ public class EditStockFormController implements Initializable {
 
         EntreStock stock = new EntreStock();
         stock.setId(stockSelected.getId());
+        if (comboProd.getValue().equals("طعام"))
+            stock.setTypeProduit(1);
+        else if (comboProd.getValue().equals("كتب و كراريس"))
+            stock.setTypeProduit(2);
+        else if (comboProd.getValue().equals("أخرى"))
+            stock.setTypeProduit(3);
         stock.setNom(nomField.getText().trim().toLowerCase());
         stock.setDateFab(Date.valueOf(dateFabField.getValue()));
         stock.setDateExp(Date.valueOf(dateExpField.getValue()));
@@ -126,12 +144,19 @@ public class EditStockFormController implements Initializable {
 
 
         idField.setText(String.valueOf(stockSelected.getId()));
+        if (stockSelected.getTypeProduit() == 1)
+            comboProd.setValue("طعام");
+        else if (stockSelected.getTypeProduit() == 2)
+            comboProd.setValue("كتب و كراريس");
+        else if (stockSelected.getTypeProduit() == 3)
+            comboProd.setValue("أخرى");
         nomField.setText(stockSelected.getNom());
         dateFabField.setValue(java.time.LocalDate.parse(String.valueOf(stockSelected.getDateFab())));
         dateExpField.setValue(java.time.LocalDate.parse(String.valueOf(stockSelected.getDateExp())));
         quantiteField.setText(String.valueOf(stockSelected.getQuantite()));
         prixField.setText(String.valueOf(stockSelected.getPrix()));
         fournisseurField.setText(stockSelected.getNom());
+        comboProd.setItems(typeProduit);
 
     }
 

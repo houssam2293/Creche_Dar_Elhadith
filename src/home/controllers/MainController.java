@@ -29,7 +29,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -90,7 +89,7 @@ public class MainController implements Initializable {
 
     private final byte NUMBER_IMAGE_SLIDER = 3;
     private int counter = 1;
-    private boolean dataSavedThisMonth=true;
+    private boolean dataSavedThisMonth = true;
 
     public MainController() {
     }
@@ -197,6 +196,7 @@ public class MainController implements Initializable {
     @FXML
     public void aboutClicked() {
         styleBox(8);
+
     }
 
 

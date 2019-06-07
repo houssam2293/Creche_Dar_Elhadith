@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<StackPane fx:id="root" alignment="TOP_LEFT" prefHeight="690.0" prefWidth="1192.0" style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ManageEmployeeController">
+<?import java.net.URL?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" alignment="TOP_LEFT" prefHeight="690.0" prefWidth="1192.0"
+           style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+           AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.172-ea"
+           fx:controller="home.controllers.ManageEmployeeController">
     <stylesheets>
         <URL value="@../css/main.css" />
         <URL value="@../css/manageEmployee.css" />
@@ -71,6 +67,8 @@
                 </HBox.margin>
             </JFXButton>
             <EmojiOneView fill="#2196f3" glyphName="PRINTER" onMouseClicked="#printFile" size="50" styleClass="printer" />
+            <EmojiOneView fill="#2196f3" glyphName="EURO" layoutX="1011.0" layoutY="58.0" onMouseClicked="#money"
+                          size="50" styleClass="printer"/>
         </HBox>
         <JFXTreeTableView fx:id="treeTableView" fixedCellSize="0.0" prefHeight="496.0" prefWidth="1292.0" stylesheets="@../css/JFXTreeTableView-CSS.css" />
     </VBox>

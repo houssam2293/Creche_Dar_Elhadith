@@ -10,7 +10,8 @@ import java.util.List;
 
 public class PointageDB {
 
-    public List<PointageModel> getPointage(LocalDate date) {
+
+    public List<PointageModel> getAbsences(LocalDate date) {
         Connection connection = new ConnectionClasse().getConnection();
         if (connection == null) {
             return null;
@@ -28,18 +29,17 @@ public class PointageDB {
             ResultSet resultSet = ps.executeQuery();
             // ResultSet resultSet = statement.executeQuery(sql);
             if (!resultSet.next()) {
-                System.out.println("tableau khawi ");
+                System.out.println("tableau vide ");
                 return null;
             }
-            while (resultSet.next()) {
+            do {
                 pointageModels.add(new PointageModel(
                         resultSet.getInt("idEmp"),
                         resultSet.getString("name"),
                         resultSet.getString("fonction"),
                         resultSet.getString("remark")));
                 System.out.println("BDD ");
-
-            }
+            } while (resultSet.next());
 
         } catch (SQLException ex) {
             return null;
@@ -48,13 +48,89 @@ public class PointageDB {
         return pointageModels;
     }
 
+
+    public List<PointageModel> getPresences(LocalDate date) {
+        Connection connection = new ConnectionClasse().getConnection();
+        if (connection == null) {
+            return null;
+        }
+        String sql = "select idEmp,name,fonction,remark from creche_dar_elhadith.employe,creche_dar_elhadith.pointage " +
+                "where dateJour=? and presence = 1 and id = idEmp;";
+
+        List<PointageModel> pointageModels = new ArrayList<>();
+
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, String.valueOf(date));
+            // Statement statement = connection.createStatement();
+            ResultSet resultSet = ps.executeQuery();
+            // ResultSet resultSet = statement.executeQuery(sql);
+            if (!resultSet.next()) {
+                System.out.println("tableau khawi ");
+                return null;
+            }
+            do {
+                pointageModels.add(new PointageModel(
+                        resultSet.getInt("idEmp"),
+                        resultSet.getString("name"),
+                        resultSet.getString("fonction"),
+                        resultSet.getString("remark")));
+                System.out.println("BDD ");
+            } while (resultSet.next());
+
+        } catch (SQLException ex) {
+            return null;
+        }
+
+        return pointageModels;
+    }
+
+
+    public List<PointageModel> getOut(LocalDate date) {
+        Connection connection = new ConnectionClasse().getConnection();
+        if (connection == null) {
+            return null;
+        }
+        String sql = "select id,nom, prenom,fonction FROM creche_dar_elhadith.employe where id not in " +
+                "(select idEmp from creche_dar_elhadith.pointage where dateJour = ?)";
+
+        List<PointageModel> pointageModels = new ArrayList<>();
+
+
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, String.valueOf(date));
+            // Statement statement = connection.createStatement();
+            ResultSet resultSet = ps.executeQuery();
+            // ResultSet resultSet = statement.executeQuery(sql);
+            if (!resultSet.next()) {
+                System.out.println("tableau khawi ");
+                return null;
+            }
+            do {
+                pointageModels.add(new PointageModel(
+                        resultSet.getInt("id"),
+                        resultSet.getString("nom") + " " + resultSet.getString("prenom"),
+                        resultSet.getString("fonction"),
+                        " "));
+            } while (resultSet.next());
+
+        } catch (SQLException ex) {
+            return null;
+        }
+
+        return pointageModels;
+    }
+
+
     public int addPointage(PointageModel point) {
         JFXDatePicker a = new JFXDatePicker();
         a.setValue(LocalDate.now());
         if (pointExist(point.getId(), a.getValue())) {
 
 
-            StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`pointage` ( `idEmp`, `name`, `dateJour`, `timeEntre`, `remark`, `presence`");
+            StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`pointage` ( `idEmp`, `name`, `dateJour`, `timeEntre`, `remark`, `presence`, `jour`");
             Connection connection = null;
             Statement st = null;
             try {
@@ -77,7 +153,8 @@ public class PointageDB {
                 else
                     sql.append("0");
 
-                sql.append("');");
+                sql.append("',DAYOFWEEK(CURDATE())");
+                sql.append(");");
                 st.executeUpdate(sql.toString());
 
 
@@ -101,10 +178,9 @@ public class PointageDB {
             }
         } else {
             // la je vais mets a jour
-            System.out.println("raw deja kaye");
+            System.out.println("pointage déja existe");
 
-
-            StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`pointage` ( `idEmp`, `name`, `dateJour`, `timeEntre`, `remark`, `presence`");
+            StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`pointage` ( `idEmp`, `name`, `dateJour`, `timeEntre`, `remark`, `presence`, `jour`");
             Connection connection = null;
             Statement st = null;
             try {
@@ -127,7 +203,8 @@ public class PointageDB {
                 else
                     sql.append("0");
 
-                sql.append("');");
+                sql.append("',DAYOFWEEK(CURDATE())");
+                sql.append(");");
                 st.executeUpdate(sql.toString());
 
 

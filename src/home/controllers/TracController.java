@@ -2,7 +2,10 @@ package home.controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
+import home.dbDir.EleveDB;
 import home.dbDir.EmployeDB;
+import home.dbDir.StockDB;
+import home.dbDir.fraisDB;
 import home.java.Employe;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
@@ -10,44 +13,43 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.chart.PieChart;
+import javafx.scene.chart.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+
 public class TracController implements Initializable {
+
+    static JFXDialog charityUserDialog;
 
     @FXML
     private StackPane root;
-
     @FXML
-    private AnchorPane choosePane,employeeAnchor,studentAnchor;
+    Pane studentBox, employeeBox, fraisBox;
 
     @FXML
     private VBox studentPane;
-
     @FXML
-    private Label errorLabelEmploye,errorLabelStudent;
+    private AnchorPane choosePane, employeeAnchor, studentAnchor, fraisAnchor;
+    @FXML
+    private VBox fraisPane;
 
     @FXML
     private JFXTextField searchStudentField;
-
     @FXML
-    private JFXComboBox<String> comboStudentSearchBy;
+    private Label errorLabelEmploye, errorLabelStudent, errorLabelFrais;
 
     @FXML
     private HBox searchToolsBox;
-
     @FXML
-    private JFXComboBox<String> comboStudentSectionFilter;
+    private JFXComboBox<String> comboStudentSearch;
 
     @FXML
     private JFXTreeTableView<ManageEmployeeController.TableEmployee> tableEmployeeTrac;
@@ -72,32 +74,67 @@ public class TracController implements Initializable {
 
     @FXML
     private JFXComboBox<String> comboEmployeSearchBy;
-
     @FXML
-    private JFXTreeTableView tableStudentTrac;
-
+    private JFXComboBox<String> comboClasse;
     @FXML
-    private PieChart pieChartStudent;
-
+    private JFXTreeTableView<EleveController.TableEleve> tableStudentTrac;
     @FXML
-    private PieChart pieChartRigimeStudent;
-
+    private JFXTreeTableColumn<EleveController.TableEleve, String> SidCol, SfirstnameCol, SlastNameCol, SClassCol, SdateOfBirthCol, SplaceOfBirthCol, SaddressCol, SphoneCol;
     @FXML
-    Pane studentBox,employeeBox;
+    private PieChart pieChartGenderStudent;
+    @FXML
+    private PieChart pieChartRegimeStudent;
+    @FXML
+    private PieChart pieChartSchoolYear;
+    @FXML
+    private PieChart pieChartFraisSortants;
+    @FXML
+    private PieChart pieChartFraisEntrants;
+    @FXML
+    private PieChart pieChartStock;
+    @FXML
+    private BarChart barChartFrais;
+    @FXML
+    private CategoryAxis XAxis;
+    @FXML
+    private NumberAxis YAxis;
+    @FXML
+    private Label Entrant, Sortant;
+    @FXML
+    private Label header1, header2, subheader1, subheader2, subheader3, subheader4;
+    @FXML
+    private Label subheader12, subheader22, subheader32, subheader42;
 
     static JFXDialog detailChart;
 
     private EmployeDB employeDB;
-
+    private EleveDB eleveDB;
+    private fraisDB fraisDB;
+    private StockDB stockDB;
 
     @FXML
-    void btnFilterStudent() {
+    void LesFrais() {
+        double lesFraisSortant = fraisDB.getFraisSortant();
+        Sortant.setText(String.valueOf(lesFraisSortant));
+        double lesFraisEntrant = fraisDB.getFraisEntrant();
+        Entrant.setText(String.valueOf(lesFraisEntrant));
 
+        double fraisStock = fraisDB.getFraisStock();
+        double percentStock = fraisDB.countFraisStock();
+        double fraisEmploye = fraisDB.getFraisEmploye();
+        double percentEmploye = fraisDB.countFraisEmploye();
+
+        header1.setText("• أجور العمال:");
+        header2.setText("• مصاريف المخزن:");
+        subheader1.setText("تمثل: ");
+        subheader12.setText("(" + percentEmploye + "%)" + " " + fraisEmploye);
+        subheader4.setText("تمثل: ");
+        subheader42.setText("(" + percentStock + "%)" + " " + fraisStock);
     }
 
-
     @FXML
-    void btnViewStatisticStudent() {
+    void btnFilterClasse() {
+
 
     }
 
@@ -105,6 +142,7 @@ public class TracController implements Initializable {
     void btnBackward() {
         employePane.setVisible(false);
         studentPane.setVisible(false);
+        fraisPane.setVisible(false);
         choosePane.setVisible(true);
         FadeTransition ft = new FadeTransition(Duration.millis(1000));
         ft.setNode(choosePane);
@@ -130,6 +168,21 @@ public class TracController implements Initializable {
 
     }
 
+    @FXML
+    void showFrais() {
+        fraisPane.setVisible(true);
+        choosePane.setVisible(false);
+        FadeTransition ft = new FadeTransition(Duration.millis(1000));
+        ft.setNode(fraisPane);
+        ft.setFromValue(0.1);
+        ft.setToValue(1);
+        ft.setCycleCount(1);
+        ft.setAutoReverse(false);
+        ft.play();
+        LesFrais();
+        pieChartFraisSortants.setVisible(true);
+        initPieFraisSortants();
+    }
     @FXML
     void showStudent() {
         btnSearchToolsEmploye();
@@ -271,7 +324,26 @@ public class TracController implements Initializable {
     }
 
     @FXML
-    void updateTableUser() {
+    void updateStudentChart() {
+        if (pieChartRegimeStudent.isVisible()) {
+            pieChartRegimeStudent.setVisible(false);
+            pieChartGenderStudent.setVisible(true);
+            initChartGenderStudent();
+            pieChartSchoolYear.setVisible(false);
+
+        } else if (pieChartGenderStudent.isVisible()) {
+            pieChartRegimeStudent.setVisible(false);
+            pieChartGenderStudent.setVisible(false);
+            pieChartSchoolYear.setVisible(true);
+            initChartSchoolYear();
+        } else if (pieChartSchoolYear.isVisible()) {
+            pieChartRegimeStudent.setVisible(true);
+            initChartRegimeStudent();
+            pieChartGenderStudent.setVisible(false);
+            pieChartSchoolYear.setVisible(false);
+        }
+
+        updateTable();
 
     }
 
@@ -301,6 +373,132 @@ public class TracController implements Initializable {
 
     }
 
+    @FXML
+    void viewChartFrais() {
+        double fraisEmploye = fraisDB.getFraisEmploye();
+        double percentEmploye = fraisDB.countFraisEmploye();
+        double fraisCharity = fraisDB.getFraisCharity();
+        double percentCharity = fraisDB.countFraisCharity();
+        double fraisEleve = fraisDB.getFraisEleve();
+        double percentEleve = fraisDB.countFraisEleve();
+        double fraisStock = fraisDB.getFraisStock();
+        double percentStock = fraisDB.countFraisStock();
+        double totalEat = stockDB.getStockTotal(1);
+        double totalStuff = stockDB.getStockTotal(2);
+        double totalOther = stockDB.getStockTotal(3);
+        double percentEat = stockDB.percentStockTotal(1);
+        double percentStuff = stockDB.percentStockTotal(2);
+        double percentOther = stockDB.percentStockTotal(3);
+
+
+        if (pieChartFraisSortants.isVisible()) {
+            pieChartFraisEntrants.setVisible(true);
+            pieChartStock.setVisible(false);
+            pieChartFraisSortants.setVisible(false);
+            initPieFraisEntrants();
+
+
+            header1.setText("• تكاليف التلاميذ:");
+            header2.setText("• هيبات:");
+            subheader1.setText("تمثل: ");
+            subheader12.setText("(" + percentEleve + "%)" + " " + fraisEleve);
+            subheader4.setText("تمثل: ");
+            subheader42.setText("(" + percentCharity + "%)" + " " + fraisCharity);
+        } else if (pieChartFraisEntrants.isVisible()) {
+            pieChartFraisEntrants.setVisible(false);
+            pieChartFraisSortants.setVisible(false);
+            pieChartStock.setVisible(true);
+            initPieStock();
+            header1.setText("• مصاريف المخزن:");
+            header2.setVisible(false);
+            subheader2.setVisible(true);
+            subheader22.setVisible(true);
+            subheader3.setVisible(true);
+            subheader32.setVisible(true);
+            subheader4.setVisible(false);
+            subheader42.setVisible(false);
+            subheader1.setText("مصاريف الطعام تمثل: ");
+            subheader12.setText("(" + percentEat + "%)" + " " + totalEat);
+            subheader2.setText("مصاريف الأدوات تمثل: ");
+            subheader22.setText("(" + percentStuff + "%)" + " " + totalStuff);
+            subheader3.setText("مصاريف الأخرى تمثل: ");
+            subheader32.setText("(" + percentOther + "%)" + " " + totalOther);
+
+
+        } else if (pieChartStock.isVisible()) {
+            pieChartFraisSortants.setVisible(true);
+            pieChartFraisEntrants.setVisible(false);
+            pieChartStock.setVisible(false);
+            initPieFraisSortants();
+
+            header2.setVisible(true);
+            subheader2.setVisible(false);
+            subheader22.setVisible(false);
+            subheader3.setVisible(false);
+            subheader32.setVisible(false);
+            subheader4.setVisible(true);
+            subheader42.setVisible(true);
+
+            header1.setText("• أجور العمال:");
+            header2.setText("• مصاريف المخزن:");
+            subheader1.setText("أجور العمال: ");
+            subheader12.setText("(" + percentEmploye + "%)" + " " + fraisEmploye);
+            subheader4.setText("تمثل: ");
+            subheader42.setText("(" + percentStock + "%)" + " " + fraisStock);
+        }
+        updateTable();
+    }
+
+
+    private void initPieFraisSortants() {
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+
+        data.add(new PieChart.Data("أجور العمال", fraisDB.countFraisEmploye()));
+        data.add(new PieChart.Data("مصارف المخزن", fraisDB.countFraisStock()));
+
+        pieChartFraisSortants.setData(data);
+        pieChartFraisSortants.setTitle("المصارف");
+
+    }
+
+    private void initPieFraisEntrants() {
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+
+        data.add(new PieChart.Data("تكاليف التلاميذ", fraisDB.countFraisEleve()));
+        data.add(new PieChart.Data("هيبات", fraisDB.countFraisCharity()));
+
+        pieChartFraisEntrants.setData(data);
+        pieChartFraisEntrants.setTitle("الربح");
+
+    }
+
+    private void initPieStock() {
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+
+        data.add(new PieChart.Data("طعام", stockDB.countStock(1)));
+        data.add(new PieChart.Data("كتب و كراريس", stockDB.countStock(2)));
+        data.add(new PieChart.Data("أخرى", stockDB.countStock(3)));
+
+        pieChartStock.setData(data);
+        pieChartStock.setTitle("تفاصيل المخزن");
+
+    }
+
+
+    private void initBarFrais() {
+
+        barChartFrais.setTitle("Les Frais Sortants");
+        XAxis.setLabel("Source");
+        YAxis.setLabel("Les Frais");
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Depenses");
+        series1.getData().add(new XYChart.Data("Employe", fraisDB.countFraisEmploye()));
+        series1.getData().add(new XYChart.Data("Stock", fraisDB.countFraisStock()));
+        barChartFrais.getData().addAll(series1);
+
+    }
+
+
     private void initPaiChart() {
         ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
 
@@ -314,6 +512,41 @@ public class TracController implements Initializable {
         pieChartEmployeRigime.setTitle("عدد العمال في مختلف فترات العمل");
     }
 
+    private void initChartRegimeStudent() {
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+
+        data.add(new PieChart.Data("صباح", eleveDB.countRegimeEleve("صباح")));
+        data.add(new PieChart.Data("مساء", eleveDB.countRegimeEleve("مساء")));
+        data.add(new PieChart.Data("صباح+مساء", eleveDB.countRegimeEleve("صباح+مساء")));
+        data.add(new PieChart.Data("صباح+نصف داخلي", eleveDB.countRegimeEleve("صباح+نصف داخلي")));
+        data.add(new PieChart.Data("اليوم كامل", eleveDB.countRegimeEleve("اليوم كامل")));
+
+        pieChartRegimeStudent.setData(data);
+        pieChartRegimeStudent.setTitle("عدد التلاميذ في مختلف فترات الدراسة");
+    }
+
+    private void initChartGenderStudent() {
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+
+        data.add(new PieChart.Data("ذكر", eleveDB.countGenderEleve(1)));
+        data.add(new PieChart.Data("أنثى", eleveDB.countGenderEleve(2)));
+
+        pieChartGenderStudent.setData(data);
+        pieChartGenderStudent.setTitle("عدد التلاميذ حسب الجنس");
+    }
+
+    private void initChartSchoolYear() {
+        ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
+
+        data.add(new PieChart.Data("السنة الاولى", eleveDB.countSchoolYear(1)));
+        data.add(new PieChart.Data("السنة الثانية", eleveDB.countSchoolYear(2)));
+
+        pieChartSchoolYear.setData(data);
+        pieChartSchoolYear.setTitle("عدد التلاميذ حسب السنة الدراسية");
+    }
+
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         JFXRippler rippler = new JFXRippler(studentBox);
@@ -323,6 +556,8 @@ public class TracController implements Initializable {
         employeeAnchor.getChildren().add(rippler1);
         studentAnchor.getChildren().add(rippler);
 
+        comboStudentSearch.getItems().addAll("رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد", "مكان الملاد", "العنوان الشخصي", "الهاتف");
+
         comboEmployeSearchBy.getItems().addAll("رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد",
                 "مكان الملاد", "المهنة", "العنوان الشخصي", "الهاتف",
                 "رقم الضمان الإجتماعي", "الشهادات", "تاريخ أول تعيين", "الخبرة", "حالة التعاقد", "فترة العمل", "الحالة العائلية", "لقب العزوبة", "عدد بنون", "عدد بنات");
@@ -331,6 +566,20 @@ public class TracController implements Initializable {
         employeDB = new EmployeDB();
         initializeTableEmploye();
         initPaiChart();
+
+        eleveDB = new EleveDB();
+        initializeTableStudent();
+        initChartRegimeStudent();
+        initChartGenderStudent();
+        initChartSchoolYear();
+
+        fraisDB = new fraisDB();
+        initBarFrais();
+        initPieFraisSortants();
+        initPieFraisEntrants();
+
+        stockDB = new StockDB();
+        initPieStock();
 
     }
 
@@ -392,6 +641,85 @@ public class TracController implements Initializable {
                             employee.getValue().nomCeleb.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase()) ||
                             employee.getValue().nombreEM.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase()) ||
                             employee.getValue().nombreEF.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase());
+            }
+        });
+    }
+
+
+    private void initializeTableStudent() {
+        SidCol = new JFXTreeTableColumn<>("رقم التسجيل");
+        SidCol.setPrefWidth(120);
+        SidCol.setCellValueFactory(param -> param.getValue().getValue().id);
+
+        SfirstnameCol = new JFXTreeTableColumn<>("الإسم");
+        SfirstnameCol.setPrefWidth(150);
+        SfirstnameCol.setCellValueFactory(param -> param.getValue().getValue().firstname);
+
+        SlastNameCol = new JFXTreeTableColumn<>("اللقب");
+        SlastNameCol.setPrefWidth(150);
+        SlastNameCol.setCellValueFactory(param -> param.getValue().getValue().lastname);
+
+        SClassCol = new JFXTreeTableColumn<>("القسم");
+        SClassCol.setPrefWidth(75);
+        SClassCol.setCellValueFactory(param -> param.getValue().getValue().classroom);
+
+        SdateOfBirthCol = new JFXTreeTableColumn<>("تاريخ الملاد");
+        SdateOfBirthCol.setPrefWidth(100);
+        SdateOfBirthCol.setCellValueFactory(param -> param.getValue().getValue().birthday);
+
+        SplaceOfBirthCol = new JFXTreeTableColumn<>("مكان الملاد");
+        SplaceOfBirthCol.setPrefWidth(100);
+        SplaceOfBirthCol.setCellValueFactory(param -> param.getValue().getValue().birthplace);
+
+
+        SaddressCol = new JFXTreeTableColumn<>("العنوان الشخصي");
+        SaddressCol.setPrefWidth(120);
+        SaddressCol.setCellValueFactory(param -> param.getValue().getValue().addresse);
+
+        SphoneCol = new JFXTreeTableColumn<>("الهاتف");
+        SphoneCol.setPrefWidth(75);
+        SphoneCol.setCellValueFactory(param -> param.getValue().getValue().phone);
+
+
+        updateTable();
+
+        searchStudentField.textProperty().addListener(e -> FilterSearchTableStudent());
+        comboStudentSearch.setOnAction(e -> FilterSearchTableStudent());
+
+        tableStudentTrac.getColumns().addAll(SidCol, SfirstnameCol, SlastNameCol, SClassCol, SdateOfBirthCol, SplaceOfBirthCol, SaddressCol, SphoneCol);
+        tableStudentTrac.setShowRoot(false);
+
+    }
+
+    private void FilterSearchTableStudent() {
+        tableStudentTrac.setPredicate(eleve -> {
+            switch (comboStudentSearch.getSelectionModel().getSelectedIndex()) {
+                case 0:
+                    return eleve.getValue().id.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase());
+                case 1:
+                    return eleve.getValue().lastname.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase());
+                case 2:
+                    return eleve.getValue().firstname.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase());
+                case 3:
+                    return eleve.getValue().classroom.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase());
+                case 4:
+                    return eleve.getValue().birthday.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase());
+                case 5:
+                    return eleve.getValue().birthplace.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase());
+                case 6:
+                    return eleve.getValue().addresse.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase());
+                case 7:
+                    return eleve.getValue().phone.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase());
+                default:
+                    return eleve.getValue().id.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase()) ||
+                            eleve.getValue().lastname.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase()) ||
+                            eleve.getValue().firstname.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase()) ||
+                            eleve.getValue().classroom.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase()) ||
+                            eleve.getValue().birthday.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase()) ||
+                            eleve.getValue().birthplace.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase()) ||
+                            eleve.getValue().addresse.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase()) ||
+                            eleve.getValue().phone.getValue().toLowerCase().contains(searchStudentField.getText().toLowerCase());
+
             }
         });
     }

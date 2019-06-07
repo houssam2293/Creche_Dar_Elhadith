@@ -1,14 +1,15 @@
 package home.controllers;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import home.dbDir.CompteDB;
-import home.dbDir.EmployeDB;
+import home.dbDir.fraisDB;
+import home.dbDir.tarifsDB;
 import home.java.Compte;
-import home.java.Employe;
 import home.java.FileVisitorImpl;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+import home.java.Frais;
+import home.java.Tarifs;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,33 +26,69 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
-
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.controlsfx.control.Notifications;
 
-import javax.swing.*;
 import java.awt.*;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class SettingsController extends Component implements Initializable {
+
 
     private ObservableList<String> options =
             FXCollections.observableArrayList(
                     "Français", "العربية"
             );
+
+    @FXML
+    private Label date;
+
+    @FXML
+    private JFXTextField sumCharity;
+
+    @FXML
+    private JFXTextField from;
+
+    @FXML
+    private VBox charity;
+
+    @FXML
+    private TextField eleveFull;
+
+    @FXML
+    private TextField eleveDemi;
+
+    @FXML
+    private TextField eleveMatAprem;
+
+    @FXML
+    private TextField eleveAprem;
+
+    @FXML
+    private TextField eleveMatin;
+
+    @FXML
+    private VBox money;
+
+    @FXML
+    private HBox charityOptions;
+
+    @FXML
+    private HBox moneyOptions;
 
     @FXML
     private HBox usernameOption;
@@ -155,6 +192,8 @@ public class SettingsController extends Component implements Initializable {
             saveLanguage();
         } else if (addNewUserPane.isVisible()) {
             addNewUser();
+        } else if (moneyOptions.isVisible()) {
+            saveMoney();
         }
 
     }
@@ -277,6 +316,63 @@ public class SettingsController extends Component implements Initializable {
         }
     }
 
+    private void saveMoney() {
+        Tarifs tarifs = new Tarifs();
+        tarifs.setTarifsSets(1);
+        tarifs.setMatin(Double.valueOf(eleveMatin.getText()));
+        tarifs.setAprem(Double.valueOf(eleveAprem.getText()));
+        tarifs.setMatAprem(Double.valueOf(eleveMatAprem.getText()));
+        tarifs.setDemi(Double.valueOf(eleveDemi.getText()));
+        tarifs.setComplet(Double.valueOf(eleveFull.getText()));
+
+        boolean existingTarifs = new tarifsDB().tarifsExist();
+        if (existingTarifs) {
+            int status = new tarifsDB().updateTarifs(tarifs);
+            switch (status) {
+                case -1:
+                    System.out.println("Error connecting to DB!");
+                    break;
+                case 2:
+                    System.out.println("Error Tarifs exist!");
+                    break;
+                case 0:
+                    System.out.println("Unknown Error failed to update Tarifs");
+                    break;
+                case 1:
+                    Notifications.create()
+                            .title("تمت الإضافة بنجاح                                   ")
+                            .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
+                            .hideAfter(Duration.millis(2000))
+                            .position(Pos.BOTTOM_RIGHT)
+                            .darkStyle()
+                            .show();
+            }
+        } else {
+
+            int status = new tarifsDB().setTarifs(tarifs);
+            switch (status) {
+                case -1:
+                    System.out.println("Error connecting to DB!");
+                    break;
+                case 2:
+                    System.out.println("Error Tarifs exist!");
+                    break;
+                case 0:
+                    System.out.println("Unknown Error failed to add Tarifs");
+                    break;
+                case 1:
+                    Notifications.create()
+                            .title("تمت الإضافة بنجاح                                   ")
+                            .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
+                            .hideAfter(Duration.millis(2000))
+                            .position(Pos.BOTTOM_RIGHT)
+                            .darkStyle()
+                            .show();
+            }
+        }
+
+    }
+
 
     @FXML
     public void btnCloseErrorMsg() {
@@ -383,6 +479,8 @@ public class SettingsController extends Component implements Initializable {
             changeUsernamePane.setVisible(true);
             changeEmailPane.setVisible(false);
             changePasswordPane.setVisible(false);
+            charity.setVisible(false);
+            money.setVisible(false);
             addNewUserPane.setVisible(false);
             changeLanguagePane.setVisible(false);
             save.setVisible(false);
@@ -392,6 +490,8 @@ public class SettingsController extends Component implements Initializable {
             emailOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            charityOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            moneyOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
             savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
             newUserOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
@@ -410,6 +510,8 @@ public class SettingsController extends Component implements Initializable {
             changeUsernamePane.setVisible(false);
             changeEmailPane.setVisible(true);
             changePasswordPane.setVisible(false);
+            charity.setVisible(false);
+            money.setVisible(false);
             addNewUserPane.setVisible(false);
             changeLanguagePane.setVisible(false);
             save.setVisible(false);
@@ -420,6 +522,8 @@ public class SettingsController extends Component implements Initializable {
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             newUserOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            charityOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            moneyOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
             changePasswordPane.setPrefHeight(0);
             addNewUserPane.setPrefHeight(0);
@@ -435,6 +539,8 @@ public class SettingsController extends Component implements Initializable {
         passwordOption.setOnMouseClicked(e -> {
             changeUsernamePane.setVisible(false);
             changeEmailPane.setVisible(false);
+            charity.setVisible(false);
+            money.setVisible(false);
             changePasswordPane.setVisible(true);
             addNewUserPane.setVisible(false);
             changeLanguagePane.setVisible(false);
@@ -445,6 +551,8 @@ public class SettingsController extends Component implements Initializable {
             passwordOption.getChildren().get(0).setStyle("-fx-font-weight: bold");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             newUserOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            charityOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            moneyOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
             savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
             changePasswordPane.setPrefHeight(252);
@@ -464,6 +572,8 @@ public class SettingsController extends Component implements Initializable {
             System.out.println("Add New User Clicked!");
             changeUsernamePane.setVisible(false);
             changeEmailPane.setVisible(false);
+            charity.setVisible(false);
+            money.setVisible(false);
             changePasswordPane.setVisible(false);
             addNewUserPane.setVisible(true);
             changeLanguagePane.setVisible(false);
@@ -473,6 +583,8 @@ public class SettingsController extends Component implements Initializable {
             emailOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            charityOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            moneyOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
             newUserOption.getChildren().get(0).setStyle("-fx-font-weight: bold");
             savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
@@ -494,6 +606,8 @@ public class SettingsController extends Component implements Initializable {
             changeUsernamePane.setVisible(false);
             changeEmailPane.setVisible(false);
             changePasswordPane.setVisible(false);
+            charity.setVisible(false);
+            money.setVisible(false);
             addNewUserPane.setVisible(false);
             changeLanguagePane.setVisible(false);
             saveBox.setVisible(false);
@@ -501,6 +615,8 @@ public class SettingsController extends Component implements Initializable {
             usernameOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             emailOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            charityOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            moneyOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
             savePoint.getChildren().get(0).setStyle("-fx-font-weight: bold");
             newUserOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
@@ -529,6 +645,8 @@ public class SettingsController extends Component implements Initializable {
             newUserOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
             languageOption.getChildren().get(0).setStyle("-fx-font-weight: bold");
             savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            charityOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            moneyOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
             btnCloseErrorMsg();
             changePasswordPane.setPrefHeight(0);
             addNewUserPane.setPrefHeight(0);
@@ -538,6 +656,61 @@ public class SettingsController extends Component implements Initializable {
             contentLabel.setText("تغيير اللغة");
 
             comboLanguage.getSelectionModel().select(2);
+        });
+
+        moneyOptions.setOnMouseClicked(e -> {
+            changeUsernamePane.setVisible(false);
+            changeEmailPane.setVisible(false);
+            changePasswordPane.setVisible(false);
+            changeLanguagePane.setVisible(false);
+            addNewUserPane.setVisible(false);
+            charity.setVisible(false);
+            money.setVisible(true);
+            save.setVisible(false);
+            saveBox.setVisible(true);
+            usernameOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            emailOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            newUserOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            moneyOptions.getChildren().get(0).setStyle("-fx-font-weight: bold");
+            savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            charityOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            btnCloseErrorMsg();
+            changePasswordPane.setPrefHeight(0);
+            addNewUserPane.setPrefHeight(0);
+
+            // Change the text in top selected box
+            headerLabel.setText("أسعار التسجيل");
+            contentLabel.setText("تحديد أسعار التسجيل");
+        });
+
+        charityOptions.setOnMouseClicked(e -> {
+            changeUsernamePane.setVisible(false);
+            changeEmailPane.setVisible(false);
+            changePasswordPane.setVisible(false);
+            changeLanguagePane.setVisible(false);
+            addNewUserPane.setVisible(false);
+            money.setVisible(false);
+            save.setVisible(false);
+            charity.setVisible(true);
+            saveBox.setVisible(false);
+            date.setText(String.valueOf(LocalDate.now()));
+            usernameOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            emailOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            passwordOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            languageOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            moneyOptions.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            newUserOption.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            savePoint.getChildren().get(0).setStyle("-fx-font-weight: normal");
+            charityOptions.getChildren().get(0).setStyle("-fx-font-weight: bold");
+            btnCloseErrorMsg();
+            changePasswordPane.setPrefHeight(0);
+            addNewUserPane.setPrefHeight(0);
+
+            // Change the text in top selected box
+            headerLabel.setText("إدارة دفع المحسنين");
+            contentLabel.setText("تحديد دفع المحسنين");
         });
 
 
@@ -650,5 +823,39 @@ public class SettingsController extends Component implements Initializable {
         Scene scene = new Scene(rootLayout);
         stage.setScene(scene);
         stage.showAndWait();
+    }
+
+    @FXML
+    private void btnAdd() {
+        Frais frais = new Frais();
+        frais.setFraisCharity(Double.valueOf(sumCharity.getText()));
+
+        int status = new fraisDB().addFraisCharity(frais);
+        switch (status) {
+            case -1:
+                System.out.println("Error connecting to DB!");
+                break;
+            case 2:
+                System.out.println("Error Frais does not exist!");
+                break;
+            case 0:
+                System.out.println("Unknown Error failed to add Frais");
+                break;
+            case 1:
+                Notifications.create()
+                        .title("تمت التحديث بنجاح                                   ")
+                        .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
+                        .hideAfter(Duration.millis(2000))
+                        .position(Pos.BOTTOM_RIGHT)
+                        .darkStyle()
+                        .show();
+
+                sumCharity.setText(null);
+                from.setText(null);
+        }
+    }
+
+    @FXML
+    private void btnPrint() {
     }
 }

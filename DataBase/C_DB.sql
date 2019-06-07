@@ -65,38 +65,45 @@ CREATE TABLE `creche_dar_elhadith`.`pointage` (
       `presence` INT NOT NULL,
       PRIMARY KEY (`idEmp`,`dateJour`));
 
-create TABLE `creche_dar_elhadith`.`eleve` (
-    `num` int(4)  NOT NULL AUTO_INCREMENT,
-    `id` varchar(22) DEFAULT NULL,
-    `nom` varchar(22) NOT NULL,
-    `prenom` varchar(22) NOT NULL,
-    `dateNaissance` Date NOT NULL,
-    `lieuNaissance` varchar(30) DEFAULT NULL,
-    `classe` varchar(20) DEFAULT NULL,
-    `anneeScolaire` varchar(10) DEFAULT NULL,
-    `regime` varchar(50) DEFAULT NULL,
-    `adresse` varchar(50) DEFAULT NULL,
-    `phone` varchar(10) DEFAULT NULL,
-    `prenomPere` varchar(22) DEFAULT NULL,
-    `prenomMere` varchar(22) DEFAULT NULL,
-    `nomMere` varchar(22) DEFAULT NULL,
-    `travailPere` varchar(20) DEFAULT NULL,
-    `travailMere` varchar(30) DEFAULT NULL,
-    `maladie` varchar(50) DEFAULT NULL,
-    `remarque` varchar(300) DEFAULT NULL,
-    PRIMARY KEY (`num`));
 
-create TABLE `creche_dar_elhadith`.`stock` (
-  `id` varchar(8)  NOT NULL ,
-  `nom` varchar(22) NOT NULL,
-  `datefab` Date NOT NULL,
-  `dateExp` Date NOT NULL,
-  `quantite` varchar(50) DEFAULT NULL,
-  `prix` varchar(10) DEFAULT NULL,
-  `fournisseur` varchar(22) NOT NULL,
-   `prixTotale` varchar(10000) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+    create TABLE creche_dar_elhadith.`eleve` (
+    num int(4)  NOT NULL AUTO_INCREMENT,
+    id varchar(22) DEFAULT NULL,
+    gender int(2) DEFAULT NULL,
+    nom varchar(22) NOT NULL,
+    prenom varchar(22) NOT NULL,
+    dateNaissance Date NOT NULL,
+    lieuNaissance varchar(30) DEFAULT NULL,
+    classe varchar(3) DEFAULT NULL,
+    anneeScolaire int(2) NOT NULL,
+    regime varchar(50) DEFAULT NULL,
+    adresse varchar(50) DEFAULT NULL,
+    phone varchar(10) DEFAULT NULL,
+    prenomPere varchar(22) DEFAULT NULL,
+    prenomMere varchar(22) DEFAULT NULL,
+    nomMere varchar(22) DEFAULT NULL,
+    travailPere varchar(20) DEFAULT NULL,
+    travailMere varchar(30) DEFAULT NULL,
+    maladie varchar(50) DEFAULT NULL,
+    wakil varchar(150) DEFAULT NULL,
+    remarque varchar(300) DEFAULT NULL,
+    tranches int NOT NULL,
+    montantRestant double NOT NULL,
+    PRIMARY KEY (num));
+
+create TABLE creche_dar_elhadith.`stock` (
+  id varchar(8)  NOT NULL ,
+  typeProduit int(3)  NOT NULL ,
+  nom varchar(22) NOT NULL,
+  datefab Date NOT NULL,
+  dateExp Date NOT NULL,
+  quantite varchar(50) DEFAULT NULL,
+  prix varchar(10) DEFAULT NULL,
+  fournisseur varchar(22) NOT NULL,
+   prixTotale varchar(10000) DEFAULT NULL,
+  PRIMARY KEY (id)
  );
+
 
 create TABLE `creche_dar_elhadith`.`calendar` (
   `CalendarName` VARCHAR(200) NOT NULL,
@@ -141,3 +148,21 @@ CREATE TABLE `creche_dar_elhadith`.`images` (
   `imagesExtension` VARCHAR(4) NOT NULL,
   `imageClasse` VARCHAR(22) NOT NULL,
   PRIMARY KEY (`idimages`, `imageName`, `studentInimage`, `imagesExtension`));
+
+create TABLE creche_dar_elhadith.`frais` (
+    fraisEleve double DEFAULT 0,
+    fraisCharity double DEFAULT 0,
+    fraisEmploye double DEFAULT 0,
+    fraisStock double DEFAULT 0
+
+    );
+    create TABLE creche_dar_elhadith.`tarifs` (
+
+        tarifsSets int DEFAULT 0,
+        Matin double NOT NULL,
+        Aprem double NOT NULL,
+        MatAprem double NOT NULL,
+        Demi double NOT NULL,
+        Complet double NOT NULL
+
+        );
