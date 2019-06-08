@@ -45,5 +45,7 @@
                </ImageView>
            </graphic>
        </JFXButton>
+       <ImageView fx:id="Pic" fitHeight="150.0" fitWidth="155.0" layoutX="423.0" layoutY="19.0" pickOnBounds="true"
+                  preserveRatio="true"/>
    </children>
 </AnchorPane>

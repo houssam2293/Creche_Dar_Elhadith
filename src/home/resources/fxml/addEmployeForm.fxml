@@ -39,24 +39,24 @@
                     </styleClass>
                 </Label>
             </HBox>
-            <JFXTextField fx:id="id" labelFloat="true" prefHeight="39.0" prefWidth="290.0"
-                          promptText="رقم التسجيل" styleClass="field">
+            <JFXTextField fx:id="id" labelFloat="true" prefHeight="39.0" prefWidth="290.0" promptText="رقم التسجيل"
+                          styleClass="field">
                 <VBox.margin>
                     <Insets top="-40.0"/>
                 </VBox.margin>
             </JFXTextField>
             <HBox prefHeight="30.0" prefWidth="386.0" spacing="20.0">
-                <JFXTextField fx:id="firstNameField" labelFloat="true" prefHeight="39.0"
-                              prefWidth="290.0" promptText="الإسم" styleClass="field"/>
-                <JFXTextField fx:id="lastNameField" labelFloat="true" prefHeight="39.0"
-                              prefWidth="290.0" promptText="اللقب" styleClass="field"/>
+                <JFXTextField fx:id="firstNameField" labelFloat="true" prefHeight="39.0" prefWidth="290.0"
+                              promptText="الإسم" styleClass="field"/>
+                <JFXTextField fx:id="lastNameField" labelFloat="true" prefHeight="39.0" prefWidth="290.0"
+                              promptText="اللقب" styleClass="field"/>
             </HBox>
             <HBox spacing="20.0">
                 <VBox.margin>
                     <Insets/>
                 </VBox.margin>
-                <JFXDatePicker fx:id="birthDate" defaultColor="#2196f3" prefHeight="30.0"
-                               prefWidth="220.0" promptText="تاريخ الميلاد" styleClass="field">
+                <JFXDatePicker fx:id="birthDate" defaultColor="#2196f3" prefHeight="30.0" prefWidth="220.0"
+                               promptText="تاريخ الميلاد" styleClass="field">
                     <HBox.margin>
                         <Insets/>
                     </HBox.margin>
@@ -66,27 +66,23 @@
             </HBox>
             <HBox prefWidth="386.0" spacing="20.0">
                 <VBox prefWidth="290.0" spacing="20.0">
-                    <JFXToggleButton fx:id="stat" contentDisplay="RIGHT"
-                                     onAction="#actionToggleButton" text="متزوج(ة)"
+                    <JFXToggleButton fx:id="stat" contentDisplay="RIGHT" onAction="#actionToggleButton" text="متزوج(ة)"
                                      toggleColor="#2196f3" toggleLineColor="#67b2e8"/>
-                    <JFXTextField fx:id="celibacyTitle" disable="true" labelFloat="true"
-                                  promptText="لقب العزوبة" style="-fx-font-size: 18px;"/>
+                    <JFXTextField fx:id="celibacyTitle" disable="true" labelFloat="true" promptText="لقب العزوبة"
+                                  style="-fx-font-size: 18px;"/>
                 </VBox>
                 <VBox prefWidth="290.0" spacing="20.0">
                     <HBox>
-                        <Label alignment="CENTER" prefHeight="52.0" prefWidth="132.0"
-                               style="-fx-font-size: 18px;" text="عدد الأطفال"/>
-                        <Label fx:id="sommeChild" alignment="CENTER" disable="true"
-                               prefHeight="36.0" prefWidth="52.0" style="-fx-font-size: 18px;"/>
+                        <Label alignment="CENTER" prefHeight="52.0" prefWidth="132.0" style="-fx-font-size: 18px;"
+                               text="عدد الأطفال"/>
+                        <Label fx:id="sommeChild" alignment="CENTER" disable="true" prefHeight="36.0" prefWidth="52.0"
+                               style="-fx-font-size: 18px;"/>
                     </HBox>
-                    <HBox alignment="BOTTOM_CENTER" prefHeight="51.0" prefWidth="183.0"
-                          spacing="20.0">
-                        <JFXComboBox fx:id="maleChild" disable="true" labelFloat="true"
-                                     promptText="بنون" style="-fx-font-size: 15px;"
-                                     visibleRowCount="4"/>
-                        <JFXComboBox fx:id="femaleChild" disable="true" labelFloat="true"
-                                     promptText="بنات" style="-fx-font-size: 15px;"
-                                     visibleRowCount="4"/>
+                    <HBox alignment="BOTTOM_CENTER" prefHeight="51.0" prefWidth="183.0" spacing="20.0">
+                        <JFXComboBox fx:id="maleChild" disable="true" labelFloat="true" promptText="بنون"
+                                     style="-fx-font-size: 15px;" visibleRowCount="4"/>
+                        <JFXComboBox fx:id="femaleChild" disable="true" labelFloat="true" promptText="بنات"
+                                     style="-fx-font-size: 15px;" visibleRowCount="4"/>
                     </HBox>
                 </VBox>
             </HBox>
@@ -96,11 +92,10 @@
                     <Insets/>
                 </VBox.margin>
             </JFXTextField>
-            <JFXTextField fx:id="phoneNumber" labelFloat="true" layoutX="50.0" layoutY="395.0"
-                          prefHeight="25.0" prefWidth="523.0" promptText="رقم الهاتف" styleClass="field"/>
-            <JFXTextField fx:id="socialSecurtyNumber" labelFloat="true" layoutX="50.0" layoutY="311.0"
-                          prefHeight="25.0" prefWidth="523.0" promptText="رقم الضمان الإجتماعي"
-                          styleClass="field"/>
+            <JFXTextField fx:id="phoneNumber" labelFloat="true" layoutX="50.0" layoutY="395.0" prefHeight="25.0"
+                          prefWidth="523.0" promptText="رقم الهاتف" styleClass="field"/>
+            <JFXTextField fx:id="socialSecurtyNumber" labelFloat="true" layoutX="50.0" layoutY="311.0" prefHeight="25.0"
+                          prefWidth="523.0" promptText="رقم الضمان الإجتماعي" styleClass="field"/>
             <JFXTextField fx:id="diplome" labelFloat="true" promptText="الشهادات" styleClass="field"/>
             <JFXTextField fx:id="itar" labelFloat="true" promptText="الإطار" styleClass="field"/>
             <JFXTextField fx:id="fonction" labelFloat="true" promptText="المهنة" styleClass="field"/>
@@ -110,20 +105,18 @@
             <HBox spacing="10.0">
                 <JFXTextField fx:id="experience" labelFloat="true" prefHeight="45.0" prefWidth="190.0"
                               promptText="عدد سنوات التدريس" styleClass="field"/>
-                <JFXToggleButton fx:id="renouvlementContrat" contentDisplay="RIGHT" prefHeight="62.0"
-                                 prefWidth="190.0" styleClass="field" text="تجديد العقد"
-                                 toggleColor="#2196f3" toggleLineColor="#67b2e8"/>
+                <JFXToggleButton fx:id="renouvlementContrat" contentDisplay="RIGHT" prefHeight="62.0" prefWidth="190.0"
+                                 styleClass="field" text="تجديد العقد" toggleColor="#2196f3" toggleLineColor="#67b2e8"/>
             </HBox>
+            <JFXTextArea fx:id="remarque" labelFloat="true" promptText="ملاحضات" styleClass="field"/>
             <HBox alignment="CENTER" minHeight="50.0" prefHeight="215.0" prefWidth="386.0" spacing="30.0">
                 <opaqueInsets>
                     <Insets/>
                 </opaqueInsets>
-                <JFXButton onAction="#btnAdd" prefHeight="45.0" prefWidth="170.0"
-                           styleClass="btn-medium" text="إضافة"/>
-                <JFXButton onAction="#btnClear" prefHeight="45.0" prefWidth="170.0"
-                           styleClass="btn-medium" text="مسح"/>
-                <EmojiOneView fx:id="print" fill="#2196f3" glyphName="PRINTER"
-                              onMouseClicked="#printFile" size="50" styleClass="printer"/>
+                <JFXButton onAction="#btnAdd" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="إضافة"/>
+                <JFXButton onAction="#btnClear" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="مسح"/>
+                <EmojiOneView fx:id="print" fill="#2196f3" glyphName="PRINTER" onMouseClicked="#printFile" size="50"
+                              styleClass="printer"/>
             </HBox>
         </VBox>
     </ScrollPane>

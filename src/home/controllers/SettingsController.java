@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.print.*;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -26,6 +27,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -120,7 +122,7 @@ public class SettingsController extends Component implements Initializable {
     private HBox boxError, saveBox;
 
     @FXML
-    private Label errorLabel,accountUser;
+    private Label errorLabel, accountUser;
 
     @FXML
     private VBox changeUsernamePane;
@@ -177,7 +179,6 @@ public class SettingsController extends Component implements Initializable {
 
     static Compte currentUser;
     private CompteDB compteDB;
-
 
 
     @FXML
@@ -568,7 +569,7 @@ public class SettingsController extends Component implements Initializable {
             verifyPasswordPassPart.setText("");
         });
 
-        newUserOption.setOnMouseClicked(e->{
+        newUserOption.setOnMouseClicked(e -> {
             System.out.println("Add New User Clicked!");
             changeUsernamePane.setVisible(false);
             changeEmailPane.setVisible(false);
@@ -719,7 +720,7 @@ public class SettingsController extends Component implements Initializable {
 
     @FXML
     private void serialiser() {
-        String path=null;
+        String path = null;
         String filename;
         Stage stg = new Stage();
         FileChooser fc = new FileChooser();
@@ -728,86 +729,89 @@ public class SettingsController extends Component implements Initializable {
         File file = fc.showSaveDialog(stg);
         String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-        try {
+        if (file != null) {
+            try {
 
-            path = file.getAbsolutePath();
-            path = path.replace('\\', '/');
-            path = path + "_" + date + ".sql";
+                path = file.getAbsolutePath();
+                path = path.replace('\\', '/');
+                path = path + "_" + date + ".sql";
 
-        } catch (Exception e) {
-            //e.printStackTrace();
-            e.getMessage();
-        }
-
-        Process p;
-        p = null;
-        try {
-            Path startingDir = Paths.get("C:\\");
-            String fileName = "mysqldump.exe";
-            FileVisitorImpl visitor = new FileVisitorImpl();
-            visitor.setStartDir(startingDir);
-            visitor.setFileName(fileName);
-            Files.walkFileTree(startingDir, visitor);
-            String filePathe = visitor.getFilePath();
-            Runtime runtime = Runtime.getRuntime();
-            p = runtime.exec(filePathe + " -uroot -proot --add-drop-database -B creche_dar_elhadith -r" + path);
-
-            int processComplete = p.waitFor();
-            if (processComplete==0) {
-                System.out.println("Backup Created Succuss");
-            }else{
-                System.out.println("Can't Create backup");
+            } catch (Exception e) {
+                e.printStackTrace();
+                e.getMessage();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            Process p;
+            p = null;
+            try {
+                Path startingDir = Paths.get("C:\\");
+                String fileName = "mysqldump.exe";
+                FileVisitorImpl visitor = new FileVisitorImpl();
+                visitor.setStartDir(startingDir);
+                visitor.setFileName(fileName);
+                Files.walkFileTree(startingDir, visitor);
+                String filePathe = visitor.getFilePath();
+                Runtime runtime = Runtime.getRuntime();
+                p = runtime.exec(filePathe + " -uroot -proot --add-drop-database -B creche_dar_elhadith -r" + path);
+
+                int processComplete = p.waitFor();
+                if (processComplete == 0) {
+                    System.out.println("Backup Created Succuss");
+                } else {
+                    System.out.println("Can't Create backup");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
 
     @FXML
     private void deserialiser() {
-        String path=null;
+        String path = null;
 
         Stage stg = new Stage();
         FileChooser fc = new FileChooser();
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("MySql files (*.sql)", "*.sql");
         fc.getExtensionFilters().add(extFilter);
         File file = fc.showOpenDialog(stg);
-        //JFileChooser fc = new JFileChooser();
 
-        try {
-            path = file.getAbsolutePath();
-            path = path.replace('\\', '/');
+        if (file != null) {
+            try {
+                path = file.getAbsolutePath();
+                path = path.replace('\\', '/');
 
 
-        } catch (Exception e) {
-            //e.printStackTrace();
-            e.getMessage();
-        }
-        Path startingDir = Paths.get("C:\\");
-        String fileName = "mysqldump.exe";
-        FileVisitorImpl visitor = new FileVisitorImpl();
-        visitor.setStartDir(startingDir);
-        visitor.setFileName(fileName);
-        try {
-            Files.walkFileTree(startingDir, visitor);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        String filePathe = visitor.getFilePath();
-        String[] restoreCmd = new String[]{filePathe , "--user=root" , "--password=root" , "-e", "source " + path};
-        Process runtimProcess;
-        try {
-            runtimProcess = Runtime.getRuntime().exec(restoreCmd);
-            int proceCom = runtimProcess.waitFor();
-
-            if (proceCom==0) {
-               System.out.println("Restored Succuss");
-            }else{
-                System.out.println("Can't Restored");
+            } catch (Exception e) {
+                e.printStackTrace();
+                e.getMessage();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+            Path startingDir = Paths.get("C:\\");
+            String fileName = "mysqldump.exe";
+            FileVisitorImpl visitor = new FileVisitorImpl();
+            visitor.setStartDir(startingDir);
+            visitor.setFileName(fileName);
+            try {
+                Files.walkFileTree(startingDir, visitor);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String filePathe = visitor.getFilePath();
+            String[] restoreCmd = new String[]{filePathe, "--user=root", "--password=root", "-e", "source " + path};
+            Process runtimProcess;
+            try {
+                runtimProcess = Runtime.getRuntime().exec(restoreCmd);
+                int proceCom = runtimProcess.waitFor();
+
+                if (proceCom == 0) {
+                    System.out.println("Restored Succuss");
+                } else {
+                    System.out.println("Can't Restored");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -857,5 +861,21 @@ public class SettingsController extends Component implements Initializable {
 
     @FXML
     private void btnPrint() {
+        Text textArea = new Text();
+        textArea.setText("اختبار الطباعة!   \n اختبار الطباعة اختبار الطباعة اختبار الطباعة \n اختبار الطباعةاختبار الطباعةاختبار الطباعةاختبار الطباعةاختبار الطباعة ");
+
+        PrinterJob job = PrinterJob.createPrinterJob();
+        job.showPrintDialog(null);
+        Printer printer = job.getPrinter();
+        PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
+
+        textArea.setTranslateX(10);
+        textArea.setTranslateY(10);
+        job.printPage(pageLayout, textArea);
+        job.endJob();
+        textArea.setScaleX(1);
+        textArea.setScaleY(1);
+        textArea.setTranslateX(0);
+        textArea.setTranslateY(0);
     }
 }

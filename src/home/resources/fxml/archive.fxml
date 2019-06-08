@@ -1,46 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXTextField?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.icons525.Icons525View?>
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-
-<StackPane fx:id="archiv" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1186.0" style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ArchiveController">
-    <stylesheets>
-        <URL value="@../css/main.css" />
-        <URL value="@../css/trac.css" />
-        <URL value="@../css/eleve.css" />
-    </stylesheets>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="archiv" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0"
+           prefWidth="1186.0" style="-fx-background-color: #FFF;" stylesheets="@../css/main.css"
+           AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+           AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171"
+           fx:controller="home.controllers.ArchiveController">
     <VBox fx:id="ArchivHome" prefHeight="755.0" prefWidth="1245.0">
-        <ImageView fitHeight="219.0" fitWidth="1189.0" pickOnBounds="true" preserveRatio="true">
-            <Image url="@../images/archiv2.png" />
-        </ImageView>
-        <Label prefHeight="35.0" prefWidth="37.0" />
-        <HBox prefHeight="46.0" prefWidth="1189.0">
+        <HBox alignment="CENTER_LEFT" spacing="20.0">
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+            <MaterialDesignIconView fill="#2196f3" glyphName="ARCHIVE" size="50" wrappingWidth="50.0"/>
+            <Label prefHeight="101.0" prefWidth="473.0" styleClass="title-header" text="الأرشيف"/>
+        </HBox>
+        <HBox prefHeight="79.0" prefWidth="1186.0" spacing="10.0">
             <Label prefHeight="54.0" prefWidth="40.0" />
-            <Label prefHeight="54.0" prefWidth="235.0" text="السنوات" />
+            <Label prefHeight="54.0" prefWidth="235.0" styleClass="field" text="السنوات"/>
             <JFXButton fx:id="cree" onAction="#creeAnee" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view" text="اضافة السنة" />
             <Label prefHeight="34.0" prefWidth="108.0" />
             <JFXButton fx:id="serch" onAction="#searchAvanc" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view" text="بحث متقدم" />
+            <padding>
+                <Insets bottom="15.0" top="15.0"/>
+            </padding>
         </HBox>
         <HBox fx:id="lesAnee" prefHeight="461.0" prefWidth="1189.0" stylesheets="@../css/dark_them.css">
             <Label prefHeight="285.0" prefWidth="44.0" />
             <JFXListView fx:id="yearSelect" onMouseClicked="#choseanee" prefHeight="429.0" prefWidth="170.0" />
-            <AnchorPane fx:id="choosePane" prefHeight="422.0" prefWidth="994.0" visible="false">
+            <AnchorPane fx:id="choosePane" prefHeight="422.0" prefWidth="994.0" stylesheets="@../css/eleve.css"
+                        visible="false">
                 <Label fx:id="aneeselect" alignment="CENTER" layoutX="364.0" layoutY="26.0" prefHeight="51.0" prefWidth="209.0">
                     <font>
                         <Font name="Tahoma" size="34.0" />
@@ -55,7 +52,8 @@
                         <Image url="@../icons/teacher-cartoon.jpg" />
                     </ImageView>
                     <Pane layoutX="-4.0" opacity="0.82" prefHeight="331.0" prefWidth="300.0" style="-fx-background-color: #148BB1;" styleClass="pane-chooser">
-                        <Label alignment="CENTER" layoutX="63.0" layoutY="49.0" prefHeight="66.0" prefWidth="182.0" styleClass="title-chooser" text="العمال" />
+                        <Label alignment="CENTER" layoutX="63.0" layoutY="49.0" prefHeight="66.0" prefWidth="182.0"
+                               styleClass="label-white" text="العمال"/>
                     </Pane>
                     <JFXButton layoutX="59.0" layoutY="241.0" onAction="#showEmploye" prefHeight="57.0" prefWidth="182.0" styleClass="btn-chooser" text="عرض الأرشيف للعمال" />
                 </AnchorPane>
@@ -64,7 +62,8 @@
                         <Image url="@../icons/student.jpg" />
                     </ImageView>
                     <Pane opacity="0.82" prefHeight="331.0" prefWidth="306.0" style="-fx-background-color: #694A97;" styleClass="pane-chooser">
-                        <Label alignment="CENTER" layoutX="56.0" layoutY="62.0" prefHeight="66.0" prefWidth="197.0" styleClass="title-chooser" text="الطلاب" />
+                        <Label alignment="CENTER" layoutX="56.0" layoutY="62.0" prefHeight="66.0" prefWidth="197.0"
+                               styleClass="label-white" text="الطلاب"/>
                     </Pane>
                     <JFXButton layoutX="62.0" layoutY="254.0" onAction="#showStudent" prefHeight="57.0" prefWidth="182.0" styleClass="btn-chooser" text="عرض الأرشيف للطلاب" />
                 </AnchorPane>
@@ -84,10 +83,6 @@
                 <font>
                     <Font name="Tahoma" size="34.0" />
                 </font>
-                <stylesheets>
-                    <URL value="@../css/trac.css" />
-                    <URL value="@../css/main.css" />
-                </stylesheets>
             </Label>
             <Label fx:id="errorLabelStudent" alignment="CENTER" prefHeight="43.0" prefWidth="290.0" style="-fx-text-fill: #F00; -fx-font-size: 26px;" />
             <HBox alignment="CENTER_RIGHT" prefHeight="53.0" prefWidth="455.0">
@@ -122,6 +117,8 @@
             <JFXTreeTableView fx:id="tableEleve" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="896.0" />
             <VBox alignment="TOP_CENTER" prefHeight="406.0" prefWidth="263.0" spacing="10.0">
                 <JFXButton buttonType="RAISED" onAction="#showDataElev" onMouseClicked="#btnViewStatisticStudent" ripplerFill="#4476ff" styleClass="btn-view" text="عرض البيانات" />
+                <JFXButton buttonType="RAISED" onAction="#showdatafrais" prefHeight="54.0" prefWidth="176.0"
+                           ripplerFill="#4476ff" styleClass="btn-view" text="عرض التكاليف لهذه السنة"/>
             </VBox>
         </HBox>
     </VBox>
@@ -134,10 +131,6 @@
                 <font>
                     <Font name="Tahoma" size="34.0" />
                 </font>
-                <stylesheets>
-                    <URL value="@../css/trac.css" />
-                    <URL value="@../css/main.css" />
-                </stylesheets>
             </Label>
             <Label fx:id="errorLabelStudent1" alignment="CENTER" prefHeight="43.0" prefWidth="290.0" style="-fx-text-fill: #F00; -fx-font-size: 26px;" />
             <HBox alignment="CENTER_RIGHT" prefHeight="53.0" prefWidth="455.0">

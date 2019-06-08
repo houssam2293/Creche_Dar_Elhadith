@@ -40,7 +40,8 @@ public class EmployeDB {
                         resultSet.getInt("marier"),
                         resultSet.getString("celibacyTitle"),
                         resultSet.getInt("nombreEnfantM"),
-                        resultSet.getInt("nombreEnfantF")));
+                        resultSet.getInt("nombreEnfantF"),
+                        resultSet.getString("remarque")));
             }
 
         } catch (SQLException ex) {
@@ -57,7 +58,7 @@ public class EmployeDB {
     }
 
     public int addEmploye(Employe employe) {
-        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`employe` ( `id`, `nom`, `prenom`, `dateNaissance`, `lieuNaissance`, `adresse`, `numTelephone`, `socialSecurityNumber`, `diplome`, `experience`, `itar`, `renouvlementDeContrat`, `dateDebut`, `fonction`,`regime`, `marier`");
+        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`employe` ( `id`, `nom`, `prenom`, `dateNaissance`, `lieuNaissance`, `adresse`, `numTelephone`, `socialSecurityNumber`, `diplome`, `experience`, `itar`, `renouvlementDeContrat`, `dateDebut`, `fonction`,`regime`,`remarque`, `marier`");
         Connection connection = null;
         Statement st = null;
 
@@ -92,6 +93,7 @@ public class EmployeDB {
             sql.append(employe.getDate_debut()).append("','");
             sql.append(employe.getFonction()).append("','");
             sql.append(employe.getRegimeScolaire()).append("','");
+            sql.append(employe.getRemarque()).append("','");
             sql.append(employe.getStatuSocial());
 
             if (employe.estmarier()) {
@@ -122,6 +124,47 @@ public class EmployeDB {
         }
 
 
+        return 1;
+    }
+
+    public int editNote(Employe employe) {
+        StringBuilder sql = new StringBuilder("UPDATE `employe` SET ");
+        Connection con = null;
+        Statement st = null;
+
+        try {
+            con = new ConnectionClasse().getConnection();
+
+            if (con == null) {
+                return -1;
+            }
+
+            if (employerExist(employe.getId())) {
+
+                st = con.createStatement();
+
+                sql.append("`remarque`='").append(employe.getRemarque());
+                sql.append("' WHERE `id`=").append(employe.getId()).append(";");
+                int status = st.executeUpdate(sql.toString());
+                System.out.println("Status : " + status);
+            } else return 2;
+        } catch (SQLException ex) {
+            System.out.println("SQL Exception code: " + ex.getErrorCode());
+            System.out.println("SQLException msg: " + ex.getMessage());
+            //ex.printStackTrace();
+            return 0;
+        } finally {
+            try {
+                if (st != null) {
+                    st.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
         return 1;
     }
 
@@ -156,6 +199,7 @@ public class EmployeDB {
                 sql.append("', `dateDebut`='").append(employe.getDate_debut());
                 sql.append("', `fonction`='").append(employe.getFonction());
                 sql.append("', `regime`='").append(employe.getRegimeScolaire());
+                sql.append("', `remarque`='").append(employe.getRemarque());
                 sql.append("', `marier`='").append(employe.getStatuSocial());
 
                 if (employe.estmarier()) {

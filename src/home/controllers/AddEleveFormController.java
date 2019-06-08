@@ -1,13 +1,11 @@
 package home.controllers;
 
 import com.jfoenix.controls.*;
+import home.dbDir.ClasseDB;
 import home.dbDir.EleveDB;
 import home.dbDir.fraisDB;
 import home.dbDir.tarifsDB;
-import home.java.Eleve;
-import home.java.Frais;
-import home.java.Tarifs;
-import home.java.Validation;
+import home.java.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,12 +14,19 @@ import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.ENTER;
@@ -30,23 +35,27 @@ import static javafx.scene.input.KeyCode.ESCAPE;
 public class AddEleveFormController implements Initializable {
 
 
-    double matin;
-    double aprem;
-    double mataprem;
-    double demi;
-    double complet;
     private ObservableList<String> typeRegime =
             FXCollections.observableArrayList(
                     "صباح", "مساء", "صباح+مساء", "صباح+نصف داخلي", "اليوم كامل"
             );
+
     private ObservableList<Integer> anneeScolaire =
             FXCollections.observableArrayList(
                     1, 2
             );
+
     private ObservableList<Integer> LesTranches =
             FXCollections.observableArrayList(
                     0, 1, 2, 3, 4
             );
+
+
+    private double matin;
+    private double aprem;
+    private double mataprem;
+    private double demi;
+    private double complet;
 
     @FXML
     private VBox root;
@@ -73,7 +82,7 @@ public class AddEleveFormController implements Initializable {
 
 
     @FXML
-    private JFXTextField classe;
+    private JFXComboBox<String> classesCombos;
     @FXML
     private JFXComboBox<Integer> schoolYear;
 
@@ -124,6 +133,11 @@ public class AddEleveFormController implements Initializable {
 
     }
 
+    private static BufferedImage readImageFromFile(File file)
+            throws IOException {
+        return ImageIO.read(file);
+    }
+
     @FXML
     void btnAdd() {
 
@@ -134,19 +148,26 @@ public class AddEleveFormController implements Initializable {
         eleve.setPrenom(firstNameField.getText().trim().toLowerCase());
         eleve.setDateNaissance(Date.valueOf(birthDate.getValue()));
         eleve.setLieuNaissance(birthPlace.getText().trim().toLowerCase());
-        eleve.setClasse(classe.getText().trim().toLowerCase());
+        eleve.setClasse(classesCombos.getValue());
         eleve.setAnneeScolaire(schoolYear.getValue());
         eleve.setRegime(regime.getValue());
-        if (regime.getValue().equals("صباح"))
-            montant = matin;
-        else if (regime.getValue().equals("مساء"))
-            montant = aprem;
-        else if (regime.getValue().equals("صباح+مساء"))
-            montant = mataprem;
-        else if (regime.getValue().equals("صباح+نصف داخلي"))
-            montant = demi;
-        else if (regime.getValue().equals("اليوم كامل"))
-            montant = complet;
+        switch (regime.getValue()) {
+            case "صباح":
+                montant = matin;
+                break;
+            case "مساء":
+                montant = aprem;
+                break;
+            case "صباح+مساء":
+                montant = mataprem;
+                break;
+            case "صباح+نصف داخلي":
+                montant = demi;
+                break;
+            case "اليوم كامل":
+                montant = complet;
+                break;
+        }
         if (toggler.isSelected()) {
             eleve.setTranches(tranches.getValue());
             eleve.setMontantRestant(montant);
@@ -207,23 +228,57 @@ public class AddEleveFormController implements Initializable {
                                     .show();
                             EleveController.addUserDialog.close();
                     }
-                } else {
-                    Notifications.create()
-                            .title("تمت الإضافة بنجاح                                   ")
-                            .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
-                            .hideAfter(Duration.millis(2000))
-                            .position(Pos.BOTTOM_RIGHT)
-                            .darkStyle()
-                            .show();
-                    EleveController.addUserDialog.close();
-                }
+                } else EleveController.addUserDialog.close();
         }
 
 
     }
 
     @FXML
-    void btnClear() {
+    private void addImage() {
+
+        String nompic = id.getText() + "-" + lastNameField.getText() + "-" + firstNameField.getText();
+        System.out.println(nompic);
+        Stage stg = new Stage();
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(stg);
+        String extension = "";
+
+        int i = file.getName().lastIndexOf('.');
+        if (i > 0) {
+            extension = file.getName().substring(i + 1);
+        }
+        System.out.println("Image extension is : " + extension);
+        Image imgThumb = new Image(file.toURI().toString());
+
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("image files (png,jpg,jpeg,bmp,gif)", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File dir = new File(System.getenv("APPDATA") + "\\Archive creche darelhadith\\Image");
+        dir.mkdirs();
+        File fileSav = new File(System.getenv("APPDATA") + "\\Archive creche darelhadith\\Image\\" + nompic + "." + extension);
+        BufferedImage bImage = null;
+        try {
+            bImage = readImageFromFile(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            ImageIO.write(bImage, extension, fileSav);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    void btnClose() {
+        EleveController.addUserDialog.close();
+
+    }
+
+    @FXML
+    private void btnClear() {
         id.setText(null);
         gender1.setSelected(false);
         gender2.setSelected(false);
@@ -231,7 +286,16 @@ public class AddEleveFormController implements Initializable {
         lastNameField.setText(null);
         birthDate.setValue(null);
         birthPlace.setText(null);
-        classe.setText(null);
+        classesCombos.getItems().clear();
+        List<ClasseModel> clsDB = new ClasseDB().getClasse();
+        if (clsDB == null) {
+            System.out.println("Connection Failed !");
+        } else {
+            for (ClasseModel clss : clsDB) {
+                classesCombos.getItems().add(clss.getClassNam());
+
+            }
+        }
         schoolYear.getSelectionModel().select(null);
         regime.getSelectionModel().select(null);
         addresse.setText(null);
@@ -250,22 +314,16 @@ public class AddEleveFormController implements Initializable {
     }
 
     @FXML
-    void btnClose() {
-        EleveController.addUserDialog.close();
-
-    }
-
-    @FXML
-    void hit1(){
+    void hit1() {
         gender2.setSelected(false);
     }
 
     @FXML
-    void hit2(){
+    void hit2() {
         gender1.setSelected(false);
     }
 
-    void SettingTarifs() {
+    private void SettingTarifs() {
         Tarifs LesTarifs = new tarifsDB().getTarifs();
         matin = LesTarifs.getMatin();
         aprem = LesTarifs.getAprem();
@@ -274,7 +332,6 @@ public class AddEleveFormController implements Initializable {
         complet = LesTarifs.getComplet();
 
     }
-
 
     public void initialize(URL location, ResourceBundle resources) {
 
@@ -292,18 +349,24 @@ public class AddEleveFormController implements Initializable {
             }
         });
 
-        root.setOnKeyReleased(e -> {
-            valider();
-        });
+        root.setOnKeyReleased(e -> valider());
 
         regime.setItems(typeRegime);
         schoolYear.setItems(anneeScolaire);
         tranches.setItems(LesTranches);
+        List<ClasseModel> clsDB = new ClasseDB().getClasse();
+        if (clsDB == null) {
+            System.out.println("Connection Failed !");
+        } else {
+            for (ClasseModel clss : clsDB) {
+                classesCombos.getItems().add(clss.getClassNam());
 
+            }
+        }
 
     }
 
-    void valider(){
+    private void valider() {
 
         id.setOnKeyReleased(t -> {
             if (new Validation().isNumber(id)) {
@@ -333,7 +396,7 @@ public class AddEleveFormController implements Initializable {
             LocalDate date = LocalDate.parse("2005-01-01");// On suppose que l'employer agé de 15 ou plus
             LocalDate birthdat = birthDate.getValue();
             int a = date.compareTo(birthdat);
-            if (a>0) {
+            if (a > 0) {
                 birthDate.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
             } else {
                 birthDate.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
@@ -346,13 +409,13 @@ public class AddEleveFormController implements Initializable {
                 birthPlace.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
             }
         });
-        classe.setOnKeyReleased(t -> {
+       /* classe.setOnKeyReleased(t -> {
             if (new Validation().arabValid(classe)) {
                 classe.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
             } else {
                 classe.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
             }
-        });
+        });*/
        /* schoolYear.setOnKeyReleased(t -> {
             if (new Validation().isNumber(schoolYear)) {
                 schoolYear.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
@@ -440,8 +503,6 @@ public class AddEleveFormController implements Initializable {
                 remarque.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
             }
         });
-
-
     }
 }
 

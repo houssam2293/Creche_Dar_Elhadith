@@ -16,6 +16,7 @@
     -fx-font-size: 36px;
 }
 
+
 .ROOTNODE {
 -fx-background-radius: 30 0 0 0;
 -fx-border-radius: 30 0 0 0;
@@ -212,4 +213,9 @@ DatePicker {
 .list-cell:filled:hover {
     -fx-cell-hover-color: #0093ff;
     -fx-text-fill: #2196f3;
+}
+
+.label-white {
+    -fx-text-fill:#ffffff;
+    -fx-font-size:24px;
 }

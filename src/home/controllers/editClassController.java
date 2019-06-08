@@ -46,7 +46,7 @@ public class editClassController implements Initializable {
         cls.setremarque(remarque.getText().trim().toLowerCase());
 
 
-        int status = new ClasseDB().editEmployee(cls);
+        int status = new ClasseDB().editClasse(cls);
         switch (status) {
             case -1:
                 System.out.println("Error connecting to DB!");

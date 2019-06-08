@@ -22,9 +22,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Date;
@@ -38,10 +42,10 @@ import static home.controllers.elevePrintController.elevePrinted;
 import static home.controllers.ficheEleveController.eleveFiled;
 
 
-
 public class EleveController<Adding> implements Initializable {
 
-    public static JFXDialog addUserDialog, editUserDialog, notesUserDialog, fileUserDialog, paymentUserDialog, printUserDialog;
+    static JFXDialog addUserDialog, editUserDialog, notesUserDialog, fileUserDialog, paymentUserDialog, printUserDialog;
+
 
     @FXML
     private StackPane root;
@@ -52,7 +56,8 @@ public class EleveController<Adding> implements Initializable {
     private JFXTreeTableView<TableEleve> treeTableView;
     @FXML
     private Label errorLabel;
-
+    @FXML
+    private Label titleLabel;
     @FXML
     private JFXButton Refresher;
     @FXML
@@ -67,6 +72,8 @@ public class EleveController<Adding> implements Initializable {
     private JFXButton Marker;
     @FXML
     private JFXButton Printer;
+    @FXML
+    private JFXButton pictur;
     @FXML // Cols of table
     public JFXTreeTableColumn<TableEleve, String> idCol, genderCol, firstnameCol, lastNameCol, classRoomCol,
             dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, remarqueCol,
@@ -163,6 +170,11 @@ public class EleveController<Adding> implements Initializable {
         editUserDialog.show();
     }
 
+    private static BufferedImage readImageFromFile(File file)
+            throws IOException {
+        return ImageIO.read(file);
+    }
+
     @FXML
     public void removeEleve(ActionEvent actionEvent) {
         errorLabel.setText("");
@@ -179,54 +191,53 @@ public class EleveController<Adding> implements Initializable {
         }
 
 
-    id = Integer.valueOf(idCol.getCellData(treeTableView.getSelectionModel().getSelectedIndex()));
-    JFXDialogLayout content = new JFXDialogLayout();
-    Text headerText = new Text("تأكيد العملية");
-    Text contentText = new Text("هل أنت متأكد من مسح البيانات؟");
-    headerText.setStyle("-fx-font-size: 19px");
-    contentText.setStyle("-fx-font-size: 18px");
+        id = Integer.valueOf(idCol.getCellData(treeTableView.getSelectionModel().getSelectedIndex()));
+        JFXDialogLayout content = new JFXDialogLayout();
+        Text headerText = new Text("تأكيد العملية");
+        Text contentText = new Text("هل أنت متأكد من مسح البيانات؟");
+        headerText.setStyle("-fx-font-size: 19px");
+        contentText.setStyle("-fx-font-size: 18px");
 
-    content.setHeading(headerText);
-    content.setBody(contentText);
+        content.setHeading(headerText);
+        content.setBody(contentText);
 
-    JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
+        JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
 
-    JFXButton btnOk = new JFXButton("نعم");
-    btnOk.setOnAction(e -> {
-        int status = new EleveDB().removeEleve(id);
-        System.out.println("status : " + status);
-        if (status == -1) {
-            errorLabel.setText("Connection Failed !");
-        } else {
-            Notifications notification = Notifications.create()
-                    .title("تمت العملية بنجاح                               ")
-                    .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
-                    .hideAfter(Duration.millis(2000))
-                    .position(Pos.BOTTOM_RIGHT);
-            notification.darkStyle();
-            notification.show();
-            updateTable();
-        }
-        dialog.close();
-    });
+        JFXButton btnOk = new JFXButton("نعم");
+        btnOk.setOnAction(e -> {
+            int status = new EleveDB().removeEleve(id);
+            System.out.println("status : " + status);
+            if (status == -1) {
+                errorLabel.setText("Connection Failed !");
+            } else {
+                Notifications notification = Notifications.create()
+                        .title("تمت العملية بنجاح                               ")
+                        .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
+                        .hideAfter(Duration.millis(2000))
+                        .position(Pos.BOTTOM_RIGHT);
+                notification.darkStyle();
+                notification.show();
+                updateTable();
+            }
+            dialog.close();
+        });
 
-    JFXButton btnNo = new JFXButton("لا");
-    btnOk.setPrefSize(120, 40);
-    btnNo.setPrefSize(120, 40);
-    btnOk.setStyle("-fx-font-size: 18px");
-    btnNo.setStyle("-fx-font-size: 18px");
+        JFXButton btnNo = new JFXButton("لا");
+        btnOk.setPrefSize(120, 40);
+        btnNo.setPrefSize(120, 40);
+        btnOk.setStyle("-fx-font-size: 18px");
+        btnNo.setStyle("-fx-font-size: 18px");
 
-    content.setActions(btnOk, btnNo);
+        content.setActions(btnOk, btnNo);
 
-    dialog.getStylesheets().add("/home/resources/css/main.css");
-    btnNo.setOnAction(e -> dialog.close());
-    dialog.show();
+        dialog.getStylesheets().add("/home/resources/css/main.css");
+        btnNo.setOnAction(e -> dialog.close());
+        dialog.show();
 
-}
-
+    }
 
     @FXML
-    public void ficheEleve(ActionEvent actionEvent){
+    public void ficheEleve(ActionEvent actionEvent) {
         errorLabel.setText("");
         int index = treeTableView.getSelectionModel().getSelectedIndex(); // selected index
         String id = idCol.getCellData(index);
@@ -271,38 +282,6 @@ public class EleveController<Adding> implements Initializable {
         }
         fileUserDialog = getSpecialDialog(ficheElevePane);
         fileUserDialog.show();
-    }
-
-
-
-    @FXML
-    public void notes (ActionEvent actionEvent){
-        errorLabel.setText("");
-        int index = treeTableView.getSelectionModel().getSelectedIndex(); // selected index
-        String id = idCol.getCellData(index);
-        if (id == null) {
-            System.out.println("Index is null !");
-            Notifications.create()
-                    .title("يرجى تحديد الحقل المراد تحديثه                                ")
-                    .darkStyle()
-                    .hideAfter(Duration.millis(2000))
-                    .position(Pos.BOTTOM_RIGHT)
-                    .showWarning();
-            return;
-        }
-
-        notedEleve = new Eleve();
-        notedEleve.setId(Integer.parseInt(id));
-        notedEleve.setRemarque(remarqueCol.getCellData(index));
-
-        AnchorPane notesElevePane = null;
-        try {
-            notesElevePane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/eleveRemarque.fxml"));
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-        notesUserDialog = getSpecialDialog(notesElevePane);
-        notesUserDialog.show();
     }
 
     @FXML
@@ -416,12 +395,48 @@ public class EleveController<Adding> implements Initializable {
 
     }
 
+    @FXML
+    public void notes(ActionEvent actionEvent) {
+        errorLabel.setText("");
+        int index = treeTableView.getSelectionModel().getSelectedIndex(); // selected index
+        String id = idCol.getCellData(index);
+        if (id == null) {
+            System.out.println("Index is null !");
+            Notifications.create()
+                    .title("يرجى تحديد الحقل المراد تحديثه                                ")
+                    .darkStyle()
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showWarning();
+            return;
+        }
+
+        notedEleve = new Eleve();
+        notedEleve.setId(Integer.parseInt(id));
+        notedEleve.setRemarque(remarqueCol.getCellData(index));
+
+        AnchorPane notesElevePane = null;
+        try {
+            notesElevePane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/eleveRemarque.fxml"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        notesUserDialog = getSpecialDialog(notesElevePane);
+        notesUserDialog.show();
+    }
+
+    private JFXDialog getSpecialDialog(AnchorPane content) {
+        JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
+        dialog.setOnDialogClosed((event) -> updateTable());
+        return dialog;
+    }
+
     private void initializeTable() {
         idCol = new JFXTreeTableColumn<>("رقم التسجيل");
         idCol.setPrefWidth(120);
         idCol.setCellValueFactory(param -> param.getValue().getValue().id);
 
-        genderCol=new JFXTreeTableColumn<>("الجنس");
+        genderCol = new JFXTreeTableColumn<>("الجنس");
         genderCol.setPrefWidth(120);
         genderCol.setCellValueFactory(param -> param.getValue().getValue().gender);
         genderCol.setVisible(false);
@@ -439,7 +454,6 @@ public class EleveController<Adding> implements Initializable {
         classRoomCol.setCellValueFactory(param -> param.getValue().getValue().classroom);
 
 
-
         dateOfBirthCol = new JFXTreeTableColumn<>("تاريخ الملاد");
         dateOfBirthCol.setPrefWidth(100);
         dateOfBirthCol.setCellValueFactory(param -> param.getValue().getValue().birthday);
@@ -447,7 +461,6 @@ public class EleveController<Adding> implements Initializable {
         placeOfBirthCol = new JFXTreeTableColumn<>("مكان الملاد");
         placeOfBirthCol.setPrefWidth(100);
         placeOfBirthCol.setCellValueFactory(param -> param.getValue().getValue().birthplace);
-
 
 
         addressCol = new JFXTreeTableColumn<>("العنوان");
@@ -462,47 +475,47 @@ public class EleveController<Adding> implements Initializable {
         remarqueCol.setPrefWidth(150);
         remarqueCol.setCellValueFactory(param -> param.getValue().getValue().remarque);
 
-        schoolYearCol=new JFXTreeTableColumn<>("السنة الدراسية");
+        schoolYearCol = new JFXTreeTableColumn<>("السنة الدراسية");
         schoolYearCol.setPrefWidth(150);
         schoolYearCol.setCellValueFactory(param -> param.getValue().getValue().schoolYear);
         schoolYearCol.setVisible(false);
 
-        regimeCol=new JFXTreeTableColumn<>("النظام");
+        regimeCol = new JFXTreeTableColumn<>("النظام");
         regimeCol.setPrefWidth(150);
         regimeCol.setCellValueFactory(param -> param.getValue().getValue().regime);
         regimeCol.setVisible(false);
 
-        nameFatherCol=new JFXTreeTableColumn<>("اسم الأب");
+        nameFatherCol = new JFXTreeTableColumn<>("اسم الأب");
         nameFatherCol.setPrefWidth(150);
         nameFatherCol.setCellValueFactory(param -> param.getValue().getValue().nameFather);
         nameFatherCol.setVisible(false);
 
-        nameMotherCol=new JFXTreeTableColumn<>("اسم الأم");
+        nameMotherCol = new JFXTreeTableColumn<>("اسم الأم");
         nameMotherCol.setPrefWidth(150);
         nameMotherCol.setCellValueFactory(param -> param.getValue().getValue().nameMother);
         nameMotherCol.setVisible(false);
 
-        lastNameMotherCol=new JFXTreeTableColumn<>("لقب الأم");
+        lastNameMotherCol = new JFXTreeTableColumn<>("لقب الأم");
         lastNameMotherCol.setPrefWidth(150);
         lastNameMotherCol.setCellValueFactory(param -> param.getValue().getValue().lastNameMother);
         lastNameMotherCol.setVisible(false);
 
-        workFatherCol=new JFXTreeTableColumn<>("مهنة الأب");
+        workFatherCol = new JFXTreeTableColumn<>("مهنة الأب");
         workFatherCol.setPrefWidth(150);
         workFatherCol.setCellValueFactory(param -> param.getValue().getValue().workFather);
         workFatherCol.setVisible(false);
 
-        workMotherCol=new JFXTreeTableColumn<>("مهنة الأم");
+        workMotherCol = new JFXTreeTableColumn<>("مهنة الأم");
         workMotherCol.setPrefWidth(150);
         workMotherCol.setCellValueFactory(param -> param.getValue().getValue().workMother);
         workMotherCol.setVisible(false);
 
-        wakilCol=new JFXTreeTableColumn<>("وكيل");
+        wakilCol = new JFXTreeTableColumn<>("وكيل");
         wakilCol.setPrefWidth(150);
         wakilCol.setCellValueFactory(param -> param.getValue().getValue().wakil);
         wakilCol.setVisible(false);
 
-        maladieCol=new JFXTreeTableColumn<>("مرض");
+        maladieCol = new JFXTreeTableColumn<>("مرض");
         maladieCol.setPrefWidth(150);
         maladieCol.setCellValueFactory(param -> param.getValue().getValue().maladie);
         maladieCol.setVisible(false);
@@ -529,10 +542,89 @@ public class EleveController<Adding> implements Initializable {
         treeTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
-    private JFXDialog getSpecialDialog(AnchorPane content) {
+    @FXML
+    private void addImage() {
+        errorLabel.setText("");
+        int index = treeTableView.getSelectionModel().getSelectedIndex(); // selected index
+        String id = idCol.getCellData(index);
+        String nome = firstnameCol.getCellData(index);
+        String prenome = lastNameCol.getCellData(index);
+        String picnome = id + "-" + nome + "-" + prenome;
+        if (id == null) {
+            System.out.println("Index is null !");
+            Notifications.create()
+                    .title("يرجى تحديد الحقل المراد تحديثه                                ")
+                    .darkStyle()
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .showWarning();
+            return;
+        }
+        JFXDialogLayout content = new JFXDialogLayout();
+        Text headerText = new Text(" عملية تحميل الصورة الشخصية \n\n");
+        Text contentText = new Text(" تحميل الصورة الشخصية للتلاميذ من جهاز الكمبيوتر");
+        headerText.setStyle("-fx-font-size: 19px");
+        contentText.setStyle("-fx-font-size: 18px");
+
+        content.setHeading(headerText);
+        content.setBody(contentText);
+
         JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
-        dialog.setOnDialogClosed((event) -> updateTable());
-        return dialog;
+
+        JFXButton btnOk = new JFXButton("موافق");
+        btnOk.setOnAction(e -> {
+            dialog.close();
+            try {
+                savepic(picnome);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            Notifications.create()
+                    .title("تمت الإضافة بنجاح                                   ")
+                    .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT)
+                    .darkStyle()
+                    .show();
+        });
+
+        JFXButton btnNo = new JFXButton("لا");
+        btnOk.setPrefSize(120, 40);
+        btnNo.setPrefSize(120, 40);
+        btnOk.setStyle("-fx-font-size: 18px");
+        btnNo.setStyle("-fx-font-size: 18px");
+
+        content.setActions(btnOk, btnNo);
+
+        dialog.getStylesheets().add("/home/resources/css/main.css");
+        btnNo.setOnAction(e -> dialog.close());
+        dialog.show();
+
+    }
+
+    private void savepic(String nompic) throws IOException {
+
+
+        FileChooser fileChooser = new FileChooser();
+        File file = fileChooser.showOpenDialog(errorLabel.getScene().getWindow());
+        String extension = "";
+
+        int i = file.getName().lastIndexOf('.');
+        if (i > 0) {
+            extension = file.getName().substring(i + 1);
+        }
+        System.out.println("Image extension is : " + extension);
+        //Image imgThumb = new Image(file.toURI().toString());
+
+        //Set extension filter
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("image files (png,jpg,jpeg,bmp,gif)", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File dir = new File(System.getenv("APPDATA") + "\\Archive creche darelhadith\\Image");
+        dir.mkdirs();
+        File fileSav = new File(System.getenv("APPDATA") + "\\Archive creche darelhadith\\Image\\" + nompic + "." + extension);
+        BufferedImage bImage = readImageFromFile(file);
+        ImageIO.write(bImage, extension, fileSav);
+
     }
 
     private void filterSearchTable() {
@@ -581,9 +673,9 @@ public class EleveController<Adding> implements Initializable {
         StringProperty schoolYear, regime, nameFather, nameMother, lastNameMother, workFather, workMother, wakil, maladie, tranches, montantRestant;
 
 
-        public TableEleve(int id, int gender, String firstname, String lastname, String classroom, Date birthday, String birthplace, String addresse, String phone,
-                          String remarque, int schoolYear, String regime, String nameFather, String nameMother,
-                          String lastNameMother, String workFather, String workMother, String wakil, String maladie, int tranches, double montantRestant) {
+        TableEleve(int id, int gender, String firstname, String lastname, String classroom, Date birthday, String birthplace, String addresse, String phone,
+                   String remarque, int schoolYear, String regime, String nameFather, String nameMother,
+                   String lastNameMother, String workFather, String workMother, String wakil, String maladie, int tranches, double montantRestant) {
 
             this.id = new SimpleStringProperty(String.valueOf(id));
             this.gender = new SimpleStringProperty(String.valueOf(gender));

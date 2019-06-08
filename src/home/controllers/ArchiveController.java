@@ -48,7 +48,6 @@ import static home.controllers.ShowArchDataEmlyController.emplSelected;
 import static home.controllers.ShowArchvDataController.eleveSelected;
 
 
-
 public class ArchiveController implements Initializable {
 
     @FXML
@@ -66,27 +65,24 @@ public class ArchiveController implements Initializable {
     public Label errorLabelStudent1;
 
 
-    private int anee=2019;
+    @FXML // Cols of table
+    public JFXTreeTableColumn<TableEleve, String> idCole, firstnameCole, classRoomCol, lastNameCole,
+            dateOfBirthCole, placeOfBirthCole, jobCole, addressCol, remarqueCol, phoneCol;
     private String nomes;
-
-    ArrayList<String> asmah=new ArrayList<>();
+    ArrayList<String> asmah = new ArrayList<>();
     @FXML
     private StackPane root;
 
     @FXML
     private AnchorPane choosePane;
-
-    @FXML
-    private VBox ArchivHome,anees,anee1,anee2,anee3,anee4,anee5;
+    private int anee = 2019;
 
     @FXML
     private VBox studentPane;
-
     @FXML
-    private Label errorLabelEmploye,errorLabelStudent,aneeselect;
-
+    private VBox ArchivHome, anees, anee1, anee2, anee3, anee4, anee5;
     @FXML
-    private JFXTextField searchStudentField,prenostudent1,namstudent1;
+    private Label errorLabelEmploye, errorLabelStudent, aneeselect;
 
     @FXML
     private JFXDatePicker birthDate1;
@@ -94,9 +90,8 @@ public class ArchiveController implements Initializable {
 
     @FXML
     private JFXComboBox<?> comboStudentSearchBy;
-
     @FXML
-    private HBox searchToolsBox,lesAnee;
+    private JFXTextField searchStudentField, prenostudent1, namstudent1;
 
     @FXML
     private JFXComboBox<?> comboStudentSectionFilter;
@@ -112,9 +107,8 @@ public class ArchiveController implements Initializable {
 
     @FXML
     private VBox employePane;
-
     @FXML
-    private JFXTextField searchEmployer,searchEleve;
+    private HBox searchToolsBox, lesAnee;
 
     @FXML
     private JFXComboBox<?> comboEmployeSearchBy;
@@ -129,7 +123,7 @@ public class ArchiveController implements Initializable {
     private JFXTreeTableColumn<TableEmployee, String> idCol, firstnameCol, lastNameCol,
             dateOfBirthCol, placeOfBirthCol, jobCol;
     @FXML
-    private JFXComboBox<String> comboEleve,comboEmployer;
+    private JFXTextField searchEmployer, searchEleve;
     @FXML
     private PieChart pieChartStudent;
 
@@ -144,41 +138,38 @@ public class ArchiveController implements Initializable {
     private JFXTreeTableView tableEleveTrac;
     @FXML
     private JFXTreeTableView<TableEleve> tableEleve;
-
-
-
-    @FXML // Cols of table
-    public JFXTreeTableColumn<TableEleve, String> idCole, firstnameCole,classRoomCol, lastNameCole,
-            dateOfBirthCole, placeOfBirthCole, jobCole, addressCol,remarqueCol, phoneCol;
+    @FXML
+    private JFXComboBox<String> comboEleve, comboEmployer;
     public static JFXDialog addUserDialog;
+    private ArrayList<Employe> archv;
+    private ArrayList<Eleve> archvElv;
+    private String Matin, Aprem, MatAprem, Demi, Complet;
 
-    ArrayList<Employe> archv;
-    ArrayList<Eleve> archvElv ;
-
-    public void initialize(URL url, ResourceBundle rb)  {
+    public void initialize(URL url, ResourceBundle rb) {
 
 
-        for(int i=0 ;i<100;i++) {
-           yearSelect.getItems().add(anee + "-" + (++anee));
-       }
+        for (int i = 0; i < 100; i++) {
+            yearSelect.getItems().add(anee + "-" + (++anee));
+        }
 
 
         comboEleve.getItems().addAll("رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد",
                 "مكان الملاد", "العنوان ");
 
         comboEmployer.getItems().addAll("رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد",
-                "مكان الملاد", "المهنة","العنوان ","الهاتف ");
+                "مكان الملاد", "المهنة", "العنوان ", "الهاتف ");
 
         searchEleve.textProperty().addListener(e -> SearchTableEleve());
         comboEleve.setOnAction(e -> SearchTableEleve());
 
         searchEmployer.textProperty().addListener(e -> SearchTableEmployer());
         comboEmployer.setOnAction(e -> SearchTableEmployer());
-  }
+    }
+
     @FXML
     void choseanee() {
 
-        nomes= yearSelect.getSelectionModel().getSelectedItem();
+        nomes = yearSelect.getSelectionModel().getSelectedItem();
         aneeselect.setText(nomes);
         employePane.setVisible(false);
         studentPane.setVisible(false);
@@ -196,11 +187,11 @@ public class ArchiveController implements Initializable {
 
     @FXML
     void creeAnee() {
-        int az=2120;
+        int az = 2120;
         yearSelect.getItems().add(az + "-" + (++az));
         az++;
 
-        }
+    }
 
     @FXML
     void backtoanee() {
@@ -297,6 +288,7 @@ public class ArchiveController implements Initializable {
     void updateTableEleve() {
 
     }
+
     @FXML
     void updateTableUser() {
 
@@ -338,13 +330,11 @@ public class ArchiveController implements Initializable {
         updateTable(nome);
 
 
-
         //noinspection deprecation
-        tableemployer.getColumns().addAll(idCol, firstnameCol, lastNameCol, dateOfBirthCol, placeOfBirthCol,  jobCol);
+        tableemployer.getColumns().addAll(idCol, firstnameCol, lastNameCol, dateOfBirthCol, placeOfBirthCol, jobCol);
         tableemployer.setShowRoot(false);
         tableemployer.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
-
 
 
     private void initializeTableEleve(String nome) {
@@ -411,55 +401,54 @@ public class ArchiveController implements Initializable {
             String line;
             int i=0;
 
-             if((li.readLine()).equals("Eleve"))
-             {
+            if ((li.readLine()).equals("Eleve")) {
                 while((line=li.readLine()).compareTo("lafin***")!=0){
-                     Eleve E=new Eleve();
+                    Eleve E = new Eleve();
 
 
-                       E.setId(Integer.valueOf(line));
+                    E.setId(Integer.valueOf(line));
 
-                     String nom = li.readLine();
-                     E.setNom(nom);
+                    String nom = li.readLine();
+                    E.setNom(nom);
 
-                     String pnom = li.readLine();
-                     E.setPrenom(pnom);
+                    String pnom = li.readLine();
+                    E.setPrenom(pnom);
 
-                     String DateNaissance = li.readLine();
-                     E.setDateNaissance(Date.valueOf(DateNaissance));
+                    String DateNaissance = li.readLine();
+                    E.setDateNaissance(Date.valueOf(DateNaissance));
 
-                     String LieuNaissance = li.readLine();
-                     E.setLieuNaissance(LieuNaissance);
+                    String LieuNaissance = li.readLine();
+                    E.setLieuNaissance(LieuNaissance);
 
-                     String classe = li.readLine();
+                    String classe = li.readLine();
                     E.setClasse(classe);
 
-                     String nombreStuding = li.readLine();
+                    String nombreStuding = li.readLine();
                     E.setAnneeScolaire(Integer.valueOf(nombreStuding));
 
-                     String regim = li.readLine();
-                     E.setRegime(regim);
+                    String regim = li.readLine();
+                    E.setRegime(regim);
 
-                     String Adresse = li.readLine();
-                     E.setAdresse(Adresse);
+                    String Adresse = li.readLine();
+                    E.setAdresse(Adresse);
 
-                     String NumTelephone = li.readLine();
-                     E.setPhone(NumTelephone);
+                    String NumTelephone = li.readLine();
+                    E.setPhone(NumTelephone);
 
-                     String namfather = li.readLine();
-                     E.setPrenomPere(namfather);
+                    String namfather = li.readLine();
+                    E.setPrenomPere(namfather);
 
-                     String nammather = li.readLine();
-                     E.setPrenomMere(nammather);
+                    String nammather = li.readLine();
+                    E.setPrenomMere(nammather);
 
-                     String lnammather = li.readLine();
-                     E.setNomMere(lnammather);
+                    String lnammather = li.readLine();
+                    E.setNomMere(lnammather);
 
-                     String travaifather = li.readLine();
-                     E.setTravailPere(travaifather);
+                    String travaifather = li.readLine();
+                    E.setTravailPere(travaifather);
 
-                     String travaimere = li.readLine();
-                     E.setTravailMere(travaimere);
+                    String travaimere = li.readLine();
+                    E.setTravailMere(travaimere);
 
                     String malad = li.readLine();
                     E.setMaladie(malad);
@@ -470,72 +459,86 @@ public class ArchiveController implements Initializable {
                     archvElv.add(E);
                     String gg = li.readLine();
 
-                 }
-             }
+                }
+            }
+            //System.out.println(li.readLine());
+            if ((li.readLine()).equals("Employer")) {
+                while ((line = li.readLine()).compareTo("lafinEmployer***") != 0) {
+                    Employe a = new Employe();
 
-            while ((line = li.readLine()) != null){
-                Employe a=new Employe();
+                    a.setId(Integer.valueOf(line));
+                    //System.out.println(a.getId());
 
-                a.setId(Integer.valueOf(line));
-                //System.out.println(a.getId());
+                    String nom = li.readLine();
+                    a.setNom(nom);
 
-                String nom = li.readLine();
-                a.setNom(nom);
+                    String pnom = li.readLine();
+                    a.setPrenom(pnom);
 
-                String pnom = li.readLine();
-                a.setPrenom(pnom);
+                    String DateNaissance = li.readLine();
+                    a.setDateNaissance(Date.valueOf(DateNaissance));
 
-                String DateNaissance = li.readLine();
-                a.setDateNaissance(Date.valueOf(DateNaissance));
+                    String LieuNaissance = li.readLine();
+                    a.setLieuNaissance(LieuNaissance);
 
-                String LieuNaissance = li.readLine();
-                a.setLieuNaissance(LieuNaissance);
+                    String Adresse = li.readLine();
+                    a.setAdresse(Adresse);
 
-                String Adresse = li.readLine();
-                a.setAdresse(Adresse);
+                    String Experience = li.readLine();
+                    a.setExperience(Experience);
 
-                String Experience = li.readLine();
-                a.setExperience(Experience);
+                    String NumTelephone = li.readLine();
+                    a.setNumTelephone(NumTelephone);
 
-                String NumTelephone = li.readLine();
-                a.setNumTelephone(NumTelephone);
+                    String SocialSecurityNumber = li.readLine();
+                    a.setSocialSecurityNumber(SocialSecurityNumber);
 
-                String SocialSecurityNumber = li.readLine();
-                a.setSocialSecurityNumber(SocialSecurityNumber);
+                    String Diplome = li.readLine();
+                    a.setDiplome(Diplome);
 
-                String Diplome = li.readLine();
-                a.setDiplome(Diplome);
+                    String Itar = li.readLine();
+                    a.setItar(Itar);
 
-                String Itar = li.readLine();
-                a.setItar(Itar);
+                    String Date_debut = li.readLine();
+                    a.setDate_debut(Date.valueOf(Date_debut));
 
-                String Date_debut = li.readLine();
-                a.setDate_debut(Date.valueOf(Date_debut));
+                    String Fonction = li.readLine();
+                    a.setFonction(Fonction);
 
-                String Fonction = li.readLine();
-                a.setFonction(Fonction);
+                    String Renouvlement = li.readLine();
+                    a.setRenouvlement_de_contrat(Renouvlement);
 
-                String Renouvlement = li.readLine();
-                a.setRenouvlement_de_contrat(Renouvlement);
-
-                String Regime = li.readLine();
-                a.setRegimeScolaire(Regime);
+                    String Regime = li.readLine();
+                    a.setRegimeScolaire(Regime);
 
 
-                String StatuSocial = li.readLine();
-                a.setStatuSocial (Integer.valueOf(StatuSocial));
+                    String StatuSocial = li.readLine();
+                    a.setStatuSocial(Integer.valueOf(StatuSocial));
 
-                String CelibacyTitle = li.readLine();
-                a.setCelibacyTitle(CelibacyTitle);
+                    String CelibacyTitle = li.readLine();
+                    a.setCelibacyTitle(CelibacyTitle);
 
-                String MaleChild = li.readLine();
-                a.setMaleChild(Integer.valueOf(MaleChild));
+                    String MaleChild = li.readLine();
+                    a.setMaleChild(Integer.valueOf(MaleChild));
 
-                String FemaleChild = li.readLine();
-                a.setFemaleChild(Integer.valueOf(FemaleChild));
-                archv.add(a);
+                    String FemaleChild = li.readLine();
+                    a.setFemaleChild(Integer.valueOf(FemaleChild));
+                    archv.add(a);
 
-                String p = li.readLine();
+                    String p = li.readLine();
+
+                }
+            }
+            if ((line = li.readLine()) != null) {
+                Matin = line;
+
+                MatAprem = li.readLine();
+
+                Aprem = li.readLine();
+
+                Demi = li.readLine();
+
+                Complet = li.readLine();
 
             }
             reader.close();
@@ -551,7 +554,8 @@ public class ArchiveController implements Initializable {
             Employe employe=archv.get(i);
             employes.add( new TableEmployee(employe.getId(), employe.getNom().toUpperCase(), employe.getPrenom().toUpperCase(), employe.getDateNaissance(),
                     employe.getLieuNaissance(), employe.getAdresse(), employe.getExperience(), employe.getNumTelephone(), employe.getSocialSecurityNumber(),
-                    employe.getDiplome(), employe.getItar(), employe.getDate_debut(), employe.getFonction(), employe.getRenouvlement_de_contrat(), employe.estmarier(),
+                    employe.getDiplome(), employe.getItar(), employe.getDate_debut(), employe.getFonction(), employe.getRenouvlement_de_contrat(),
+                    employe.getRemarque(), employe.estmarier(),
                     employe.getCelibacyTitle(), employe.getMaleChild(), employe.getFemaleChild()));
         }
 
@@ -572,9 +576,9 @@ public class ArchiveController implements Initializable {
             System.out.println("Error catched !");
         }
 
-}
+    }
 
-    private void removetreetable(){
+    private void removetreetable() {
         tableemployer.getColumns().clear();
         tableEleve.getColumns().clear();
     }
@@ -633,7 +637,7 @@ public class ArchiveController implements Initializable {
                             employee.getValue().job.getValue().toLowerCase().contains(searchEmployer.getText().toLowerCase()) ||
                             employee.getValue().addresse.getValue().toLowerCase().contains(searchEmployer.getText().toLowerCase()) ||
                             employee.getValue().phone.getValue().toLowerCase().contains(searchEmployer.getText().toLowerCase()
-                           );
+                            );
             }
         });
     }
@@ -645,14 +649,21 @@ public class ArchiveController implements Initializable {
 
         PrinterJob job = PrinterJob.createPrinterJob();
         job.showPrintDialog(null);
-        Printer printer= job.getPrinter();
+        Printer printer = job.getPrinter();
         PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
-        textArea.minWidth(pageLayout.getPrintableWidth());
-        textArea.minHeight(pageLayout.getPrintableHeight());
-        job.printPage(pageLayout,textArea);
+        textArea.setScaleX(0.85);
+        textArea.setScaleY(0.85);
+        textArea.setTranslateX(50);
+        textArea.setTranslateY(10);
+        job.printPage(pageLayout, textArea);
         job.endJob();
+        textArea.setScaleX(1);
+        textArea.setScaleY(1);
+        textArea.setTranslateX(0);
+        textArea.setTranslateY(0);
 
     }
+
     @FXML
     public void showDataElev(ActionEvent actionEvent) throws IOException {
         int index = tableEleve.getSelectionModel().getSelectedIndex(); // selected index
@@ -683,15 +694,15 @@ public class ArchiveController implements Initializable {
             System.out.println("Connection Failed !");
         } else {
             for (Eleve eleve : studentDB) {
-                if (eleve.getId() == Integer.parseInt(id)){
+                if (eleve.getId() == Integer.parseInt(id)) {
                     eleveSelected.setPrenomPere(eleve.getPrenomPere());
                     eleveSelected.setNomMere(eleve.getNomMere());
                     eleveSelected.setPrenomMere(eleve.getPrenomMere());
                     eleveSelected.setAnneeScolaire(eleve.getAnneeScolaire());
                 }
-                }
-
             }
+
+        }
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/home/resources/fxml/ShowArchvData.fxml"));
@@ -705,9 +716,8 @@ public class ArchiveController implements Initializable {
         stage.showAndWait();
 
 
+    }
 
-
-}
     @FXML
     public void showDataEmply(ActionEvent actionEvent) throws IOException {
         int index = tableemployer.getSelectionModel().getSelectedIndex(); // selected index
@@ -730,13 +740,13 @@ public class ArchiveController implements Initializable {
         emplSelected.setFonction(jobCol.getCellData(index));
         emplSelected.setDateNaissance(Date.valueOf(dateOfBirthCol.getCellData(index)));
         emplSelected.setLieuNaissance(placeOfBirthCol.getCellData(index));
-       // emplSelected.setRemarque(remarqueCol.getCellData(index));
+        emplSelected.setRemarque(remarqueCol.getCellData(index));
         List<Employe> emplyDB = archv;
         if (emplyDB == null) {
             System.out.println("Connection Failed !");
         } else {
             for (Employe employe : emplyDB) {
-                if (employe.getId() == Integer.parseInt(id)){
+                if (employe.getId() == Integer.parseInt(id)) {
                     emplSelected.setAdresse(employe.getAdresse());
                     emplSelected.setRegimeScolaire(employe.getRegimeScolaire());
                     emplSelected.setExperience(employe.getExperience());
@@ -759,14 +769,44 @@ public class ArchiveController implements Initializable {
 
     }
 
+    @FXML
+    public void showdatafrais(ActionEvent actionEvent) {
+
+        JFXDialogLayout content = new JFXDialogLayout();
+        Text headerText = new Text("عرض التكاليف لهذه السنة\n\n");
+
+        /*Label matine=new Label();
+        matine.setText(Matin);
+        Label MatApreme=new Label();
+        MatApreme.setText(MatAprem);
+        Label Apreme=new Label();
+        Apreme.setText(Aprem);
+        Label Demie=new Label();
+        Demie.setText(Demi);
+        Label Complete=new Label();
+        Complete.setText(Complet);*/
+        Text contentText = new Text("صباح  :" + Matin + "\n\n" + "مساء : " + Aprem + "\n\n" + "صباح+مساء : " + MatAprem + "\n\n" + " صباح+نصف داخلي  :" + Demi + "\n\n" + " كامل : " + Complet + "\n\n");
+        headerText.setStyle("-fx-font-size: 20px");
+        contentText.setStyle("-fx-font-size: 18px");
+
+        content.setHeading(headerText);
+        content.setBody(contentText);
+
+
+        JFXDialog dialog = new JFXDialog(archiv, content, JFXDialog.DialogTransition.CENTER);
+        //dialog.set
+        dialog.getStylesheets().add("/home/resources/css/main.css");
+        dialog.show();
+    }
+
     static class TableEmployee extends RecursiveTreeObject<TableEmployee> {
         StringProperty id, firstname, lastname, birthday, birthplace, job, experience;
         StringProperty addresse, phone, socialSN, diplom, itar, firstdaywor, renouvlementcotract;
-        StringProperty marier, nomCeleb, nombreEM, nombreEF;
+        StringProperty remarque, marier, nomCeleb, nombreEM, nombreEF;
 
         TableEmployee(int id, String firstname, String lastname, java.util.Date birthday, String birthplace, String addresse, String experience,
                       String phone, String socialSN, String diplom, String itar,
-                      java.util.Date firstdaywor, String job, String renouvlementcotract, boolean marier, String nomCeleb,
+                      java.util.Date firstdaywor, String job, String renouvlementcotract, String remarque, boolean marier, String nomCeleb,
                       int nombreEM, int nombreEF) {
 
             this.id = new SimpleStringProperty(String.valueOf(id));
@@ -783,6 +823,7 @@ public class ArchiveController implements Initializable {
             this.itar = new SimpleStringProperty(String.valueOf(itar));
             this.firstdaywor = new SimpleStringProperty(String.valueOf(firstdaywor));
             this.renouvlementcotract = new SimpleStringProperty(String.valueOf(renouvlementcotract));
+            this.remarque = new SimpleStringProperty(String.valueOf(remarque));
             this.marier = new SimpleStringProperty((marier) ? "متزوج" : "أعزب");
             this.nomCeleb = new SimpleStringProperty(String.valueOf(nomCeleb));
             this.nombreEM = new SimpleStringProperty(String.valueOf(nombreEM));
@@ -790,13 +831,14 @@ public class ArchiveController implements Initializable {
 
         }
     }
+
     static class TableEleve extends RecursiveTreeObject<TableEleve> {
         StringProperty id, firstname, lastname, classroom, birthday, birthplace;
         StringProperty addresse, phone, remarque;
 
 
-        public TableEleve(int id, String firstname, String lastname, String classroom, java.util.Date birthday, String birthplace, String addresse, String phone,
-                          String remarque) {
+        TableEleve(int id, String firstname, String lastname, String classroom, java.util.Date birthday, String birthplace, String addresse, String phone,
+                   String remarque) {
 
             this.id = new SimpleStringProperty(String.valueOf(id));
             this.firstname = new SimpleStringProperty(String.valueOf(firstname));

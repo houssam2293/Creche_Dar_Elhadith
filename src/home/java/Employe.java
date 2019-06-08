@@ -22,12 +22,13 @@ public class Employe {
     private String celibacyTitle;
     private int maleChild, femaleChild;
     private int statuSocial;
+    private String remarque;
 
 
     public Employe(int id, String nom, String prenom, Date dateNaissance, String lieuNaissance, String adresse,
                    String numTelephone, String socialSecurityNumber, String diplome, String experience, String itar,
-                   String renouvlement_de_contrat, Date date_debut, String fonction,String regimeScolaire,int statuSocial, String celibacyTitle,
-                   int maleChild, int femaleChild) {
+                   String renouvlement_de_contrat, Date date_debut, String fonction, String regimeScolaire, int statuSocial, String celibacyTitle,
+                   int maleChild, int femaleChild, String remarque) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -48,6 +49,7 @@ public class Employe {
         this.maleChild = maleChild;
         this.femaleChild = femaleChild;
 
+        this.remarque = remarque;
     }
 
     public Employe() {
@@ -247,5 +249,13 @@ public class Employe {
 
     public void setRegimeScolaire(String regimeScolaire) {
         this.regimeScolaire = regimeScolaire;
+    }
+
+    public String getRemarque() {
+        return remarque;
+    }
+
+    public void setRemarque(String remarque) {
+        this.remarque = remarque;
     }
 }

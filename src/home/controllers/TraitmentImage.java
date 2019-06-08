@@ -153,6 +153,7 @@ public class TraitmentImage implements Initializable {
         //Set extension filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("image files (png,jpg,jpeg,bmp,gif)", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif");
         fileChooser.getExtensionFilters().add(extFilter);
+        //todo:fix next
 
         //Show save file dialog
         File file = fileChooser.showOpenDialog(errorLabel.getScene().getWindow());

@@ -54,6 +54,7 @@ create TABLE `creche_dar_elhadith`.`employe` (
   `celibacyTitle` varchar(22) DEFAULT NULL,
   `nombreEnfantM` int(2) DEFAULT NULL,
   `nombreEnfantF` int(2) DEFAULT NULL,
+  `remarque` varchar(100),
   PRIMARY KEY (`id`));
 
 CREATE TABLE `creche_dar_elhadith`.`pointage` (

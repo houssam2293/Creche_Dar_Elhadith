@@ -2,30 +2,35 @@
 
 <?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
-<StackPane fx:id="root" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" xmlns="http://javafx.com/javafx/8.0.171"
            fx:controller="home.controllers.StockController">
     <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1192.0" spacing="10.0">
         <stylesheets>
             <URL value="@../css/manageEmployee.css"/>
             <URL value="@../css/main.css"/>
         </stylesheets>
-        <HBox prefHeight="60.0" prefWidth="200.0" spacing="15.0">
-            <Label fx:id="titleLabel" alignment="CENTER" prefHeight="50.0" prefWidth="266.0"
-                   styleClass="title-header" text="إدارة  المخزن">
+        <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
+            <MaterialDesignIconView fill="#2196f3" glyphName="FACTORY" size="40"/>
+            <Label fx:id="titleLabel" prefHeight="50.0" prefWidth="266.0" styleClass="title-header"
+                   text="إدارة  المخزن">
                 <font>
                     <Font name="Tahoma" size="34.0"/>
                 </font>
             </Label>
             <Label id="errorLabel" fx:id="errorLabel" prefHeight="50.0" prefWidth="393.0"/>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
         </HBox>
         <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="5.0">
-            <JFXTextField fx:id="searchField" labelFloat="true" prefHeight="39.0" prefWidth="197.0"
-                          promptText="بحث" styleClass="field">
+            <JFXTextField fx:id="searchField" labelFloat="true" prefHeight="39.0" prefWidth="197.0" promptText="بحث"
+                          styleClass="field">
                 <HBox.margin>
                     <Insets right="15.0"/>
                 </HBox.margin>
@@ -36,9 +41,8 @@
                     <Insets right="15.0"/>
                 </HBox.margin>
             </JFXComboBox>
-            <JFXButton buttonType="RAISED" contentDisplay="CENTER" onMouseClicked="#updateTable"
-                       prefHeight="41.0" prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view"
-                       text=" ">
+            <JFXButton buttonType="RAISED" contentDisplay="CENTER" onMouseClicked="#updateTable" prefHeight="41.0"
+                       prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
                 <graphic>
                     <FontAwesomeIconView glyphName="REFRESH" size="24" wrappingWidth="22.571428298950195"/>
                 </graphic>
@@ -64,21 +68,22 @@
                     <Insets right="15.0"/>
                 </HBox.margin>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="943.0" layoutY="21.0" onAction="#Consommation"
-                       prefHeight="39.0" prefWidth="136.0" ripplerFill="#4468eb" styleClass="btn-view"
-                       text="الاستهلاك">
+            <JFXButton buttonType="RAISED" layoutX="943.0" layoutY="21.0" onAction="#Consommation" prefHeight="39.0"
+                       prefWidth="136.0" ripplerFill="#4468eb" styleClass="btn-view" text="الاستهلاك">
                 <HBox.margin>
                     <Insets right="15.0"/>
                 </HBox.margin>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="793.0" layoutY="21.0" onAction="#print"
-                       prefHeight="39.0" prefWidth="126.0" ripplerFill="#4468eb" styleClass="btn-view"
-                       text="طباعة ">
+            <JFXButton buttonType="RAISED" layoutX="793.0" layoutY="21.0" onAction="#print" prefHeight="39.0"
+                       prefWidth="126.0" ripplerFill="#4468eb" styleClass="btn-view" text="طباعة ">
                 <HBox.margin>
                     <Insets right="15.0"/>
                 </HBox.margin>
             </JFXButton>
         </HBox>
         <JFXTreeTableView fx:id="tableView" VBox.vgrow="ALWAYS"/>
+        <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        </padding>
     </VBox>
 </StackPane>

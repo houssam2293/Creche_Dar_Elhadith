@@ -212,17 +212,22 @@ public class ClassController implements Initializable {
     @FXML
     void printClass() {
         Text textArea = new Text();
-        textArea.setText("Printing test!    ");
+        textArea.setText("Printing test!    Printing test!\nPrinting test!  Printing test!  Printing test!\nPrinting test!  Printing test!  Printing test!  Printing test!");
 
         PrinterJob job = PrinterJob.createPrinterJob();
         job.showPrintDialog(null);
         Printer printer= job.getPrinter();
         PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
-        textArea.minWidth(pageLayout.getPrintableWidth());
-        textArea.minHeight(pageLayout.getPrintableHeight());
+        textArea.setScaleX(0.85);
+        textArea.setScaleY(0.85);
+        textArea.setTranslateX(50);
+        textArea.setTranslateY(10);
         job.printPage(pageLayout,textArea);
         job.endJob();
-
+        textArea.setScaleX(1);
+        textArea.setScaleY(1);
+        textArea.setTranslateX(0);
+        textArea.setTranslateY(0);
     }
 
 

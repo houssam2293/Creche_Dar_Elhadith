@@ -24,11 +24,29 @@ public class ShowArchvDataController  implements Initializable {
     private AnchorPane ArchvData;
     @FXML
     private Label Id,nam,fnam,birthday,classe,anee,adress,namfather,namMather,prof,remarque;
+    @FXML
+    private ImageView Pic;
 
 
     static Eleve eleveSelected;
 
     public void initialize(URL location, ResourceBundle resources) {
+        String nom = eleveSelected.getId() + "-" + eleveSelected.getPrenom() + "-" + eleveSelected.getNom();
+        System.out.println(nom);
+        File outputFile = new File(System.getenv("APPDATA") + "\\Archive creche darelhadith\\Image\\" + nom + ".png");
+        File outputFile1 = new File(System.getenv("APPDATA") + "\\Archive creche darelhadith\\Image\\" + nom + ".jpg");
+        File outputFile2 = new File(System.getenv("APPDATA") + "\\Archive creche darelhadith\\Image\\" + nom + ".jpeg");
+
+        if (outputFile.exists()) {
+            Image imgThumb = new Image(outputFile.toURI().toString());
+            Pic.setImage(imgThumb);
+        } else if (outputFile1.exists()) {
+            Image imgThumb = new Image(outputFile1.toURI().toString());
+            Pic.setImage(imgThumb);
+        } else if (outputFile2.exists()) {
+            Image imgThumb = new Image(outputFile2.toURI().toString());
+            Pic.setImage(imgThumb);
+        }
 
         Id.setText(String.valueOf(eleveSelected.getId()));
         nam.setText(eleveSelected.getNom());
@@ -80,10 +98,16 @@ public class ShowArchvDataController  implements Initializable {
         job.showPrintDialog(null);
         Printer printer= job.getPrinter();
         PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
-        textArea.minWidth(pageLayout.getPrintableWidth());
-        textArea.minHeight(pageLayout.getPrintableHeight());
+        textArea.setScaleX(0.85);
+        textArea.setScaleY(0.85);
+        textArea.setTranslateX(50);
+        textArea.setTranslateY(10);
         job.printPage(pageLayout,textArea);
         job.endJob();
+        textArea.setScaleX(1);
+        textArea.setScaleY(1);
+        textArea.setTranslateX(0);
+        textArea.setTranslateY(0);
         ((Stage) ArchvData.getScene().getWindow()).close();
 
     }

@@ -1,7 +1,12 @@
 package home.controllers;
 
-import com.jfoenix.controls.*;
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXRadioButton;
+import com.jfoenix.controls.JFXTextField;
+import home.dbDir.ClasseDB;
 import home.dbDir.EleveDB;
+import home.java.ClasseModel;
 import home.java.Eleve;
 import home.java.Validation;
 import javafx.collections.FXCollections;
@@ -18,6 +23,7 @@ import org.controlsfx.control.Notifications;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.ENTER;
@@ -58,7 +64,7 @@ public class EditEleveFormController implements Initializable {
 
 
     @FXML
-    private JFXTextField classe;
+    private JFXComboBox<String> classesCombos;
     @FXML
     private JFXComboBox<Integer> schoolYear;
 
@@ -70,8 +76,6 @@ public class EditEleveFormController implements Initializable {
     @FXML
     private JFXTextField phoneNumber;
 
-    @FXML
-    private JFXToggleButton stat;
     @FXML
     private JFXTextField maladie;
 
@@ -98,17 +102,7 @@ public class EditEleveFormController implements Initializable {
     static Eleve eleveSelected;
 
 
-    @FXML
-    void actionToggleButton() {
-        if (stat.isSelected()) {
-            maladie.setDisable(false);
 
-        } else {
-            maladie.setDisable(true);
-
-        }
-
-    }
 
 
     @FXML
@@ -120,7 +114,7 @@ public class EditEleveFormController implements Initializable {
         eleve.setPrenom(firstNameField.getText().trim().toLowerCase());
         eleve.setDateNaissance(Date.valueOf(birthDate.getValue()));
         eleve.setLieuNaissance(birthPlace.getText().trim().toLowerCase());
-        eleve.setClasse(classe.getText().trim().toLowerCase());
+        eleve.setClasse(classesCombos.getValue());
         eleve.setAnneeScolaire(schoolYear.getValue());
         eleve.setRegime(regime.getValue());
         eleve.setAdresse(addresse.getText().trim().toLowerCase());
@@ -173,7 +167,7 @@ public class EditEleveFormController implements Initializable {
         eleve.setLieuNaissance(birthPlace.getText().trim().toLowerCase());
         eleve.setAdresse(addresse.getText().trim().toLowerCase());
         eleve.setPhone(phoneNumber.getText().trim().toLowerCase());
-        eleve.setClasse(classe.getText().trim().toLowerCase());
+        eleve.setClasse(classesCombos.getValue());
         eleve.setRegime(regime.getValue());
         eleve.setMaladie(maladie.getText().trim().toLowerCase());
         eleve.setAnneeScolaire(schoolYear.getValue());
@@ -235,7 +229,16 @@ public class EditEleveFormController implements Initializable {
         firstNameField.setText(eleveSelected.getPrenom());
         birthDate.setValue(LocalDate.parse(String.valueOf(eleveSelected.getDateNaissance())));
         birthPlace.setText(eleveSelected.getLieuNaissance());
-        classe.setText(eleveSelected.getClasse());
+        List<ClasseModel> clsDB = new ClasseDB().getClasse();
+        if (clsDB == null) {
+            System.out.println("Connection Failed !");
+        } else {
+            for (ClasseModel clss : clsDB) {
+                classesCombos.getItems().add(clss.getClassNam());
+
+            }
+        }
+        classesCombos.getSelectionModel().select(eleveSelected.getClasse());
         schoolYear.getSelectionModel().select(eleveSelected.getAnneeScolaire());
         addresse.setText(eleveSelected.getAdresse());
         regime.getSelectionModel().select(eleveSelected.getRegime());
@@ -297,7 +300,7 @@ public class EditEleveFormController implements Initializable {
                 birthPlace.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
             }
         });
-        classe.setOnKeyReleased(t -> {
+        /*classe.setOnKeyReleased(t -> {
             if (new Validation().arabValid(classe)) {
                 classe.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
             } else {

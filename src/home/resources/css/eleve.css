@@ -5,10 +5,10 @@
 /* Start Title Header Style */
 
 
-.title-header 
+
+.remarque
 {
-    -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, #2196f3 50%);
-    -fx-font-family: Arabic Typesetting;
+-fx-font-family: Arabic Typesetting;
     -fx-font-size: 36px;
 }
 
@@ -125,7 +125,7 @@ btn-view:hover {
 
 
 .field {
-    -fx-font-size: 18px;
+    -fx-font-size: 26px;
 }
 .field-smaller {
     -fx-font-size: 15px;
@@ -171,6 +171,10 @@ DatePicker {
     -fx-font-size: 25px;
 }
 
+.label {
+    -fx-font-size: 26px;
+    -fx-font-family: "Arabic Typesetting";
+}
 
 #VertiBox{
     -fx-background-color: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, #9e5eff 50%);
@@ -191,6 +195,7 @@ DatePicker {
     -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, #2196f3 50%);
     -fx-font-size: 16px;
 }
+
 
 
 .label {

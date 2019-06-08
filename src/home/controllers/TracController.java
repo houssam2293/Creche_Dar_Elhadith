@@ -57,7 +57,7 @@ public class TracController implements Initializable {
     @FXML
     private JFXTreeTableColumn<ManageEmployeeController.TableEmployee, String> idCol, firstnameCol, lastNameCol,
             dateOfBirthCol, placeOfBirthCol, jobCol, addressCol, phoneCol, socialSecurNumbCol,
-            diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, regimCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol;
+            diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, regimCol, marierCol, nomCelebCol, nombreEMCol, remarqueCol, nombreEFCol;
 
 
     @FXML
@@ -277,12 +277,16 @@ public class TracController implements Initializable {
         nombreEFCol.setPrefWidth(75);
         nombreEFCol.setCellValueFactory(param -> param.getValue().getValue().nombreEF);
 
+        remarqueCol = new JFXTreeTableColumn<>("ملاحضات");
+        remarqueCol.setPrefWidth(200);
+        remarqueCol.setCellValueFactory(param -> param.getValue().getValue().remarque);
+
         updateTable();
 
         searchEmployeField.textProperty().addListener(e -> filterSearchTable());
         comboEmployeSearchBy.setOnAction(e -> filterSearchTable());
 
-        tableEmployeeTrac.getColumns().addAll(idCol, firstnameCol, lastNameCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, socialSecurNumbCol, jobCol, diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, regimCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol);
+        tableEmployeeTrac.getColumns().addAll(idCol, firstnameCol, lastNameCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, socialSecurNumbCol, jobCol, diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, regimCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol, remarqueCol);
         tableEmployeeTrac.setShowRoot(false);
 
     }
@@ -300,7 +304,8 @@ public class TracController implements Initializable {
             for (Employe employe : employeeDB) {
                 employes.add(new ManageEmployeeController.TableEmployee(employe.getId(), employe.getNom().toUpperCase(), employe.getPrenom().toUpperCase(), employe.getDateNaissance(),
                         employe.getLieuNaissance(), employe.getAdresse(), employe.getExperience(), employe.getNumTelephone(), employe.getSocialSecurityNumber(),
-                        employe.getDiplome(), employe.getItar(), employe.getDate_debut(), employe.getFonction(), employe.getRenouvlement_de_contrat(), employe.getRegimeScolaire(), employe.estmarier(),
+                        employe.getDiplome(), employe.getItar(), employe.getDate_debut(), employe.getFonction(), employe.getRenouvlement_de_contrat(), employe.getRegimeScolaire(),
+                        employe.getRemarque(), employe.estmarier(),
                         employe.getCelibacyTitle(), employe.getMaleChild(), employe.getFemaleChild()));
             }
         }

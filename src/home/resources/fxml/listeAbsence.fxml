@@ -60,15 +60,13 @@
             <HBox prefHeight="115.0" prefWidth="503.0">
 
                 <VBox prefHeight="78.0" prefWidth="152.0">
-                    <children>
-                        <JFXRadioButton onAction="#selectedRadio" fx:id="checkAbsent" prefHeight="31.0"
-                                        prefWidth="100.0" selected="true" text="العمال المتغيبين"/>
+                    <JFXRadioButton onAction="#selectedRadio" fx:id="checkAbsent" prefHeight="31.0"
+                                    prefWidth="100.0" selected="true" text="العمال المتغيبين"/>
 
-                        <JFXRadioButton onAction="#selectedRadio" fx:id="checkPresent" prefHeight="33.0"
-                                        prefWidth="100.0" text="العمال الحاضرين"/>
-                        <JFXRadioButton onAction="#selectedRadio" fx:id="checkOut" prefHeight="28.0" prefWidth="100.0"
-                                        text="العمال الغير معنيين"/>
-                    </children>
+                    <JFXRadioButton onAction="#selectedRadio" fx:id="checkPresent" prefHeight="33.0"
+                                    prefWidth="100.0" text="العمال الحاضرين"/>
+                    <JFXRadioButton onAction="#selectedRadio" fx:id="checkOut" prefHeight="28.0" prefWidth="100.0"
+                                    text="العمال الغير معنيين"/>
                 </VBox>
                 <Label fx:id="listevide" prefHeight="72.0" prefWidth="266.0" styleClass="datee">
                     <opaqueInsets>

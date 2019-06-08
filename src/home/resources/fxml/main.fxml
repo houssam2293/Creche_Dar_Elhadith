@@ -202,7 +202,7 @@
                         <viewport>
                             <Rectangle2D width="1192.0" />
                         </viewport>
-                        <Image url="@../images/slider/3.png" />
+                        <Image url="@../images/slider/d1.png"/>
                     </ImageView>
                 </Pane>
             </HBox>

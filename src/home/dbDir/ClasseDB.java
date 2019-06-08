@@ -45,9 +45,7 @@ public class ClasseDB {
         try {
             st = con.createStatement();
             String sql = "DELETE FROM `Classe` WHERE `ClassNam`='" + ClassNam + "';";
-           // String sql = "DELETE FROM ClasseModel WHERE `ClassNam`=" + ClassNam + ";";
             st.executeUpdate(sql);
-            //TODO when the database is done add the cascade to delete the instance from all of the tables
             return 1;
         } catch (SQLException e) {
             System.out.println("Error : " + e.getErrorCode());
@@ -58,7 +56,7 @@ public class ClasseDB {
     }
 
     public int addClasse(ClasseModel cls) {
-        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`ClasseModel` ( `id`, `ClassNam`, `ClassRom`, `maxNbrElev`, `remarque`");
+        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`Classe` ( `id`, `ClassNam`, `ClassRom`, `maxNbrElev`, `remarque`");
         Connection connection = null;
         Statement st = null;
 
@@ -122,8 +120,9 @@ public class ClasseDB {
             return true;
         }
     }
-    public int editEmployee(ClasseModel clss) {
-        StringBuilder sql = new StringBuilder("UPDATE `ClasseModel` SET ");
+
+    public int editClasse(ClasseModel clss) {
+        StringBuilder sql = new StringBuilder("UPDATE `Classe` SET ");
         Connection con = null;
         Statement st = null;
 

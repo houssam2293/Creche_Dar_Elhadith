@@ -8,6 +8,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -82,11 +83,24 @@ public class ficheEleveController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
 
-        if (eleveFiled.getGender()==1){
-            imageview.setImage(new Image("home/resources/images/boy.png"));
-        }
-        else imageview.setImage(new Image("home/resources/images/girl.png"));
+        String nom = eleveFiled.getId() + "-" + eleveFiled.getPrenom() + "-" + eleveFiled.getNom();
+        System.out.println(nom);
+        File outputFile = new File(System.getenv("APPDATA") + "\\Archive creche darelhadith\\Image\\" + nom + ".png");
+        File outputFile1 = new File(System.getenv("APPDATA") + "\\Archive creche darelhadith\\Image\\" + nom + ".jpg");
+        File outputFile2 = new File(System.getenv("APPDATA") + "\\Archive creche darelhadith\\Image\\" + nom + ".jpeg");
 
+        if (outputFile.exists()) {
+            Image imgThumb = new Image(outputFile.toURI().toString());
+            imageview.setImage(imgThumb);
+        } else if (outputFile1.exists()) {
+            Image imgThumb = new Image(outputFile1.toURI().toString());
+            imageview.setImage(imgThumb);
+        } else if (outputFile2.exists()) {
+            Image imgThumb = new Image(outputFile2.toURI().toString());
+            imageview.setImage(imgThumb);
+        } else if (eleveFiled.getGender() == 1) {
+            imageview.setImage(new Image("home/resources/images/boy.png"));
+        } else imageview.setImage(new Image("home/resources/images/girl.png"));
         root.setOnKeyPressed(e -> {
             if (e.getCode().equals(ESCAPE)) {
                 EleveController.fileUserDialog.close();
@@ -111,4 +125,5 @@ public class ficheEleveController implements Initializable {
         wakil.setText(eleveFiled.getWakil());
         remarque.setText(eleveFiled.getRemarque());
 
-    }}
+    }
+}

@@ -1,17 +1,16 @@
 package home.controllers;
 
 import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextField;
 import home.dbDir.EleveDB;
 import home.dbDir.EmployeDB;
+import home.dbDir.tarifsDB;
 import home.java.CryptoUtils;
 import home.java.Eleve;
 import home.java.Employe;
+import home.java.Tarifs;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -20,12 +19,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.time.Year;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ResourceBundle;
-
-import static java.lang.System.exit;
 
 
 public class AddArchivController  implements Initializable {
@@ -77,11 +72,13 @@ public class AddArchivController  implements Initializable {
         }
         ArrayList<Employe> employeeDB = (ArrayList<Employe>) new EmployeDB().getEmployee();
         ArrayList<Eleve> elevDB = (ArrayList<Eleve>) new EleveDB().getEleve();
+        Tarifs tarifsDB = new tarifsDB().getTarifs();
         if(elevDB==null){
             System.out.println("Connection Failed !");
         }
         else {
             writer.write( "Eleve\r\n");
+
             for(Eleve elv :elevDB){
                 writer.write(elv.getId() + "\r\n");
                 writer.write(elv.getNom() + "\r\n");
@@ -107,10 +104,10 @@ public class AddArchivController  implements Initializable {
         }
 
 
-
         if (employeeDB == null) {
             System.out.println("Connection Failed !");
         } else {
+            writer.write("Employer\r\n");
             for (Employe text : employeeDB) {
                 writer.write(text.getId() + "\r\n");
                 writer.write(text.getNom() + "\r\n");
@@ -133,9 +130,20 @@ public class AddArchivController  implements Initializable {
                 writer.write(text.getFemaleChild() + "\r\n");
                 writer.write("-\r\n");
             }
+            writer.write("lafinEmployer***\r\n");
+
+
+        }
+        if (tarifsDB == null) {
+            System.out.println("Connection Failed !");
+        } else {
+            writer.write(tarifsDB.getMatin() + "\r\n");
+            writer.write(tarifsDB.getMatAprem() + "\r\n");
+            writer.write(tarifsDB.getAprem() + "\r\n");
+            writer.write(tarifsDB.getDemi() + "\r\n");
+            writer.write(tarifsDB.getComplet() + "\r\n");
+
             writer.close();
-
-
         }
 
         File encryptedFile = new File(file.getParent()+"\\"+nom+".encrypted");

@@ -1,76 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
-<?import java.lang.String?>
-<?import java.net.URL?>
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.AddClassController">
-   <children>
-      <VBox fx:id="root" layoutX="6.0" prefHeight="640.0" prefWidth="474.0" spacing="35.0">
-         <children>
-            <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="200.0">
-               <children>
-                  <Label alignment="CENTER" text="إضافة قسم">
-                     <styleClass>
-                        <String fx:value="title-header" />
-                        <String fx:value="titleUserLabel" />
-                     </styleClass>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-               <padding>
-                  <Insets bottom="20.0" />
-               </padding>
-            </HBox>
-            <JFXTextField fx:id="id" labelFloat="true" prefHeight="37.0" prefWidth="374.0" promptText="الرقم " styleClass="field">
-               <VBox.margin>
-                  <Insets top="-40.0" />
-               </VBox.margin>
-            </JFXTextField>
-            <HBox prefHeight="30.0" prefWidth="386.0" spacing="20.0">
-               <children>
-                  <JFXTextField fx:id="ClassNam" labelFloat="true" prefHeight="37.0" prefWidth="388.0" promptText="إسم القسم" styleClass="field" />
-               </children>
-            </HBox>
-            <HBox layoutX="50.0" layoutY="246.0" spacing="20.0">
-               <children>
-                  <JFXTextField fx:id="ClassRom" labelFloat="true" prefHeight="37.0" prefWidth="392.0" promptText="القاعة" styleClass="field" />
-               </children>
-            </HBox>
-            <JFXTextField fx:id="maxNbrElev" labelFloat="true" layoutX="50.0" layoutY="395.0" prefHeight="25.0" prefWidth="523.0" promptText="عدد التلاميذ  (الحد الأقصى)" styleClass="field" />
-            <JFXTextField fx:id="remarque" labelFloat="true" layoutX="50.0" layoutY="990.0" promptText="ملاحظات" styleClass="field" />
-            <HBox alignment="CENTER" prefHeight="158.0" prefWidth="386.0" spacing="30.0">
-               <children>
-                  <JFXButton onAction="#btnAdd" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="إضافة" />
-                  <JFXButton onAction="#btnClear" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="مسح" />
-               </children>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-            </HBox>
-         </children>
-         <padding>
-            <Insets bottom="20.0" left="40.0" right="35.0" top="20.0" />
-         </padding>
-         <stylesheets>
-            <URL value="@../css/main.css" />
-            <URL value="@../css/manageEmployee.css" />
-         </stylesheets>
-      </VBox>
-      <EmojiOneView glyphName="X" layoutX="434.0" layoutY="30.0" onMouseClicked="#btnClose" size="20" styleClass="icon-close" wrappingWidth="14.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="12.0" />
-   </children>
-   <stylesheets>
-      <URL value="@../css/main.css" />
-      <URL value="@../css/manageEmployee.css" />
-      <URL value="@../css/eleve.css" />
-   </stylesheets>
+<?import javafx.scene.layout.*?>
+<?import java.lang.String?>
+<?import java.net.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0"
+            prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="home.controllers.AddClassController">
+    <stylesheets>
+        <URL value="@../css/main.css"/>
+        <URL value="@../css/manageEmployee.css"/>
+        <URL value="@../css/eleve.css"/>
+    </stylesheets>
+    <VBox fx:id="root" layoutX="6.0" prefHeight="640.0" prefWidth="474.0" spacing="35.0">
+        <padding>
+            <Insets bottom="20.0" left="40.0" right="35.0" top="20.0"/>
+        </padding>
+        <stylesheets>
+            <URL value="@../css/main.css"/>
+            <URL value="@../css/manageEmployee.css"/>
+        </stylesheets>
+        <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="200.0">
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+            <padding>
+                <Insets bottom="20.0"/>
+            </padding>
+            <Label alignment="CENTER" text="إضافة قسم">
+                <styleClass>
+                    <String fx:value="title-header"/>
+                    <String fx:value="titleUserLabel"/>
+                </styleClass>
+            </Label>
+        </HBox>
+        <JFXTextField fx:id="id" labelFloat="true" prefHeight="37.0" prefWidth="374.0" promptText="الرقم "
+                      styleClass="field">
+            <VBox.margin>
+                <Insets top="-40.0"/>
+            </VBox.margin>
+        </JFXTextField>
+        <HBox prefHeight="30.0" prefWidth="386.0" spacing="20.0">
+            <JFXTextField fx:id="ClassNam" labelFloat="true" prefHeight="37.0" prefWidth="388.0"
+                          promptText="إسم القسم" styleClass="field"/>
+        </HBox>
+        <HBox layoutX="50.0" layoutY="246.0" spacing="20.0">
+            <JFXTextField fx:id="ClassRom" labelFloat="true" prefHeight="37.0" prefWidth="392.0" promptText="القاعة"
+                          styleClass="field"/>
+        </HBox>
+        <JFXTextField fx:id="maxNbrElev" labelFloat="true" layoutX="50.0" layoutY="395.0" prefHeight="25.0"
+                      prefWidth="523.0" promptText="عدد التلاميذ  (الحد الأقصى)" styleClass="field"/>
+        <JFXTextField fx:id="remarque" labelFloat="true" layoutX="50.0" layoutY="990.0" promptText="ملاحظات"
+                      styleClass="field"/>
+        <HBox alignment="CENTER" prefHeight="158.0" prefWidth="386.0" spacing="30.0">
+            <opaqueInsets>
+                <Insets/>
+            </opaqueInsets>
+            <JFXButton onAction="#btnAdd" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="إضافة"/>
+            <JFXButton onAction="#btnClear" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="مسح"/>
+        </HBox>
+    </VBox>
+    <EmojiOneView glyphName="X" layoutX="434.0" layoutY="30.0" onMouseClicked="#btnClose" size="20"
+                  styleClass="icon-close" wrappingWidth="14.0" AnchorPane.leftAnchor="15.0"
+                  AnchorPane.topAnchor="12.0"/>
 </AnchorPane>

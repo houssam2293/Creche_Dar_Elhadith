@@ -15,6 +15,8 @@ import static javafx.scene.input.KeyCode.ESCAPE;
 public class elevePrintController implements Initializable {
 
     static Eleve elevePrinted;
+
+
     @FXML
     private VBox root;
     @FXML
@@ -29,6 +31,10 @@ public class elevePrintController implements Initializable {
     private Label adresse;
     @FXML
     private Label phone;
+    @FXML
+    private Label phone1;
+    @FXML
+    private Label phone2;
     @FXML
     private ImageView imageview;
 

@@ -67,7 +67,7 @@ public class MainController implements Initializable {
     private Pane paneSlider;
 
     @FXML
-    private HBox boxesPane, boxHome, boxStudent, boxClasse, boxTrac, boxImages, boxCalandar, boxPoint, boxEmploye, boxArchive, boxStock, boxSettings, boxGuide, boxAbout;
+    private HBox boxesPane, boxHome, boxStudent, boxClasse, boxTrac, boxImages, boxCalandar, boxPoint, boxEmploye, boxArchive, boxStock, boxSettings, boxAbout;
     @FXML
     private FontAwesomeIconView iconHome, iconAccount;
     @FXML
@@ -89,7 +89,6 @@ public class MainController implements Initializable {
 
     private final byte NUMBER_IMAGE_SLIDER = 3;
     private int counter = 1;
-    private boolean dataSavedThisMonth = true;
 
     public MainController() {
     }
@@ -219,6 +218,76 @@ public class MainController implements Initializable {
         setNode(pointag);
     }
 
+    private void payCheck() {
+        String dateEmp = new SimpleDateFormat("dd").format(new Date());
+        if (dateEmp.compareTo("25") == 0) {
+            JFXDialogLayout content = new JFXDialogLayout();
+            Text headerText = new Text("دفع أجور العمال\n\n");
+            Text contentText = new Text("يرجى دفع أجور العمال لهذا الشهر \n\n إلى إدارة العمال؟");
+            headerText.setStyle("-fx-font-size: 19px");
+            contentText.setStyle("-fx-font-size: 18px");
+
+            content.setHeading(headerText);
+            content.setBody(contentText);
+
+            JFXDialog dialog = new JFXDialog(rightPane, content, JFXDialog.DialogTransition.CENTER);
+
+            JFXButton btnOk = new JFXButton("نعم");
+            btnOk.setOnAction(e -> {
+                dialog.close();
+                EmployeeClicked();
+            });
+
+            JFXButton btnNo = new JFXButton("لا");
+            btnOk.setPrefSize(120, 40);
+            btnNo.setPrefSize(120, 40);
+            btnOk.setStyle("-fx-font-size: 18px");
+            btnNo.setStyle("-fx-font-size: 18px");
+
+            content.setActions(btnOk, btnNo);
+
+            dialog.getStylesheets().add("/home/resources/css/main.css");
+            btnNo.setOnAction(e -> dialog.close());
+            dialog.show();
+
+        }
+
+        String dateTarifs = new SimpleDateFormat("dd-MM").format(new Date());
+        if (dateTarifs.compareTo("01-09") == 0) {
+            JFXDialogLayout content = new JFXDialogLayout();
+            Text headerText = new Text("تحديد أسعار التسجيل\n\n");
+            Text contentText = new Text("تحديد أسعار التسجيل لهذه السنة \n\n إلى الإعدادات؟");
+            headerText.setStyle("-fx-font-size: 19px");
+            contentText.setStyle("-fx-font-size: 18px");
+
+            content.setHeading(headerText);
+            content.setBody(contentText);
+
+            JFXDialog dialog = new JFXDialog(rightPane, content, JFXDialog.DialogTransition.CENTER);
+
+            JFXButton btnOk = new JFXButton("نعم");
+            btnOk.setOnAction(e -> {
+                dialog.close();
+                settingsClicked();
+            });
+
+            JFXButton btnNo = new JFXButton("لا");
+            btnOk.setPrefSize(120, 40);
+            btnNo.setPrefSize(120, 40);
+            btnOk.setStyle("-fx-font-size: 18px");
+            btnNo.setStyle("-fx-font-size: 18px");
+
+            content.setActions(btnOk, btnNo);
+
+            dialog.getStylesheets().add("/home/resources/css/main.css");
+            btnNo.setOnAction(e -> dialog.close());
+            dialog.show();
+
+        }
+
+
+    }
+
     private void sliderAutoChangePictures() {
         // Make auto change the slider in duration
 
@@ -255,14 +324,11 @@ public class MainController implements Initializable {
 
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        styleBox(0);
-
+    private void checkDataSaved() {
         String date = new SimpleDateFormat("dd").format(new Date());
         if (date.compareTo("01") == 0) {
             JFXDialogLayout content = new JFXDialogLayout();
-            Text headerText = new Text("حفظ البيانات عملية\n\n");
+            Text headerText = new Text("عملية حفظ البيانات \n\n");
             Text contentText = new Text("يرجى حفظ ملف قاعدة البيانات على فلاشة \n\n(في حالة تلف أو ضياع البيانات يمكنك استرجاعها من هذا الملف )");
             headerText.setStyle("-fx-font-size: 19px");
             contentText.setStyle("-fx-font-size: 18px");
@@ -291,6 +357,14 @@ public class MainController implements Initializable {
             dialog.show();
 
         }
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        styleBox(0);
+
+        checkDataSaved();
+        payCheck();
 
         imgSlider.fitWidthProperty().bind(holderPane.widthProperty());
         imgSlider.fitHeightProperty().bind(paneSlider.heightProperty());
@@ -435,38 +509,42 @@ public class MainController implements Initializable {
         File file = fc.showSaveDialog(stg);
         String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
 
-        try {
 
-            path = file.getAbsolutePath();
-            path = path.replace('\\', '/');
-            path = path + "_" + date + ".sql";
+        if (file != null) {
+            try {
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+                path = file.getAbsolutePath();
+                path = path.replace('\\', '/');
+                path = path + "_" + date + ".sql";
 
-        Process p = null;
-        try {
-            Path startingDir = Paths.get("C:\\");
-            String fileName = "mysqldump.exe";
-            FileVisitorImpl visitor = new FileVisitorImpl();
-            visitor.setStartDir(startingDir);
-            visitor.setFileName(fileName);
-            Files.walkFileTree(startingDir, visitor);
-            String filePathe = visitor.getFilePath();
-            System.out.println("mysqldump.exe reside in : " + filePathe);
-            Runtime runtime = Runtime.getRuntime();
-            p = runtime.exec(filePathe + " -uroot -proot --add-drop-database -B creche_dar_elhadith -r" + path);
-
-            int processComplete = p.waitFor();
-            if (processComplete == 0) {
-                System.out.println("Backup Created Succuss");
-            } else {
-                System.out.println("Can't Create backup");
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+            Process p = null;
+            try {
+                Path startingDir = Paths.get("C:\\");
+                String fileName = "mysqldump.exe";
+                FileVisitorImpl visitor = new FileVisitorImpl();
+                visitor.setStartDir(startingDir);
+                visitor.setFileName(fileName);
+                Files.walkFileTree(startingDir, visitor);
+                String filePathe = visitor.getFilePath();
+                System.out.println("mysqldump.exe reside in : " + filePathe);
+                Runtime runtime = Runtime.getRuntime();
+                p = runtime.exec(filePathe + " -uroot -proot --add-drop-database -B creche_dar_elhadith -r" + path);
+
+                int processComplete = p.waitFor();
+                if (processComplete == 0) {
+                    System.out.println("Backup Created Succuss");
+                } else {
+                    System.out.println("Can't Create backup");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
     }
 
 }

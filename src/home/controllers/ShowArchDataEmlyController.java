@@ -6,7 +6,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.print.*;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -70,7 +69,7 @@ public class ShowArchDataEmlyController implements Initializable {
         regime .setText(emplSelected.getRegimeScolaire());
         experience.setText(emplSelected.getExperience());
         firstDayOfwork.setText(String.valueOf(emplSelected.getDate_debut()));
-        //remarque.setText(emplSelected.getRemarque());
+        remarque.setText(emplSelected.getRemarque());
 
 }
 
@@ -89,11 +88,16 @@ public class ShowArchDataEmlyController implements Initializable {
         job.showPrintDialog(null);
         Printer printer= job.getPrinter();
         PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
-        textArea.minWidth(pageLayout.getPrintableWidth());
-        textArea.minHeight(pageLayout.getPrintableHeight());
+        textArea.setScaleX(0.85);
+        textArea.setScaleY(0.85);
+        textArea.setTranslateX(50);
+        textArea.setTranslateY(10);
         job.printPage(pageLayout,textArea);
         job.endJob();
         ((Stage) ArchvDataEmp.getScene().getWindow()).close();
-
+        textArea.setScaleX(1);
+        textArea.setScaleY(1);
+        textArea.setTranslateX(0);
+        textArea.setTranslateY(0);
     }
 }

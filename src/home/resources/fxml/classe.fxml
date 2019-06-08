@@ -1,61 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
-<StackPane fx:id="Class" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1186.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ClassController">
-   <children>
-      <VBox fx:id="ClassHome" prefHeight="755.0" prefWidth="1245.0">
-         <children>
-            <Label prefHeight="111.0" prefWidth="716.0" stylesheets="@../css/eleve.css" text="          إدارة الأقسام" textFill="#253ebc">
-               <font>
-                  <Font name="Arabic Typesetting" size="45.0" />
-               </font></Label>
-            <HBox prefHeight="46.0" prefWidth="1189.0">
-               <children>
-                  <Label prefHeight="54.0" prefWidth="280.0" />
-                  <JFXButton fx:id="cree" onAction="#creeClass" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view" stylesheets="@../css/eleve.css" text="إضافة قسم" />
-                  <Label prefHeight="17.0" prefWidth="66.0" />
-                  <JFXButton fx:id="edit" onAction="#editClass" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view" stylesheets="@../css/eleve.css" text="تعديل بيانات القسم" />
-                  <Label prefHeight="17.0" prefWidth="66.0" />
-                  <JFXButton fx:id="remove" onAction="#removeClass" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view" stylesheets="@../css/eleve.css" text="خذف القسم" />
-                  <Label prefHeight="17.0" prefWidth="66.0" />
-                  <EmojiOneView fx:id="print" fill="#2196f3" glyphName="PRINTER" onMouseClicked="#printClass" size="50" styleClass="printer" />
-               </children>
-            </HBox>
-            <HBox prefHeight="72.0" prefWidth="1186.0">
-               <children>
-                  <Label prefHeight="66.0" prefWidth="204.0" stylesheets="@../css/eleve.css" text="                الأقسام      ">
-                     <font>
-                        <Font name="Arabic Typesetting" size="24.0" />
-                     </font>
-                  </Label>
-                  <Label prefHeight="59.0" prefWidth="120.0" />
-                  <Label prefHeight="59.0" prefWidth="40.0" stylesheets="@../css/eleve.css" text="المعلم :">
-                     <font>
-                        <Font name="Arabic Typesetting" size="26.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="prof" prefHeight="59.0" prefWidth="279.0" />
-               </children>
-            </HBox>
-            <HBox fx:id="lesclass" prefHeight="461.0" prefWidth="1189.0">
-               <children>
-                  <Label prefHeight="25.0" prefWidth="42.0" />
-                  <JFXListView fx:id="ClassSelect" onMouseClicked="#choseClass" prefHeight="461.0" prefWidth="157.0" />
-                  <Label prefHeight="25.0" prefWidth="42.0" />
-                  <JFXTreeTableView fx:id="tableEleve" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="453.0" prefWidth="895.0" visible="false" />
-               </children>
-            </HBox>
-            <Label prefHeight="23.0" prefWidth="19.0" />
-         </children>
-      </VBox>
-   </children>
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="Class" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0"
+           prefWidth="1186.0" style="-fx-background-color: #FFF;" stylesheets="@../css/main.css"
+           xmlns="http://javafx.com/javafx/8.0.171" fx:controller="home.controllers.ClassController">
+    <VBox fx:id="ClassHome" prefHeight="755.0" prefWidth="1245.0">
+        <HBox alignment="CENTER_LEFT" spacing="20.0">
+            <VBox.margin>
+                <Insets/>
+            </VBox.margin>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
+            <MaterialDesignIconView fill="#2196f3" glyphName="SCHOOL" size="50" wrappingWidth="47.0"/>
+            <Label prefHeight="97.0" prefWidth="315.0" styleClass="title-header" text="إدارة الأقسام"
+                   textFill="#253ebc">
+                <font>
+                    <Font name="Arabic Typesetting" size="45.0"/>
+                </font>
+            </Label>
+        </HBox>
+        <HBox prefHeight="46.0" prefWidth="1189.0">
+            <Label prefHeight="54.0" prefWidth="280.0"/>
+            <JFXButton fx:id="cree" onAction="#creeClass" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view"
+                       stylesheets="@../css/eleve.css" text="إضافة قسم"/>
+            <Label prefHeight="17.0" prefWidth="66.0"/>
+            <JFXButton fx:id="edit" onAction="#editClass" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view"
+                       stylesheets="@../css/eleve.css" text="تعديل بيانات القسم"/>
+            <Label prefHeight="17.0" prefWidth="66.0"/>
+            <JFXButton fx:id="remove" onAction="#removeClass" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view"
+                       stylesheets="@../css/eleve.css" text="خذف القسم"/>
+            <Label prefHeight="17.0" prefWidth="66.0"/>
+            <EmojiOneView fx:id="print" fill="#2196f3" glyphName="PRINTER" onMouseClicked="#printClass" size="50"
+                          styleClass="printer"/>
+        </HBox>
+        <HBox prefHeight="72.0" prefWidth="1186.0">
+            <Label prefHeight="66.0" prefWidth="204.0" styleClass="field" text="                الأقسام      ">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+            </Label>
+            <Label prefHeight="59.0" prefWidth="120.0"/>
+            <Label prefHeight="59.0" prefWidth="96.0" stylesheets="@../css/eleve.css" text="المعلم :">
+                <font>
+                    <Font name="Arabic Typesetting" size="26.0"/>
+                </font>
+            </Label>
+            <Label fx:id="prof" prefHeight="59.0" prefWidth="279.0"/>
+        </HBox>
+        <HBox fx:id="lesclass" prefHeight="461.0" prefWidth="1189.0">
+            <Label prefHeight="25.0" prefWidth="42.0"/>
+            <JFXListView fx:id="ClassSelect" onMouseClicked="#choseClass" prefHeight="461.0" prefWidth="157.0"/>
+            <Label prefHeight="25.0" prefWidth="42.0"/>
+            <JFXTreeTableView fx:id="tableEleve" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="453.0"
+                              prefWidth="895.0" visible="false"/>
+        </HBox>
+        <Label prefHeight="23.0" prefWidth="19.0"/>
+    </VBox>
 </StackPane>

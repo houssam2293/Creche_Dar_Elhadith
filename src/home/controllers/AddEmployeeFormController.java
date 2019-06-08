@@ -1,9 +1,6 @@
 package home.controllers;
 
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXToggleButton;
+import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.emojione.EmojiOneView;
 import home.dbDir.EmployeDB;
 import home.java.Employe;
@@ -31,6 +28,7 @@ import static javafx.scene.input.KeyCode.ENTER;
 import static javafx.scene.input.KeyCode.ESCAPE;
 
 public class AddEmployeeFormController implements Initializable {
+
     private ObservableList<Integer> options =
             FXCollections.observableArrayList(
                     0, 1, 2, 3, 4, 5, 6, 7, 8
@@ -83,6 +81,9 @@ public class AddEmployeeFormController implements Initializable {
 
     @FXML
     private JFXTextField experience;
+
+    @FXML
+    private JFXTextArea remarque;
 
     @FXML
     private JFXToggleButton stat, renouvlementContrat;
@@ -139,6 +140,7 @@ public class AddEmployeeFormController implements Initializable {
         employe.setFonction(fonction.getText().trim().toLowerCase());
         employe.setRegimeScolaire(regime.getValue());
         employe.setDate_debut(Date.valueOf(firstDayOfwork.getValue()));
+        employe.setRemarque(remarque.getText());
         if (stat.isSelected()) {
             employe.setStatuSocial(1);
             employe.setCelibacyTitle(celibacyTitle.getText().trim().toLowerCase());
