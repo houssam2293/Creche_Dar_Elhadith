@@ -15,6 +15,7 @@ public class ConnectionClasse {
     private Connection connection = null;
 
     public Connection getConnection() {
+        //todo:fix this when you have time
         return getConnection(HOST_NAME, PORT, DB_NAME, USERNAME, PASSWORD);
     }
 

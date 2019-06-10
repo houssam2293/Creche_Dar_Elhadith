@@ -789,7 +789,7 @@ public class SettingsController extends Component implements Initializable {
                 e.getMessage();
             }
             Path startingDir = Paths.get("C:\\");
-            String fileName = "mysqldump.exe";
+            String fileName = "mysql.exe";
             FileVisitorImpl visitor = new FileVisitorImpl();
             visitor.setStartDir(startingDir);
             visitor.setFileName(fileName);
