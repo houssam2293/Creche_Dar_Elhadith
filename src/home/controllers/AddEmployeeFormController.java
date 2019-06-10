@@ -2,7 +2,9 @@ package home.controllers;
 
 import com.jfoenix.controls.*;
 import de.jensd.fx.glyphs.emojione.EmojiOneView;
+import home.dbDir.ClasseDB;
 import home.dbDir.EmployeDB;
+import home.java.ClasseModel;
 import home.java.Employe;
 import home.java.Validation;
 import javafx.collections.FXCollections;
@@ -22,6 +24,7 @@ import org.controlsfx.control.Notifications;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.ENTER;
@@ -56,7 +59,7 @@ public class AddEmployeeFormController implements Initializable {
     private JFXDatePicker birthDate;
 
     @FXML
-    private JFXTextField fonction;
+    private JFXComboBox<String> fonction, classe;
 
     @FXML
     private JFXTextField itar;
@@ -103,6 +106,8 @@ public class AddEmployeeFormController implements Initializable {
     @FXML
     private JFXComboBox<String> regime;
 
+    private ObservableList<String> items = FXCollections.observableArrayList("معلم", "عامل");
+
 
     @FXML
     void actionToggleButton() {
@@ -137,7 +142,7 @@ public class AddEmployeeFormController implements Initializable {
         if (renouvlementContrat.isSelected())
             employe.setRenouvlement_de_contrat("نعم");
         else employe.setRenouvlement_de_contrat("لا");
-        employe.setFonction(fonction.getText().trim().toLowerCase());
+        employe.setFonction(fonction.getValue().trim().toLowerCase());
         employe.setRegimeScolaire(regime.getValue());
         employe.setDate_debut(Date.valueOf(firstDayOfwork.getValue()));
         employe.setRemarque(remarque.getText());
@@ -193,7 +198,7 @@ public class AddEmployeeFormController implements Initializable {
         stat.setSelected(false);
         regime.getSelectionModel().select(null);
         renouvlementContrat.setSelected(false);
-        fonction.setText(null);
+        fonction.setValue(null);
 
     }
 
@@ -230,13 +235,6 @@ public class AddEmployeeFormController implements Initializable {
             }
         });
 
-        fonction.setOnKeyReleased(t -> {
-            if (new Validation().arabValid(fonction)) {
-                fonction.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
-            } else {
-                fonction.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
-            }
-        });
 
         itar.setOnKeyReleased(t -> {
             if (new Validation().arabValid(itar)) {
@@ -332,6 +330,25 @@ public class AddEmployeeFormController implements Initializable {
         Tooltip.install(print, tooltip);
         Font font = new Font("Arial Bold", 12);
         tooltip.setFont(font);
+
+        fonction.setItems(items);
+        List<ClasseModel> cls = new ClasseDB().getClasse();
+        ObservableList<String> classes = FXCollections.observableArrayList();
+        for (ClasseModel classeModel : cls) {
+            classes.add(classeModel.getClassNam());
+        }
+        List<Employe> employes = new EmployeDB().getEmployee();
+        for (Employe employe : employes) {
+            classes.remove(employe.getClasse());
+        }
+        classe.setItems(classes);
+        fonction.setOnAction(event -> {
+            if (fonction.getSelectionModel().getSelectedItem().equals("عامل")) {
+                classe.setDisable(true);
+            } else {
+                classe.setDisable(false);
+            }
+        });
 
         root.setOnKeyPressed(event -> {
             if (event.getCode().equals(ENTER)) {

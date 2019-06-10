@@ -41,6 +41,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
 
@@ -179,7 +180,7 @@ public class MainController implements Initializable {
         stage.initStyle(StageStyle.UNDECORATED);
         stage.setScene(scene);
         stage.setTitle("مؤسسة دار الحديث");
-        stage.getIcons().add(new Image("/home/resources/icons/icon.png"));
+        stage.getIcons().add(new Image("/home/resources/images/logo.png"));
         stage.setResizable(false);
         stage.show();
     }
@@ -363,10 +364,27 @@ public class MainController implements Initializable {
         }
     }
 
+    private void initDir() {
+        String year;
+        if (Calendar.getInstance().get(Calendar.MONTH) > 8) {
+            year = Calendar.getInstance().get(Calendar.YEAR) + "-" + Integer.valueOf(Calendar.getInstance().get(Calendar.YEAR) + 1);
+        } else {
+            year = Integer.valueOf(Calendar.getInstance().get(Calendar.YEAR) - 1) + "-" + Calendar.getInstance().get(Calendar.YEAR);
+        }
+
+
+        File dir = new File(System.getenv("APPDATA") + "\\Archive creche darelhadith\\" + year);
+        if (dir.exists()) {
+            System.out.println("Dir exist!");
+        } else {
+            dir.mkdir();
+        }
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         styleBox(0);
-
+        initDir();
         checkDataSaved();
         payCheck();
 
@@ -406,7 +424,6 @@ public class MainController implements Initializable {
             classePane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/classe.fxml"));
             AnchorPane aboutPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/about.fxml"));
             aboutDialog = new JFXDialog(rightPane, aboutPane, JFXDialog.DialogTransition.TOP);
-
 
 
         } catch (IOException e) {

@@ -51,6 +51,7 @@ create TABLE `creche_dar_elhadith`.`employe` (
   `renouvlementDeContrat` varchar(20) DEFAULT NULL,
   `dateDebut` Date DEFAULT NULL,
   `fonction` varchar(30) DEFAULT NULL,
+  `classe` VARCHAR(22) DEFAULT NULL,
   `regime` varchar(20) DEFAULT NULL,
   `marier` int(1) DEFAULT '0',
   `celibacyTitle` varchar(22) DEFAULT NULL,
@@ -66,6 +67,7 @@ CREATE TABLE `creche_dar_elhadith`.`pointage` (
       `timeEntre` VARCHAR(45) NOT NULL,
 	  `remark` INT NOT NULL,
       `presence` INT NOT NULL,
+      `jour` VARCHAR(45) NOT NULL,
       PRIMARY KEY (`idEmp`,`dateJour`));
 
 

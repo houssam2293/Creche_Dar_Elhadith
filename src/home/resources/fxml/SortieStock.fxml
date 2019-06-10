@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
@@ -9,75 +8,96 @@
 <?import javafx.scene.text.Font?>
 <?import java.lang.String?>
 <?import java.net.URL?>
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="528.0"
-            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="528.0"
+            stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="home.controllers.SortieStockController">
-    <stylesheets>
-        <URL value="@../css/main.css"/>
-        <URL value="@../css/manageEmployee.css"/>
-    </stylesheets>
-    <ScrollPane hbarPolicy="NEVER" stylesheets="@../css/scrollPane.css" AnchorPane.bottomAnchor="0.0"
-                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-        <VBox fx:id="root" minWidth="-Infinity" prefHeight="641.0" prefWidth="530.0" spacing="35.0">
-            <padding>
-                <Insets bottom="20.0" left="40.0" right="35.0" top="20.0"/>
-            </padding>
-            <stylesheets>
-                <URL value="@../css/main.css"/>
-                <URL value="@../css/manageEmployee.css"/>
-            </stylesheets>
-            <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="200.0">
-                <VBox.margin>
-                    <Insets/>
-                </VBox.margin>
-                <padding>
-                    <Insets bottom="20.0"/>
-                </padding>
-                <Label alignment="CENTER" text="فاتورة الاستهلاك ">
-                    <styleClass>
-                        <String fx:value="title-header"/>
-                        <String fx:value="titleUserLabel"/>
-                    </styleClass>
-                </Label>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="108.0" prefWidth="455.0">
-                <Label fx:id="label5" contentDisplay="CENTER" prefHeight="53.0" prefWidth="241.0"
-                       styleClass="title-date" text=" " textAlignment="CENTER">
-                    <font>
-                        <Font size="16.0"/>
-                    </font>
-                </Label>
-            </HBox>
-            <HBox layoutX="50.0" layoutY="179.0" prefHeight="117.0" prefWidth="455.0">
-                <Label prefHeight="43.0" prefWidth="334.0" text="الحد الاقصى للمشتريات  (دج) :"/>
-                <JFXTextField fx:id="txt" prefHeight="48.0" prefWidth="126.0"/>
-            </HBox>
-            <HBox layoutX="50.0" layoutY="259.0" prefHeight="117.0" prefWidth="455.0">
-                <Label prefHeight="43.0" prefWidth="334.0" text="قيمة المصروف اليومي (دج) :"/>
-                <Label fx:id="lab1" prefHeight="43.0" prefWidth="107.0"/>
-            </HBox>
-            <HBox prefHeight="117.0" prefWidth="455.0" VBox.vgrow="ALWAYS">
-                <Label prefHeight="43.0" prefWidth="334.0" text="قيمة المشتريات المسجلة في  المخزن (دج) :   "/>
-                <Label fx:id="lab2" prefHeight="43.0" prefWidth="107.0"/>
-            </HBox>
-            <HBox layoutX="50.0" layoutY="335.0" prefHeight="117.0" prefWidth="455.0">
-                <Label prefHeight="43.0" prefWidth="334.0" text="قيمة المصروف الشهري(دج) :"/>
-                <Label fx:id="lab3" prefHeight="43.0" prefWidth="107.0"/>
-            </HBox>
-            <Label fx:id="lab4" prefHeight="144.0" prefWidth="455.0"/>
-            <Label fx:id="lab" prefHeight="100.0" prefWidth="455.0"/>
-            <HBox layoutX="50.0" layoutY="179.0" prefHeight="117.0" prefWidth="455.0">
-                <Label prefHeight="43.0" prefWidth="107.0"/>
-                <HBox alignment="CENTER" prefHeight="39.0" prefWidth="562.0" spacing="30.0">
-                    <opaqueInsets>
-                        <Insets/>
-                    </opaqueInsets>
-                    <JFXButton onAction="#imprimer" prefHeight="39.0" prefWidth="128.0" styleClass="btn-medium"
-                               text="طباعة"/>
-                </HBox>
-            </HBox>
-        </VBox>
-    </ScrollPane>
-    <EmojiOneView glyphName="X" layoutX="434.0" layoutY="30.0" onMouseClicked="#close" size="20" styleClass="icon-close"
-                  wrappingWidth="14.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="12.0"/>
+    <children>
+        <ScrollPane hbarPolicy="NEVER" stylesheets="@../css/scrollPane.css" AnchorPane.bottomAnchor="0.0"
+                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <content>
+                <VBox fx:id="root" minWidth="-Infinity" prefHeight="641.0" prefWidth="530.0" spacing="35.0">
+                    <children>
+                        <HBox alignment="TOP_CENTER" prefHeight="80.0" prefWidth="200.0">
+                            <children>
+                                <Label alignment="CENTER" stylesheets="@../css/JFXTreeTableView-CSS.css"
+                                       text="فاتورة الاستهلاك ">
+                                    <styleClass>
+                                        <String fx:value="title-header"/>
+                                        <String fx:value="titleUserLabel"/>
+                                    </styleClass>
+                                </Label>
+                            </children>
+                            <VBox.margin>
+                                <Insets/>
+                            </VBox.margin>
+                            <padding>
+                                <Insets bottom="20.0"/>
+                            </padding>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="108.0" prefWidth="455.0">
+                            <children>
+                                <Label fx:id="label5" contentDisplay="CENTER" prefHeight="53.0" prefWidth="241.0"
+                                       styleClass="title-date" text=" " textAlignment="CENTER">
+                                    <font>
+                                        <Font size="16.0"/>
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <HBox layoutX="50.0" layoutY="259.0" prefHeight="117.0" prefWidth="455.0">
+                            <children>
+                                <Label prefHeight="43.0" prefWidth="334.0" text="قيمة المصروف اليومي (دج) :"/>
+                                <Label fx:id="lab1" prefHeight="43.0" prefWidth="107.0"/>
+                            </children>
+                        </HBox>
+                        <HBox prefHeight="117.0" prefWidth="455.0" VBox.vgrow="ALWAYS">
+                            <children>
+                                <Label prefHeight="43.0" prefWidth="334.0"
+                                       text="قيمة المشتريات المسجلة في  المخزن (دج) :   "/>
+                                <Label fx:id="lab2" prefHeight="43.0" prefWidth="107.0"/>
+                            </children>
+                        </HBox>
+                        <HBox layoutX="50.0" layoutY="335.0" prefHeight="117.0" prefWidth="455.0">
+                            <children>
+                                <Label prefHeight="43.0" prefWidth="334.0" text="قيمة المصروف الشهري(دج) :"/>
+                                <Label fx:id="lab3" prefHeight="43.0" prefWidth="107.0"/>
+                            </children>
+                        </HBox>
+                        <HBox layoutX="50.0" layoutY="303.0" prefHeight="117.0" prefWidth="455.0">
+                            <children>
+                                <Label prefHeight="43.0" prefWidth="334.0" text="قيمة المشتريات لكل تلميذ (دج) :   "/>
+                                <Label fx:id="lab4" prefHeight="43.0" prefWidth="107.0"/>
+                            </children>
+                        </HBox>
+                        <Label fx:id="lab5" prefHeight="144.0" prefWidth="455.0"/>
+                        <Label fx:id="lab" prefHeight="100.0" prefWidth="455.0"/>
+                        <HBox layoutX="50.0" layoutY="179.0" prefHeight="117.0" prefWidth="455.0">
+                            <children>
+                                <Label prefHeight="43.0" prefWidth="107.0"/>
+                                <HBox alignment="CENTER" prefHeight="39.0" prefWidth="562.0" spacing="30.0">
+                                    <children>
+                                        <JFXButton onAction="#imprimer" prefHeight="39.0" prefWidth="128.0"
+                                                   styleClass="btn-medium" text="طباعة"/>
+                                    </children>
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                </HBox>
+                            </children>
+                        </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="20.0" left="40.0" right="35.0" top="20.0"/>
+                    </padding>
+                    <stylesheets>
+                        <URL value="@../css/main.css"/>
+                        <URL value="@../css/manageEmployee.css"/>
+                    </stylesheets>
+                </VBox>
+            </content>
+        </ScrollPane>
+        <EmojiOneView glyphName="X" layoutX="434.0" layoutY="30.0" onMouseClicked="#close" size="20"
+                      styleClass="icon-close" wrappingWidth="14.0" AnchorPane.leftAnchor="15.0"
+                      AnchorPane.topAnchor="12.0"/>
+    </children>
 </AnchorPane>

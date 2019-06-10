@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="690.0" prefWidth="1200.0"
-           stylesheets="@../css/tableau.css" xmlns="http://javafx.com/javafx/8.0.171"
+           stylesheets="@../css/tab.css" xmlns="http://javafx.com/javafx/8.0.171"
            fx:controller="home.controllers.Pointage">
    <children>
       <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="760.0" prefWidth="1323.0" spacing="10.0">
@@ -47,7 +47,8 @@
             </HBox>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Label fx:id="time" prefHeight="71.0" prefWidth="325.0" styleClass="timepointag" text="timing label" />
+                   <Label fx:id="time" prefHeight="71.0" prefWidth="325.0" styleClass="title-header"
+                          text="timing label"/>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="5.0">
@@ -78,7 +79,6 @@
                         <Insets right="15.0" />
                      </HBox.margin>
                   </JFXButton>
-                  <JFXButton buttonType="RAISED" onAction="#sortir" prefHeight="39.0" prefWidth="130.0" ripplerFill="#4264eb" styleClass="btn-view" text="خروج" />
                </children>
             </HBox>
             <TableView fx:id="tableview" prefHeight="453.0" prefWidth="1152.0" />

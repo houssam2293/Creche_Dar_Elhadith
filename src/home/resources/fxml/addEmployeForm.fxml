@@ -94,7 +94,15 @@
                           prefWidth="523.0" promptText="رقم الضمان الإجتماعي" styleClass="field"/>
             <JFXTextField fx:id="diplome" labelFloat="true" promptText="الشهادات" styleClass="field"/>
             <JFXTextField fx:id="itar" labelFloat="true" promptText="الإطار" styleClass="field"/>
-            <JFXTextField fx:id="fonction" labelFloat="true" promptText="المهنة" styleClass="field"/>
+            <HBox spacing="20.0">
+                <children>
+                    <JFXComboBox fx:id="fonction" prefWidth="140.0" promptText="المهنة" styleClass="field"/>
+                    <JFXComboBox fx:id="classe" disable="true" promptText="القسم" styleClass="field"/>
+                </children>
+                <padding>
+                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                </padding>
+            </HBox>
             <JFXComboBox fx:id="regime" prefWidth="230.0" promptText="فترة العمل" styleClass="field"/>
             <JFXDatePicker fx:id="firstDayOfwork" defaultColor="#2196f3" prefHeight="35.0" prefWidth="267.0"
                            promptText="تاريخ أول تعيين في المؤسسة" styleClass="field"/>

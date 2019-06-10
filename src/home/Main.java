@@ -43,7 +43,7 @@ public class Main extends Application {
                 System.out.println("file 'dbCredentials.properties' not found!(main)");
                 Parent root = FXMLLoader.load(getClass().getResource("resources/fxml/firstLoad.fxml"));
                 primaryStage.setTitle("مؤسسة دار الحديث/إعداد");
-                primaryStage.getIcons().add(new Image("/home/resources/icons/icon.png"));
+                primaryStage.getIcons().add(new Image("/home/resources/images/logo.png"));
                 primaryStage.setResizable(false);
                 primaryStage.setScene(new Scene(root));
                 primaryStage.show();
@@ -67,7 +67,7 @@ public class Main extends Application {
                         Stage stage = new Stage();
                         Parent root = FXMLLoader.load(getClass().getResource("resources/fxml/loginEntry.fxml"));
                         stage.setTitle("إضافة مستخدم");
-                        stage.getIcons().add(new Image("/home/resources/icons/icon.png"));
+                        stage.getIcons().add(new Image("/home/resources/images/logo.png"));
                         stage.setResizable(false);
                         stage.setScene(new Scene(root));
                         stage.show();
@@ -76,7 +76,7 @@ public class Main extends Application {
 
                         Parent root = FXMLLoader.load(getClass().getResource("resources/fxml/preLoadLogin.fxml"));
                         primaryStage.setTitle("مؤسسة دار الحديث");
-                        primaryStage.getIcons().add(new Image("/home/resources/icons/icon.png"));
+                        primaryStage.getIcons().add(new Image("/home/resources/images/logo.png"));
                         primaryStage.setResizable(false);
                         primaryStage.initStyle(StageStyle.UNDECORATED);
                         primaryStage.setScene(new Scene(root));

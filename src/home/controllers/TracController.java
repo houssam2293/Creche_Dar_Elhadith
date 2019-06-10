@@ -13,7 +13,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.*;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.layout.*;
@@ -29,6 +32,11 @@ import java.util.ResourceBundle;
 public class TracController implements Initializable {
 
     static JFXDialog charityUserDialog;
+
+    private ObservableList<String> typeChart =
+            FXCollections.observableArrayList(
+                    "بيانات المصاريف الكلية", "بيانات الدخل الكلي", "بيانات المخزن"
+            );
 
     @FXML
     private StackPane root;
@@ -106,7 +114,11 @@ public class TracController implements Initializable {
     @FXML
     private Label subheader12, subheader22, subheader32, subheader42;
 
+    @FXML
+    private JFXComboBox<String> comboFrais;
+
     static JFXDialog detailChart;
+
 
     private EmployeDB employeDB;
     private EleveDB eleveDB;
@@ -116,22 +128,55 @@ public class TracController implements Initializable {
 
     @FXML
     void LesFrais() {
-        double lesFraisSortant = fraisDB.getFraisSortant();
-        Sortant.setText(String.valueOf(lesFraisSortant));
-        double lesFraisEntrant = fraisDB.getFraisEntrant();
-        Entrant.setText(String.valueOf(lesFraisEntrant));
-
-        double fraisStock = fraisDB.getFraisStock();
-        double percentStock = fraisDB.countFraisStock();
         double fraisEmploye = fraisDB.getFraisEmploye();
         double percentEmploye = fraisDB.countFraisEmploye();
+        double fraisCharity = fraisDB.getFraisCharity();
+        double percentCharity = fraisDB.countFraisCharity();
+        double fraisEleve = fraisDB.getFraisEleve();
+        double percentEleve = fraisDB.countFraisEleve();
+        double fraisStock = fraisDB.getFraisStock();
+        double percentStock = fraisDB.countFraisStock();
+        double totalEat = stockDB.getStockTotal(1);
+        double totalStuff = stockDB.getStockTotal(2);
+        double totalOther = stockDB.getStockTotal(3);
+        double percentEat = stockDB.percentStockTotal(1);
+        double percentStuff = stockDB.percentStockTotal(2);
+        double percentOther = stockDB.percentStockTotal(3);
+        double TotalGain = fraisDB.getFraisEntrant();
+        double TotalCost = fraisDB.getFraisSortant();
 
-        header1.setText("• أجور العمال:");
-        header2.setText("• مصاريف المخزن:");
-        subheader1.setText("تمثل: ");
-        subheader12.setText("(" + percentEmploye + "%)" + " " + fraisEmploye);
-        subheader4.setText("تمثل: ");
-        subheader42.setText("(" + percentStock + "%)" + " " + fraisStock);
+        Entrant.setText(String.valueOf(TotalGain));
+        Sortant.setText(String.valueOf(TotalCost));
+        switch (comboFrais.getSelectionModel().getSelectedItem()) {
+            case "بيانات المخزن":
+                initPieStock();
+                header1.setText("• تكاليف المخزن:");
+                subheader1.setText("مصاريف الطعام تمثل: ");
+                subheader12.setText("(" + percentEat + "%)" + " " + totalEat);
+                subheader2.setText("مصاريف الأدوات تمثل: ");
+                subheader22.setText("(" + percentStuff + "%)" + " " + totalStuff);
+                subheader3.setText("مصاريف الأخرى تمثل: ");
+                subheader32.setText("(" + percentOther + "%)" + " " + totalOther);
+                break;
+            case "بيانات الدخل الكلي":
+                initPieFraisEntrants();
+                header1.setText("• تكاليف التلاميذ:");
+                header2.setText("• هيبات:");
+                subheader1.setText("تمثل: ");
+                subheader12.setText("(" + percentEleve + "%)" + " " + fraisEleve);
+                subheader4.setText("تمثل: ");
+                subheader42.setText("(" + percentCharity + "%)" + " " + fraisCharity);
+                break;
+            case "بيانات المصاريف الكلية":
+                initPieFraisSortants();
+                header1.setText("• أجور العمال:");
+                header2.setText("• مصاريف المخزن:");
+                subheader1.setText("تمثل: ");
+                subheader12.setText("(" + percentEmploye + "%)" + " " + fraisEmploye);
+                subheader4.setText("تمثل: ");
+                subheader42.setText("(" + percentStock + "%)" + " " + fraisStock);
+                break;
+        }
     }
 
     @FXML
@@ -185,6 +230,7 @@ public class TracController implements Initializable {
 
     @FXML
     void showFrais() {
+
         fraisPane.setVisible(true);
         choosePane.setVisible(false);
         FadeTransition ft = new FadeTransition(Duration.millis(1000));
@@ -194,10 +240,11 @@ public class TracController implements Initializable {
         ft.setCycleCount(1);
         ft.setAutoReverse(false);
         ft.play();
-        LesFrais();
         pieChartFraisSortants.setVisible(true);
         initPieFraisSortants();
+        LesFrais();
     }
+
     @FXML
     void showStudent() {
         btnSearchToolsEmploye();
@@ -320,7 +367,7 @@ public class TracController implements Initializable {
             for (Employe employe : employeeDB) {
                 employes.add(new ManageEmployeeController.TableEmployee(employe.getId(), employe.getNom().toUpperCase(), employe.getPrenom().toUpperCase(), employe.getDateNaissance(),
                         employe.getLieuNaissance(), employe.getAdresse(), employe.getExperience(), employe.getNumTelephone(), employe.getSocialSecurityNumber(),
-                        employe.getDiplome(), employe.getItar(), employe.getDate_debut(), employe.getFonction(), employe.getRenouvlement_de_contrat(), employe.getRegimeScolaire(),
+                        employe.getDiplome(), employe.getItar(), employe.getDate_debut(), employe.getFonction(), employe.getClasse(), employe.getRenouvlement_de_contrat(), employe.getRegimeScolaire(),
                         employe.getRemarque(), employe.estmarier(),
                         employe.getCelibacyTitle(), employe.getMaleChild(), employe.getFemaleChild()));
             }
@@ -406,64 +453,14 @@ public class TracController implements Initializable {
 
     }
 
-    @FXML
-    void viewChartFrais() {
-        double fraisEmploye = fraisDB.getFraisEmploye();
-        double percentEmploye = fraisDB.countFraisEmploye();
-        double fraisCharity = fraisDB.getFraisCharity();
-        double percentCharity = fraisDB.countFraisCharity();
-        double fraisEleve = fraisDB.getFraisEleve();
-        double percentEleve = fraisDB.countFraisEleve();
-        double fraisStock = fraisDB.getFraisStock();
-        double percentStock = fraisDB.countFraisStock();
-        double totalEat = stockDB.getStockTotal(1);
-        double totalStuff = stockDB.getStockTotal(2);
-        double totalOther = stockDB.getStockTotal(3);
-        double percentEat = stockDB.percentStockTotal(1);
-        double percentStuff = stockDB.percentStockTotal(2);
-        double percentOther = stockDB.percentStockTotal(3);
 
+    private void changeViewFrais(String item) {
 
-        if (pieChartFraisSortants.isVisible()) {
+        if (item.equals("بيانات الدخل الكلي")) {
             pieChartFraisEntrants.setVisible(true);
             pieChartStock.setVisible(false);
             pieChartFraisSortants.setVisible(false);
-            initPieFraisEntrants();
-
-
-            header1.setText("• تكاليف التلاميذ:");
-            header2.setText("• هيبات:");
-            subheader1.setText("تمثل: ");
-            subheader12.setText("(" + percentEleve + "%)" + " " + fraisEleve);
-            subheader4.setText("تمثل: ");
-            subheader42.setText("(" + percentCharity + "%)" + " " + fraisCharity);
-        } else if (pieChartFraisEntrants.isVisible()) {
-            pieChartFraisEntrants.setVisible(false);
-            pieChartFraisSortants.setVisible(false);
-            pieChartStock.setVisible(true);
-            initPieStock();
-            header1.setText("• مصاريف المخزن:");
-            header2.setVisible(false);
-            subheader2.setVisible(true);
-            subheader22.setVisible(true);
-            subheader3.setVisible(true);
-            subheader32.setVisible(true);
-            subheader4.setVisible(false);
-            subheader42.setVisible(false);
-            subheader1.setText("مصاريف الطعام تمثل: ");
-            subheader12.setText("(" + percentEat + "%)" + " " + totalEat);
-            subheader2.setText("مصاريف الأدوات تمثل: ");
-            subheader22.setText("(" + percentStuff + "%)" + " " + totalStuff);
-            subheader3.setText("مصاريف الأخرى تمثل: ");
-            subheader32.setText("(" + percentOther + "%)" + " " + totalOther);
-
-
-        } else if (pieChartStock.isVisible()) {
-            pieChartFraisSortants.setVisible(true);
-            pieChartFraisEntrants.setVisible(false);
-            pieChartStock.setVisible(false);
-            initPieFraisSortants();
-
+            LesFrais();
             header2.setVisible(true);
             subheader2.setVisible(false);
             subheader22.setVisible(false);
@@ -471,15 +468,32 @@ public class TracController implements Initializable {
             subheader32.setVisible(false);
             subheader4.setVisible(true);
             subheader42.setVisible(true);
+        } else if (item.equals("بيانات المخزن")) {
+            pieChartFraisEntrants.setVisible(false);
+            pieChartFraisSortants.setVisible(false);
+            pieChartStock.setVisible(true);
+            LesFrais();
+            header2.setVisible(false);
+            subheader2.setVisible(true);
+            subheader22.setVisible(true);
+            subheader3.setVisible(true);
+            subheader32.setVisible(true);
+            subheader4.setVisible(false);
+            subheader42.setVisible(false);
 
-            header1.setText("• أجور العمال:");
-            header2.setText("• مصاريف المخزن:");
-            subheader1.setText("أجور العمال: ");
-            subheader12.setText("(" + percentEmploye + "%)" + " " + fraisEmploye);
-            subheader4.setText("تمثل: ");
-            subheader42.setText("(" + percentStock + "%)" + " " + fraisStock);
+        } else if (item.equals("بيانات المصاريف الكلية")) {
+            pieChartFraisSortants.setVisible(true);
+            pieChartFraisEntrants.setVisible(false);
+            pieChartStock.setVisible(false);
+            LesFrais();
+            header2.setVisible(true);
+            subheader2.setVisible(false);
+            subheader22.setVisible(false);
+            subheader3.setVisible(false);
+            subheader32.setVisible(false);
+            subheader4.setVisible(true);
+            subheader42.setVisible(true);
         }
-        updateTable();
     }
 
 
@@ -487,10 +501,10 @@ public class TracController implements Initializable {
         ObservableList<PieChart.Data> data = FXCollections.observableArrayList();
 
         data.add(new PieChart.Data("أجور العمال", fraisDB.countFraisEmploye()));
-        data.add(new PieChart.Data("مصارف المخزن", fraisDB.countFraisStock()));
+        data.add(new PieChart.Data("مصاريف المخزن", fraisDB.countFraisStock()));
 
         pieChartFraisSortants.setData(data);
-        pieChartFraisSortants.setTitle("المصارف");
+        pieChartFraisSortants.setTitle("المصاريف");
 
         data.forEach(d
                         -> d.nameProperty().bind(
@@ -507,7 +521,7 @@ public class TracController implements Initializable {
         data.add(new PieChart.Data("هيبات", fraisDB.countFraisCharity()));
 
         pieChartFraisEntrants.setData(data);
-        pieChartFraisEntrants.setTitle("الربح");
+        pieChartFraisEntrants.setTitle("الدخل");
 
         data.forEach(d
                         -> d.nameProperty().bind(
@@ -532,20 +546,6 @@ public class TracController implements Initializable {
                 Bindings.concat((d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "$1"), " ", d.getName())
                 )
         );
-
-    }
-
-
-    private void initBarFrais() {
-
-        barChartFrais.setTitle("Les Frais Sortants");
-        XAxis.setLabel("Source");
-        YAxis.setLabel("Les Frais");
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Depenses");
-        series1.getData().add(new XYChart.Data("Employe", fraisDB.countFraisEmploye()));
-        series1.getData().add(new XYChart.Data("Stock", fraisDB.countFraisStock()));
-        barChartFrais.getData().addAll(series1);
 
     }
 
@@ -621,7 +621,6 @@ public class TracController implements Initializable {
     }
 
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         JFXRippler rippler = new JFXRippler(studentBox);
@@ -645,6 +644,11 @@ public class TracController implements Initializable {
         }
         comboClasse.getItems().addAll(classes);
 
+        comboFrais.setItems(typeChart);
+        comboFrais.getSelectionModel().selectFirst();
+        comboFrais.setOnAction(event -> changeViewFrais(comboFrais.getSelectionModel().getSelectedItem()));
+
+
 
         employeDB = new EmployeDB();
         initializeTableEmploye();
@@ -657,7 +661,6 @@ public class TracController implements Initializable {
         initChartSchoolYear();
 
         fraisDB = new fraisDB();
-        initBarFrais();
         initPieFraisSortants();
         initPieFraisEntrants();
 
@@ -705,6 +708,8 @@ public class TracController implements Initializable {
                     return employee.getValue().nombreEM.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase());
                 case 17:
                     return employee.getValue().nombreEF.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase());
+                case 18:
+                    return employee.getValue().classe.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase());
                 default:
                     return employee.getValue().id.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase()) ||
                             employee.getValue().lastname.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase()) ||
@@ -723,7 +728,8 @@ public class TracController implements Initializable {
                             employee.getValue().marier.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase()) ||
                             employee.getValue().nomCeleb.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase()) ||
                             employee.getValue().nombreEM.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase()) ||
-                            employee.getValue().nombreEF.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase());
+                            employee.getValue().nombreEF.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase()) ||
+                            employee.getValue().classe.getValue().toLowerCase().contains(searchEmployeField.getText().toLowerCase());
             }
         });
     }

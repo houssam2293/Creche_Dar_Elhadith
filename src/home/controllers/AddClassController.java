@@ -52,6 +52,13 @@ public class AddClassController {
                 break;
             case 2:
                 System.out.println("Error ClasseModel!");
+                Notifications.create()
+                        .title("القسم موجودظ                                   ")
+                        .graphic(new ImageView(new Image("/home/resources/icons/warn.png")))
+                        .hideAfter(Duration.millis(2000))
+                        .position(Pos.BOTTOM_RIGHT)
+                        .darkStyle()
+                        .show();
                 break;
             case 0:
                 System.out.println("Unknown Error failed to add ClasseModel");

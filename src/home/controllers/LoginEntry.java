@@ -120,7 +120,7 @@ public class LoginEntry implements Initializable {
                             Stage window = (Stage) user.getScene().getWindow();
                             window.close();
                             window = new Stage();
-                            window.getIcons().add(new Image("/home/resources/icons/icon.png"));
+                            window.getIcons().add(new Image("/home/resources/images/logo.png"));
                             window.initStyle(StageStyle.UNDECORATED);
                             window.setScene(new Scene(root));
                             window.setTitle("مؤسسة دار الحديث");

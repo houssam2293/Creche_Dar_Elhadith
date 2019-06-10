@@ -4,8 +4,10 @@ import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
 import home.dbDir.ClasseDB;
 import home.dbDir.EleveDB;
+import home.dbDir.EmployeDB;
 import home.java.ClasseModel;
 import home.java.Eleve;
+import home.java.Employe;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -65,6 +67,7 @@ public class ClassController implements Initializable {
     static JFXDialog addUserDialog, editUserDialog;
 
 
+    @Override
     public void initialize(URL location, ResourceBundle resources) {
         List<ClasseModel> clsDB = new ClasseDB().getClasse();
         if (clsDB == null) {
@@ -142,7 +145,7 @@ public class ClassController implements Initializable {
         clss= ClassSelect.getSelectionModel().getSelectedItem();
         tableEleve.setVisible(true);
         tableEleve.getColumns().clear();
-        // prof.getText(prof);
+        prof.setText(prof(clss));
         initializeTableEleve(clss);
 
     }
@@ -317,18 +320,17 @@ public class ClassController implements Initializable {
     }
 
 
-   /* private String prof(String cls){
+    private String prof(String cls) {
         List<Employe> EmplyDB = new EmployeDB().getEmployee();
         if (EmplyDB == null) {
             System.out.println("Connection Failed !");
         } else {
             for (Employe empl : EmplyDB) {
-                if(empl.getClasse().compareTo(clss)==0)
+                if (cls.equals(empl.getClasse()))
                     return empl.getNom()+" "+empl.getPrenom();
             }
 
             }
-
-
-    }*/
+        return " ";
+    }
 }

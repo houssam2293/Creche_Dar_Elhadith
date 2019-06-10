@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionMode;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -50,12 +51,26 @@ public class StockController implements Initializable {
 
     @FXML
     private JFXComboBox<String> combo;
+    @FXML
+    private JFXButton Refresher;
+
+    @FXML
+    private JFXButton Adder;
+
+    @FXML
+    private JFXButton Editer;
+
+    @FXML
+    private JFXButton Remover;
+
+    @FXML
+    private JFXButton Printer;
 
     @FXML
     private JFXTreeTableView<TableStock> tableView;
 
     @FXML // Cols of table
-    private JFXTreeTableColumn<TableStock, String> idColumn, typeProdColmn, nomColumn, dateFabColumn,
+    private JFXTreeTableColumn<TableStock, String> idColumn, nomColumn, dateFabColumn,
             dateExpColumn, quantiteColumn, prixColumn,fournisseurColumn,prixTotaleColumn;
 
     static JFXDialog addUserDialog, editUserDialog;
@@ -112,13 +127,6 @@ public class StockController implements Initializable {
 
         stockSelected = new EntreStock();
         stockSelected.setId(parseInt(id));
-        if (typeProdColmn.getCellData(index).equals("طعام")) {
-            stockSelected.setTypeProduit(1);
-        } else if (typeProdColmn.getCellData(index).equals("كتب و كراريس")) {
-            stockSelected.setTypeProduit(2);
-        } else if (typeProdColmn.getCellData(index).equals("أخرى")) {
-            stockSelected.setTypeProduit(3);
-        }
         stockSelected.setNom(nomColumn.getCellData(index));
         stockSelected.setDateFab(java.sql.Date.valueOf(dateFabColumn.getCellData(index)));
         stockSelected.setDateExp(java.sql.Date.valueOf(dateExpColumn.getCellData(index)));
@@ -208,7 +216,7 @@ public class StockController implements Initializable {
             errorLabel.setText("Connection Failed !");
         } else {
             for (EntreStock stock : stockDB) {
-                stocks.add(new TableStock(stock.getId(), stock.getProdectName(), stock.getNom().toUpperCase(), stock.getDateFab(), stock.getDateExp(), stock.getQuantite(), stock.getPrix(), stock.getFournisseur(), stock.getPrixTotale()));
+                stocks.add(new TableStock(stock.getId(), stock.getNom().toUpperCase(), stock.getDateFab(), stock.getDateExp(), stock.getQuantite(), stock.getPrix(), stock.getFournisseur(), stock.getPrixTotale()));
             }
 
         }
@@ -227,6 +235,13 @@ public class StockController implements Initializable {
         combo.getItems().addAll("رقم السلعة", "نوع السلعة","تاريخ  دخول" ,"تاريخ  خروج","كمية","سعر الوحدة","الممول");
         initializeTable();
 
+        Refresher.setTooltip(new Tooltip("تحديث"));
+
+        Adder.setTooltip(new Tooltip("إضافة"));
+        Editer.setTooltip(new Tooltip("تعديل"));
+        Remover.setTooltip(new Tooltip("إزالة"));
+        Printer.setTooltip(new Tooltip("طبع"));
+
     }
 
     private void initializeTable() {
@@ -234,11 +249,7 @@ public class StockController implements Initializable {
         idColumn.setPrefWidth(149);
         idColumn.setCellValueFactory(param -> param.getValue().getValue().id);
 
-        typeProdColmn = new JFXTreeTableColumn<>("نوع السلعة");
-        typeProdColmn.setPrefWidth(149);
-        typeProdColmn.setCellValueFactory(param -> param.getValue().getValue().type);
-
-        nomColumn = new JFXTreeTableColumn<>("إسم السلعة");
+        nomColumn = new JFXTreeTableColumn<>("نوع السلعة");
         nomColumn.setPrefWidth(149);
         nomColumn.setCellValueFactory(param -> param.getValue().getValue().nom);
 
@@ -272,7 +283,7 @@ public class StockController implements Initializable {
         combo.setOnAction(e -> filterSearchTable());
 
         //noinspection deprecation
-        tableView.getColumns().addAll(idColumn, typeProdColmn, nomColumn, dateFabColumn, dateExpColumn, quantiteColumn, prixColumn, fournisseurColumn, prixTotaleColumn);
+        tableView.getColumns().addAll(idColumn, nomColumn, dateFabColumn, dateExpColumn, quantiteColumn, prixColumn, fournisseurColumn, prixTotaleColumn);
         tableView.setShowRoot(false);
         tableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
@@ -286,19 +297,10 @@ public class StockController implements Initializable {
     }
 
     private class TableStock extends RecursiveTreeObject<TableStock> {
-        StringProperty id;
-        StringProperty type;
-        StringProperty nom;
-        StringProperty dateFab;
-        StringProperty dateExp;
-        StringProperty quantite;
-        StringProperty prix;
-        StringProperty fournisseur;
-        StringProperty prixTotale;
+        StringProperty id, nom, dateFab, dateExp, quantite, prix, fournisseur, prixTotale;
 
-        TableStock(int id, String type, String nom, Date dateFab, Date dateExp, int quantite, double prix, String fournisseur, double prixTotale) {
+        TableStock(int id, String nom, Date dateFab, Date dateExp, int quantite, double prix, String fournisseur, double prixTotale) {
             this.id = new SimpleStringProperty(String.valueOf(id));
-            this.type = new SimpleStringProperty(String.valueOf(type));
             this.nom = new SimpleStringProperty(String.valueOf(nom));
             this.dateFab = new SimpleStringProperty(String.valueOf(dateFab));
             this.dateExp = new SimpleStringProperty(String.valueOf(dateExp));

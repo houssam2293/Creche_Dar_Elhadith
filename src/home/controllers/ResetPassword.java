@@ -27,7 +27,6 @@ import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -74,7 +73,7 @@ public class ResetPassword implements Initializable {
         assert root != null;
         Scene scene = new Scene(root);
         stage.setTitle("مؤسسة دار الحديث");
-        stage.getIcons().add(new Image("/home/resources/icons/icon.png"));
+        stage.getIcons().add(new Image("/home/resources/images/logo.png"));
         stage.setScene(scene);
         stage.show();
     }

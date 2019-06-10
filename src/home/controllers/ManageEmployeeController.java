@@ -63,7 +63,7 @@ public class ManageEmployeeController implements Initializable {
     static JFXDialog addUserDialog, editUserDialog, notesEmployeeDialog, paymentUserDialog;
     @FXML
     private JFXTreeTableColumn<TableEmployee, String> idCol, firstnameCol, lastNameCol,
-            dateOfBirthCol, placeOfBirthCol, jobCol, addressCol, phoneCol, socialSecurNumbCol,
+            dateOfBirthCol, placeOfBirthCol, jobCol, classeCol, addressCol, phoneCol, socialSecurNumbCol,
             diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, regimCol, remarqueCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol;
 
 
@@ -149,6 +149,7 @@ public class ManageEmployeeController implements Initializable {
         employeeSelected.setItar(itarCol.getCellData(index));
         employeeSelected.setRenouvlement_de_contrat(contractRenCol.getCellData(index));
         employeeSelected.setFonction(jobCol.getCellData(index));
+        employeeSelected.setClasse(classeCol.getCellData(index));
         employeeSelected.setRegimeScolaire(regimCol.getCellData(index));
         employeeSelected.setDate_debut(java.sql.Date.valueOf(dateFirstEmploCol.getCellData(index)));
         if (marierCol.getCellData(index).toLowerCase().equals("متزوج")) {
@@ -241,7 +242,7 @@ public class ManageEmployeeController implements Initializable {
             for (Employe employe : employeeDB) {
                 employes.add(new TableEmployee(employe.getId(), employe.getNom().toUpperCase(), employe.getPrenom().toUpperCase(), employe.getDateNaissance(),
                         employe.getLieuNaissance(), employe.getAdresse(), employe.getExperience(), employe.getNumTelephone(), employe.getSocialSecurityNumber(),
-                        employe.getDiplome(), employe.getItar(), employe.getDate_debut(), employe.getFonction(), employe.getRenouvlement_de_contrat(), employe.getRegimeScolaire(),
+                        employe.getDiplome(), employe.getItar(), employe.getDate_debut(), employe.getFonction(), employe.getClasse(), employe.getRenouvlement_de_contrat(), employe.getRegimeScolaire(),
                         employe.getRemarque(), employe.estmarier(),
                         employe.getCelibacyTitle(), employe.getMaleChild(), employe.getFemaleChild()));
             }
@@ -280,6 +281,10 @@ public class ManageEmployeeController implements Initializable {
         jobCol = new JFXTreeTableColumn<>("المهنة");
         jobCol.setPrefWidth(100);
         jobCol.setCellValueFactory(param -> param.getValue().getValue().job);
+
+        classeCol = new JFXTreeTableColumn<>("القسم");
+        classeCol.setPrefWidth(100);
+        classeCol.setCellValueFactory(param -> param.getValue().getValue().classe);
 
         addressCol = new JFXTreeTableColumn<>("العنوان الشخصي");
         addressCol.setPrefWidth(120);
@@ -342,7 +347,7 @@ public class ManageEmployeeController implements Initializable {
         searchField.textProperty().addListener(e -> filterSearchTable());
         combo.setOnAction(e -> filterSearchTable());
 
-        treeTableView.getColumns().addAll(idCol, firstnameCol, lastNameCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, socialSecurNumbCol, jobCol, diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, regimCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol, remarqueCol);
+        treeTableView.getColumns().addAll(idCol, firstnameCol, lastNameCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, socialSecurNumbCol, jobCol, classeCol, diplomeCol, itarCol, dateFirstEmploCol, experienceCol, contractRenCol, regimCol, marierCol, nomCelebCol, nombreEMCol, nombreEFCol, remarqueCol);
         treeTableView.setShowRoot(false);
     }
 
@@ -410,6 +415,7 @@ public class ManageEmployeeController implements Initializable {
         employeeSelected.setItar(itarCol.getCellData(index));
         employeeSelected.setRenouvlement_de_contrat(contractRenCol.getCellData(index));
         employeeSelected.setFonction(jobCol.getCellData(index));
+        employeeSelected.setClasse(classeCol.getCellData(index));
         employeeSelected.setRegimeScolaire(regimCol.getCellData(index));
         employeeSelected.setDate_debut(java.sql.Date.valueOf(dateFirstEmploCol.getCellData(index)));
         if (marierCol.getCellData(index).toLowerCase().equals("متزوج")) {
@@ -426,44 +432,6 @@ public class ManageEmployeeController implements Initializable {
         JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
         dialog.setOnDialogClosed((event) -> updateTable());
         return dialog;
-    }
-
-    static class TableEmployee extends RecursiveTreeObject<TableEmployee> {
-        StringProperty id, firstname, lastname, birthday, birthplace, job, experience;
-        StringProperty addresse, phone, socialSN, diplom, itar, firstdaywor, renouvlementcotract;
-        StringProperty regime, remarque;
-        StringProperty marier;
-        StringProperty nomCeleb;
-        StringProperty nombreEM;
-        StringProperty nombreEF;
-
-        TableEmployee(int id, String firstname, String lastname, Date birthday, String birthplace, String addresse, String experience,
-                      String phone, String socialSN, String diplom, String itar,
-                      Date firstdaywor, String job, String renouvlementcotract, String regime, String remarque, boolean marier, String nomCeleb,
-                      int nombreEM, int nombreEF) {
-
-            this.id = new SimpleStringProperty(String.valueOf(id));
-            this.firstname = new SimpleStringProperty(String.valueOf(firstname));
-            this.lastname = new SimpleStringProperty(String.valueOf(lastname));
-            this.birthday = new SimpleStringProperty(String.valueOf(birthday));
-            this.birthplace = new SimpleStringProperty(String.valueOf(birthplace));
-            this.job = new SimpleStringProperty(String.valueOf(job));
-            this.experience = new SimpleStringProperty(String.valueOf(experience));
-            this.addresse = new SimpleStringProperty(String.valueOf(addresse));
-            this.phone = new SimpleStringProperty(String.valueOf(phone));
-            this.socialSN = new SimpleStringProperty(String.valueOf(socialSN));
-            this.diplom = new SimpleStringProperty(String.valueOf(diplom));
-            this.itar = new SimpleStringProperty(String.valueOf(itar));
-            this.firstdaywor = new SimpleStringProperty(String.valueOf(firstdaywor));
-            this.renouvlementcotract = new SimpleStringProperty(String.valueOf(renouvlementcotract));
-            this.regime = new SimpleStringProperty(regime);
-            this.remarque = new SimpleStringProperty(remarque);
-            this.marier = new SimpleStringProperty((marier) ? "متزوج" : "أعزب");
-            this.nomCeleb = new SimpleStringProperty(String.valueOf(nomCeleb));
-            this.nombreEM = new SimpleStringProperty(String.valueOf(nombreEM));
-            this.nombreEF = new SimpleStringProperty(String.valueOf(nombreEF));
-
-        }
     }
 
     private void filterSearchTable() {
@@ -505,6 +473,8 @@ public class ManageEmployeeController implements Initializable {
                     return employee.getValue().nombreEM.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
                 case 17:
                     return employee.getValue().nombreEF.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 18:
+                    return employee.getValue().classe.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
                 default:
                     return employee.getValue().id.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             employee.getValue().lastname.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
@@ -523,8 +493,54 @@ public class ManageEmployeeController implements Initializable {
                             employee.getValue().marier.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             employee.getValue().nomCeleb.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             employee.getValue().nombreEM.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
-                            employee.getValue().nombreEF.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                            employee.getValue().nombreEF.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            employee.getValue().classe.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
             }
         });
+    }
+
+    static class TableEmployee extends RecursiveTreeObject<TableEmployee> {
+        StringProperty id, firstname, lastname, birthday, birthplace, job, classe, experience;
+        StringProperty addresse;
+        StringProperty phone;
+        StringProperty socialSN;
+        StringProperty diplom;
+        StringProperty itar;
+        StringProperty firstdaywor;
+        StringProperty renouvlementcotract;
+        StringProperty regime, remarque;
+        StringProperty marier;
+        StringProperty nomCeleb;
+        StringProperty nombreEM;
+        StringProperty nombreEF;
+
+        TableEmployee(int id, String firstname, String lastname, Date birthday, String birthplace, String addresse, String experience,
+                      String phone, String socialSN, String diplom, String itar,
+                      Date firstdaywor, String job, String classe, String renouvlementcotract, String regime, String remarque, boolean marier, String nomCeleb,
+                      int nombreEM, int nombreEF) {
+
+            this.id = new SimpleStringProperty(String.valueOf(id));
+            this.firstname = new SimpleStringProperty(String.valueOf(firstname));
+            this.lastname = new SimpleStringProperty(String.valueOf(lastname));
+            this.birthday = new SimpleStringProperty(String.valueOf(birthday));
+            this.birthplace = new SimpleStringProperty(String.valueOf(birthplace));
+            this.job = new SimpleStringProperty(String.valueOf(job));
+            this.experience = new SimpleStringProperty(String.valueOf(experience));
+            this.addresse = new SimpleStringProperty(String.valueOf(addresse));
+            this.phone = new SimpleStringProperty(String.valueOf(phone));
+            this.socialSN = new SimpleStringProperty(String.valueOf(socialSN));
+            this.diplom = new SimpleStringProperty(String.valueOf(diplom));
+            this.itar = new SimpleStringProperty(String.valueOf(itar));
+            this.firstdaywor = new SimpleStringProperty(String.valueOf(firstdaywor));
+            this.classe = new SimpleStringProperty(String.valueOf(classe));
+            this.renouvlementcotract = new SimpleStringProperty(String.valueOf(renouvlementcotract));
+            this.regime = new SimpleStringProperty(regime);
+            this.remarque = new SimpleStringProperty(remarque);
+            this.marier = new SimpleStringProperty((marier) ? "متزوج" : "أعزب");
+            this.nomCeleb = new SimpleStringProperty(String.valueOf(nomCeleb));
+            this.nombreEM = new SimpleStringProperty(String.valueOf(nombreEM));
+            this.nombreEF = new SimpleStringProperty(String.valueOf(nombreEF));
+
+        }
     }
 }

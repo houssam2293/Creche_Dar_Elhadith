@@ -323,7 +323,7 @@
                             <Image url="@../icons/icons8_Report_Card_50px.png" />
                         </ImageView>
                         <ImageView fitHeight="36.0" fitWidth="33.0" layoutX="3.0" layoutY="70.0" pickOnBounds="true" preserveRatio="true">
-                            <Image url="@../icons/warn.png" />
+                            <Image url="@../icons/tick.png"/>
                         </ImageView>
                     </Pane>
                     <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="119.0" styleClass="title-smaller" text="عد العمال" textAlignment="CENTER" wrapText="true">

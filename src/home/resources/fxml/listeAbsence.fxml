@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXRadioButton?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
-<?import javafx.geometry.Insets?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" nodeOrientation="RIGHT_TO_LEFT" prefHeight="602.0" prefWidth="595.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" nodeOrientation="RIGHT_TO_LEFT" prefHeight="602.0" prefWidth="650.0"
             xmlns="http://javafx.com/javafx/8.0.171" fx:controller="home.controllers.listeAbsence">
 
     <stylesheets>
         <URL value="@../css/main.css"/>
         <URL value="@../css/manageEmployee.css"/>
-        <URL value="@../css/pointag.css"/>
+        <URL value="@../css/tab.css"/>
 
     </stylesheets>
 
-    <ScrollPane hbarPolicy="NEVER" layoutX="6.0" layoutY="39.0" prefWidth="480.0" style="-fx-background-color: red;"
-                stylesheets="@../css/scrollPane.css" AnchorPane.bottomAnchor="-39.0" AnchorPane.leftAnchor="6.0"
-                AnchorPane.rightAnchor="-6.0" AnchorPane.topAnchor="39.0">
-        <VBox fx:id="root" prefHeight="1032.0" prefWidth="578.0" spacing="35.0">
+    <ScrollPane hbarPolicy="NEVER" layoutX="6.0" layoutY="39.0" prefHeight="602.0" prefWidth="595.0"
+                style="-fx-background-color: red;" stylesheets="@../css/scrollPane.css" AnchorPane.bottomAnchor="0.0"
+                AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox fx:id="root" prefHeight="1032.0" prefWidth="650.0" spacing="35.0">
             <padding>
                 <Insets bottom="20.0" left="40.0" right="35.0" top="20.0"/>
             </padding>
@@ -27,11 +28,10 @@
             <stylesheets>
                 <URL value="@../css/main.css"/>
                 <URL value="@../css/manageEmployee.css"/>
-                <URL value="@../css/pointag.css"/>
 
             </stylesheets>
 
-            <HBox alignment="TOP_CENTER" prefHeight="66.0" prefWidth="485.0" stylesheets="@../css/main.css">
+            <HBox alignment="TOP_CENTER" prefHeight="62.0" prefWidth="503.0" stylesheets="@../css/main.css">
                 <VBox.margin>
                     <Insets/>
                 </VBox.margin>
@@ -47,27 +47,29 @@
 
                 </Label>
                 <JFXDatePicker fx:id="dateJ" prefHeight="70.0" prefWidth="179.0" styleClass="field-smaller"/>
-                <JFXButton fx:id="rech" onAction="#updateTable" prefHeight="72.0" prefWidth="102.0"
-                           styleClass="btn-view" text="بحث"/>
+
             </HBox>
             <HBox prefHeight="115.0" prefWidth="503.0">
 
-                <VBox prefHeight="78.0" prefWidth="152.0">
-                    <JFXRadioButton fx:id="checkAbsent" onAction="#selectedRadio" prefHeight="31.0" prefWidth="100.0"
-                                    selected="true" text="العمال المتغيبين"/>
+                <VBox prefHeight="105.0" prefWidth="202.0" spacing="5.0">
+                    <JFXRadioButton fx:id="checkAbsent" onAction="#selectedRadio" prefHeight="30.0" prefWidth="180.0"
+                                    selected="true" text="العمال المتغيبين" textAlignment="CENTER" textFill="#0d0d0d"/>
 
-                    <JFXRadioButton fx:id="checkPresent" onAction="#selectedRadio" prefHeight="33.0" prefWidth="100.0"
+                    <JFXRadioButton fx:id="checkPresent" onAction="#selectedRadio" prefHeight="30.0" prefWidth="180.0"
                                     text="العمال الحاضرين"/>
-                    <JFXRadioButton fx:id="checkOut" onAction="#selectedRadio" prefHeight="28.0" prefWidth="100.0"
+                    <JFXRadioButton fx:id="checkOut" onAction="#selectedRadio" prefHeight="30.0" prefWidth="180.0"
                                     text="العمال الغير معنيين"/>
+                    <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </HBox.margin>
                 </VBox>
-                <Label fx:id="listevide" prefHeight="72.0" prefWidth="266.0" styleClass="datee">
+                <Label fx:id="listevide" prefHeight="118.0" prefWidth="266.0" styleClass="field" textFill="RED">
                     <opaqueInsets>
                         <Insets/>
                     </opaqueInsets>
                 </Label>
             </HBox>
-            <TableView fx:id="tableview" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/tableau.css"/>
+            <TableView fx:id="tableview" prefHeight="200.0" prefWidth="200.0"/>
         </VBox>
     </ScrollPane>
     <EmojiOneView glyphName="X" layoutX="434.0" layoutY="30.0" onMouseClicked="#btnClose" size="20"

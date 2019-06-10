@@ -18,6 +18,7 @@ public class Employe {
     private String renouvlement_de_contrat;
     private Date date_debut;
     private String fonction;
+    private String classe;
     private String regimeScolaire;
     private String celibacyTitle;
     private int maleChild, femaleChild;
@@ -27,7 +28,7 @@ public class Employe {
 
     public Employe(int id, String nom, String prenom, Date dateNaissance, String lieuNaissance, String adresse,
                    String numTelephone, String socialSecurityNumber, String diplome, String experience, String itar,
-                   String renouvlement_de_contrat, Date date_debut, String fonction, String regimeScolaire, int statuSocial, String celibacyTitle,
+                   String renouvlement_de_contrat, Date date_debut, String fonction, String classe, String regimeScolaire, int statuSocial, String celibacyTitle,
                    int maleChild, int femaleChild, String remarque) {
         this.id = id;
         this.nom = nom;
@@ -43,6 +44,7 @@ public class Employe {
         this.renouvlement_de_contrat = renouvlement_de_contrat;
         this.date_debut = date_debut;
         this.fonction = fonction;
+        this.classe = classe;
         this.regimeScolaire = regimeScolaire;
         this.statuSocial = statuSocial;
         this.celibacyTitle = celibacyTitle;
@@ -257,5 +259,13 @@ public class Employe {
 
     public void setRemarque(String remarque) {
         this.remarque = remarque;
+    }
+
+    public String getClasse() {
+        return classe;
+    }
+
+    public void setClasse(String classe) {
+        this.classe = classe;
     }
 }

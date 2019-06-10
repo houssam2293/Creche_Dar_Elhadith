@@ -116,7 +116,7 @@ public class CalendarController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        if (Calendar.getInstance().get(Calendar.MONTH) > 6)
+        if (Calendar.getInstance().get(Calendar.MONTH) > 8)
             currentYearTimeLable = Calendar.getInstance().get(Calendar.YEAR) + "-" + Integer.valueOf(Calendar.getInstance().get(Calendar.YEAR) + 1);
         else
             currentYearTimeLable = Integer.valueOf(Calendar.getInstance().get(Calendar.YEAR) - 1) + "-" + Calendar.getInstance().get(Calendar.YEAR);

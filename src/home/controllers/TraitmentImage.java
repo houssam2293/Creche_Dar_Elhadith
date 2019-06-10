@@ -24,13 +24,12 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -144,13 +143,15 @@ public class TraitmentImage implements Initializable {
         ft.play();
     }
 
+    private static BufferedImage readImageFromFile(File file)
+            throws IOException {
+        return ImageIO.read(file);
+    }
+
     @FXML
     void addImage() {
         FileChooser fileChooser = new FileChooser();
-        int year = Calendar.YEAR;
-        DateFormat dateFormat = new SimpleDateFormat("dd-mm-yyyyy");
-        String date = dateFormat.format(Calendar.getInstance().getTime());
-        String annee = (year) + "-" +(++year);
+
 
         //Set extension filter
         FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("image files (png,jpg,jpeg,bmp,gif)", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif");
@@ -166,6 +167,8 @@ public class TraitmentImage implements Initializable {
             extension = file.getName().substring(i+1);
         }
         System.out.println("Image extension is : " + extension);
+
+
         selectedImage = new Image(file.toURI().toString());
         imagemodel.setImageHolder(selectedImage);
     }

@@ -6,12 +6,13 @@ import home.dbDir.StockDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.print.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 
-import javax.print.PrintService;
-import java.awt.print.PrinterJob;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -48,8 +49,12 @@ public class SortieStockController implements Initializable {
     @FXML
     private Label lab;
 
+    @FXML
+    private Label lab5;
+
     static StockDB stock;
 
+    private double x = 0;
 
 
     @FXML
@@ -61,10 +66,23 @@ public class SortieStockController implements Initializable {
 
     @FXML
     void imprimer(ActionEvent event) {
-        PrintService[] ps= PrinterJob.lookupPrintServices();
-        for(PrintService service:ps){
-            System.out.println("- "+service);
-        }
+
+
+        TextArea textArea = new TextArea();
+        textArea.setFont(Font.font("sanSerif", 12));
+        textArea.setEditable(false);
+        textArea.setText("imprimer");
+
+        PrinterJob job = PrinterJob.createPrinterJob();
+        job.showPrintDialog(null);
+        Printer printer = job.getPrinter();
+        PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
+        textArea.minWidth(pageLayout.getPrintableWidth());
+        textArea.minHeight(pageLayout.getPrintableHeight());
+        job.printPage(pageLayout, root);
+
+
+        job.endJob();
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -73,14 +91,13 @@ public class SortieStockController implements Initializable {
         label5.setText(dateFormat.format(date));
         Connection connection = new ConnectionClasse().getConnection();
         if (connection == null) {
-            System.out.println("failed to connect to the server!");
+            //return null;
         }
         String sql = "select * from stock ";
         try {
-            assert connection != null;
             Statement st = connection.createStatement();
             ResultSet rst = st.executeQuery(sql);
-             double x=0;
+            double x = 0;
             while (rst.next()) {
                 x=x+rst.getDouble("prixTotale");
 
@@ -95,22 +112,51 @@ public class SortieStockController implements Initializable {
         try {
             Statement st = connection.createStatement();
             ResultSet rst = st.executeQuery(sq);
-            double x=0;
             while (rst.next()) {
                 x=x+rst.getDouble("prixTotale");
 
 
             }
             lab1.setText(String.valueOf(x));
-            double y=x*30;
-            lab3.setText(String.valueOf(y));
-           /* double z=Double.parseDouble(txt.getText().trim().toLowerCase());
-            if(z<y)
-                lab3.setText("anwar belaid");
-            else
-                lab3.setText("good afternoun");
-           System.out.println(z);
-*/
+            lab3.setText(String.valueOf(x * 30));
+
+
+        } catch (SQLException ex) {
+            //return null;
+        }
+
+       /* ArrayList<Eleve> elevDB = new EleveDB().getEleve();
+        for(Eleve elv :elevDB)
+
+
+        String nbr = "SELECT count(id) from eleve\n" ;
+
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rst = st.executeQuery(nbr);
+            double y = 0;
+            y =y +rst.getDouble("count(id)");
+System.out.println("aaa"+y);
+            System.out.println("jjj"+rst);
+
+
+        } catch (SQLException ex) {
+            //return null;
+        }*/
+
+        String sqle = "SELECT * from eleve";
+        try {
+            Statement st = connection.createStatement();
+            ResultSet rst = st.executeQuery(sqle);
+            double y = 0;
+            while (rst.next()) {
+                y = y + 1;
+
+
+            }
+            lab4.setText(String.valueOf(x / y));
+
+
 
         } catch (SQLException ex) {
             //return null;

@@ -1,6 +1,5 @@
 package home.controllers;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXRadioButton;
 import home.dbDir.PointageDB;
@@ -33,8 +32,6 @@ public class listeAbsence implements Initializable {
     @FXML
     private TableView tableview;
     @FXML
-    private JFXButton rech;
-    @FXML
     private JFXDatePicker dateJ;
     @FXML
     private Label listevide;
@@ -62,25 +59,24 @@ public class listeAbsence implements Initializable {
             checkOut.setSelected(false);
             checkPresent.setSelected(false);
             checkAbsent.setSelected(true);
-
             radioSelec = 1;
+            updateTable();
 
         });
         checkPresent.setOnMouseClicked(t -> {
             checkOut.setSelected(false);
             checkAbsent.setSelected(false);
             checkPresent.setSelected(true);
-
             radioSelec = 2;
-
+            updateTable();
         });
         checkOut.setOnMouseClicked(t -> {
             checkAbsent.setSelected(false);
             checkPresent.setSelected(false);
             checkOut.setSelected(true);
-
             radioSelec = 3;
 
+            updateTable();
         });
 
     }
@@ -100,8 +96,13 @@ public class listeAbsence implements Initializable {
             pointageModelDB = new PointageDB().getOut(dateJ.getValue());
         }
         if (pointageModelDB == null) {
-
-            listevide.setText("لا يوجد غيابات");
+            if (radioSelec == 1) {
+                listevide.setText("لا يوجد غيابات");
+            } else if (radioSelec == 2) {
+                listevide.setText("لا يوجد عمال حاضرون");
+            } else if (radioSelec == 3) {
+                listevide.setText("لا يوجد عمال غير معنيون");
+            }
             listevide.setTextFill(Color.web("#D50E21"));
 
 
@@ -153,7 +154,7 @@ public class listeAbsence implements Initializable {
         tableview.getColumns().addAll(idCol, fullNameCol, jobCol, remarqCol);
         dateJ.setValue(LocalDate.now());
 
-        // updateTable();
+        updateTable();
       /*  Tooltip tooltip = new Tooltip();
         tooltip.setText("\nYour password must be\n");
         rech.setTooltip(tooltip);

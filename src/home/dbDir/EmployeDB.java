@@ -36,6 +36,7 @@ public class EmployeDB {
                         resultSet.getString("renouvlementDeContrat"),
                         resultSet.getDate("dateDebut"),
                         resultSet.getString("fonction"),
+                        resultSet.getString("classe"),
                         resultSet.getString("regime"),
                         resultSet.getInt("marier"),
                         resultSet.getString("celibacyTitle"),
@@ -58,7 +59,7 @@ public class EmployeDB {
     }
 
     public int addEmploye(Employe employe) {
-        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`employe` ( `id`, `nom`, `prenom`, `dateNaissance`, `lieuNaissance`, `adresse`, `numTelephone`, `socialSecurityNumber`, `diplome`, `experience`, `itar`, `renouvlementDeContrat`, `dateDebut`, `fonction`,`regime`,`remarque`, `marier`");
+        StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`employe` ( `id`, `nom`, `prenom`, `dateNaissance`, `lieuNaissance`, `adresse`, `numTelephone`, `socialSecurityNumber`, `diplome`, `experience`, `itar`, `renouvlementDeContrat`, `dateDebut`, `fonction`,`classe`,`regime`,`remarque`, `marier`");
         Connection connection = null;
         Statement st = null;
 
@@ -92,6 +93,7 @@ public class EmployeDB {
             sql.append(employe.getRenouvlement_de_contrat()).append("','");
             sql.append(employe.getDate_debut()).append("','");
             sql.append(employe.getFonction()).append("','");
+            sql.append(employe.getClasse()).append("','");
             sql.append(employe.getRegimeScolaire()).append("','");
             sql.append(employe.getRemarque()).append("','");
             sql.append(employe.getStatuSocial());
@@ -198,6 +200,7 @@ public class EmployeDB {
                 sql.append("', `renouvlementDeContrat`='").append(employe.getRenouvlement_de_contrat());
                 sql.append("', `dateDebut`='").append(employe.getDate_debut());
                 sql.append("', `fonction`='").append(employe.getFonction());
+                sql.append("', `classe`='").append(employe.getClasse());
                 sql.append("', `regime`='").append(employe.getRegimeScolaire());
                 sql.append("', `remarque`='").append(employe.getRemarque());
                 sql.append("', `marier`='").append(employe.getStatuSocial());

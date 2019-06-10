@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
-<?import javafx.geometry.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
-<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" xmlns="http://javafx.com/javafx/8.0.171"
-           fx:controller="home.controllers.StockController">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" stylesheets="@../css/tableau.css"
+           xmlns="http://javafx.com/javafx/8.0.171" fx:controller="home.controllers.StockController">
     <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1192.0" spacing="10.0">
         <stylesheets>
             <URL value="@../css/manageEmployee.css"/>
             <URL value="@../css/main.css"/>
         </stylesheets>
-        <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="20.0">
-            <MaterialDesignIconView fill="#2196f3" glyphName="FACTORY" size="40"/>
-            <Label fx:id="titleLabel" prefHeight="50.0" prefWidth="266.0" styleClass="title-header"
-                   text="إدارة  المخزن">
+        <HBox prefHeight="60.0" prefWidth="200.0" spacing="15.0">
+            <Label id="errorLabel" fx:id="errorLabel" prefHeight="50.0" prefWidth="393.0"/>
+            <Label fx:id="titleLabel" alignment="CENTER" prefHeight="50.0" prefWidth="266.0" styleClass="title-header"
+                   stylesheets="@../css/style.css" text="إدارة  المخزن">
                 <font>
                     <Font name="Tahoma" size="34.0"/>
                 </font>
             </Label>
-            <Label id="errorLabel" fx:id="errorLabel" prefHeight="50.0" prefWidth="393.0"/>
-            <padding>
-                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-            </padding>
         </HBox>
         <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="5.0">
             <JFXTextField fx:id="searchField" labelFloat="true" prefHeight="39.0" prefWidth="197.0" promptText="بحث"
@@ -41,32 +36,60 @@
                     <Insets right="15.0"/>
                 </HBox.margin>
             </JFXComboBox>
-            <JFXButton buttonType="RAISED" contentDisplay="CENTER" onMouseClicked="#updateTable" prefHeight="41.0"
-                       prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
+            <JFXButton fx:id="Refresher" contentDisplay="CENTER" onMouseClicked="#updateTable" prefHeight="40.0"
+                       prefWidth="35.0" ripplerFill="#4476ff"
+                       style="-fx-background-color: white; -fx-border-color: #4476ff;" styleClass="btn-medium"
+                       stylesheets="@../css/eleve.css" text=" " textFill="#0059f0" textOverrun="CLIP">
                 <graphic>
-                    <FontAwesomeIconView glyphName="REFRESH" size="24" wrappingWidth="22.571428298950195"/>
+                    <FontAwesomeIconView fill="#4476ff" glyphName="REFRESH" size="30" textAlignment="CENTER"
+                                         wrappingWidth="22.571428298950195"/>
                 </graphic>
-                <HBox.margin>
-                    <Insets right="15.0"/>
-                </HBox.margin>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#addstock" prefHeight="39.0" prefWidth="130.0"
-                       ripplerFill="#4264eb" styleClass="btn-view" text="إضافة">
-                <HBox.margin>
-                    <Insets right="15.0"/>
-                </HBox.margin>
+            <JFXButton fx:id="Adder" contentDisplay="CENTER" onAction="#addstock" prefHeight="40.0" prefWidth="83.0"
+                       ripplerFill="#15d32b" style="-fx-background-color: white; -fx-border-color: #15d32B;"
+                       styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433"
+                       textOverrun="CLIP">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+                <graphic>
+                    <FontAwesomeIconView fill="#15d32b" glyphName="PLUS" size="30" textAlignment="CENTER"
+                                         wrappingWidth="22.571428298950195"/>
+                </graphic>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#editstock" prefHeight="39.0" prefWidth="130.0"
-                       ripplerFill="#4264eb" styleClass="btn-view" text="تحديث">
-                <HBox.margin>
-                    <Insets right="15.0"/>
-                </HBox.margin>
+            <JFXButton fx:id="Editer" contentDisplay="CENTER" onAction="#editstock" prefHeight="50.0" prefWidth="83.0"
+                       ripplerFill="#4476ff" style="-fx-background-color: white; -fx-border-color: #4476ff;"
+                       styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textOverrun="CLIP">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+                <graphic>
+                    <FontAwesomeIconView fill="#4476ff" glyphName="EDIT" size="30" textAlignment="CENTER"
+                                         wrappingWidth="22.571428298950195"/>
+                </graphic>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#removestock" prefHeight="39.0" prefWidth="130.0"
-                       ripplerFill="#4468eb" styleClass="btn-view" text="إزالة">
-                <HBox.margin>
-                    <Insets right="15.0"/>
-                </HBox.margin>
+            <JFXButton fx:id="Remover" contentDisplay="CENTER" onAction="#removestock" prefHeight="50.0"
+                       prefWidth="83.0" ripplerFill="#f23a3a"
+                       style="-fx-background-color: white; -fx-border-color: #f23a3a;" styleClass="btn-medium"
+                       stylesheets="@../css/eleve.css" text=" " textFill="#14a433" textOverrun="CLIP">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+                <graphic>
+                    <FontAwesomeIconView fill="#f23a3a" glyphName="TIMES" size="30" textAlignment="CENTER"
+                                         wrappingWidth="22.571428298950195"/>
+                </graphic>
+            </JFXButton>
+            <JFXButton fx:id="Printer" contentDisplay="CENTER" prefHeight="50.0" prefWidth="83.0" ripplerFill="#4476ff"
+                       style="-fx-background-color: white; -fx-border-color: black;" styleClass="btn-medium"
+                       stylesheets="@../css/eleve.css" text=" " textFill="#14a433" textOverrun="CLIP">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+                <graphic>
+                    <FontAwesomeIconView glyphName="PRINT" size="30" textAlignment="CENTER"
+                                         wrappingWidth="22.571428298950195"/>
+                </graphic>
             </JFXButton>
             <JFXButton buttonType="RAISED" layoutX="943.0" layoutY="21.0" onAction="#Consommation" prefHeight="39.0"
                        prefWidth="136.0" ripplerFill="#4468eb" styleClass="btn-view" text="الاستهلاك">
@@ -74,16 +97,7 @@
                     <Insets right="15.0"/>
                 </HBox.margin>
             </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="793.0" layoutY="21.0" onAction="#print" prefHeight="39.0"
-                       prefWidth="126.0" ripplerFill="#4468eb" styleClass="btn-view" text="طباعة ">
-                <HBox.margin>
-                    <Insets right="15.0"/>
-                </HBox.margin>
-            </JFXButton>
         </HBox>
         <JFXTreeTableView fx:id="tableView" VBox.vgrow="ALWAYS"/>
-        <padding>
-            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-        </padding>
     </VBox>
 </StackPane>

@@ -114,7 +114,7 @@ public class Pointage implements Initializable {
         errorLabel.setText("");
         AnchorPane addUserPane = null;
         try {
-            addUserPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/listeAbsence.fxml"));
+            addUserPane = FXMLLoader.load(getClass().getResource("/fxml/listeAbsence.fxml"));
         } catch (IOException ignored) {
         }
         listeAbsences = getSpecialDialog(addUserPane);
@@ -128,21 +128,7 @@ public class Pointage implements Initializable {
         return dialog;
     }
 
-    @FXML
-    void sortir(ActionEvent event) {
-        if (!donneSaved){
-            Notifications.create()
-                    .title("  يرجى حفظ البيانات قبل الخروج  ")
-                    .darkStyle()
-                    .hideAfter(Duration.millis(2000))
-                    .position(Pos.BOTTOM_RIGHT)
-                    .showWarning();
-            return;}
-        else{
-            //TODO add pointer to principale menu
-        }
 
-    }
 
     @FXML
     void updateTable() {
@@ -201,12 +187,15 @@ public class Pointage implements Initializable {
     private void initializeTable() {
 
         idCol = new TableColumn("رقم التسجيل");
-        idCol.setPrefWidth(120);
+        idCol.setPrefWidth(180);
         fullNameCol = new TableColumn("اسم و لقب العامل");
+        fullNameCol.setPrefWidth(250);
         jobCol = new TableColumn("الوظيفة");
+        jobCol.setPrefWidth(150);
         timeEntCol = new TableColumn("توقيت الدخول");
         timeEntCol.setPrefWidth(120);
         remarqCol = new TableColumn("ملاحظات");
+        remarqCol.setPrefWidth(300);
         actionCol = new TableColumn("تسجيل الدخول");
         actionCol.setPrefWidth(120);
 

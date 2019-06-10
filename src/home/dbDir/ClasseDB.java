@@ -66,7 +66,7 @@ public class ClasseDB {
             if (connection == null) {
                 return -1;
             }
-            if (classeExist(cls.getId())) {
+            if (classeExist(cls.getClassNam())) {
                 return 2;
             }
 
@@ -100,13 +100,13 @@ public class ClasseDB {
     }
 
 
-    private boolean classeExist(int id) {
+    private boolean classeExist(String id) {
         Connection con = new ConnectionClasse().getConnection();
         if (con == null) // if connection failed
         {
             return true;
         }
-        String sql = "SELECT * FROM `Classe` WHERE id=?;";
+        String sql = "SELECT * FROM `Classe` WHERE ClassNam=?;";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, String.valueOf(id));
@@ -133,7 +133,7 @@ public class ClasseDB {
                 return -1;
             }
 
-            if (classeExist(clss.getId())) {
+            if (classeExist(clss.getClassNam())) {
 
 
                 st = con.createStatement();

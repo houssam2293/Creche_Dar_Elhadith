@@ -4,7 +4,9 @@ import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXToggleButton;
+import home.dbDir.ClasseDB;
 import home.dbDir.EmployeDB;
+import home.java.ClasseModel;
 import home.java.Employe;
 import home.java.Validation;
 import javafx.collections.FXCollections;
@@ -22,6 +24,7 @@ import org.controlsfx.control.Notifications;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.ENTER;
@@ -87,7 +90,7 @@ public class EditEmployeeFormController implements Initializable {
     private JFXTextField itar;
 
     @FXML
-    private JFXTextField fonction;
+    private JFXComboBox<String> fonction, classe;
 
     @FXML
     private JFXDatePicker firstDayOfwork;
@@ -99,6 +102,8 @@ public class EditEmployeeFormController implements Initializable {
     private JFXComboBox<String> regime;
 
     static Employe employeeSelected;
+
+    private ObservableList<String> items = FXCollections.observableArrayList("معلم", "عامل");
 
     @FXML
     void actionToggleButton() {
@@ -136,7 +141,13 @@ public class EditEmployeeFormController implements Initializable {
         if (renouvlementContrat.isSelected())
             employe.setRenouvlement_de_contrat("نعم");
         else employe.setRenouvlement_de_contrat("لا");
-        employe.setFonction(fonction.getText().trim().toLowerCase());
+        employe.setFonction(fonction.getValue().trim().toLowerCase());
+        if (fonction.getValue().equals("معلم")) {
+            employe.setClasse(classe.getValue().trim().toLowerCase());
+        } else {
+            employe.setClasse(null);
+        }
+
         employe.setRegimeScolaire(regime.getValue());
         employe.setDate_debut(Date.valueOf(firstDayOfwork.getValue()));
         if (stat.isSelected()) {
@@ -193,7 +204,7 @@ public class EditEmployeeFormController implements Initializable {
         if (employe.getRenouvlement_de_contrat().equals("نعم"))
             renouvlementContrat.setSelected(true);
         else renouvlementContrat.setSelected(false);
-        employe.setFonction(fonction.getText().trim().toLowerCase());
+        employe.setFonction(fonction.getValue().trim().toLowerCase());
         employe.setRegimeScolaire(regime.getValue());
         employe.setDate_debut(Date.valueOf(firstDayOfwork.getValue()));
         if (employe.estmarier()) {
@@ -236,6 +247,24 @@ public class EditEmployeeFormController implements Initializable {
         regime.setItems(typeRegime);
         maleChild.setItems(options);
         femaleChild.setItems(options);
+        fonction.setItems(items);
+        List<ClasseModel> cls = new ClasseDB().getClasse();
+        ObservableList<String> classes = FXCollections.observableArrayList();
+        for (ClasseModel classeModel : cls) {
+            classes.add(classeModel.getClassNam());
+        }
+        List<Employe> employes = new EmployeDB().getEmployee();
+        for (Employe employe : employes) {
+            classes.remove(employe.getClasse());
+        }
+        classe.setItems(classes);
+        fonction.setOnAction(event -> {
+            if (fonction.getSelectionModel().getSelectedItem().equals("عامل")) {
+                classe.setDisable(true);
+            } else {
+                classe.setDisable(false);
+            }
+        });
 
         id.setText(String.valueOf(employeeSelected.getId()));
         lastNameField.setText(employeeSelected.getNom());
@@ -252,7 +281,21 @@ public class EditEmployeeFormController implements Initializable {
         else renouvlementContrat.setSelected(false);
         experience.setText(employeeSelected.getExperience());
         firstDayOfwork.setValue(LocalDate.parse(String.valueOf(employeeSelected.getDate_debut())));
-        fonction.setText(employeeSelected.getFonction());
+        fonction.getSelectionModel().select(employeeSelected.getFonction());
+        fonction.setOnAction(event -> {
+            if (fonction.getSelectionModel().getSelectedItem().equals("عامل")) {
+                classe.setDisable(true);
+            } else {
+                classe.setDisable(false);
+            }
+        });
+        if (employeeSelected.getFonction().equals("معلم")) {
+            classe.setDisable(false);
+            if (employeeSelected.getClasse() == null) {
+                classe.getItems().add(employeeSelected.getClasse());
+                classe.getSelectionModel().select(employeeSelected.getClasse());
+            }
+        }
         regime.getSelectionModel().select(employeeSelected.getRegimeScolaire());
 
         if (employeeSelected.estmarier()) {
@@ -316,13 +359,6 @@ public class EditEmployeeFormController implements Initializable {
             }
         });
 
-        fonction.setOnKeyReleased(t -> {
-            if (new Validation().arabValid(fonction)) {
-                fonction.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
-            } else {
-                fonction.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
-            }
-        });
 
         itar.setOnKeyReleased(t -> {
             if (new Validation().arabValid(itar)) {

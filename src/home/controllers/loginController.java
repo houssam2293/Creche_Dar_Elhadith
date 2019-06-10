@@ -18,12 +18,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
@@ -81,7 +78,7 @@ public class loginController implements Initializable {
             window.initStyle(StageStyle.DECORATED);
             window.setResizable(true);
             window.setTitle("مؤسسة دار الحديث");
-            window.getIcons().add(new Image("/home/resources/icons/icon.png"));
+            window.getIcons().add(new Image("/home/resources/images/logo.png"));
             window.setFullScreen(true);
             window.setFullScreenExitHint("أنقر على 'Echap' للخروج من وضع شاشة كاملة");
             window.setScene(new Scene(root));
@@ -115,7 +112,7 @@ public class loginController implements Initializable {
         } catch (IOException ignored) {
         }
         stage.initStyle(StageStyle.UNDECORATED);
-        stage.getIcons().add(new Image("/home/resources/icons/icon.png"));
+        stage.getIcons().add(new Image("/home/resources/images/logo.png"));
         stage.setTitle("استعادة كلمة المرور");
         //create a new scene with root and set the stage
         assert root != null;
