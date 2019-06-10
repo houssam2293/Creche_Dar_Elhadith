@@ -39,7 +39,7 @@
                     <Insets bottom="20.0"/>
                 </padding>
                 <Label alignment="CENTER" styleClass="title-header" stylesheets="@../css/style.css"
-                       text="سجل الغيابات"/>
+                       text="سجل الحضور اليومي"/>
             </HBox>
             <HBox prefHeight="81.0" prefWidth="503.0">
                 <Label alignment="CENTER" graphicTextGap="10.0" prefHeight="73.0" prefWidth="136.0" styleClass="datee"

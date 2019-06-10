@@ -12,12 +12,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.controlsfx.control.Notifications;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -128,8 +131,16 @@ public class loginController implements Initializable {
 
         compteDB = new CompteDB();
         Platform.runLater(() -> user.requestFocus());
-
-
+        francais_radio.setOnAction(event -> {
+            Notifications notification = Notifications.create()
+                    .title("سوف يتم توفير التطبيق تاللفة الفرنسية عن قريب في التحديث المقبل ")
+                    .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
+                    .hideAfter(Duration.millis(2000))
+                    .position(Pos.BOTTOM_RIGHT);
+            notification.darkStyle();
+            notification.show();
+            arabic_radio.setSelected(true);
+        });
     }
 
 

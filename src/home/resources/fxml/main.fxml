@@ -326,7 +326,9 @@
                             <Image url="@../icons/tick.png"/>
                         </ImageView>
                     </Pane>
-                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="119.0" styleClass="title-smaller" text="عد العمال" textAlignment="CENTER" wrapText="true">
+                    <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                           minWidth="-Infinity" prefHeight="28.0" prefWidth="216.0" styleClass="title-smaller"
+                           text="سجل الحضور اليومي" textAlignment="CENTER" wrapText="true">
                         <font>
                             <Font name="Calibri Light" size="20.0" />
                         </font>

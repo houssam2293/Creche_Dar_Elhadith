@@ -72,7 +72,8 @@
                      </HBox.margin>
                   </JFXButton>
                   <Label prefHeight="15.0" prefWidth="315.0" text="forSpace" visible="false" />
-                  <JFXButton buttonType="RAISED" onAction="#listeview" prefHeight="39.0" prefWidth="195.0" ripplerFill="#4264eb" styleClass="btn-view" text="سجل الغيابات" />
+                   <JFXButton buttonType="RAISED" onAction="#listeview" prefHeight="39.0" prefWidth="231.0"
+                              ripplerFill="#4264eb" styleClass="btn-view" text="سجل الحضور اليومي"/>
                   <Label prefHeight="22.0" prefWidth="195.0" />
                   <JFXButton buttonType="RAISED" onAction="#confirm" prefHeight="39.0" prefWidth="130.0" ripplerFill="#4264eb" styleClass="btn-view" text="تأكيد">
                      <HBox.margin>
