@@ -17,7 +17,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.print.*;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SelectionMode;
@@ -58,8 +57,7 @@ public class ArchiveController implements Initializable {
     @FXML
     public JFXButton cree;
 
-    @FXML
-    public JFXButton serch;
+
 
     @FXML
     public Label errorLabelStudent1;
@@ -69,52 +67,26 @@ public class ArchiveController implements Initializable {
     public JFXTreeTableColumn<TableEleve, String> idCole, firstnameCole, classRoomCol, lastNameCole,
             dateOfBirthCole, placeOfBirthCole, jobCole, addressCol, remarqueCol, phoneCol;
     private String nomes;
-    ArrayList<String> asmah = new ArrayList<>();
-    @FXML
-    private StackPane root;
 
     @FXML
     private AnchorPane choosePane;
     private int anee = 2019;
+    private int az = 2119;
 
     @FXML
     private VBox studentPane;
     @FXML
-    private VBox ArchivHome, anees, anee1, anee2, anee3, anee4, anee5;
+    private VBox ArchivHome;
     @FXML
-    private Label errorLabelEmploye, errorLabelStudent, aneeselect;
-
-    @FXML
-    private JFXDatePicker birthDate1;
+    private Label errorLabelStudent, aneeselect;
 
 
-    @FXML
-    private JFXComboBox<?> comboStudentSearchBy;
-    @FXML
-    private JFXTextField searchStudentField, prenostudent1, namstudent1;
-
-    @FXML
-    private JFXComboBox<?> comboStudentSectionFilter;
-
-    @FXML
-    private JFXTreeTableView<?> tableUserTrac;
-
-    @FXML
-    private PieChart pieChartEmploye;
-
-    @FXML
-    private PieChart pieChartEmployeRigime;
 
     @FXML
     private VBox employePane;
     @FXML
-    private HBox searchToolsBox, lesAnee;
+    private HBox lesAnee;
 
-    @FXML
-    private JFXComboBox<?> comboEmployeSearchBy;
-
-    @FXML
-    private JFXTreeTableView<?> tableEmployeTrac;
 
     @FXML
     private JFXTreeTableView<TableEmployee> tableemployer;
@@ -124,18 +96,11 @@ public class ArchiveController implements Initializable {
             dateOfBirthCol, placeOfBirthCol, jobCol;
     @FXML
     private JFXTextField searchEmployer, searchEleve;
-    @FXML
-    private PieChart pieChartStudent;
 
     @FXML
     private JFXListView<String> yearSelect;
 
-    @FXML
-    private PieChart pieChartRigimeStudent;
-    @FXML
-    private JFXTextField searchField;
-    @FXML
-    private JFXTreeTableView tableEleveTrac;
+
     @FXML
     private JFXTreeTableView<TableEleve> tableEleve;
     @FXML
@@ -187,39 +152,12 @@ public class ArchiveController implements Initializable {
 
     @FXML
     void creeAnee() {
-        int az = 2120;
+
         yearSelect.getItems().add(az + "-" + (++az));
-        az++;
 
     }
-
-    @FXML
-    void backtoanee() {
-
-
-    }
-
-    @FXML
-    void btnFilterStudent() {
-
-    }
-
-    @FXML
-    void btnSearchToolsStudent() {
-
-    }
-
-    @FXML
-    void btnViewStatisticStudent() {
-
-    }
-
     @FXML
     void btnBackward() {
-       /* tableEleve.getColumns().removeAll();
-        tableemployer.getColumns().removeAll();
-        tableEleve.getRoot().getChildren().remove();
-       */
         employePane.setVisible(false);
         studentPane.setVisible(false);
         choosePane.setVisible(false);
@@ -255,8 +193,6 @@ public class ArchiveController implements Initializable {
     @FXML
     void showStudent() {
 
-        btnSearchToolsEmploye();
-        initializeTableEmploye();
         ArchivHome.setVisible(false);
         studentPane.setVisible(true);
         choosePane.setVisible(false);
@@ -271,37 +207,6 @@ public class ArchiveController implements Initializable {
         initializeTableEleve(nomes);
 
     }
-
-    private void initializeTableEmploye() {
-
-    }
-
-    private void btnSearchToolsEmploye() {
-    }
-
-    @FXML
-    void updateTableEmploye() {
-
-    }
-
-    @FXML
-    void updateTableEleve() {
-
-    }
-
-    @FXML
-    void updateTableUser() {
-
-    }
-
-    @FXML
-    void viewChartEmploye() {
-
-    }
-
-    public void searchAvanc(ActionEvent actionEvent) {
-    }
-
 
     private void initializeTable(String nome) {
         idCol = new JFXTreeTableColumn<>("رقم التسجيل");
@@ -399,7 +304,6 @@ public class ArchiveController implements Initializable {
             FileReader reader = new FileReader(decryptedFile);
             BufferedReader li=new BufferedReader(reader);
             String line;
-            int i=0;
 
             if ((li.readLine()).equals("Eleve")) {
                 while((line=li.readLine()).compareTo("lafin***")!=0){
@@ -740,7 +644,7 @@ public class ArchiveController implements Initializable {
         emplSelected.setFonction(jobCol.getCellData(index));
         emplSelected.setDateNaissance(Date.valueOf(dateOfBirthCol.getCellData(index)));
         emplSelected.setLieuNaissance(placeOfBirthCol.getCellData(index));
-        emplSelected.setRemarque(remarqueCol.getCellData(index));
+        //emplSelected.setRemarque(remarqueCol.getCellData(index));
         List<Employe> emplyDB = archv;
         if (emplyDB == null) {
             System.out.println("Connection Failed !");
@@ -775,16 +679,6 @@ public class ArchiveController implements Initializable {
         JFXDialogLayout content = new JFXDialogLayout();
         Text headerText = new Text("عرض التكاليف لهذه السنة\n\n");
 
-        /*Label matine=new Label();
-        matine.setText(Matin);
-        Label MatApreme=new Label();
-        MatApreme.setText(MatAprem);
-        Label Apreme=new Label();
-        Apreme.setText(Aprem);
-        Label Demie=new Label();
-        Demie.setText(Demi);
-        Label Complete=new Label();
-        Complete.setText(Complet);*/
         Text contentText = new Text("صباح  :" + Matin + "\n\n" + "مساء : " + Aprem + "\n\n" + "صباح+مساء : " + MatAprem + "\n\n" + " صباح+نصف داخلي  :" + Demi + "\n\n" + " كامل : " + Complet + "\n\n");
         headerText.setStyle("-fx-font-size: 20px");
         contentText.setStyle("-fx-font-size: 18px");

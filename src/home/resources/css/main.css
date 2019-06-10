@@ -5,6 +5,7 @@
 /* Start Title Header Style */
 
 .title-header {
+
     -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, #2196f3 50%);
     -fx-font-family: Tahoma;
     -fx-font-size: 36px;
@@ -14,17 +15,6 @@
     -fx-text-fill: #895959;
     -fx-font-family: Tahoma;
     -fx-font-size: 36px;
-}
-
-
-.ROOTNODE {
--fx-background-radius: 30 0 0 0;
--fx-border-radius: 30 0 0 0;
-}
-
-.roundImageView{
--fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
--fx-background-radius: 30;
 }
 
 /* End Title Header Style */
@@ -181,41 +171,4 @@ DatePicker {
     /* This style for the name of user showing in dialog of stat */
     -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, #2196f3 50%);
     -fx-font-size: 16px
-}
-
-.move-fontawesome {
-    -fx-cursor: hand;
-    -fx-fill: #4DABF5
-}
-
-.move-fontawesome:hover {
-    -fx-fill: #2196f3
-}
-.move-fontawesome:pressed {
-    -fx-scale-y: 0.9;
-    -fx-scale-x: 0.9;
-}
-/*-----------ListView Styles--------------*/
-.list-cell {
-    -fx-alignment: center;
-    -fx-font-size: 16.0;
-}
-.list-cell:filled:selected:focused, .list-cell:filled:selected {
-    -fx-background-color: linear-gradient(#328BDB 0%, #207BCF 25%, #1973C9 75%, #0A65BF 100%);
-    -fx-text-fill: white;
-}
-
-.list-cell:odd {
-    -fx-cell-hover-color: #0093ff;
-    -fx-background-color: white;
-}
-
-.list-cell:filled:hover {
-    -fx-cell-hover-color: #0093ff;
-    -fx-text-fill: #2196f3;
-}
-
-.label-white {
-    -fx-text-fill:#ffffff;
-    -fx-font-size:24px;
 }

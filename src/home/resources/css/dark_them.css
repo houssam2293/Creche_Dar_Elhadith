@@ -7,10 +7,6 @@
     -fx-color-1:#1976D2;
 }
 
-.ROOTNODE {
--fx-background-radius: 30;
--fx-border-radius: 30;
-}
 .root{
     -fx-background-color: -fx-primary;
 }

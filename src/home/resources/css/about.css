@@ -1,0 +1,28 @@
+* {
+    -fx-font-family:  "Arabic Typesetting"
+ }
+
+.Label{
+    -fx-text-fill: white;
+    -fx-font-family: Arabic Typesetting;
+    -fx-font-size: 30px;
+}
+.Label-medium{
+    -fx-text-fill: white;
+    -fx-font-family: Arabic Typesetting;
+    -fx-font-size: 28px;
+}
+
+.Label-small{
+    -fx-text-fill: white;
+    -fx-font-family: Arabic Typesetting;
+    -fx-font-size: 24px;
+}
+.icon-close:hover {
+    -fx-cursor: hand;
+    -fx-fill: #FF3D22
+}
+.icon-close:pressed{
+    -fx-scale-y: 0.9;
+    -fx-scale-x: 0.9;
+}

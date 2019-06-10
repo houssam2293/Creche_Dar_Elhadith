@@ -6,15 +6,10 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
-<?import java.net.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0"
-            prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.171"
+<?import java.net.URL?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="480.0"
+            stylesheets="@../css/scrollPane.css" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="home.controllers.editClassController">
-    <stylesheets>
-        <URL value="@../css/main.css"/>
-        <URL value="@../css/manageEmployee.css"/>
-        <URL value="@../css/eleve.css"/>
-    </stylesheets>
     <VBox fx:id="root" prefHeight="628.0" prefWidth="480.0" spacing="35.0">
         <padding>
             <Insets bottom="20.0" left="40.0" right="35.0" top="20.0"/>
@@ -30,7 +25,7 @@
             <padding>
                 <Insets bottom="20.0"/>
             </padding>
-            <Label alignment="CENTER" text="تعديل بيانات القسم">
+            <Label alignment="CENTER" stylesheets="@../css/JFXTreeTableView-CSS.css" text="تعديل بيانات القسم">
                 <styleClass>
                     <String fx:value="title-header"/>
                     <String fx:value="titleUserLabel"/>
@@ -44,12 +39,12 @@
             </VBox.margin>
         </JFXTextField>
         <HBox prefHeight="30.0" prefWidth="386.0" spacing="20.0">
-            <JFXTextField fx:id="ClassNam" labelFloat="true" prefHeight="37.0" prefWidth="388.0"
-                          promptText="إسم القسم" styleClass="field"/>
+            <JFXTextField fx:id="ClassNam" labelFloat="true" prefHeight="37.0" prefWidth="388.0" promptText="إسم القسم"
+                          styleClass="field"/>
         </HBox>
         <HBox layoutX="50.0" layoutY="246.0" spacing="20.0">
-            <JFXTextField fx:id="ClassRom" labelFloat="true" prefHeight="37.0" prefWidth="392.0"
-                          promptText="القاعة" styleClass="field"/>
+            <JFXTextField fx:id="ClassRom" labelFloat="true" prefHeight="37.0" prefWidth="392.0" promptText="القاعة"
+                          styleClass="field"/>
         </HBox>
         <JFXTextField fx:id="maxNbrElev" labelFloat="true" layoutX="50.0" layoutY="395.0" prefHeight="25.0"
                       prefWidth="523.0" promptText="عدد التلاميذ  (الحد الأقصى)" styleClass="field"/>
@@ -59,10 +54,8 @@
             <opaqueInsets>
                 <Insets/>
             </opaqueInsets>
-            <JFXButton onAction="#btnEdit" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium"
-                       text="موافق"/>
-            <JFXButton onAction="#btnClos" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium"
-                       text="الغاء"/>
+            <JFXButton onAction="#btnEdit" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="موافق"/>
+            <JFXButton onAction="#btnClos" prefHeight="45.0" prefWidth="170.0" styleClass="btn-medium" text="الغاء"/>
         </HBox>
     </VBox>
     <EmojiOneView glyphName="X" layoutX="434.0" layoutY="30.0" onMouseClicked="#btnClose" size="20"

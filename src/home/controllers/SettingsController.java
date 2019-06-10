@@ -570,7 +570,6 @@ public class SettingsController extends Component implements Initializable {
         });
 
         newUserOption.setOnMouseClicked(e -> {
-            System.out.println("Add New User Clicked!");
             changeUsernamePane.setVisible(false);
             changeEmailPane.setVisible(false);
             charity.setVisible(false);
@@ -636,6 +635,8 @@ public class SettingsController extends Component implements Initializable {
             changeUsernamePane.setVisible(false);
             changeEmailPane.setVisible(false);
             changePasswordPane.setVisible(false);
+            charity.setVisible(false);
+            money.setVisible(false);
             addNewUserPane.setVisible(false);
             changeLanguagePane.setVisible(true);
             save.setVisible(false);
@@ -862,13 +863,16 @@ public class SettingsController extends Component implements Initializable {
     @FXML
     private void btnPrint() {
         Text textArea = new Text();
-        textArea.setText("اختبار الطباعة!   \n اختبار الطباعة اختبار الطباعة اختبار الطباعة \n اختبار الطباعةاختبار الطباعةاختبار الطباعةاختبار الطباعةاختبار الطباعة ");
+        //textArea.setText("ﺔﻋﺎﺒﻄﻟﺍ ﺭﺎﺒﺘﺧﺍ ﺔﻋﺎﺒﻄﻟﺍ ﺭﺎﺒﺘﺧﺍ ﺔﻋﺎﺒﻄﻟﺍ ﺭﺎﺒﺘﺧﺍ ");
+        textArea.setText("من السماء");
 
         PrinterJob job = PrinterJob.createPrinterJob();
         job.showPrintDialog(null);
         Printer printer = job.getPrinter();
         PageLayout pageLayout = printer.createPageLayout(Paper.A4, PageOrientation.PORTRAIT, Printer.MarginType.DEFAULT);
 
+        textArea.setScaleX(-1);
+        textArea.setScaleY(1);
         textArea.setTranslateX(10);
         textArea.setTranslateY(10);
         job.printPage(pageLayout, textArea);

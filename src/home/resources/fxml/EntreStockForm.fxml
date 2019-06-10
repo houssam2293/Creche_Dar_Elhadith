@@ -9,11 +9,7 @@
 <?import java.lang.String?>
 <?import java.net.URL?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="480.0"
-            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="home.controllers.EntreStockFormController">
-    <stylesheets>
-        <URL value="@../css/main.css"/>
-        <URL value="@../css/manageEmployee.css"/>
-    </stylesheets>
+            xmlns="http://javafx.com/javafx/8.0.171" fx:controller="home.controllers.EntreStockFormController">
     <ScrollPane hbarPolicy="NEVER" stylesheets="@../css/scrollPane.css" AnchorPane.bottomAnchor="0.0"
                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <VBox fx:id="root" prefHeight="641.0" prefWidth="483.0" spacing="35.0">
@@ -31,7 +27,7 @@
                 <padding>
                     <Insets bottom="20.0"/>
                 </padding>
-                <Label alignment="CENTER" text="ادخال منتوج">
+                <Label alignment="CENTER" stylesheets="@../css/JFXTreeTableView-CSS.css" text="ادخال منتوج">
                     <styleClass>
                         <String fx:value="title-header"/>
                         <String fx:value="titleUserLabel"/>

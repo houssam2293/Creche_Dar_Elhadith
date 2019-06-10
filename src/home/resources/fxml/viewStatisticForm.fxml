@@ -2,7 +2,6 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
-<?import java.net.URL?>
 <?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.NumberAxis?>
@@ -12,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
-
+<?import java.net.URL?>
 <AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="585.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.ViewStatisticFormController">
     <stylesheets>
         <URL value="@../css/main.css" />
@@ -30,7 +29,9 @@
                   <CategoryAxis label="العمال" side="BOTTOM" fx:id="xAxis" />
                </xAxis>
                <yAxis>
-                  <NumberAxis fx:id="yAxis" label="نسبة الغيابات" minorTickCount="10" prefHeight="398.0" prefWidth="65.0" side="LEFT" tickLabelGap="10.0" upperBound="40.0">
+                   <NumberAxis fx:id="yAxis" label="نسبة الغيابات" minorTickCount="10" minorTickLength="1.0"
+                               prefHeight="398.0" prefWidth="65.0" side="LEFT" tickLabelGap="10.0" tickUnit="1.0"
+                               upperBound="10.0">
                      <tickLabelFont>
                         <Font name="System Bold" size="15.0" />
                      </tickLabelFont>

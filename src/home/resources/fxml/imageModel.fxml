@@ -5,9 +5,9 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="593.0" maxWidth="610.0" prefHeight="593.0"
-            prefWidth="610.0" stylesheets="@../css/main.css" xmlns="http://javafx.com/javafx/8.0.171"
-            fx:controller="home.controllers.ImageModel">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="593.0" maxWidth="610.0"
+            nodeOrientation="LEFT_TO_RIGHT" prefHeight="593.0" prefWidth="610.0" stylesheets="@../css/main.css"
+            xmlns="http://javafx.com/javafx/8.0.171" fx:controller="home.controllers.ImageModel">
     <HBox layoutX="167.0" layoutY="14.0" prefHeight="30.0" spacing="10.0" AnchorPane.topAnchor="20.0">
         <Label fx:id="classeLable" alignment="CENTER" contentDisplay="CENTER" nodeOrientation="RIGHT_TO_LEFT"
                prefHeight="23.0" prefWidth="72.0" styleClass="field" textAlignment="RIGHT" textFill="#fc0202"/>
@@ -83,7 +83,7 @@
         <HBox alignment="CENTER" prefHeight="115.0" prefWidth="449.0">
             <Label alignment="TOP_RIGHT" contentDisplay="CENTER" prefHeight="104.0" prefWidth="344.0"
                    styleClass="field-smaller"
-                   text="مديري الفاض لك منـي كل الشكر و التقدير و عطر  الوُرُود لكلِ مـجهوداتك السامية ، فأنت  صانع الأجيال معلمتـي الغالية يا بانية الأجيال ، و عنوان الـمجد كنت و لا زلت النبـراس الذي ينيـر دربـي"
+                   text="مديري الفاضل لك منـي كل الشكر و التقدير و عطر  الوُرُود لكلِ مـجهوداتك السامية ، فأنت  صانع الأجيال معلمتـي الغالية يا بانية الأجيال ، و عنوان الـمجد كنت و لا زلت النبـراس الذي ينيـر دربـي"
                    textAlignment="RIGHT" textFill="#9a5f5f" wrapText="true"/>
         </HBox>
     </VBox>

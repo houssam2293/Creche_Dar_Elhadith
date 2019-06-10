@@ -196,6 +196,10 @@ public class MainController implements Initializable {
     public void aboutClicked() {
         styleBox(8);
 
+        if (aboutDialog.isVisible()) {
+            aboutDialog.close();
+        } else
+            aboutDialog.show();
     }
 
 
@@ -400,6 +404,9 @@ public class MainController implements Initializable {
             pointag = FXMLLoader.load(getClass().getResource("/fxml/pointage.fxml"));
             images = FXMLLoader.load(getClass().getResource("/home/resources/fxml/traitmentImage.fxml"));
             classePane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/classe.fxml"));
+            AnchorPane aboutPane = FXMLLoader.load(getClass().getResource("/home/resources/fxml/about.fxml"));
+            aboutDialog = new JFXDialog(rightPane, aboutPane, JFXDialog.DialogTransition.TOP);
+
 
 
         } catch (IOException e) {

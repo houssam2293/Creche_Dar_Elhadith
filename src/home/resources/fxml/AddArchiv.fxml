@@ -8,8 +8,8 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
 <?import java.net.URL?>
-<AnchorPane fx:id="addArchiv" nodeOrientation="RIGHT_TO_LEFT" prefHeight="357.0" prefWidth="340.0"
-            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="addArchiv" nodeOrientation="RIGHT_TO_LEFT" prefHeight="357.0"
+            prefWidth="340.0" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="home.controllers.AddArchivController">
     <stylesheets>
         <URL value="@../css/main.css"/>
@@ -27,7 +27,8 @@
         <padding>
             <Insets top="5.0"/>
         </padding>
-        <Label prefHeight="48.0" prefWidth="153.0" text="               تعيين السنة"/>
+        <Label prefHeight="48.0" prefWidth="153.0" styleClass="titleUserLabel"
+               stylesheets="@../css/JFXTreeTableView-CSS.css" text="               تعيين السنة"/>
         <JFXListView fx:id="yearSelect" prefHeight="207.0" prefWidth="231.0"/>
     </VBox>
     <HBox prefHeight="41.0" prefWidth="340.0" AnchorPane.bottomAnchor="0.0">

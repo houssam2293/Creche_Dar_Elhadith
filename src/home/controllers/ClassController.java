@@ -2,7 +2,6 @@ package home.controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import de.jensd.fx.glyphs.emojione.EmojiOneView;
 import home.dbDir.ClasseDB;
 import home.dbDir.EleveDB;
 import home.java.ClasseModel;
@@ -43,7 +42,6 @@ import static home.controllers.editClassController.classSelected;
 public class ClassController implements Initializable {
 
     public HBox lesclass;
-    public EmojiOneView print;
     public JFXButton edit;
     public JFXButton remove;
     public JFXButton cree;

@@ -101,4 +101,13 @@ public class EntreStock extends RecursiveTreeObject<EntreStock> {
     public void setTypeProduit(int typeProduit) {
         this.typeProduit = typeProduit;
     }
+
+    public String getProdectName() {
+        String name = null;
+        if (typeProduit == 1) name = "طعام";
+        else if (typeProduit == 2) name = "كتب و كراريس";
+        else if (typeProduit == 3) name = "أخرى";
+
+        return name;
+    }
 }

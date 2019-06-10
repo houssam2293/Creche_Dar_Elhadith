@@ -116,7 +116,7 @@ public class StockDB {
                 st = con.createStatement();
 
                 sql.append("`id`='").append(stock.getId());
-                sql.append("', `typeProduit`='").append(stock.getNom());
+                sql.append("', `typeProduit`='").append(stock.getTypeProduit());
                 sql.append("', `nom`='").append(stock.getNom());
                 sql.append("', `dateFab`='").append(stock.getDateFab());
                 sql.append("', `dateExp`='").append(stock.getDateExp().toString());

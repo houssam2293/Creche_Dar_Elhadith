@@ -1,0 +1,14 @@
+* {
+    -fx-font-family:  "Arabic Typesetting"
+ }
+.text-field {
+    -fx-background-color: #a9a9a9 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+        -fx-font-family: Arabic Typesetting;
+        -fx-font-size: 22px;
+}
+
+.text-field:focused {
+    -fx-background-color: #2196F3 , white , white;
+    -fx-background-insets: 0 -1 -1 -1, 0 0 0 0, 0 -1 3 -1;
+}

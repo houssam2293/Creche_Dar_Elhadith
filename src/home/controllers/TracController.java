@@ -2,12 +2,12 @@ package home.controllers;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.controls.datamodels.treetable.RecursiveTreeObject;
-import home.dbDir.EleveDB;
-import home.dbDir.EmployeDB;
-import home.dbDir.StockDB;
-import home.dbDir.fraisDB;
+import home.dbDir.*;
+import home.java.ClasseModel;
+import home.java.Eleve;
 import home.java.Employe;
 import javafx.animation.FadeTransition;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,6 +21,7 @@ import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -111,6 +112,7 @@ public class TracController implements Initializable {
     private EleveDB eleveDB;
     private fraisDB fraisDB;
     private StockDB stockDB;
+    private List<ClasseModel> clsDB;
 
     @FXML
     void LesFrais() {
@@ -134,7 +136,20 @@ public class TracController implements Initializable {
 
     @FXML
     void btnFilterClasse() {
-
+        String classe = comboClasse.getSelectionModel().getSelectedItem();
+        ClasseModel selectedClasse = new ClasseModel();
+        for (ClasseModel classeModel : clsDB) {
+            if (classeModel.getClassNam().equals(classe)) {
+                selectedClasse.setClassNam(classeModel.getClassNam());
+                selectedClasse.setId(classeModel.getId());
+                selectedClasse.setClassRom(classeModel.getClassRom());
+                selectedClasse.setmaxNbrElev(classeModel.getmaxNbrElev());
+                selectedClasse.setremarque(classeModel.getremarque());
+            }
+        }
+        tableStudentTrac.setPredicate(eleve -> {
+            return eleve.getValue().classroom.getValue().toLowerCase().contains(selectedClasse.getClassNam().toLowerCase());
+        });
 
     }
 
@@ -186,7 +201,6 @@ public class TracController implements Initializable {
     @FXML
     void showStudent() {
         btnSearchToolsEmploye();
-        initializeTableEmploye();
 
         studentPane.setVisible(true);
         choosePane.setVisible(false);
@@ -295,7 +309,9 @@ public class TracController implements Initializable {
     void updateTable() {
         errorLabelEmploye.setText("");
         ObservableList<ManageEmployeeController.TableEmployee> employes = FXCollections.observableArrayList();
+        ObservableList<EleveController.TableEleve> eleves = FXCollections.observableArrayList();
         comboEmployeSearchBy.setValue(null);
+        comboStudentSearch.setValue(null);
 
         List<Employe> employeeDB = new EmployeDB().getEmployee();
         if (employeeDB == null) {
@@ -309,10 +325,22 @@ public class TracController implements Initializable {
                         employe.getCelibacyTitle(), employe.getMaleChild(), employe.getFemaleChild()));
             }
         }
+        List<Eleve> eleveDB = new EleveDB().getEleve();
+        if (eleveDB == null) {
+            errorLabelStudent.setText("Connection Failed !");
+        } else {
+            for (Eleve eleve : eleveDB) {
+                eleves.add(new EleveController.TableEleve(eleve.getId(), eleve.getGender(), eleve.getNom(), eleve.getPrenom(), eleve.getClasse(), eleve.getDateNaissance(),
+                        eleve.getLieuNaissance(), eleve.getAdresse(), eleve.getPhone(), eleve.getRemarque(), eleve.getAnneeScolaire(), eleve.getRegime(), eleve.getPrenomPere(),
+                        eleve.getNomMere(), eleve.getPrenomMere(), eleve.getTravailPere(), eleve.getTravailMere(), eleve.getWakil(), eleve.getMaladie(), eleve.getTranches(), eleve.getMontantRestant()));
+            }
+        }
 
         final TreeItem<ManageEmployeeController.TableEmployee> treeItem = new RecursiveTreeItem<>(employes, RecursiveTreeObject::getChildren);
+        final TreeItem<EleveController.TableEleve> treeItemEleve = new RecursiveTreeItem<>(eleves, RecursiveTreeObject::getChildren);
         try {
             tableEmployeeTrac.setRoot(treeItem);
+            tableStudentTrac.setRoot(treeItemEleve);
         } catch (Exception ex) {
             System.out.println("Error catched !");
         }
@@ -327,6 +355,7 @@ public class TracController implements Initializable {
         initPaiChart();
         updateTable();
     }
+
 
     @FXML
     void updateStudentChart() {
@@ -347,9 +376,8 @@ public class TracController implements Initializable {
             pieChartGenderStudent.setVisible(false);
             pieChartSchoolYear.setVisible(false);
         }
-
         updateTable();
-
+        comboClasse.getSelectionModel().select(null);
     }
 
     @FXML
@@ -464,6 +492,12 @@ public class TracController implements Initializable {
         pieChartFraisSortants.setData(data);
         pieChartFraisSortants.setTitle("المصارف");
 
+        data.forEach(d
+                        -> d.nameProperty().bind(
+                Bindings.concat((d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "$1"), " ", d.getName())
+                )
+        );
+
     }
 
     private void initPieFraisEntrants() {
@@ -474,6 +508,12 @@ public class TracController implements Initializable {
 
         pieChartFraisEntrants.setData(data);
         pieChartFraisEntrants.setTitle("الربح");
+
+        data.forEach(d
+                        -> d.nameProperty().bind(
+                Bindings.concat((d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "$1"), " ", d.getName())
+                )
+        );
 
     }
 
@@ -486,6 +526,12 @@ public class TracController implements Initializable {
 
         pieChartStock.setData(data);
         pieChartStock.setTitle("تفاصيل المخزن");
+
+        data.forEach(d
+                        -> d.nameProperty().bind(
+                Bindings.concat((d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "$1"), " ", d.getName())
+                )
+        );
 
     }
 
@@ -515,6 +561,12 @@ public class TracController implements Initializable {
 
         pieChartEmployeRigime.setData(data);
         pieChartEmployeRigime.setTitle("عدد العمال في مختلف فترات العمل");
+
+        data.forEach(d
+                        -> d.nameProperty().bind(
+                Bindings.concat((d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "$1"), " ", d.getName())
+                )
+        );
     }
 
     private void initChartRegimeStudent() {
@@ -528,6 +580,12 @@ public class TracController implements Initializable {
 
         pieChartRegimeStudent.setData(data);
         pieChartRegimeStudent.setTitle("عدد التلاميذ في مختلف فترات الدراسة");
+
+        data.forEach(d
+                        -> d.nameProperty().bind(
+                Bindings.concat((d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "$1"), " ", d.getName())
+                )
+        );
     }
 
     private void initChartGenderStudent() {
@@ -538,6 +596,12 @@ public class TracController implements Initializable {
 
         pieChartGenderStudent.setData(data);
         pieChartGenderStudent.setTitle("عدد التلاميذ حسب الجنس");
+
+        data.forEach(d
+                        -> d.nameProperty().bind(
+                Bindings.concat((d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "$1"), " ", d.getName())
+                )
+        );
     }
 
     private void initChartSchoolYear() {
@@ -548,6 +612,12 @@ public class TracController implements Initializable {
 
         pieChartSchoolYear.setData(data);
         pieChartSchoolYear.setTitle("عدد التلاميذ حسب السنة الدراسية");
+
+        data.forEach(d
+                        -> d.nameProperty().bind(
+                Bindings.concat((d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "$1"), " ", d.getName())
+                )
+        );
     }
 
 
@@ -566,6 +636,14 @@ public class TracController implements Initializable {
         comboEmployeSearchBy.getItems().addAll("رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد",
                 "مكان الملاد", "المهنة", "العنوان الشخصي", "الهاتف",
                 "رقم الضمان الإجتماعي", "الشهادات", "تاريخ أول تعيين", "الخبرة", "حالة التعاقد", "فترة العمل", "الحالة العائلية", "لقب العزوبة", "عدد بنون", "عدد بنات");
+
+
+        clsDB = new ClasseDB().getClasse();
+        ArrayList<String> classes = new ArrayList<>();
+        for (ClasseModel classeModel : clsDB) {
+            classes.add(classeModel.getClassNam());
+        }
+        comboClasse.getItems().addAll(classes);
 
 
         employeDB = new EmployeDB();

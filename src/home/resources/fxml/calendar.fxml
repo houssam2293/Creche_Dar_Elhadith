@@ -22,15 +22,11 @@
         </padding>
         <HBox alignment="CENTER_LEFT" prefHeight="83.0" prefWidth="1222.0" spacing="20.0">
             <OctIconView fill="#2196f3" glyphName="CALENDAR" size="40" wrappingWidth="43.0"/>
-            <Label prefHeight="50.0" prefWidth="300.0" style="-fx-font-size: 23px;" styleClass="title-header"
+            <Label prefHeight="89.0" prefWidth="300.0" styleClass="title-header" stylesheets="@../css/style.css"
                    text="جدول الأوقات">
                 <font>
                     <Font name="Tahoma" size="34.0"/>
                 </font>
-                <stylesheets>
-                    <URL value="@../css/trac.css"/>
-                    <URL value="@../css/main.css"/>
-                </stylesheets>
             </Label>
             <Label fx:id="dateLabel" alignment="CENTER" prefHeight="50.0" prefWidth="400.0" styleClass="date-header"/>
             <Label fx:id="errorLabel" alignment="CENTER" prefHeight="43.0" prefWidth="290.0"
@@ -262,7 +258,7 @@
                             <JFXButton fx:id="editTimebtn" disable="true" onAction="#editTimeTable" prefHeight="39.0"
                                        prefWidth="190.0" text="تحديث جدول أوقات"/>
                             <JFXButton fx:id="printTimebtn" disable="true" onAction="#printTimeTable" prefHeight="39.0"
-                                       prefWidth="190.0" text="طباعة جدول أوقات"/>
+                                       prefWidth="190.0" text="تحويل الجدول إلى Excel"/>
                         </VBox>
                     </AnchorPane>
                 </Tab>
@@ -312,13 +308,10 @@
                                 <VBox fx:id="weekdayTimeTable" layoutY="100.0" maxHeight="-Infinity"
                                       maxWidth="-Infinity" prefHeight="465.0" prefWidth="120.0"/>
                                 <HBox fx:id="hourDayTimeTable" maxHeight="-Infinity" maxWidth="-Infinity"
-                                      prefHeight="100.0" prefWidth="875.0"/>
+                                      prefHeight="100.0" prefWidth="900.0"/>
                                 <GridPane fx:id="timeTable" layoutX="120.0" layoutY="100.0" maxHeight="-Infinity"
                                           maxWidth="-Infinity" prefHeight="465.0" prefWidth="784.0">
                                     <columnConstraints>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>

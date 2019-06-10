@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
-<?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
+<?import java.net.URL?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="Class" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0"
-           prefWidth="1186.0" style="-fx-background-color: #FFF;" stylesheets="@../css/main.css"
-           xmlns="http://javafx.com/javafx/8.0.171" fx:controller="home.controllers.ClassController">
+           prefWidth="1186.0" style="-fx-background-color: #FFF;" xmlns="http://javafx.com/javafx/8.0.171"
+           fx:controller="home.controllers.ClassController">
     <VBox fx:id="ClassHome" prefHeight="755.0" prefWidth="1245.0">
         <HBox alignment="CENTER_LEFT" spacing="20.0">
             <VBox.margin>
@@ -19,29 +20,67 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
             </padding>
             <MaterialDesignIconView fill="#2196f3" glyphName="SCHOOL" size="50" wrappingWidth="47.0"/>
-            <Label prefHeight="97.0" prefWidth="315.0" styleClass="title-header" text="إدارة الأقسام"
-                   textFill="#253ebc">
+            <Label prefHeight="97.0" prefWidth="315.0" styleClass="title-header" stylesheets="@../css/style.css"
+                   text="إدارة الأقسام" textFill="#253ebc">
                 <font>
                     <Font name="Arabic Typesetting" size="45.0"/>
                 </font>
             </Label>
         </HBox>
-        <HBox prefHeight="46.0" prefWidth="1189.0">
-            <Label prefHeight="54.0" prefWidth="280.0"/>
-            <JFXButton fx:id="cree" onAction="#creeClass" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view"
-                       stylesheets="@../css/eleve.css" text="إضافة قسم"/>
-            <Label prefHeight="17.0" prefWidth="66.0"/>
-            <JFXButton fx:id="edit" onAction="#editClass" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view"
-                       stylesheets="@../css/eleve.css" text="تعديل بيانات القسم"/>
-            <Label prefHeight="17.0" prefWidth="66.0"/>
-            <JFXButton fx:id="remove" onAction="#removeClass" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view"
-                       stylesheets="@../css/eleve.css" text="خذف القسم"/>
-            <Label prefHeight="17.0" prefWidth="66.0"/>
-            <EmojiOneView fx:id="print" fill="#2196f3" glyphName="PRINTER" onMouseClicked="#printClass" size="50"
-                          styleClass="printer"/>
+        <HBox prefHeight="46.0" prefWidth="1189.0" spacing="30.0">
+            <Label prefHeight="50.0" prefWidth="216.0"/>
+            <JFXButton fx:id="cree" contentDisplay="CENTER" onAction="#creeClass" prefHeight="40.0" prefWidth="35.0"
+                       ripplerFill="#15d32b" style="-fx-background-color: white; -fx-border-color: green;"
+                       styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433"
+                       textOverrun="CLIP">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+                <graphic>
+                    <FontAwesomeIconView fill="#0b8a1c" glyphName="PLUS" size="30" textAlignment="CENTER"
+                                         wrappingWidth="22.571428298950195"/>
+                </graphic>
+            </JFXButton>
+            <JFXButton fx:id="edit" contentDisplay="CENTER" onAction="#editClass" prefHeight="40.0" prefWidth="35.0"
+                       ripplerFill="#4144ff" style="-fx-background-color: white; -fx-border-color: blue;"
+                       styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433"
+                       textOverrun="CLIP">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+                <graphic>
+                    <FontAwesomeIconView fill="#0037ff" glyphName="EDIT" size="30" textAlignment="CENTER"
+                                         wrappingWidth="22.571428298950195"/>
+                </graphic>
+            </JFXButton>
+            <JFXButton fx:id="remove" contentDisplay="CENTER" onAction="#removeClass" prefHeight="40.0" prefWidth="35.0"
+                       ripplerFill="#f23a3a" style="-fx-background-color: white; -fx-border-color: red;"
+                       styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433"
+                       textOverrun="CLIP">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+                <graphic>
+                    <FontAwesomeIconView fill="RED" glyphName="TIMES" size="30" textAlignment="CENTER"
+                                         wrappingWidth="22.571428298950195"/>
+                </graphic>
+            </JFXButton>
+            <JFXButton contentDisplay="CENTER" onMouseClicked="#printClass" prefHeight="40.0" prefWidth="35.0"
+                       ripplerFill="BLACK" style="-fx-background-color: white; -fx-border-color: black;"
+                       styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433"
+                       textOverrun="CLIP">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+                <graphic>
+                    <FontAwesomeIconView glyphName="PRINT" size="30" textAlignment="CENTER"
+                                         wrappingWidth="22.571428298950195"/>
+                </graphic>
+            </JFXButton>
         </HBox>
         <HBox prefHeight="72.0" prefWidth="1186.0">
-            <Label prefHeight="66.0" prefWidth="204.0" styleClass="field" text="                الأقسام      ">
+            <Label prefHeight="66.0" prefWidth="204.0" styleClass="field" stylesheets="@../css/eleve.css"
+                   text="                الأقسام      ">
                 <font>
                     <Font name="Arabic Typesetting" size="24.0"/>
                 </font>
@@ -56,11 +95,16 @@
         </HBox>
         <HBox fx:id="lesclass" prefHeight="461.0" prefWidth="1189.0">
             <Label prefHeight="25.0" prefWidth="42.0"/>
-            <JFXListView fx:id="ClassSelect" onMouseClicked="#choseClass" prefHeight="461.0" prefWidth="157.0"/>
+            <JFXListView fx:id="ClassSelect" onMouseClicked="#choseClass" prefHeight="461.0" prefWidth="157.0"
+                         styleClass="l"/>
             <Label prefHeight="25.0" prefWidth="42.0"/>
             <JFXTreeTableView fx:id="tableEleve" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="453.0"
                               prefWidth="895.0" visible="false"/>
         </HBox>
         <Label prefHeight="23.0" prefWidth="19.0"/>
     </VBox>
+    <stylesheets>
+        <URL value="@../css/main.css"/>
+        <URL value="@../css/tableau.css"/>
+    </stylesheets>
 </StackPane>

@@ -138,18 +138,22 @@ public class EditStockFormController implements Initializable {
                 close();
             }
         });
-
+        comboProd.getItems().addAll("طعام", "كتب و كراريس", "أخرى");
 
 
 
 
         idField.setText(String.valueOf(stockSelected.getId()));
-        if (stockSelected.getTypeProduit() == 1)
-            comboProd.setValue("طعام");
-        else if (stockSelected.getTypeProduit() == 2)
-            comboProd.setValue("كتب و كراريس");
-        else if (stockSelected.getTypeProduit() == 3)
-            comboProd.setValue("أخرى");
+        if (stockSelected.getTypeProduit() == 1) {
+            System.out.println("Type prod : " + stockSelected.getTypeProduit());
+            comboProd.getSelectionModel().select(0);
+        } else if (stockSelected.getTypeProduit() == 2) {
+            System.out.println("Type prod : " + stockSelected.getTypeProduit());
+            comboProd.getSelectionModel().select(1);
+        } else if (stockSelected.getTypeProduit() == 3) {
+            System.out.println("Type prod : " + stockSelected.getTypeProduit());
+            comboProd.getSelectionModel().select(2);
+        }
         nomField.setText(stockSelected.getNom());
         dateFabField.setValue(java.time.LocalDate.parse(String.valueOf(stockSelected.getDateFab())));
         dateExpField.setValue(java.time.LocalDate.parse(String.valueOf(stockSelected.getDateExp())));

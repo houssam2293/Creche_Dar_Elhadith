@@ -71,10 +71,10 @@ public class ImageModel implements Initializable {
         if (job != null) {
             boolean showDialog = job.showPageSetupDialog(null);
             if (showDialog) {
-                root.setScaleX(-0.80);
-                root.setScaleY(0.80);
-                root.setTranslateX(50);
-                root.setTranslateY(-10);
+                root.setScaleX(-0.70);
+                root.setScaleY(0.70);
+                root.setTranslateX(10);
+                root.setTranslateY(10);
                 boolean success = job.printPage(root);
                 if (success) {
                     job.endJob();

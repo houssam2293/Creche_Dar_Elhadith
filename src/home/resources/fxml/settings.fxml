@@ -13,17 +13,18 @@
 <AnchorPane id="setting" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0" prefWidth="1186.0" styleClass="root" stylesheets="@../css/settings.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" HBox.hgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.SettingsController">
     <HBox alignment="CENTER_LEFT" layoutY="14.0" prefHeight="78.0" prefWidth="953.0" spacing="20.0">
         <Icons525View fill="#2196f3" glyphName="WP_COG_O" size="35"/>
-        <Label contentDisplay="CENTER" prefHeight="50.0" prefWidth="195.0" styleClass="title-header" text="إعدادات"
-               textAlignment="RIGHT"/>
+        <Label contentDisplay="CENTER" prefHeight="95.0" prefWidth="225.0" styleClass="title-header"
+               stylesheets="@../css/style.css" text="إعدادات" textAlignment="RIGHT"/>
         <Label alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="50.0"
-               prefWidth="274.0" styleClass="user-header" text="المستخدم الحالي:" textAlignment="RIGHT"/>
+               prefWidth="274.0" style="-fx-font-size: 24;" styleClass="titleUserLabel" stylesheets="@../css/main.css"
+               text="المستخدم الحالي:" textAlignment="RIGHT"/>
         <Label fx:id="accountUser" alignment="CENTER" contentDisplay="CENTER" layoutX="285.0" layoutY="10.0"
                prefHeight="50.0" prefWidth="274.0" styleClass="account-owner" textAlignment="RIGHT" textFill="#296b9e"/>
         <padding>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
         </padding>
     </HBox>
-    <VBox layoutX="40.0" layoutY="95.0" prefHeight="347.0" prefWidth="293.0" styleClass="box-select">
+    <VBox layoutX="40.0" layoutY="110.0" prefHeight="347.0" prefWidth="293.0" styleClass="box-select">
         <HBox fx:id="usernameOption" prefHeight="50.0" prefWidth="270.0" styleClass="box-option">
             <Label prefHeight="50.0" prefWidth="290.0" style="-fx-font-weight: bold;" text="إسم المستخدم" />
         </HBox>
@@ -57,7 +58,7 @@
             <Label prefHeight="50.0" prefWidth="290.0" text="اللغة" />
         </HBox>
     </VBox>
-    <VBox fx:id="changeUsernamePaneFull" layoutX="351.0" layoutY="100.0" prefWidth="601.0"
+    <VBox fx:id="changeUsernamePaneFull" layoutX="351.0" layoutY="110.0" prefHeight="543.0" prefWidth="601.0"
           style="-fx-background-color: #FFF;" styleClass="box-right" AnchorPane.leftAnchor="351.0"
           AnchorPane.topAnchor="95.0">
         <Label fx:id="headerLabel" prefHeight="39.0" prefWidth="585.0" styleClass="box-right-title" text="إسم المستخدم" />

@@ -21,14 +21,14 @@
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
             </padding>
             <MaterialDesignIconView fill="#2196f3" glyphName="ARCHIVE" size="50" wrappingWidth="50.0"/>
-            <Label prefHeight="101.0" prefWidth="473.0" styleClass="title-header" text="الأرشيف"/>
+            <Label prefHeight="101.0" prefWidth="473.0" styleClass="title-header" stylesheets="@../css/style.css"
+                   text="الأرشيف"/>
         </HBox>
         <HBox prefHeight="79.0" prefWidth="1186.0" spacing="10.0">
             <Label prefHeight="54.0" prefWidth="40.0" />
             <Label prefHeight="54.0" prefWidth="235.0" styleClass="field" text="السنوات"/>
             <JFXButton fx:id="cree" onAction="#creeAnee" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view" text="اضافة السنة" />
             <Label prefHeight="34.0" prefWidth="108.0" />
-            <JFXButton fx:id="serch" onAction="#searchAvanc" prefHeight="59.0" prefWidth="173.0" styleClass="btn-view" text="بحث متقدم" />
             <padding>
                 <Insets bottom="15.0" top="15.0"/>
             </padding>
@@ -116,7 +116,8 @@
             </VBox.margin>
             <JFXTreeTableView fx:id="tableEleve" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="896.0" />
             <VBox alignment="TOP_CENTER" prefHeight="406.0" prefWidth="263.0" spacing="10.0">
-                <JFXButton buttonType="RAISED" onAction="#showDataElev" onMouseClicked="#btnViewStatisticStudent" ripplerFill="#4476ff" styleClass="btn-view" text="عرض البيانات" />
+                <JFXButton buttonType="RAISED" onAction="#showDataElev" ripplerFill="#4476ff" styleClass="btn-view"
+                           text="عرض البيانات"/>
                 <JFXButton buttonType="RAISED" onAction="#showdatafrais" prefHeight="54.0" prefWidth="176.0"
                            ripplerFill="#4476ff" styleClass="btn-view" text="عرض التكاليف لهذه السنة"/>
             </VBox>

@@ -20,7 +20,7 @@
         <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="10.0" onMouseClicked="#expandSidebar" prefHeight="50.0" spacing="10.0" styleClass="sidebar-options">
             <FontAwesomeIconView glyphName="NAVICON" size="24" />
         </HBox>
-        <VBox VBox.vgrow="ALWAYS">
+        <VBox stylesheets="@../css/eleve.css" VBox.vgrow="ALWAYS">
             <HBox fx:id="boxHome" alignment="CENTER_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#homeClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
                 <FontAwesomeIconView fx:id="iconHome" fill="#4a4949" glyphName="HOME" size="26" />
                 <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="الرئيسية" HBox.hgrow="ALWAYS">
@@ -159,7 +159,7 @@
         </VBox>
         <HBox fx:id="boxAbout" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#aboutClicked" spacing="10.0" styleClass="sidebar-options">
             <MaterialDesignIconView fx:id="iconAbout" glyphName="INFORMATION_OUTLINE" size="27" />
-            <Label prefHeight="50.0" prefWidth="249.0" text="حول البرنامج" />
+            <Label prefHeight="50.0" prefWidth="249.0" stylesheets="@../css/eleve.css" text="حول البرنامج"/>
         </HBox>
     </VBox>
     <StackPane fx:id="rightPane" prefWidth="1194.0" HBox.hgrow="ALWAYS">

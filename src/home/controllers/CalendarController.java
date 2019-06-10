@@ -441,9 +441,7 @@ public class CalendarController implements Initializable {
                 String eventDescript = result.getString("EventDescription");
 
                 Date dDate = result.getDate("EventDate");
-                DateFormat df = new SimpleDateFormat("dd/mm/yyyy");
-                String eventDate = df.format(dDate);
-
+                String eventDate = dDate.toString();
                 String eventTime = result.getTime("EventTime").toString();
 
                 String eventType = result.getString("TypeEvent");
@@ -531,12 +529,12 @@ public class CalendarController implements Initializable {
 
     private void initializeTimeTableGrid() {
         int rows = 5;
-        int cols = 8;
+        int cols = 5;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 VBox vPane = new VBox();
                 vPane.getStyleClass().add("calendar_pane");
-                vPane.setMinWidth(timeTable.getPrefWidth() / 8);
+                vPane.setMinWidth(timeTable.getPrefWidth() / 5);
 
                 vPane.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> addEvent(vPane));
 
@@ -546,9 +544,9 @@ public class CalendarController implements Initializable {
             }
         }
 
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 5; i++) {
             ColumnConstraints col = new ColumnConstraints();
-            col.setMinWidth(scrollPane1.getHeight() / 8);
+            col.setMinWidth(scrollPane1.getHeight() / 5);
             timeTable.getColumnConstraints().add(col);
         }
     }
@@ -746,9 +744,9 @@ public class CalendarController implements Initializable {
 
     private void initializeTimetableTimesHeader() {
 
-        int dayHours = 9;
+        int dayHours = 6;
 
-        String[] weekAbbr = {"", "09h-08h", "10h-09h", "11h-10h", "12h-11h", "14h-13h", "15h-14h", "16h-15h", "17h-16h"};
+        String[] weekAbbr = {"", "10h-09h", "11h-10h", "12h-11h", "14h-13h", "15h-14h", "16h-15h"};
 
         for (int i = 0; i < dayHours; i++) {
 
@@ -760,7 +758,7 @@ public class CalendarController implements Initializable {
                 pane.setMaxWidth(Double.MAX_VALUE);
                 pane.setAlignment(Pos.CENTER);
 
-                pane.setMinWidth(120);
+                pane.setMinWidth(115);
 
                 hourDayTimeTable.getChildren().add(pane);
                 pane.getChildren().add(new Label("السنة الدراسية"));
@@ -773,7 +771,7 @@ public class CalendarController implements Initializable {
                 HBox.setHgrow(pane, Priority.ALWAYS);
                 pane.setMaxWidth(Double.MAX_VALUE);
 
-                pane.setMinWidth(hourDayTimeTable.getPrefWidth() / 9);
+                pane.setMinWidth(hourDayTimeTable.getPrefWidth() / 6);
 
                 hourDayTimeTable.getChildren().add(pane);
 

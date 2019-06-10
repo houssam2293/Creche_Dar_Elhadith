@@ -10,7 +10,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import java.net.URL?>
-<StackPane fx:id="root" prefHeight="690.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="home.controllers.Pointage">
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="690.0" prefWidth="1200.0"
+           stylesheets="@../css/tableau.css" xmlns="http://javafx.com/javafx/8.0.171"
+           fx:controller="home.controllers.Pointage">
    <children>
       <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="760.0" prefWidth="1323.0" spacing="10.0">
          <stylesheets>
@@ -22,7 +24,7 @@
                <children>
                    <MaterialDesignIconView fill="#2196f3" glyphName="TABLE_EDIT" size="50" wrappingWidth="46.0"/>
                    <Label fx:id="titleLabel" prefHeight="50.0" prefWidth="472.0" styleClass="title-header"
-                          text="تسجيل الحضور اليومي">
+                          stylesheets="@../css/style.css" text="تسجيل الحضور اليومي">
                      <font>
                         <Font name="Tahoma" size="34.0" />
                      </font>

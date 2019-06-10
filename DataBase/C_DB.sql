@@ -21,6 +21,8 @@ CREATE TABLE `creche_dar_elhadith`.`compte` (
   `password` VARCHAR(40) NOT NULL,
   PRIMARY KEY (`email`, `login`, `password`));
 
+INSERT INTO `creche_dar_elhadith`.`compte` (`email`, `login`, `password`) VALUES ('darELhadith_creche@gmail.com', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997');
+
 CREATE TABLE `creche_dar_elhadith`.`regime` (
   `idregim` INT NOT NULL,
   `typeRegim` VARCHAR(45) NOT NULL,

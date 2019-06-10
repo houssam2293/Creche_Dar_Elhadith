@@ -156,6 +156,9 @@
                               maxWidth="-Infinity" prefHeight="469.0" prefWidth="543.0" visible="false"/>
                 </StackPane>
             </VBox>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
         </HBox>
     </VBox>
     <VBox fx:id="employePane" prefHeight="690.0" prefWidth="1150.0" spacing="10.0" visible="false">
@@ -221,6 +224,9 @@
                               prefHeight="504.0" prefWidth="556.0"/>
                 </StackPane>
             </VBox>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
         </HBox>
     </VBox>
     <VBox fx:id="fraisPane" layoutX="10.0" layoutY="10.0" prefHeight="690.0" prefWidth="1150.0" spacing="10.0"
@@ -383,6 +389,9 @@
                               maxWidth="-Infinity" prefHeight="507.0" prefWidth="559.0" visible="false"/>
                 </StackPane>
             </VBox>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+            </padding>
         </HBox>
     </VBox>
 </StackPane>

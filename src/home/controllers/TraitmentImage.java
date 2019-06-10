@@ -80,6 +80,8 @@ public class TraitmentImage implements Initializable {
         classeListview.setCellFactory(new ClasseCellFactory());
         classeListview.setVisible(true);
         listViewsLabel.setText("الأقسام");
+        print.setDisable(true);
+        print.setFill(Paint.valueOf("#939da4"));
     }
 
     @FXML

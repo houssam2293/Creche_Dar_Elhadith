@@ -48,6 +48,72 @@ public class PointageDB {
         return pointageModels;
     }
 
+    public int countAbsence(String name) {
+        int absence = -1;
+        Connection connection = new ConnectionClasse().getConnection();
+        if (connection == null) {
+            return -1;
+        }
+        String sql = "select count(idEmp) from pointage where (name='" + name + "') and (presence='0');";
+
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                absence = resultSet.getInt("count(idEmp)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                    connection.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return absence;
+    }
+
+    public int countPrecence(String name) {
+        int presence = -1;
+        Connection connection = new ConnectionClasse().getConnection();
+        if (connection == null) {
+            return -1;
+        }
+        String sql = "select count(idEmp) from pointage where (name='" + name + "') and (presence='1');";
+
+        Statement statement = null;
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                presence = resultSet.getInt("count(idEmp)");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (statement != null) {
+                    statement.close();
+                    connection.close();
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return presence;
+    }
+
 
     public List<PointageModel> getPresences(LocalDate date) {
         Connection connection = new ConnectionClasse().getConnection();

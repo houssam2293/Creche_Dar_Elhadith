@@ -8,13 +8,9 @@
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
 <?import java.net.URL?>
-<AnchorPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="480.0"
-            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="480.0"
+            stylesheets="@../css/scrollPane.css" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="home.controllers.AddEmployeeFormController">
-    <stylesheets>
-        <URL value="@../css/main.css"/>
-        <URL value="@../css/manageEmployee.css"/>
-    </stylesheets>
     <ScrollPane hbarPolicy="NEVER" stylesheets="@../css/scrollPane.css" AnchorPane.bottomAnchor="0.0"
                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <VBox fx:id="root" prefHeight="641.0" prefWidth="461.0" spacing="35.0">
@@ -32,7 +28,7 @@
                 <padding>
                     <Insets bottom="20.0"/>
                 </padding>
-                <Label alignment="CENTER" text="إضافة عامل">
+                <Label alignment="CENTER" stylesheets="@../css/JFXTreeTableView-CSS.css" text="إضافة عامل">
                     <styleClass>
                         <String fx:value="title-header"/>
                         <String fx:value="titleUserLabel"/>
@@ -99,7 +95,7 @@
             <JFXTextField fx:id="diplome" labelFloat="true" promptText="الشهادات" styleClass="field"/>
             <JFXTextField fx:id="itar" labelFloat="true" promptText="الإطار" styleClass="field"/>
             <JFXTextField fx:id="fonction" labelFloat="true" promptText="المهنة" styleClass="field"/>
-            <JFXComboBox fx:id="regime" prefWidth="150.0" promptText="فترة العمل" styleClass="field"/>
+            <JFXComboBox fx:id="regime" prefWidth="230.0" promptText="فترة العمل" styleClass="field"/>
             <JFXDatePicker fx:id="firstDayOfwork" defaultColor="#2196f3" prefHeight="35.0" prefWidth="267.0"
                            promptText="تاريخ أول تعيين في المؤسسة" styleClass="field"/>
             <HBox spacing="10.0">

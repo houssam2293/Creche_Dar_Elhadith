@@ -63,19 +63,15 @@ public class CalendarDB {
         return checkingResult;
     }
 
-    //*****************************************************************************************************************************
-    // Function that returns list of filtered events to be shown in the calendar
-    // this function takes as arguments: the list of term identiftiers and the current calendar
+
     public ArrayList<String> getFilteredEvents(ArrayList<String> eventIdentifiersList, String calName) {
 
-        //Declare and instantiate ArrayList object that will hold all events for the requested term(s)
         ArrayList<String> filteredEventsList = new ArrayList<String>();
 
 
-        //Continue to get the events if the list of term IDs is not empty, i.e., if the user selected at least one filter/term
         if (!eventIdentifiersList.isEmpty()) {
             for (String s : eventIdentifiersList) {
-                //Query that will select all events that match the term ID and the calendar the user is working on
+
                 String getEventsQuery = "SELECT * FROM creche_dar_elhadith.events "
                         + "WHERE TypeEvent='" + s + "'"
                         + " AND CalendarName='" + calName + "'";

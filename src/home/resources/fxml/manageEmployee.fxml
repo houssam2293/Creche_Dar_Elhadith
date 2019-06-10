@@ -2,80 +2,126 @@
 
 <?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
-<?import javafx.geometry.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" alignment="TOP_LEFT" prefHeight="690.0" prefWidth="1192.0"
            style="-fx-background-color: #FFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8.0.171"
            fx:controller="home.controllers.ManageEmployeeController">
-    <stylesheets>
-        <URL value="@../css/main.css" />
-        <URL value="@../css/manageEmployee.css" />
-    </stylesheets>
+
     <VBox nodeOrientation="RIGHT_TO_LEFT" prefHeight="750.0" prefWidth="1313.0" spacing="10.0">
-        <stylesheets>
-            <URL value="@../css/manageEmployee.css" />
-            <URL value="@../css/main.css" />
-        </stylesheets>
+
         <StackPane.margin>
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
         </StackPane.margin>
         <HBox alignment="CENTER_LEFT" prefHeight="107.0" prefWidth="200.0" spacing="20.0">
-            <FontAwesomeIconView fill="#2196f3" glyphName="USERS" size="50"/>
-            <Label fx:id="titleLabel" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="266.0" styleClass="title-header"
-                   text="إدارة العمال">
-                <font>
-                    <Font name="Tahoma" size="34.0" />
-                </font>
-            </Label>
-            <Label id="errorLabel" fx:id="errorLabel" prefHeight="50.0" prefWidth="393.0" />
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
             </padding>
+            <children>
+                <FontAwesomeIconView fill="#2196f3" glyphName="USERS" size="50"/>
+                <Label fx:id="titleLabel" alignment="TOP_LEFT" prefHeight="50.0" prefWidth="266.0"
+                       styleClass="title-header" stylesheets="@../css/style.css" text="إدارة العمال">
+                    <font>
+                        <Font name="Tahoma" size="34.0"/>
+                    </font>
+            </Label>
+            <Label id="errorLabel" fx:id="errorLabel" prefHeight="50.0" prefWidth="393.0" />
+            </children>
         </HBox>
-        <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="5.0">
+        <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="200.0" spacing="10.0">
             <JFXTextField fx:id="searchField" labelFloat="true" prefHeight="39.0" prefWidth="197.0" promptText="بحث" styleClass="field">
                 <HBox.margin>
                     <Insets right="15.0" />
                 </HBox.margin>
             </JFXTextField>
-            <JFXComboBox id="combo" fx:id="combo" labelFloat="true" prefHeight="39.0" prefWidth="243.0" promptText="البحث عن طريق" styleClass="combo-medium">
+            <JFXComboBox id="combo" fx:id="combo" labelFloat="true" prefHeight="39.0" prefWidth="175.0"
+                         promptText="البحث عن طريق" styleClass="combo-medium">
                 <HBox.margin>
                     <Insets right="15.0" />
                 </HBox.margin>
             </JFXComboBox>
-            <JFXButton buttonType="RAISED" contentDisplay="CENTER" onMouseClicked="#updateTable" prefHeight="41.0" prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
+            <JFXButton contentDisplay="CENTER" onMouseClicked="#updateTable" prefHeight="40.0" prefWidth="35.0"
+                       ripplerFill="#4476ff" style="-fx-background-color: white; -fx-border-color: #4476ff;"
+                       styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#0059f0"
+                       textOverrun="CLIP">
                 <graphic>
-                    <FontAwesomeIconView glyphName="REFRESH" size="24" wrappingWidth="22.571428298950195" />
+                    <FontAwesomeIconView fx:id="Refresher" fill="#4476ff" glyphName="REFRESH" size="30"
+                                         textAlignment="CENTER" wrappingWidth="22.571428298950195"/>
                 </graphic>
-                <HBox.margin>
-                    <Insets right="15.0" />
-                </HBox.margin>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#addUser" prefHeight="39.0" prefWidth="130.0" ripplerFill="#4264eb" styleClass="btn-view" text="إضافة">
-                <HBox.margin>
-                    <Insets right="15.0" />
-                </HBox.margin>
+            <JFXButton fx:id="Adder" contentDisplay="CENTER" onAction="#addUser" prefHeight="40.0" prefWidth="83.0"
+                       ripplerFill="#bbceff" style="-fx-background-color: white; -fx-border-color: #15d32B;"
+                       styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433"
+                       textOverrun="CLIP">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+                <graphic>
+                    <FontAwesomeIconView fill="#15d32b" glyphName="PLUS" size="30" textAlignment="CENTER"
+                                         wrappingWidth="22.571428298950195"/>
+                </graphic>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#editUser" prefHeight="39.0" prefWidth="130.0" ripplerFill="#4264eb" styleClass="btn-view" text="تحديث">
-                <HBox.margin>
-                    <Insets right="15.0" />
-                </HBox.margin>
+            <JFXButton fx:id="Editer" contentDisplay="CENTER" onAction="#editUser" prefHeight="50.0" prefWidth="83.0"
+                       ripplerFill="#4144ff" style="-fx-background-color: white; -fx-border-color: #4476ff;"
+                       styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textOverrun="CLIP">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+                <graphic>
+                    <FontAwesomeIconView fill="#4144ff" glyphName="EDIT" size="30" textAlignment="CENTER"
+                                         wrappingWidth="22.571428298950195"/>
+                </graphic>
             </JFXButton>
-            <JFXButton buttonType="RAISED" onAction="#removeUser" prefHeight="39.0" prefWidth="130.0" ripplerFill="#4468eb" styleClass="btn-view" text="إزالة">
-                <HBox.margin>
-                    <Insets right="15.0" />
-                </HBox.margin>
+            <JFXButton fx:id="Remover" contentDisplay="CENTER" onAction="#removeUser" prefHeight="50.0" prefWidth="83.0"
+                       ripplerFill="#f23a3a" style="-fx-background-color: white; -fx-border-color: #f23a3a;"
+                       styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433"
+                       textOverrun="CLIP">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+                <graphic>
+                    <FontAwesomeIconView fill="#f23a3a" glyphName="TIMES" size="30" textAlignment="CENTER"
+                                         wrappingWidth="22.571428298950195"/>
+                </graphic>
             </JFXButton>
-            <EmojiOneView fill="#2196f3" glyphName="PRINTER" onMouseClicked="#printFile" size="50" styleClass="printer" />
-            <EmojiOneView fill="#2196f3" glyphName="EURO" layoutX="1011.0" layoutY="58.0" onMouseClicked="#money"
-                          size="50" styleClass="printer"/>
+            <JFXButton fx:id="Printe" contentDisplay="CENTER" onMouseClicked="#printFile" prefHeight="50.0"
+                       prefWidth="83.0" ripplerFill="#4476ff"
+                       style="-fx-background-color: white; -fx-border-color: black;" styleClass="btn-medium"
+                       stylesheets="@../css/eleve.css" text=" " textFill="#14a433" textOverrun="CLIP">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+                <graphic>
+                    <FontAwesomeIconView glyphName="PRINT" size="30" textAlignment="CENTER"
+                                         wrappingWidth="22.571428298950195"/>
+                </graphic>
+            </JFXButton>
+            <JFXButton contentDisplay="CENTER" onMouseClicked="#money" prefHeight="50.0" prefWidth="83.0"
+                       ripplerFill="#4476ff" style="-fx-background-color: white; -fx-border-color: black;"
+                       styleClass="btn-medium" stylesheets="@../css/eleve.css" text=" " textFill="#14a433"
+                       textOverrun="CLIP">
+                <font>
+                    <Font name="Arabic Typesetting" size="24.0"/>
+                </font>
+                <graphic>
+                    <EmojiOneView glyphName="EURO" size="30" styleClass="printer"/>
+                </graphic>
+            </JFXButton>
         </HBox>
         <JFXTreeTableView fx:id="treeTableView" fixedCellSize="0.0" onContextMenuRequested="#showRemarque"
-                          prefHeight="496.0" prefWidth="1292.0" stylesheets="@../css/JFXTreeTableView-CSS.css"/>
+                          prefHeight="496.0" prefWidth="1292.0"/>
+        <stylesheets>
+
+            <URL value="@../css/main.css"/>
+            <URL value="@../css/tableau.css"/>
+
+
+        </stylesheets>
+
     </VBox>
 </StackPane>

@@ -5,10 +5,10 @@
 /* Start Title Header Style */
 
 
-
-.remarque
+.title-header 
 {
--fx-font-family: Arabic Typesetting;
+    -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, #2196f3 50%);
+    -fx-font-family: Arabic Typesetting;
     -fx-font-size: 36px;
 }
 
@@ -21,8 +21,8 @@
 
 
 .JFXButton {
- -fx-font-family: "Arabic Typesetting";
- -fx-font-weight: bold;
+ -fx-font-family: "Arabic Typesetting"
+ ;-fx-font-weight: bold;
     -fx-background-color: #2196f3;
     -fx-text-fill: white;
     -fx-cursor: hand;
@@ -31,7 +31,6 @@
     -fx-background-color: white;
     -fx-text-fill: #2196f3;
     -fx-border-color: #2196f3;
-    -fx-rotate: 10;
 
 }
 
@@ -39,6 +38,8 @@
     -fx-background-radius: 22;
     -fx-font-weight: bold;
     -fx-background-color: white;
+    -fx-scale-y: 0.9;
+    -fx-scale-x: 0.9;
 
     }
 
@@ -125,7 +126,7 @@ btn-view:hover {
 
 
 .field {
-    -fx-font-size: 26px;
+    -fx-font-size: 18px;
 }
 .field-smaller {
     -fx-font-size: 15px;
@@ -171,10 +172,6 @@ DatePicker {
     -fx-font-size: 25px;
 }
 
-.label {
-    -fx-font-size: 26px;
-    -fx-font-family: "Arabic Typesetting";
-}
 
 #VertiBox{
     -fx-background-color: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, #9e5eff 50%);
@@ -184,11 +181,12 @@ DatePicker {
 #headtitle {
   -fx-text-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, aqua 0%, #2196f3 50%);
     -fx-font-family: Arabic Typesetting;
-    -fx-font-size: 36px;
+    -fx-font-size: 40px;
+
     }
 
 /* End error label */
- 
+
 
 .titleUserLabel {
     /* This style for the name of user showing in dialog of stat */
@@ -197,11 +195,10 @@ DatePicker {
 }
 
 
-
 .label {
     -fx-font-family: "Arabic Typesetting";
-    -fx-font-size: 18px;
+    -fx-font-size: 27px;
     -fx-font-weight: bold;
-    -fx-text-fill: #333333;
+    -fx-text-fill: linear-gradient(#131313 50.0%, #2196F3 130.0%);
     -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
 }

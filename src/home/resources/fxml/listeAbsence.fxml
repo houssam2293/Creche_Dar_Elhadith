@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import java.lang.*?>
 <?import java.net.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" nodeOrientation="RIGHT_TO_LEFT" prefHeight="602.0" prefWidth="595.0"
             xmlns="http://javafx.com/javafx/8.0.171" fx:controller="home.controllers.listeAbsence">
@@ -33,20 +31,15 @@
 
             </stylesheets>
 
-            <HBox alignment="TOP_CENTER" prefHeight="62.0" prefWidth="503.0" stylesheets="@../css/main.css">
+            <HBox alignment="TOP_CENTER" prefHeight="66.0" prefWidth="485.0" stylesheets="@../css/main.css">
                 <VBox.margin>
                     <Insets/>
                 </VBox.margin>
                 <padding>
                     <Insets bottom="20.0"/>
                 </padding>
-                <Label alignment="CENTER" styleClass="title-header" text="سجل الغيابات">
-
-                    <stylesheets>
-                        <URL value="@../css/main.css"/>
-                        <URL value="@../css/manageEmployee.css"/>
-                    </stylesheets>
-                </Label>
+                <Label alignment="CENTER" styleClass="title-header" stylesheets="@../css/style.css"
+                       text="سجل الغيابات"/>
             </HBox>
             <HBox prefHeight="81.0" prefWidth="503.0">
                 <Label alignment="CENTER" graphicTextGap="10.0" prefHeight="73.0" prefWidth="136.0" styleClass="datee"
@@ -60,12 +53,12 @@
             <HBox prefHeight="115.0" prefWidth="503.0">
 
                 <VBox prefHeight="78.0" prefWidth="152.0">
-                    <JFXRadioButton onAction="#selectedRadio" fx:id="checkAbsent" prefHeight="31.0"
-                                    prefWidth="100.0" selected="true" text="العمال المتغيبين"/>
+                    <JFXRadioButton fx:id="checkAbsent" onAction="#selectedRadio" prefHeight="31.0" prefWidth="100.0"
+                                    selected="true" text="العمال المتغيبين"/>
 
-                    <JFXRadioButton onAction="#selectedRadio" fx:id="checkPresent" prefHeight="33.0"
-                                    prefWidth="100.0" text="العمال الحاضرين"/>
-                    <JFXRadioButton onAction="#selectedRadio" fx:id="checkOut" prefHeight="28.0" prefWidth="100.0"
+                    <JFXRadioButton fx:id="checkPresent" onAction="#selectedRadio" prefHeight="33.0" prefWidth="100.0"
+                                    text="العمال الحاضرين"/>
+                    <JFXRadioButton fx:id="checkOut" onAction="#selectedRadio" prefHeight="28.0" prefWidth="100.0"
                                     text="العمال الغير معنيين"/>
                 </VBox>
                 <Label fx:id="listevide" prefHeight="72.0" prefWidth="266.0" styleClass="datee">
@@ -74,16 +67,7 @@
                     </opaqueInsets>
                 </Label>
             </HBox>
-            <TableView fx:id="tableview" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/pointag.css">
-
-                <styleClass>
-                    <String fx:value="table-cell"/>
-                    <String fx:value="table-column"/>
-                    <String fx:value="table-view"/>
-                    <String fx:value="column-header"/>
-                    <String fx:value="column-header-background"/>
-                </styleClass>
-            </TableView>
+            <TableView fx:id="tableview" prefHeight="200.0" prefWidth="200.0" stylesheets="@../css/tableau.css"/>
         </VBox>
     </ScrollPane>
     <EmojiOneView glyphName="X" layoutX="434.0" layoutY="30.0" onMouseClicked="#btnClose" size="20"

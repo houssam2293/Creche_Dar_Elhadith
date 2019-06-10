@@ -7,15 +7,10 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
-<?import java.net.*?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0"
-            prefWidth="480.0" xmlns="http://javafx.com/javafx/8.0.171"
+<?import java.net.URL?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" nodeOrientation="RIGHT_TO_LEFT" prefHeight="641.0" prefWidth="480.0"
+            stylesheets="@../css/scrollPane.css" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="home.controllers.AddEleveFormController">
-    <stylesheets>
-        <URL value="@../css/main.css"/>
-        <URL value="@../css/manageEmployee.css"/>
-        <URL value="@../css/eleve.css"/>
-    </stylesheets>
     <ScrollPane hbarPolicy="NEVER" layoutY="1.0" prefHeight="641.0" prefWidth="480.0"
                 stylesheets="@../css/scrollPane.css" AnchorPane.bottomAnchor="-1.0" AnchorPane.leftAnchor="0.0"
                 AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
@@ -34,7 +29,7 @@
                 <padding>
                     <Insets bottom="20.0"/>
                 </padding>
-                <Label alignment="CENTER" text="إضافة تلميذ">
+                <Label alignment="CENTER" stylesheets="@../css/JFXTreeTableView-CSS.css" text="إضافة تلميذ">
                     <styleClass>
                         <String fx:value="title-header"/>
                         <String fx:value="titleUserLabel"/>
@@ -83,7 +78,7 @@
             </HBox>
             <HBox>
                 <JFXToggleButton fx:id="toggler" contentDisplay="RIGHT" onAction="#trancheOn" prefHeight="62.0"
-                                 prefWidth="178.0" styleClass="label" text="الدفع بالتجزئة" toggleColor="#2196f3"
+                                 prefWidth="178.0" styleClass="field" text="الدفع بالتجزئة" toggleColor="#2196f3"
                                  toggleLineColor="#67b2e8">
                     <HBox.margin>
                         <Insets/>

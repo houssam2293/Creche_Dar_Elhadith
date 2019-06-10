@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class fraisDB {
-/*
+
     public int initFrais(Frais frais) {
         StringBuilder sql = new StringBuilder("INSERT INTO `creche_dar_elhadith`.`frais` ( `fraisEmploye`");
         Connection connection = null;
@@ -48,7 +48,7 @@ public class fraisDB {
         }
         return 1;
     }
-    */
+
 
     public int addFraisEleve(Frais frais) {
         StringBuilder sql = new StringBuilder("UPDATE `frais` SET ");
