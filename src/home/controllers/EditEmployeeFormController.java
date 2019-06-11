@@ -291,7 +291,7 @@ public class EditEmployeeFormController implements Initializable {
         });
         if (employeeSelected.getFonction().equals("معلم")) {
             classe.setDisable(false);
-            if (employeeSelected.getClasse() == null) {
+            if (employeeSelected.getClasse() != null) {
                 classe.getItems().add(employeeSelected.getClasse());
                 classe.getSelectionModel().select(employeeSelected.getClasse());
             }

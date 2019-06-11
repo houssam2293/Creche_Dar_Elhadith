@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -60,6 +61,19 @@ public class ManageEmployeeController implements Initializable {
     private JFXComboBox<String> combo;
 
 
+    @FXML
+    private JFXButton Refresher;
+    @FXML
+    private JFXButton Adder;
+    @FXML
+    private JFXButton Editer;
+    @FXML
+    private JFXButton Remover;
+    @FXML
+    private JFXButton Printe;
+    @FXML
+    private JFXButton Money;
+
     static JFXDialog addUserDialog, editUserDialog, notesEmployeeDialog, paymentUserDialog;
     @FXML
     private JFXTreeTableColumn<TableEmployee, String> idCol, firstnameCol, lastNameCol,
@@ -74,6 +88,12 @@ public class ManageEmployeeController implements Initializable {
                 "مكان الملاد", "المهنة", "العنوان الشخصي", "الهاتف",
                 "رقم الضمان الإجتماعي", "الشهادات", "تاريخ أول تعيين", "الخبرة", "حالة التعاقد", "فترة العمل", "الحالة العائلية", "لقب العزوبة", "عدد بنون", "عدد بنات");
         initializeTable();
+        Refresher.setTooltip(new Tooltip("تحديث"));
+        Adder.setTooltip(new Tooltip("إضافة"));
+        Editer.setTooltip(new Tooltip("تعديل"));
+        Remover.setTooltip(new Tooltip("إزالة"));
+        Printe.setTooltip(new Tooltip("طبع"));
+        Money.setTooltip(new Tooltip("دفع"));
     }
 
     @FXML

@@ -81,7 +81,8 @@
             </HBox>
             <HBox fx:id="boxPoint" alignment="CENTER_RIGHT" layoutX="10.0" layoutY="210.0" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#pointageClicked" prefHeight="50.0" spacing="15.0" styleClass="sidebar-options">
                 <MaterialDesignIconView fx:id="iconPoint" fill="#4a4949" glyphName="TABLE_EDIT" size="28" wrappingWidth="25.0" />
-                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="عد العمال" HBox.hgrow="ALWAYS">
+                <Label maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity"
+                       minWidth="-Infinity" prefHeight="50.0" prefWidth="50.0" text="سجل الحضور" HBox.hgrow="ALWAYS">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
@@ -327,8 +328,8 @@
                         </ImageView>
                     </Pane>
                     <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                           minWidth="-Infinity" prefHeight="28.0" prefWidth="216.0" styleClass="title-smaller"
-                           text="سجل الحضور اليومي" textAlignment="CENTER" wrapText="true">
+                           minWidth="-Infinity" prefHeight="28.0" prefWidth="156.0" styleClass="title-smaller"
+                           text="سجل الحضور" textAlignment="CENTER" wrapText="true">
                         <font>
                             <Font name="Calibri Light" size="20.0" />
                         </font>

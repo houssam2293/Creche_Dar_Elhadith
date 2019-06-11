@@ -133,7 +133,7 @@ public class loginController implements Initializable {
         Platform.runLater(() -> user.requestFocus());
         francais_radio.setOnAction(event -> {
             Notifications notification = Notifications.create()
-                    .title("سوف يتم توفير التطبيق تاللفة الفرنسية عن قريب في التحديث المقبل ")
+                    .title("سوف يتم توفير التطبيق باللغة الفرنسية عن قريب في التحديث المقبل ")
                     .graphic(new ImageView(new Image("/home/resources/icons/valid.png")))
                     .hideAfter(Duration.millis(2000))
                     .position(Pos.BOTTOM_RIGHT);

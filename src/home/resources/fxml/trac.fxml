@@ -291,7 +291,8 @@
                         </VBox>
                         <VBox>
                             <Label alignment="CENTER" contentDisplay="RIGHT" prefHeight="75.0" prefWidth="230.0"
-                                   style="-fx-font-size: 28;" text="الخرج الكلي" textAlignment="CENTER" textFill="RED">
+                                   style="-fx-font-size: 28;" text="المخروج الكلي" textAlignment="CENTER"
+                                   textFill="RED">
                                 <graphic>
                                     <EmojiOneView fill="RED" glyphName="ARROW_DOWN" strokeType="OUTSIDE"
                                                   strokeWidth="0.0" textAlignment="CENTER"/>

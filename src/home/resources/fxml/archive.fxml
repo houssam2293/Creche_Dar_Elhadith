@@ -9,7 +9,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import java.lang.String?>
 <StackPane xmlns:fx="http://javafx.com/fxml/1" fx:id="archiv" nodeOrientation="RIGHT_TO_LEFT" prefHeight="690.0"
            prefWidth="1186.0" style="-fx-background-color: #FFF;" stylesheets="@../css/main.css"
            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
@@ -36,26 +35,25 @@
         <HBox fx:id="lesAnee" prefHeight="461.0" prefWidth="1189.0" stylesheets="@../css/dark_them.css">
             <Label prefHeight="285.0" prefWidth="44.0" />
             <JFXListView fx:id="yearSelect" onMouseClicked="#choseanee" prefHeight="429.0" prefWidth="170.0" />
-            <AnchorPane fx:id="choosePane" prefHeight="422.0" prefWidth="994.0" stylesheets="@../css/eleve.css"
-                        visible="false">
-                <Label fx:id="aneeselect" alignment="CENTER" layoutX="364.0" layoutY="26.0" prefHeight="51.0" prefWidth="209.0">
+            <AnchorPane fx:id="choosePane" prefHeight="422.0" prefWidth="994.0" visible="false">
+                <Label fx:id="aneeselect" alignment="CENTER" layoutX="364.0" layoutY="26.0" prefHeight="51.0"
+                       prefWidth="209.0" styleClass="title-header" stylesheets="@../css/main.css">
                     <font>
                         <Font name="Tahoma" size="34.0" />
                     </font>
-                    <styleClass>
-                        <String fx:value="title-header" />
-                        <String fx:value="title" />
-                    </styleClass>
                 </Label>
-                <AnchorPane layoutX="96.0" layoutY="95.0" prefHeight="331.0" prefWidth="290.0" styleClass="box-chooser" AnchorPane.leftAnchor="96.0" AnchorPane.topAnchor="95.0">
+                <AnchorPane layoutX="96.0" layoutY="95.0" prefHeight="331.0" prefWidth="290.0" styleClass="box-chooser"
+                            stylesheets="@../css/eleve.css" AnchorPane.leftAnchor="96.0" AnchorPane.topAnchor="95.0">
                     <ImageView fitHeight="331.0" fitWidth="290.0" layoutX="2.0" pickOnBounds="true">
                         <Image url="@../icons/teacher-cartoon.jpg" />
                     </ImageView>
                     <Pane layoutX="-4.0" opacity="0.82" prefHeight="331.0" prefWidth="300.0" style="-fx-background-color: #148BB1;" styleClass="pane-chooser">
                         <Label alignment="CENTER" layoutX="63.0" layoutY="49.0" prefHeight="66.0" prefWidth="182.0"
-                               styleClass="label-white" text="العمال"/>
+                               styleClass="Label" stylesheets="@../css/about.css" text="العمال"/>
                     </Pane>
-                    <JFXButton layoutX="59.0" layoutY="241.0" onAction="#showEmploye" prefHeight="57.0" prefWidth="182.0" styleClass="btn-chooser" text="عرض الأرشيف للعمال" />
+                    <JFXButton layoutX="59.0" layoutY="241.0" onAction="#showEmploye" prefHeight="57.0"
+                               prefWidth="182.0" styleClass="btn-chooser" stylesheets="@../css/eleve.css"
+                               text="عرض الأرشيف للعمال"/>
                 </AnchorPane>
                 <AnchorPane layoutX="549.0" layoutY="95.0" prefHeight="331.0" prefWidth="306.0" styleClass="box-chooser" AnchorPane.leftAnchor="549.0" AnchorPane.topAnchor="95.0">
                     <ImageView fitHeight="316.0" fitWidth="300.0" layoutY="5.0" pickOnBounds="true">
@@ -63,9 +61,11 @@
                     </ImageView>
                     <Pane opacity="0.82" prefHeight="331.0" prefWidth="306.0" style="-fx-background-color: #694A97;" styleClass="pane-chooser">
                         <Label alignment="CENTER" layoutX="56.0" layoutY="62.0" prefHeight="66.0" prefWidth="197.0"
-                               styleClass="label-white" text="الطلاب"/>
+                               styleClass="Label" stylesheets="@../css/about.css" text="الطلاب"/>
                     </Pane>
-                    <JFXButton layoutX="62.0" layoutY="254.0" onAction="#showStudent" prefHeight="57.0" prefWidth="182.0" styleClass="btn-chooser" text="عرض الأرشيف للطلاب" />
+                    <JFXButton layoutX="62.0" layoutY="254.0" onAction="#showStudent" prefHeight="57.0"
+                               prefWidth="182.0" styleClass="btn-chooser" stylesheets="@../css/eleve.css"
+                               text="عرض الأرشيف للطلاب"/>
                 </AnchorPane>
             </AnchorPane>
         </HBox>
