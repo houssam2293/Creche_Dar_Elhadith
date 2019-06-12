@@ -72,12 +72,17 @@ public class EditStockFormController implements Initializable {
 
         EntreStock stock = new EntreStock();
         stock.setId(stockSelected.getId());
-        if (comboProd.getValue().equals("طعام"))
-            stock.setTypeProduit(1);
-        else if (comboProd.getValue().equals("كتب و كراريس"))
-            stock.setTypeProduit(2);
-        else if (comboProd.getValue().equals("أخرى"))
-            stock.setTypeProduit(3);
+        switch (comboProd.getValue()) {
+            case "طعام":
+                stock.setTypeProduit(1);
+                break;
+            case "كتب و كراريس":
+                stock.setTypeProduit(2);
+                break;
+            case "أخرى":
+                stock.setTypeProduit(3);
+                break;
+        }
         stock.setNom(nomField.getText().trim().toLowerCase());
         stock.setDateFab(Date.valueOf(dateFabField.getValue()));
         stock.setDateExp(Date.valueOf(dateExpField.getValue()));

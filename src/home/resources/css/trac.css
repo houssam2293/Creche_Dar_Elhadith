@@ -16,6 +16,14 @@
     -fx-text-fill: #000
 }
 
+#subhead {
+    -fx-font-size : 18px;
+}
+
+#head {
+    -fx-font-size : 24px;
+    }
+
 
 .box-chooser {
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.4), 10, 0, 0, 0);

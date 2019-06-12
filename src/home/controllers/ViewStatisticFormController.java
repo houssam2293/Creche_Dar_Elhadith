@@ -12,6 +12,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.util.List;
@@ -23,8 +24,7 @@ public class ViewStatisticFormController implements Initializable {
     @FXML
     private Label userSelected;
 
-    @FXML
-    private JFXButton btnView;
+
 
     @FXML
     private JFXButton btnChartType;
@@ -47,8 +47,8 @@ public class ViewStatisticFormController implements Initializable {
         TracController.detailChart.close();
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    private void initChart() {
+        statisticUserBarChart.getData().clear();
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("الحضور");
 
@@ -64,9 +64,40 @@ public class ViewStatisticFormController implements Initializable {
 
         }
 
+        yAxis.setTickUnit(1);
+        yAxis.setMinorTickVisible(false);
+        yAxis.setTickLabelFormatter(new IntegerStringConverter());
         statisticUserBarChart.setBarGap(3);
         statisticUserBarChart.setCategoryGap(40);
         statisticUserBarChart.getData().addAll(series1, series2);
+    }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        initChart();
+    }
+
+    @FXML
+    void btnView() {
+        initChart();
+    }
+
+    class IntegerStringConverter extends StringConverter<Number> {
+
+        public IntegerStringConverter() {
+        }
+
+        @Override
+        public String toString(Number object) {
+            if (object.intValue() != object.doubleValue())
+                return "";
+            return "" + (object.intValue());
+        }
+
+        @Override
+        public Number fromString(String string) {
+            Number val = Double.parseDouble(string);
+            return val.intValue();
+        }
     }
 }

@@ -65,7 +65,7 @@ public class ShowArchvDataController  implements Initializable {
     @FXML
     void ClssPictr() {
         Stage stage = new Stage();
-        File file = new File("C:\\Users\\houss\\Pictures\\462892.jpg");
+        File file = new File("C:\\Users\\houss\\Desktop\\max.jpg");
         Image image = new Image(file.toURI().toString());
         //clssImg.setImage(image);
         ImageView imageView = new ImageView(image);

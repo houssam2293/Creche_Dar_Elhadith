@@ -110,4 +110,20 @@ public class EntreStock extends RecursiveTreeObject<EntreStock> {
 
         return name;
     }
+
+    public int getProdect(String item) {
+        int name = -1;
+        switch (item) {
+            case "طعام":
+                name = 1;
+                break;
+            case "كتب و كراريس":
+                name = 2;
+                break;
+            case "أخرى":
+                name = 3;
+                break;
+        }
+        return name;
+    }
 }

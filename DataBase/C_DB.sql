@@ -7,7 +7,7 @@ USE `creche_dar_elhadith`;
 create TABLE `creche_dar_elhadith`.`Classe` (
 `num` int(4) unsigned NOT NULL AUTO_INCREMENT,
 `id` varchar(20) DEFAULT NULL,
-`ClassNam` varchar(22) NOT NULL,
+`ClassNam` varchar(45) NOT NULL,
 `ClassRom` varchar(22) NOT NULL,
 `maxNbrElev` varchar(30) DEFAULT NULL,
 `remarque` varchar(500) DEFAULT NULL,
@@ -51,7 +51,7 @@ create TABLE `creche_dar_elhadith`.`employe` (
   `renouvlementDeContrat` varchar(20) DEFAULT NULL,
   `dateDebut` Date DEFAULT NULL,
   `fonction` varchar(30) DEFAULT NULL,
-  `classe` VARCHAR(22) DEFAULT NULL,
+  `classe` VARCHAR(45) DEFAULT NULL,
   `regime` varchar(20) DEFAULT NULL,
   `marier` int(1) DEFAULT '0',
   `celibacyTitle` varchar(22) DEFAULT NULL,

@@ -68,7 +68,7 @@
             </HBox>
             <HBox layoutX="50.0" layoutY="246.0" spacing="20.0">
                 <JFXComboBox fx:id="classesCombos" prefWidth="150.0" promptText="القسم" styleClass="combo-medium"
-                             visibleRowCount="2"/>
+                             visibleRowCount="5"/>
                 <JFXComboBox fx:id="schoolYear" layoutX="10.0" layoutY="10.0" prefWidth="150.0" promptText="السنة"
                              styleClass="combo-medium" visibleRowCount="2"/>
             </HBox>

@@ -7,15 +7,14 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="380.0" prefWidth="697.0"
-            xmlns="http://javafx.com/javafx/8.0.172-ea" fx:controller="home.controllers.elevePrintController">
-    <VBox fx:id="root" prefHeight="380.0" prefWidth="699.0" AnchorPane.bottomAnchor="0.0"
-          AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            xmlns="http://javafx.com/javafx/8.0.171" fx:controller="home.controllers.elevePrintController">
+    <VBox fx:id="root" prefHeight="380.0" prefWidth="699.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+          AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <HBox prefHeight="128.0" prefWidth="699.0">
             <VBox.margin>
                 <Insets top="50.0"/>
             </VBox.margin>
-            <ImageView fx:id="imageview" fitHeight="165.0" fitWidth="181.0" pickOnBounds="true"
-                       preserveRatio="true">
+            <ImageView fx:id="imageview" fitHeight="165.0" fitWidth="181.0" pickOnBounds="true" preserveRatio="true">
                 <HBox.margin>
                     <Insets left="15.0"/>
                 </HBox.margin>
@@ -23,36 +22,31 @@
             </ImageView>
             <VBox prefHeight="137.0" prefWidth="485.0">
                 <HBox prefHeight="31.0" prefWidth="485.0">
-                    <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="150.0"
-                           style="-fx-font-size: 18;" stylesheets="@../css/eleve.css"
-                           text="الهاتف: " textAlignment="RIGHT">
+                    <Label alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="150.0" style="-fx-font-size: 18;"
+                           stylesheets="@../css/eleve.css" text="الهاتف: " textAlignment="RIGHT">
                         <HBox.margin>
                             <Insets right="5.0"/>
                         </HBox.margin>
                     </Label>
-                    <Label fx:id="phone" prefHeight="54.0" prefWidth="173.0"
-                           style="-fx-font-size: 18;" textAlignment="CENTER" textFill="RED">
+                    <Label fx:id="phone" prefHeight="54.0" prefWidth="173.0" style="-fx-font-size: 18;"
+                           textAlignment="CENTER" textFill="RED">
                         <HBox.margin>
                             <Insets/>
                         </HBox.margin>
                     </Label>
-                    <Label fx:id="phone1" layoutX="135.0" layoutY="10.0" prefHeight="55.0"
-                           prefWidth="30.0" style="-fx-font-size: 18;"
-                           stylesheets="@../css/eleve.css" text="/" textAlignment="CENTER"
+                    <Label fx:id="phone1" layoutX="135.0" layoutY="10.0" prefHeight="55.0" prefWidth="30.0"
+                           style="-fx-font-size: 18;" stylesheets="@../css/eleve.css" text="/" textAlignment="CENTER"
                            textFill="RED"/>
-                    <Label fx:id="phone2" layoutX="165.0" layoutY="10.0" prefHeight="54.0"
-                           prefWidth="190.0" style="-fx-font-size: 18;" textAlignment="CENTER"
-                           textFill="RED"/>
+                    <Label fx:id="phone2" layoutX="165.0" layoutY="10.0" prefHeight="54.0" prefWidth="190.0"
+                           style="-fx-font-size: 18;" textAlignment="CENTER" textFill="RED"/>
                 </HBox>
                 <HBox layoutX="10.0" layoutY="10.0" prefHeight="99.0" prefWidth="485.0">
                     <VBox prefHeight="99.0" prefWidth="486.0">
-                        <Label alignment="TOP_RIGHT" prefHeight="60.0" prefWidth="486.0"
-                               style="-fx-font-size: 24;" stylesheets="@../css/eleve.css"
-                               text="جمعية دار الحديث للتربية و الثقافة و العلم"
+                        <Label alignment="TOP_RIGHT" prefHeight="60.0" prefWidth="486.0" style="-fx-font-size: 24;"
+                               stylesheets="@../css/eleve.css" text="جمعية دار الحديث للتربية و الثقافة و العلم"
                                textAlignment="RIGHT"/>
-                        <Label alignment="TOP_RIGHT" prefWidth="486.0"
-                               style="-fx-font-size: 24;" stylesheets="@../css/eleve.css"
-                               text="المدرسة التحضيرية ـ تلمسان" textAlignment="RIGHT"/>
+                        <Label alignment="TOP_RIGHT" prefWidth="486.0" style="-fx-font-size: 24;"
+                               stylesheets="@../css/eleve.css" text="المدرسة التحضيرية ـ تلمسان" textAlignment="RIGHT"/>
                     </VBox>
                 </HBox>
             </VBox>
@@ -65,14 +59,26 @@
         <HBox prefHeight="245.0" prefWidth="750.0">
             <VBox prefHeight="245.0" prefWidth="800.0">
                 <HBox prefHeight="50.0" prefWidth="400.0">
-                    <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="111.0"
-                           style="-fx-font-size: 18;" stylesheets="@../css/eleve.css"
-                           text="رقم التسجيل: ">
+                    <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="111.0" style="-fx-font-size: 18;"
+                           stylesheets="@../css/eleve.css" text="رقم التسجيل: ">
                         <HBox.margin>
                             <Insets top="5.0"/>
                         </HBox.margin>
                     </Label>
-                    <Label fx:id="id" prefHeight="35.0" prefWidth="240.0" style="-fx-font-size: 18;"
+                    <Label fx:id="id" prefHeight="35.0" prefWidth="240.0" style="-fx-font-size: 18;" textFill="RED">
+                        <HBox.margin>
+                            <Insets left="15.0" top="5.0"/>
+                        </HBox.margin>
+                    </Label>
+                </HBox>
+                <HBox prefHeight="50.0" prefWidth="400.0">
+                    <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="61.0" style="-fx-font-size: 18;"
+                           stylesheets="@../css/eleve.css" text="الإسم: ">
+                        <HBox.margin>
+                            <Insets top="5.0"/>
+                        </HBox.margin>
+                    </Label>
+                    <Label fx:id="firstname" prefHeight="35.0" prefWidth="240.0" style="-fx-font-size: 18;"
                            textFill="RED">
                         <HBox.margin>
                             <Insets left="15.0" top="5.0"/>
@@ -80,60 +86,42 @@
                     </Label>
                 </HBox>
                 <HBox prefHeight="50.0" prefWidth="400.0">
-                    <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="61.0"
-                           style="-fx-font-size: 18;" stylesheets="@../css/eleve.css"
-                           text="الإسم: ">
+                    <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="62.0" style="-fx-font-size: 18;"
+                           stylesheets="@../css/eleve.css" text="اللقب: ">
                         <HBox.margin>
                             <Insets top="5.0"/>
                         </HBox.margin>
                     </Label>
-                    <Label fx:id="firstname" prefHeight="35.0" prefWidth="240.0"
-                           style="-fx-font-size: 18;" textFill="RED">
+                    <Label fx:id="surname" prefHeight="35.0" prefWidth="240.0" style="-fx-font-size: 18;"
+                           textFill="RED">
                         <HBox.margin>
                             <Insets left="15.0" top="5.0"/>
                         </HBox.margin>
                     </Label>
                 </HBox>
                 <HBox prefHeight="50.0" prefWidth="400.0">
-                    <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="62.0"
-                           style="-fx-font-size: 18;" stylesheets="@../css/eleve.css"
-                           text="اللقب: ">
+                    <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="73.0" style="-fx-font-size: 18;"
+                           stylesheets="@../css/eleve.css" text="العنوان: " textAlignment="RIGHT">
                         <HBox.margin>
                             <Insets top="5.0"/>
                         </HBox.margin>
                     </Label>
-                    <Label fx:id="surname" prefHeight="35.0" prefWidth="240.0"
-                           style="-fx-font-size: 18;" textFill="RED">
+                    <Label fx:id="adresse" prefHeight="35.0" prefWidth="240.0" style="-fx-font-size: 18;"
+                           textAlignment="CENTER" textFill="RED">
                         <HBox.margin>
                             <Insets left="15.0" top="5.0"/>
                         </HBox.margin>
                     </Label>
                 </HBox>
                 <HBox prefHeight="50.0" prefWidth="400.0">
-                    <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="73.0"
-                           style="-fx-font-size: 18;" stylesheets="@../css/eleve.css"
-                           text="العنوان: " textAlignment="RIGHT">
+                    <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="65.0" style="-fx-font-size: 18;"
+                           stylesheets="@../css/eleve.css" text="القسم: " textAlignment="RIGHT">
                         <HBox.margin>
                             <Insets top="5.0"/>
                         </HBox.margin>
                     </Label>
-                    <Label fx:id="adresse" prefHeight="35.0" prefWidth="240.0"
-                           style="-fx-font-size: 18;" textAlignment="CENTER" textFill="RED">
-                        <HBox.margin>
-                            <Insets left="15.0" top="5.0"/>
-                        </HBox.margin>
-                    </Label>
-                </HBox>
-                <HBox prefHeight="50.0" prefWidth="400.0">
-                    <Label alignment="CENTER_RIGHT" prefHeight="35.0" prefWidth="65.0"
-                           style="-fx-font-size: 18;" stylesheets="@../css/eleve.css" text="القسم: "
-                           textAlignment="RIGHT">
-                        <HBox.margin>
-                            <Insets top="5.0"/>
-                        </HBox.margin>
-                    </Label>
-                    <Label fx:id="classRoom" prefHeight="35.0" prefWidth="240.0"
-                           style="-fx-font-size: 18;" textAlignment="CENTER" textFill="RED">
+                    <Label fx:id="classRoom" prefHeight="35.0" prefWidth="240.0" style="-fx-font-size: 18;"
+                           textAlignment="CENTER" textFill="RED">
                         <HBox.margin>
                             <Insets left="15.0" top="5.0"/>
                         </HBox.margin>
@@ -145,7 +133,7 @@
     <EmojiOneView fill="RED" glyphName="X" layoutX="434.0" layoutY="30.0" onMouseClicked="#btnClose" size="20"
                   styleClass="icon-close" textAlignment="RIGHT" wrappingWidth="14.0" AnchorPane.bottomAnchor="0.0"
                   AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0"/>
-    <EmojiOneView fill="RED" glyphName="PRINTER" layoutX="434.0" layoutY="32.0" onMouseClicked="#btnPrint" size="20"
-                  styleClass="icon-close" textAlignment="RIGHT" wrappingWidth="14.0" AnchorPane.bottomAnchor="0.0"
-                  AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0"/>
+    <EmojiOneView fill="#003bff" glyphName="PRINTER" layoutX="434.0" layoutY="32.0" onMouseClicked="#btnPrint" size="50"
+                  styleClass="icon-close" textAlignment="RIGHT" wrappingWidth="51.0" AnchorPane.bottomAnchor="5.0"
+                  AnchorPane.rightAnchor="20.0"/>
 </AnchorPane>

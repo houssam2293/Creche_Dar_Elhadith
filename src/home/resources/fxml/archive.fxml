@@ -110,11 +110,12 @@
             </JFXTextField>
             <JFXComboBox id="combo" fx:id="comboEleve" labelFloat="true" prefHeight="56.0" prefWidth="172.0" promptText="البحث عن طريق" styleClass="combo-medium" />
         </HBox>
-        <HBox>
+        <HBox stylesheets="@../css/eleve.css">
             <VBox.margin>
                 <Insets />
             </VBox.margin>
-            <JFXTreeTableView fx:id="tableEleve" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="896.0" />
+            <JFXTreeTableView fx:id="tableEleve" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0"
+                              prefWidth="896.0" stylesheets="@../css/tableau.css"/>
             <VBox alignment="TOP_CENTER" prefHeight="406.0" prefWidth="263.0" spacing="10.0">
                 <JFXButton buttonType="RAISED" onAction="#showDataElev" ripplerFill="#4476ff" styleClass="btn-view"
                            text="عرض البيانات"/>
@@ -159,11 +160,12 @@
             </JFXTextField>
             <JFXComboBox id="combo" fx:id="comboEmployer" labelFloat="true" prefHeight="56.0" prefWidth="172.0" promptText="البحث عن طريق" styleClass="combo-medium" />
         </HBox>
-        <HBox>
+        <HBox stylesheets="@../css/eleve.css">
             <VBox.margin>
                 <Insets />
             </VBox.margin>
-            <JFXTreeTableView fx:id="tableemployer" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0" prefWidth="896.0" />
+            <JFXTreeTableView fx:id="tableemployer" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="492.0"
+                              prefWidth="896.0" stylesheets="@../css/tableau.css"/>
             <VBox alignment="TOP_CENTER" prefHeight="406.0" prefWidth="263.0" spacing="10.0">
                 <JFXButton buttonType="RAISED" onAction="#showDataEmply" ripplerFill="#4476ff" styleClass="btn-view" text="عرض البيانات" />
             </VBox>

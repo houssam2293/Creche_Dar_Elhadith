@@ -1,0 +1,8 @@
+.label {
+    -fx-font-family: "Arabic Typesetting";
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(#131313 50.0%, #2196F3 130.0%);
+     -fx-background-color: #e5e6ea;
+    -fx-effect: dropshadow( gaussian , rgba(255,255,255,0.5) , 0,0,0,1 );
+}

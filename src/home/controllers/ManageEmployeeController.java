@@ -311,7 +311,7 @@ public class ManageEmployeeController implements Initializable {
         addressCol.setCellValueFactory(param -> param.getValue().getValue().addresse);
 
         phoneCol = new JFXTreeTableColumn<>("الهاتف");
-        phoneCol.setPrefWidth(75);
+        phoneCol.setPrefWidth(90);
         phoneCol.setCellValueFactory(param -> param.getValue().getValue().phone);
 
         socialSecurNumbCol = new JFXTreeTableColumn<>("رقم الضمان الإجتماعي");
@@ -334,7 +334,7 @@ public class ManageEmployeeController implements Initializable {
         experienceCol.setPrefWidth(75);
         experienceCol.setCellValueFactory(param -> param.getValue().getValue().experience);
 
-        contractRenCol = new JFXTreeTableColumn<>("حالة التعاقد");
+        contractRenCol = new JFXTreeTableColumn<>("تجديد التعاقد");
         contractRenCol.setPrefWidth(120);
         contractRenCol.setCellValueFactory(param -> param.getValue().getValue().renouvlementcotract);
 
@@ -379,8 +379,8 @@ public class ManageEmployeeController implements Initializable {
         int index = treeTableView.getSelectionModel().getSelectedIndex();
         notedEmployee = new Employe();
         notedEmployee.setId(Integer.valueOf(idCol.getCellData(index)));
-        notedEmployee.setNom(firstnameCol.getCellData(index));
-        notedEmployee.setPrenom(lastNameCol.getCellData(index));
+        notedEmployee.setNom(lastNameCol.getCellData(index));
+        notedEmployee.setPrenom(firstnameCol.getCellData(index));
         notedEmployee.setRemarque(remarqueCol.getCellData(index));
         VBox content = new VBox();
         Button b = new Button("ملاحضات");

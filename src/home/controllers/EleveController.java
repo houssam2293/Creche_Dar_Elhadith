@@ -14,7 +14,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
@@ -95,8 +94,7 @@ public class EleveController<Adding> implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         //combo.setItems(options);
-        combo.getItems().addAll("رقم التسجيل", "الإسم", "اللقب", "تاريخ الملاد",
-                "مكان الملاد", "القسم", "العنوان", "الهاتف", "ملاحظات", "قطع");
+        combo.setItems(options);
         initializeTable();
 
         Refresher.setTooltip(new Tooltip("تحديث"));
@@ -468,7 +466,7 @@ public class EleveController<Adding> implements Initializable {
         addressCol.setCellValueFactory(param -> param.getValue().getValue().addresse);
 
         phoneCol = new JFXTreeTableColumn<>("الهاتف");
-        phoneCol.setPrefWidth(75);
+        phoneCol.setPrefWidth(90);
         phoneCol.setCellValueFactory(param -> param.getValue().getValue().phone);
 
         remarqueCol = new JFXTreeTableColumn<>("ملاحظات");
@@ -539,7 +537,6 @@ public class EleveController<Adding> implements Initializable {
         treeTableView.getColumns().addAll(idCol, genderCol, firstnameCol, lastNameCol, classRoomCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, remarqueCol,
                 schoolYearCol, regimeCol, nameFatherCol, nameMotherCol, lastNameMotherCol, workFatherCol, workMotherCol, wakilCol, maladieCol, tranchesCol, montantRestantCol);
         treeTableView.setShowRoot(false);
-        treeTableView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     @FXML
@@ -606,6 +603,8 @@ public class EleveController<Adding> implements Initializable {
 
 
         FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("image files (png,jpg,jpeg,bmp,gif)", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif");
+        fileChooser.getExtensionFilters().add(extFilter);
         File file = fileChooser.showOpenDialog(errorLabel.getScene().getWindow());
         String extension = "";
 
@@ -617,8 +616,7 @@ public class EleveController<Adding> implements Initializable {
         //Image imgThumb = new Image(file.toURI().toString());
 
         //Set extension filter
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("image files (png,jpg,jpeg,bmp,gif)", "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif");
-        fileChooser.getExtensionFilters().add(extFilter);
+
         File dir = new File(System.getenv("APPDATA") + "\\Archive creche darelhadith\\Image");
         dir.mkdirs();
         File fileSav = new File(System.getenv("APPDATA") + "\\Archive creche darelhadith\\Image\\" + nompic + "." + extension);
@@ -628,8 +626,6 @@ public class EleveController<Adding> implements Initializable {
     }
 
     private void filterSearchTable() {
-
-        int index = treeTableView.getSelectionModel().getSelectedIndex();
         treeTableView.setPredicate(eleves -> {
             switch (combo.getSelectionModel().getSelectedIndex()) {
                 case 0:
@@ -652,6 +648,28 @@ public class EleveController<Adding> implements Initializable {
                     return eleves.getValue().remarque.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
                 case 9:
                     return eleves.getValue().tranches.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 10:
+                    return eleves.getValue().gender.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 11:
+                    return eleves.getValue().schoolYear.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 12:
+                    return eleves.getValue().regime.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 13:
+                    return eleves.getValue().nameFather.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 14:
+                    return eleves.getValue().nameMother.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 15:
+                    return eleves.getValue().lastNameMother.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 16:
+                    return eleves.getValue().workFather.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 17:
+                    return eleves.getValue().workMother.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 18:
+                    return eleves.getValue().wakil.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 19:
+                    return eleves.getValue().maladie.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                case 20:
+                    return eleves.getValue().montantRestant.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
                 default:
                     return eleves.getValue().id.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             eleves.getValue().firstname.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
@@ -662,7 +680,18 @@ public class EleveController<Adding> implements Initializable {
                             eleves.getValue().addresse.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             eleves.getValue().phone.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
                             eleves.getValue().remarque.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
-                            eleves.getValue().tranches.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
+                            eleves.getValue().tranches.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            eleves.getValue().gender.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            eleves.getValue().schoolYear.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            eleves.getValue().regime.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            eleves.getValue().nameFather.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            eleves.getValue().nameMother.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            eleves.getValue().lastNameMother.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            eleves.getValue().workFather.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            eleves.getValue().workMother.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            eleves.getValue().wakil.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            eleves.getValue().maladie.getValue().toLowerCase().contains(searchField.getText().toLowerCase()) ||
+                            eleves.getValue().montantRestant.getValue().toLowerCase().contains(searchField.getText().toLowerCase());
             }
         });
     }

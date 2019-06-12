@@ -199,7 +199,7 @@
                     <Insets top="30.0" />
                 </padding>
                 <Pane prefHeight="341.0" prefWidth="1236.0">
-                    <ImageView fitHeight="319.0" fitWidth="1332.0" layoutY="-20.0" nodeOrientation="RIGHT_TO_LEFT" pickOnBounds="true">
+                    <ImageView fitHeight="330.0" fitWidth="1262.0" layoutY="-31.0" pickOnBounds="true">
                         <viewport>
                             <Rectangle2D width="1192.0" />
                         </viewport>

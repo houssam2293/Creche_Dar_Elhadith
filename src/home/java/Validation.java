@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class Validation {
 
     public boolean arabValid(JFXTextField textfield) {
-        String regex = "^[\\u0621-\\u064A]+$";//only arabic lettres ok
+        String regex = "^[\\u0621-\\u064A ]+$";//only arabic lettres ok
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(textfield.getText());
         return matcher.matches();

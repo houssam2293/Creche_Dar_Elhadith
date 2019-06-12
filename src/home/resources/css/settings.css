@@ -81,6 +81,11 @@
     -fx-font-weight: bold
 }
 
+.account-owner{
+    -fx-font-family:  "Arabic Typesetting";
+    -fx-font-size: 28px;
+}
+
 .close-error-icon:hover {
     -fx-cursor: hand
 }

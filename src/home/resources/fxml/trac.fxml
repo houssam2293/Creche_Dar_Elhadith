@@ -18,7 +18,8 @@
         <URL value="@../css/trac.css" />
     </stylesheets>
     <AnchorPane fx:id="choosePane" prefHeight="690.0" prefWidth="1186.0">
-        <Label alignment="CENTER" layoutX="502.0" layoutY="21.0" prefHeight="51.0" prefWidth="209.0" text="الإحصائيات">
+        <Label alignment="CENTER" layoutX="502.0" layoutY="21.0" prefHeight="91.0" prefWidth="209.0"
+               stylesheets="@../css/style.css" text="الإحصائيات">
             <font>
                 <Font name="Tahoma" size="34.0" />
             </font>
@@ -27,7 +28,7 @@
                 <String fx:value="title" />
             </styleClass>
         </Label>
-        <HBox layoutX="27.0" layoutY="86.0" prefHeight="500.0" prefWidth="1141.0" spacing="40.0">
+        <HBox layoutX="27.0" layoutY="100.0" prefHeight="500.0" prefWidth="1141.0" spacing="40.0">
             <AnchorPane fx:id="employeeAnchor" prefHeight="500.0" prefWidth="350.0" styleClass="box-chooser">
                 <ImageView fitHeight="490.0" fitWidth="345.0" layoutX="4.0" layoutY="5.0" pickOnBounds="true">
                     <Image url="@../icons/teacher-cartoon.jpg"/>
@@ -263,7 +264,8 @@
             <VBox.margin>
                 <Insets top="20.0"/>
             </VBox.margin>
-            <JFXComboBox fx:id="comboFrais" prefHeight="50.0" prefWidth="200.0" promptText="عرض الإحصائيات"/>
+            <JFXComboBox fx:id="comboFrais" prefHeight="50.0" prefWidth="250.0" promptText="عرض الإحصائيات"
+                         styleClass="field"/>
             <JFXButton buttonType="RAISED" contentDisplay="CENTER" onMouseClicked="#LesFrais" prefHeight="41.0"
                        prefWidth="36.0" ripplerFill="#4476ff" styleClass="btn-view" text=" ">
                 <graphic>
@@ -305,8 +307,8 @@
                     </HBox>
                     <Separator prefWidth="200.0"/>
                 </VBox>
-                <VBox prefHeight="332.0" prefWidth="522.0" stylesheets="@../css/eleve.css">
-                    <Label fx:id="header1" style="-fx-font-size: 24;" text="Header 1">
+                <VBox prefHeight="332.0" prefWidth="522.0" stylesheets="@../css/trac.css">
+                    <Label id="head" fx:id="header1" style="-fx-font-size: 24;" text="Header 1">
                         <VBox.margin>
                             <Insets left="10.0" top="10.0"/>
                         </VBox.margin>
@@ -315,8 +317,8 @@
                         <VBox.margin>
                             <Insets left="10.0"/>
                         </VBox.margin>
-                        <Label fx:id="subheader1" style="-fx-font-size: 18;" text="subheader1"/>
-                        <Label fx:id="subheader12" layoutX="10.0" layoutY="10.0"
+                        <Label id="subhead" fx:id="subheader1" style="-fx-font-size: 18;" text="subheader1"/>
+                        <Label id="subhead" fx:id="subheader12" layoutX="10.0" layoutY="10.0"
                                style="-fx-font-size: 18; -fx-text-fill: red;" text="subheader12">
                             <HBox.margin>
                                 <Insets left="15.0"/>
@@ -327,8 +329,9 @@
                         <VBox.margin>
                             <Insets left="10.0"/>
                         </VBox.margin>
-                        <Label fx:id="subheader2" style="-fx-font-size: 18;" text="subheader2" visible="false"/>
-                        <Label fx:id="subheader22" layoutX="10.0" layoutY="10.0"
+                        <Label id="subhead" fx:id="subheader2" style="-fx-font-size: 18;" text="subheader2"
+                               visible="false"/>
+                        <Label id="subhead" fx:id="subheader22" layoutX="10.0" layoutY="10.0"
                                style="-fx-font-size: 18; -fx-text-fill: red;" text="subheader22" visible="false">
                             <HBox.margin>
                                 <Insets left="15.0"/>
@@ -339,15 +342,16 @@
                         <VBox.margin>
                             <Insets left="10.0"/>
                         </VBox.margin>
-                        <Label fx:id="subheader3" style="-fx-font-size: 18;" text="subheader3" visible="false"/>
-                        <Label fx:id="subheader32" layoutX="10.0" layoutY="10.0"
+                        <Label id="subhead" fx:id="subheader3" style="-fx-font-size: 18;" text="subheader3"
+                               visible="false"/>
+                        <Label id="subhead" fx:id="subheader32" layoutX="10.0" layoutY="10.0"
                                style="-fx-font-size: 18; -fx-text-fill: red;" text="subheader32" visible="false">
                             <HBox.margin>
                                 <Insets left="15.0"/>
                             </HBox.margin>
                         </Label>
                     </HBox>
-                    <Label fx:id="header2" style="-fx-font-size: 24;" text="Header 2">
+                    <Label id="head" fx:id="header2" style="-fx-font-size: 24;" text="Header 2">
                         <VBox.margin>
                             <Insets left="10.0" top="30.0"/>
                         </VBox.margin>
@@ -356,8 +360,8 @@
                         <VBox.margin>
                             <Insets left="10.0"/>
                         </VBox.margin>
-                        <Label fx:id="subheader4" style="-fx-font-size: 18;" text="subheader4"/>
-                        <Label fx:id="subheader42" layoutX="10.0" layoutY="10.0"
+                        <Label id="subhead" fx:id="subheader4" style="-fx-font-size: 18;" text="subheader4"/>
+                        <Label id="subhead" fx:id="subheader42" layoutX="10.0" layoutY="10.0"
                                style="-fx-font-size: 18; -fx-text-fill: red;" text="subheader42">
                             <HBox.margin>
                                 <Insets left="15.0"/>
@@ -367,7 +371,8 @@
                 </VBox>
             </VBox>
             <Separator orientation="VERTICAL" prefHeight="200.0"/>
-            <VBox alignment="TOP_CENTER" prefHeight="499.0" prefWidth="560.0" spacing="10.0">
+            <VBox alignment="TOP_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="499.0" prefWidth="560.0"
+                  spacing="10.0">
                 <StackPane prefHeight="504.0" prefWidth="550.0">
                     <BarChart fx:id="barChartFrais" visible="false">
                         <xAxis>

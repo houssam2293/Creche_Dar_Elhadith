@@ -508,7 +508,7 @@ public class TracController implements Initializable {
 
         data.forEach(d
                         -> d.nameProperty().bind(
-                Bindings.concat((d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "$1"), " ", d.getName())
+                Bindings.concat((d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "% $1"), " ", d.getName())
                 )
         );
 
@@ -525,7 +525,7 @@ public class TracController implements Initializable {
 
         data.forEach(d
                         -> d.nameProperty().bind(
-                Bindings.concat((d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "$1"), " ", d.getName())
+                Bindings.concat((d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "%$1"), " ", d.getName())
                 )
         );
 
@@ -543,7 +543,7 @@ public class TracController implements Initializable {
 
         data.forEach(d
                         -> d.nameProperty().bind(
-                Bindings.concat((d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "$1"), " ", d.getName())
+                Bindings.concat(d.getName(), " ", (d.pieValueProperty() + "").replaceFirst(".*?(\\d+).*", "$1"), " دج")
                 )
         );
 
@@ -647,7 +647,6 @@ public class TracController implements Initializable {
         comboFrais.setItems(typeChart);
         comboFrais.getSelectionModel().selectFirst();
         comboFrais.setOnAction(event -> changeViewFrais(comboFrais.getSelectionModel().getSelectedItem()));
-
 
 
         employeDB = new EmployeDB();

@@ -300,7 +300,7 @@ public class AddEmployeeFormController implements Initializable {
             }
         });
 
-        birthDate.setOnKeyReleased(t -> {
+        birthDate.setOnAction(t -> {
             LocalDate date = LocalDate.parse("2005-01-01");// On suppose que l'employer agé de 15 ou plus
             LocalDate birthdat = birthDate.getValue();
             int a = date.compareTo(birthdat);

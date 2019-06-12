@@ -42,11 +42,12 @@
                        text="سجل الحضور اليومي"/>
             </HBox>
             <HBox prefHeight="81.0" prefWidth="503.0">
-                <Label alignment="CENTER" graphicTextGap="10.0" prefHeight="73.0" prefWidth="136.0" styleClass="datee"
-                       text="اختيار اليوم">
+                <Label alignment="CENTER" graphicTextGap="10.0" prefHeight="73.0" prefWidth="136.0"
+                       styleClass="titleUserLabel" text="اختيار اليوم">
 
                 </Label>
-                <JFXDatePicker fx:id="dateJ" prefHeight="70.0" prefWidth="179.0" styleClass="field-smaller"/>
+                <JFXDatePicker fx:id="dateJ" defaultColor="#72a0d7" prefHeight="70.0" prefWidth="179.0"
+                               styleClass="field-smaller"/>
 
             </HBox>
             <HBox prefHeight="115.0" prefWidth="503.0">

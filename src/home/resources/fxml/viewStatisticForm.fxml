@@ -19,7 +19,8 @@
     </stylesheets>
     <EmojiOneView glyphName="X" layoutX="990.0" layoutY="25.0" onMouseClicked="#btnClose" size="20" styleClass="icon-close" />
     <Label fx:id="userSelected" layoutX="756.0" layoutY="7.0" prefHeight="41.0" prefWidth="215.0" styleClass="titleUserLabel" />
-    <JFXButton fx:id="btnView" layoutX="29.0" layoutY="7.0" prefHeight="41.0" prefWidth="146.0" text="عرض الرسم البياني" />
+    <JFXButton layoutX="29.0" layoutY="7.0" onAction="#btnView" prefHeight="41.0" prefWidth="146.0"
+               text="تحديث الرسم البياني"/>
     <JFXButton fx:id="btnChartType" layoutX="221.0" layoutY="7.0" prefHeight="41.0" prefWidth="118.0" text="Total Stat" visible="false" />
     <StackPane layoutY="58.0" prefHeight="429.0" prefWidth="1013.0">
       <AnchorPane fx:id="barChartPane" prefHeight="520.0" prefWidth="1013.0">

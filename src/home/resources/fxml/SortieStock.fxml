@@ -47,26 +47,30 @@
                         <HBox layoutX="50.0" layoutY="259.0" prefHeight="117.0" prefWidth="455.0">
                             <children>
                                 <Label prefHeight="43.0" prefWidth="334.0" text="قيمة المصروف اليومي (دج) :"/>
-                                <Label fx:id="lab1" prefHeight="43.0" prefWidth="107.0"/>
+                                <Label fx:id="lab1" prefHeight="43.0" prefWidth="107.0"
+                                       stylesheets="@../css/label.css"/>
                             </children>
                         </HBox>
                         <HBox prefHeight="117.0" prefWidth="455.0" VBox.vgrow="ALWAYS">
                             <children>
                                 <Label prefHeight="43.0" prefWidth="334.0"
                                        text="قيمة المشتريات المسجلة في  المخزن (دج) :   "/>
-                                <Label fx:id="lab2" prefHeight="43.0" prefWidth="107.0"/>
+                                <Label fx:id="lab2" prefHeight="43.0" prefWidth="107.0"
+                                       stylesheets="@../css/label.css"/>
                             </children>
                         </HBox>
                         <HBox layoutX="50.0" layoutY="335.0" prefHeight="117.0" prefWidth="455.0">
                             <children>
                                 <Label prefHeight="43.0" prefWidth="334.0" text="قيمة المصروف الشهري(دج) :"/>
-                                <Label fx:id="lab3" prefHeight="43.0" prefWidth="107.0"/>
+                                <Label fx:id="lab3" prefHeight="43.0" prefWidth="107.0"
+                                       stylesheets="@../css/label.css"/>
                             </children>
                         </HBox>
                         <HBox layoutX="50.0" layoutY="303.0" prefHeight="117.0" prefWidth="455.0">
                             <children>
                                 <Label prefHeight="43.0" prefWidth="334.0" text="قيمة المشتريات لكل تلميذ (دج) :   "/>
-                                <Label fx:id="lab4" prefHeight="43.0" prefWidth="107.0"/>
+                                <Label fx:id="lab4" prefHeight="43.0" prefWidth="107.0"
+                                       stylesheets="@../css/label.css"/>
                             </children>
                         </HBox>
                         <Label fx:id="lab5" prefHeight="144.0" prefWidth="455.0"/>

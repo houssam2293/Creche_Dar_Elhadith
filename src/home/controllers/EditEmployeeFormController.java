@@ -267,8 +267,8 @@ public class EditEmployeeFormController implements Initializable {
         });
 
         id.setText(String.valueOf(employeeSelected.getId()));
-        lastNameField.setText(employeeSelected.getNom());
-        firstNameField.setText(employeeSelected.getPrenom());
+        firstNameField.setText(employeeSelected.getNom());
+        lastNameField.setText(employeeSelected.getPrenom());
         birthDate.setValue(LocalDate.parse(String.valueOf(employeeSelected.getDateNaissance())));
         birthPlace.setText(employeeSelected.getLieuNaissance());
         itar.setText(employeeSelected.getItar());
