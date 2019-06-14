@@ -158,6 +158,11 @@ public class LoginEntry implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        Path currentRelativePath = Paths.get("");
+        String s = currentRelativePath.toAbsolutePath().toString();
+        String filename = s + "/loginCredentials.properties";
+        File file = new File(filename);
+
         compteDB = new CompteDB();
     }
 }

@@ -383,7 +383,15 @@ public class ManageEmployeeController implements Initializable {
         notedEmployee.setPrenom(firstnameCol.getCellData(index));
         notedEmployee.setRemarque(remarqueCol.getCellData(index));
         VBox content = new VBox();
+        content.setPrefWidth(200);
+        content.setFillWidth(true);
         Button b = new Button("ملاحضات");
+        Button b1 = new Button("تعديل");
+        Button b2 = new Button("إزالة");
+
+        b.setMinWidth(200);
+        b1.setMinWidth(200);
+        b2.setMinWidth(200);
         b.setOnAction(event1 -> {
             popup.hide();
             AnchorPane notesElevePane = null;
@@ -396,8 +404,16 @@ public class ManageEmployeeController implements Initializable {
             notesEmployeeDialog.show();
 
         });
+        b1.setOnAction(event1 -> {
+            popup.hide();
+            editUser(new ActionEvent());
+        });
+        b2.setOnAction(event1 -> {
+            popup.hide();
+            removeUser(new ActionEvent());
+        });
         if (!treeTableView.getSelectionModel().isEmpty()) {
-            content.getChildren().addAll(b);
+            content.getChildren().addAll(b, b1, b2);
             popup.getContent().add(content);
             popup.setX(mouse.getX()); // or get mouse event x and y
             popup.setY(mouse.getY()); // event.getY()

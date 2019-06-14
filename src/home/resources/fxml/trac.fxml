@@ -137,7 +137,7 @@
             <padding>
                 <Insets left="10.0" />
             </padding>
-            <JFXComboBox fx:id="comboClasse" prefHeight="30.0" prefWidth="120.0" promptText="القسم"
+            <JFXComboBox fx:id="comboClasse" prefHeight="35.0" prefWidth="180.0" promptText="القسم"
                          styleClass="combo-medium"/>
             <JFXButton buttonType="RAISED" onAction="#btnFilterClasse" prefHeight="43.0" prefWidth="90.0"
                        ripplerFill="#4476ff" styleClass="btn-view" text="إختيار"/>

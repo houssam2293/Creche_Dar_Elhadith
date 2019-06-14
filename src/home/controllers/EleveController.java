@@ -13,19 +13,24 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Popup;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -427,6 +432,50 @@ public class EleveController<Adding> implements Initializable {
         JFXDialog dialog = new JFXDialog(root, content, JFXDialog.DialogTransition.CENTER);
         dialog.setOnDialogClosed((event) -> updateTable());
         return dialog;
+    }
+
+    @FXML
+    void showRemarque(ContextMenuEvent event) {
+        Popup popup = new Popup();
+        Point mouse = MouseInfo.getPointerInfo().getLocation();
+
+        int index = treeTableView.getSelectionModel().getSelectedIndex();
+
+        notedEleve = new Eleve();
+        notedEleve.setId(Integer.parseInt(idCol.getCellData(index)));
+        notedEleve.setRemarque(remarqueCol.getCellData(index));
+
+        VBox content = new VBox();
+        content.setPrefWidth(200);
+        content.setFillWidth(true);
+        javafx.scene.control.Button b = new javafx.scene.control.Button("ملاحضات");
+        javafx.scene.control.Button b1 = new javafx.scene.control.Button("تعديل");
+        javafx.scene.control.Button b2 = new Button("إزالة");
+
+        b.setMinWidth(200);
+        b1.setMinWidth(200);
+        b2.setMinWidth(200);
+        b.setOnAction(event1 -> {
+            popup.hide();
+            notes(new ActionEvent());
+        });
+        b1.setOnAction(event1 -> {
+            popup.hide();
+            editEleve(new ActionEvent());
+        });
+        b2.setOnAction(event1 -> {
+            popup.hide();
+            removeEleve(new ActionEvent());
+        });
+        if (!treeTableView.getSelectionModel().isEmpty()) {
+            content.getChildren().addAll(b, b1, b2);
+            popup.getContent().add(content);
+            popup.setX(mouse.getX()); // or get mouse event x and y
+            popup.setY(mouse.getY()); // event.getY()
+            popup.setAutoHide(true);
+            popup.show(treeTableView.getScene().getWindow());
+        }
+
     }
 
     private void initializeTable() {

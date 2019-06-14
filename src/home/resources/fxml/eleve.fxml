@@ -149,7 +149,8 @@
                 </graphic>
             </JFXButton>
         </HBox>
-        <JFXTreeTableView fx:id="treeTableView" fixedCellSize="0.0" prefHeight="492.0" prefWidth="1000.0"/>
+        <JFXTreeTableView fx:id="treeTableView" fixedCellSize="0.0" onContextMenuRequested="#showRemarque"
+                          prefHeight="492.0" prefWidth="1000.0"/>
     </VBox>
     <stylesheets>
         <URL value="@../css/main.css"/>

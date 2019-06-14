@@ -40,7 +40,6 @@ import java.util.ResourceBundle;
 public class Pointage implements Initializable {
 
 
-
     @FXML
     private StackPane root;
 
@@ -65,10 +64,10 @@ public class Pointage implements Initializable {
     @FXML
     private TableView<PointageModel> tableview;
     static JFXDialog listeAbsences;
-    private ObservableList<PointageModel> data ;
-    private TableColumn idCol,fullNameCol,jobCol,timeEntCol,remarqCol,actionCol;
+    private ObservableList<PointageModel> data;
+    private TableColumn idCol, fullNameCol, jobCol, timeEntCol, remarqCol, actionCol;
 
-    private boolean donneSaved= false;
+    private boolean donneSaved = false;
 
     @FXML
     void confirm(ActionEvent event) {
@@ -92,10 +91,12 @@ public class Pointage implements Initializable {
         }
         donneSaved = true; // si les donnée sont stocké dans BDD
         switch (i) {
-            case -1:System.out.println("Error connecting to DB!");
+            case -1:
+                System.out.println("Error connecting to DB!");
                 errorLabel.setText("No connection to database!!");
                 break;
-            case 0:System.out.println("Unknown Error failed to add PointageModel" );
+            case 0:
+                System.out.println("Unknown Error failed to add PointageModel");
                 break;
             case 1:
                 Notifications.create()
@@ -129,11 +130,12 @@ public class Pointage implements Initializable {
     }
 
 
-
     @FXML
     void updateTable() {
+        combo.getSelectionModel().select(null);
+        searchField.setText(null);
         List<Employe> employes = FXCollections.observableArrayList();
-        data = null ;
+        data = null;
         data = FXCollections.observableArrayList();
 
         List<Employe> employeeDB = new EmployeDB().getEmployee();
@@ -143,9 +145,8 @@ public class Pointage implements Initializable {
             for (Employe employe : employeeDB) {
                 employes.add(employe);
             }
-            for (int i=0; i < employes.size();i++){
-                Employe ep=employes.get(i);
-                data.add(new PointageModel(ep.getId(),ep.getNom()+" "+ep.getPrenom(), ep.getFonction(),"remark",""));
+            for (Employe ep : employes) {
+                data.add(new PointageModel(ep.getId(), ep.getNom() + " " + ep.getPrenom(), ep.getFonction(), "remark", ""));
             }
         }
         tableview.setItems(data);
@@ -155,7 +156,7 @@ public class Pointage implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        donneSaved= false;
+        donneSaved = false;
         //combo.setItems(options);
        /* searchField.setOnKeyReleased(t -> {
             if(new Validation().alphanumValid(searchField))
@@ -170,7 +171,6 @@ public class Pointage implements Initializable {
         initializeTable();
 
 
-
         Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
             Date date = new Date();
@@ -181,6 +181,27 @@ public class Pointage implements Initializable {
         clock.setCycleCount(Animation.INDEFINITE);
         clock.play();
 
+    }
+
+    private void invalidated() {
+        if (searchField.textProperty().get().isEmpty()) {
+            tableview.setItems(data);
+            return;
+        }
+        ObservableList<PointageModel> tableItems = FXCollections.observableArrayList();
+        ObservableList<TableColumn<PointageModel, ?>> cols = tableview.getColumns();
+        for (PointageModel datum : data) {
+
+            for (TableColumn col : cols) {
+                String cellValue = col.getCellData(datum).toString();
+                cellValue = cellValue.toLowerCase();
+                if (cellValue.contains(searchField.textProperty().get().toLowerCase())) {
+                    tableItems.add(datum);
+                    break;
+                }
+            }
+        }
+        tableview.setItems(tableItems);
     }
 
 
@@ -199,7 +220,7 @@ public class Pointage implements Initializable {
         actionCol = new TableColumn("تسجيل الدخول");
         actionCol.setPrefWidth(120);
 
-        tableview.getColumns().addAll(idCol, fullNameCol, jobCol, timeEntCol, actionCol,remarqCol );
+        tableview.getColumns().addAll(idCol, fullNameCol, jobCol, timeEntCol, actionCol, remarqCol);
         updateTable();
       /* data = FXCollections.observableArrayList(
                 new PointageModel(1,"محمد رياض محمد رياض", "موظف","لا توجد ملاحظات",""),
@@ -210,25 +231,28 @@ public class Pointage implements Initializable {
         );*/
 
         idCol.setCellValueFactory(
-                new PropertyValueFactory<PointageModel,String>("id")
+                new PropertyValueFactory<PointageModel, String>("id")
         );
         fullNameCol.setCellValueFactory(
-                new PropertyValueFactory<PointageModel,String>("firstName")
+                new PropertyValueFactory<PointageModel, String>("firstName")
         );
         jobCol.setCellValueFactory(
-                new PropertyValueFactory<PointageModel,String>("lastName")
+                new PropertyValueFactory<PointageModel, String>("lastName")
         );
         timeEntCol.setCellValueFactory(
-                new PropertyValueFactory<PointageModel,String>("tempEnt")
+                new PropertyValueFactory<PointageModel, String>("tempEnt")
         );
         remarqCol.setCellValueFactory(
-                new PropertyValueFactory<PointageModel,String>("remarkk")
+                new PropertyValueFactory<PointageModel, String>("remarkk")
         );
 
         actionCol.setCellValueFactory(
-                new PropertyValueFactory<PointageModel,String>("remark")
+                new PropertyValueFactory<PointageModel, String>("remark")
         );
 
         // tableview.setItems(data);
+        searchField.textProperty().addListener(e -> invalidated());
+        combo.setOnAction(event -> invalidated());
+
     }
 }

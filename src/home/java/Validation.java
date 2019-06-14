@@ -37,5 +37,11 @@ public class Validation {
         return matcher.matches();
     }
 
+    public boolean isDouble(JFXTextField textfield) {
+        Pattern patter = Pattern.compile("^[0-9.]+('[0-9]+)?$"); // only number
+        Matcher matcher = patter.matcher(textfield.getText());
+        return matcher.matches();
+
+    }
 
 }

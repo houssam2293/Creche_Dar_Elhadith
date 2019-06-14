@@ -7,6 +7,7 @@ import home.dbDir.StockDB;
 import home.dbDir.fraisDB;
 import home.java.EntreStock;
 import home.java.Frais;
+import home.java.Validation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -20,6 +21,7 @@ import org.controlsfx.control.Notifications;
 
 import java.net.URL;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import static javafx.scene.input.KeyCode.ENTER;
@@ -140,6 +142,65 @@ public class EntreStockFormController implements Initializable {
 
     }
 
+    void valider() {
+
+
+        idField.setOnKeyReleased(t -> {
+            if (new Validation().isNumber(idField)) {
+                idField.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                idField.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        prixField.setOnKeyReleased(t -> {
+            if (new Validation().isDouble(prixField)) {
+                prixField.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                prixField.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        nomField.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(nomField) || new Validation().frenshValid(nomField)) {
+                nomField.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                nomField.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+        quantiteField.setOnKeyReleased(t -> {
+            if (new Validation().isNumber(quantiteField)) {
+                quantiteField.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                quantiteField.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+        fournisseurField.setOnKeyReleased(t -> {
+            if (new Validation().arabValid(fournisseurField)) {
+                fournisseurField.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+            } else {
+                fournisseurField.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+            }
+        });
+
+
+        dateExpField.setOnAction(t -> {
+            LocalDate date1 = dateExpField.getValue();
+            LocalDate date2 = dateFabField.getValue();
+            int a = date1.compareTo(date2);
+
+            if (a > -1) {
+                dateExpField.setStyle(" -fx-border-color: #8CC25E ; -fx-border-width: 0 0 4 0");
+                System.out.println("wah!");
+
+
+            } else {
+                dateExpField.setStyle("-fx-effect: innershadow(three-pass-box, red, 6 , 0.5, 1, 1);");
+                System.out.println("laah!");
+            }
+        });
+    }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         root.setOnKeyPressed(event -> {
@@ -153,6 +214,9 @@ public class EntreStockFormController implements Initializable {
                 close();
             }
         });
+
+        root.setOnKeyReleased(e -> valider());
+        root.setOnMouseClicked(e -> valider());
 
         comboProd.setItems(typeProduit);
 

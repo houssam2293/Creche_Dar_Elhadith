@@ -1,8 +1,14 @@
 package home.dbDir;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class ConnectionClasse {
 
@@ -13,9 +19,29 @@ public class ConnectionClasse {
     private final static String PORT = "3306";
     private final static String timeZone = "?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private Connection connection = null;
+    private Path currentRelativePath = Paths.get("");
+    private String s = currentRelativePath.toAbsolutePath().toString();
+    private final String filename = (s + "/dbCredentials.properties");
+    private String hst, user, pass;
 
     public Connection getConnection() {
-        //todo:fix this when you have time
+        Properties properties = new Properties();
+
+        boolean fileRecovered = false;
+        try {
+            InputStream input = new FileInputStream(filename);
+            fileRecovered = true;
+            properties.load(input);
+            hst = properties.getProperty("database");
+            user = properties.getProperty("dbuser");
+            pass = properties.getProperty("dbpassword");
+        } catch (IOException e) {
+            fileRecovered = false;
+            e.printStackTrace();
+        }
+        if (fileRecovered) {
+            return getConnection(hst, PORT, DB_NAME, user, pass);
+        } else
         return getConnection(HOST_NAME, PORT, DB_NAME, USERNAME, PASSWORD);
     }
 

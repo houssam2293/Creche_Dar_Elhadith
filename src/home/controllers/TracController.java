@@ -193,7 +193,7 @@ public class TracController implements Initializable {
             }
         }
         tableStudentTrac.setPredicate(eleve -> {
-            return eleve.getValue().classroom.getValue().toLowerCase().contains(selectedClasse.getClassNam().toLowerCase());
+            return eleve.getValue().classroom.getValue().toLowerCase().equals(selectedClasse.getClassNam().toLowerCase());
         });
 
     }
