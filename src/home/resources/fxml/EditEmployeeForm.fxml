@@ -3,8 +3,7 @@
 <?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.emojione.EmojiOneView?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.lang.String?>
 <?import java.net.URL?>
@@ -34,28 +33,43 @@
                     </styleClass>
                 </Label>
             </HBox>
-            <JFXTextField fx:id="id" labelFloat="true" prefHeight="39.0" prefWidth="290.0" promptText="رقم التسجيل"
-                          styleClass="field">
+            <HBox alignment="CENTER_LEFT">
                 <VBox.margin>
                     <Insets top="-40.0"/>
                 </VBox.margin>
-            </JFXTextField>
-            <HBox prefHeight="30.0" prefWidth="386.0" spacing="20.0">
-                <JFXTextField fx:id="firstNameField" labelFloat="true" prefHeight="39.0" prefWidth="290.0"
-                              promptText="الإسم" styleClass="field"/>
-                <JFXTextField fx:id="lastNameField" labelFloat="true" prefHeight="39.0" prefWidth="290.0"
-                              promptText="اللقب" styleClass="field"/>
+                <children>
+                    <Label text="*" textFill="#f50303"/>
+                    <JFXTextField fx:id="id" labelFloat="true" prefHeight="39.0" prefWidth="290.0"
+                                  promptText="رقم التسجيل" styleClass="field"/>
+                </children>
             </HBox>
-            <HBox spacing="20.0">
+            <HBox alignment="CENTER_LEFT" prefHeight="30.0" prefWidth="386.0" spacing="20.0">
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Label text="*" textFill="#f50303"/>
+                        <JFXTextField fx:id="firstNameField" labelFloat="true" prefHeight="39.0" prefWidth="290.0"
+                                      promptText="الإسم" styleClass="field"/>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Label text="*" textFill="#f50303"/>
+                        <JFXTextField fx:id="lastNameField" labelFloat="true" prefHeight="39.0" prefWidth="290.0"
+                                      promptText="اللقب" styleClass="field"/>
+                    </children>
+                </HBox>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
                 <VBox.margin>
                     <Insets/>
                 </VBox.margin>
-                <JFXDatePicker fx:id="birthDate" defaultColor="#2196f3" prefHeight="30.0" prefWidth="220.0"
-                               promptText="تاريخ الميلاد" styleClass="field">
-                    <HBox.margin>
-                        <Insets/>
-                    </HBox.margin>
-                </JFXDatePicker>
+                <HBox alignment="CENTER_LEFT">
+                    <children>
+                        <Label text="*" textFill="#f50303"/>
+                        <JFXDatePicker fx:id="birthDate" defaultColor="#2196f3" prefHeight="30.0" prefWidth="220.0"
+                                       promptText="تاريخ الميلاد" styleClass="field"/>
+                    </children>
+                </HBox>
                 <JFXTextField fx:id="birthPlace" labelFloat="true" prefHeight="36.0" prefWidth="290.0"
                               promptText="مكان الميلاد" styleClass="field"/>
             </HBox>
@@ -81,28 +95,52 @@
                     </HBox>
                 </VBox>
             </HBox>
-            <JFXTextField fx:id="addresse" labelFloat="true" prefHeight="25.0" prefWidth="523.0"
-                          promptText="العنوان الشخصي" styleClass="field">
+            <HBox alignment="CENTER_LEFT">
                 <VBox.margin>
                     <Insets/>
                 </VBox.margin>
-            </JFXTextField>
-            <JFXTextField fx:id="phoneNumber" labelFloat="true" layoutX="50.0" layoutY="395.0" prefHeight="25.0"
-                          prefWidth="523.0" promptText="رقم الهاتف" styleClass="field"/>
-            <JFXTextField fx:id="socialSecurtyNumber" labelFloat="true" layoutX="50.0" layoutY="311.0" prefHeight="25.0"
-                          prefWidth="523.0" promptText="رقم الضمان الإجتماعي" styleClass="field"/>
+                <children>
+                    <Label text="*" textFill="#f50303"/>
+                    <JFXTextField fx:id="addresse" labelFloat="true" prefHeight="25.0" prefWidth="523.0"
+                                  promptText="العنوان الشخصي" styleClass="field"/>
+                </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+                <children>
+                    <Label text="*" textFill="#f50303"/>
+                    <JFXTextField fx:id="phoneNumber" labelFloat="true" prefHeight="25.0" prefWidth="523.0"
+                                  promptText="رقم الهاتف" styleClass="field"/>
+                </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+                <children>
+                    <Label text="*" textFill="#f50303"/>
+                    <JFXTextField fx:id="socialSecurtyNumber" labelFloat="true" prefHeight="25.0" prefWidth="523.0"
+                                  promptText="رقم الضمان الإجتماعي" styleClass="field"/>
+                </children>
+            </HBox>
             <JFXTextField fx:id="diplome" labelFloat="true" promptText="الشهادات" styleClass="field"/>
             <JFXTextField fx:id="itar" labelFloat="true" promptText="الإطار" styleClass="field"/>
-            <HBox spacing="20.0">
+            <HBox alignment="CENTER_LEFT" spacing="20.0">
                 <children>
-                    <JFXComboBox fx:id="fonction" prefWidth="140.0" promptText="المهنة" styleClass="field"/>
+                    <HBox alignment="CENTER_LEFT">
+                        <children>
+                            <Label text="*" textFill="#f50303"/>
+                            <JFXComboBox fx:id="fonction" prefWidth="140.0" promptText="المهنة" styleClass="field"/>
+                        </children>
+                    </HBox>
                     <JFXComboBox fx:id="classe" disable="true" promptText="القسم" styleClass="field"/>
                 </children>
                 <padding>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                 </padding>
             </HBox>
-            <JFXComboBox fx:id="regime" prefWidth="230.0" promptText="فترة العمل" styleClass="field"/>
+            <HBox alignment="CENTER_LEFT">
+                <children>
+                    <Label text="*" textFill="#f50303"/>
+                    <JFXComboBox fx:id="regime" prefWidth="250.0" promptText="فترة العمل" styleClass="field"/>
+                </children>
+            </HBox>
             <JFXDatePicker fx:id="firstDayOfwork" defaultColor="#2196f3" prefHeight="35.0" prefWidth="267.0"
                            promptText="تاريخ أول تعيين في المؤسسة" styleClass="field"/>
             <HBox spacing="10.0">
@@ -111,6 +149,7 @@
                 <JFXToggleButton fx:id="renouvlementContrat" contentDisplay="RIGHT" prefHeight="62.0" prefWidth="190.0"
                                  styleClass="field" text="تجديد العقد" toggleColor="#2196f3" toggleLineColor="#67b2e8"/>
             </HBox>
+            <Label id="required-Lable" stylesheets="@../css/eleve.css" text="* حقل مطلوب" textFill="#fc0101"/>
             <HBox alignment="CENTER" prefHeight="215.0" prefWidth="386.0" spacing="30.0">
                 <opaqueInsets>
                     <Insets/>

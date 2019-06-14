@@ -25,7 +25,7 @@
     <show-object-properties value="false" />
     <loaded-nodes>
       <connection connection-id="9b18ad9e-0f70-4b85-8ddc-b79d08886eb7">
-        <schema name="creche_dar_elhadith" object-types="table, column" />
+        <schema name="creche_dar_elhadith" object-types="table" />
       </connection>
     </loaded-nodes>
   </component>

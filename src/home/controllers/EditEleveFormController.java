@@ -239,7 +239,11 @@ public class EditEleveFormController implements Initializable {
             }
         }
         classesCombos.getSelectionModel().select(eleveSelected.getClasse());
-        schoolYear.getSelectionModel().select(eleveSelected.getAnneeScolaire());
+        if (eleveSelected.getAnneeScolaire() == 1) {
+            schoolYear.getSelectionModel().select(0);
+        } else {
+            schoolYear.getSelectionModel().select(1);
+        }
         addresse.setText(eleveSelected.getAdresse());
         regime.getSelectionModel().select(eleveSelected.getRegime());
         phoneNumber.setText(eleveSelected.getPhone());

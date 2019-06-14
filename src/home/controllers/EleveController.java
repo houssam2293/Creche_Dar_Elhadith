@@ -534,8 +534,8 @@ public class EleveController<Adding> implements Initializable {
         searchField.textProperty().addListener(e -> filterSearchTable());
         combo.setOnAction(e -> filterSearchTable());
 
-        treeTableView.getColumns().addAll(idCol, genderCol, firstnameCol, lastNameCol, classRoomCol, dateOfBirthCol, placeOfBirthCol, addressCol, phoneCol, remarqueCol,
-                schoolYearCol, regimeCol, nameFatherCol, nameMotherCol, lastNameMotherCol, workFatherCol, workMotherCol, wakilCol, maladieCol, tranchesCol, montantRestantCol);
+        treeTableView.getColumns().addAll(idCol, firstnameCol, lastNameCol, genderCol, dateOfBirthCol, placeOfBirthCol, addressCol, classRoomCol, phoneCol, schoolYearCol,
+                regimeCol, maladieCol, nameFatherCol, nameMotherCol, lastNameMotherCol, workFatherCol, workMotherCol, wakilCol, tranchesCol, montantRestantCol, remarqueCol);
         treeTableView.setShowRoot(false);
     }
 
