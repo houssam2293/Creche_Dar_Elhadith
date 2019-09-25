@@ -15,11 +15,11 @@ This is a work in  progress. will update the README.md when done.
   <img src="Screenshot/Sans_titre_11.png" width="900 ">
 </p>
 
-## Getting Started
+Getting Started
 ------------------
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
+Prerequisites
 -----------------
 * [IntelliJ IDEA](https://www.jetbrains.com/idea/download) - Community Edition well be fine.
 * [Scene Builder](https://gluonhq.com/products/scene-builder) - (Optional) for Drag & Drop,Rapid Application Development.
@@ -29,14 +29,14 @@ These instructions will get you a copy of the project up and running on your loc
 * [Controlsfx](https://github.com/controlsfx/controlsfx) -  Custom controls for JavaFX .
 
 
-### Installing
+Installing
 --------------
 
 * Download all the Prerequisites .
 * Clone to your local machine or fork the repo .
 * And your done .
 
-## Built With
+Built With
 -------------
 
 * [JFoenix](https://github.com/jfoenixadmin/JFoenix) - JavaFX Material Design Library .
@@ -45,24 +45,24 @@ These instructions will get you a copy of the project up and running on your loc
 * [Controlsfx](https://github.com/controlsfx/controlsfx) -  Custom controls for JavaFX .
 
 
-## Authors
+Authors
 ----------
 
 * **Bechlaghem Mohammed** - *Initial work* - [houssam2293](https://github.com/houssam2293)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
-## Contributing
+Contributing
 ---------------
 
 * if any one want to contrubut just make a pull request i will be glad .
 
-## License
+License
 ----------
 
 * see the [LICENSE.md](LICENSE.md) file for details
 
-## Acknowledgments
+Acknowledgments
 ------------------
 
 * Hat tip to anyone whose code was used
