@@ -5,7 +5,7 @@ Overview
 
 This is a Desktop school mangement application built using JavaFx and Mysql Database
 
-### Voici quelque screenshots :
+### Some screenshots :
 <p align="center">
   <img src="Screenshot/Sans_titre_3.png" width="900 ">
   <img src="Screenshot/Sans_titre_2.png" width="900 ">
