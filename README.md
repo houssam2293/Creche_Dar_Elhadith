@@ -3,7 +3,7 @@
 Overview
 --------
 
-This is a work in  progress. will update the README.md when done.
+This is a Desktop school mangement application built using JavaFx and Mysql Database
 
 ### Voici quelque screenshots :
 <p align="center">
@@ -22,6 +22,7 @@ These instructions will get you a copy of the project up and running on your loc
 Prerequisites
 -----------------
 * [IntelliJ IDEA](https://www.jetbrains.com/idea/download) - Community Edition well be fine.
+* [MySQL](https://dev.mysql.com/downloads/mysql) - Download the Database Server and The JDBC connector .
 * [Scene Builder](https://gluonhq.com/products/scene-builder) - (Optional) for Drag & Drop,Rapid Application Development.
 * [JFoenix](https://github.com/jfoenixadmin/JFoenix) - JavaFX Material Design Library .
 * [Maven](https://maven.apache.org/) - Dependency Management .
